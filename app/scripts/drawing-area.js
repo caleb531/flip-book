@@ -10,6 +10,7 @@ class DrawingArea {
     this.lastY = null;
     this.editingEnabled = editingEnabled;
     this.bindMouseEvents();
+    this.render();
   }
 
   bindMouseEvents() {
@@ -39,7 +40,7 @@ class DrawingArea {
       this.frame.addPoint(startX, startY);
       this.lastX = startX;
       this.lastY = startY;
-      this.frame.render(this.ctx);
+      this.render();
       this.frame.undoHistory.length = 0;
     }
   }
@@ -54,7 +55,7 @@ class DrawingArea {
         this.frame.addPoint(diffX, diffY);
         this.lastX = endX;
         this.lastY = endY;
-        this.frame.render(this.ctx);
+        this.render();
       }
     }
   }
@@ -63,6 +64,10 @@ class DrawingArea {
     if (this.editingEnabled) {
       this.mousedown = false;
     }
+  }
+
+  render() {
+    this.frame.render(this.ctx);
   }
 
   undo() {

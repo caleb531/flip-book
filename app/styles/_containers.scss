@@ -8,10 +8,6 @@ body {
   user-select: none;
 }
 
-.editor {
-  border: solid 1px #234;
-}
-
 .app-header {
   display: flex;
   justify-content: center;
@@ -43,6 +39,10 @@ a {
   a {
     color: #9bd;
   }
+}
+
+.story-editor {
+  border: solid 1px #234;
 }
 
 canvas {

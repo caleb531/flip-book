@@ -1,8 +1,19 @@
 .controls {
+  display: flex;
   padding: 4px;
   border-top: solid 1px #234;
   background-color: #456;
   font-size: 0;
+}
+
+.control-group {
+  flex-grow: 1;
+}
+
+.navigation-controls {
+  text-align: left;
+}
+.history-controls {
   text-align: right;
 }
 
@@ -36,6 +47,10 @@
     width: $icon-size;
     height: $icon-size;
   }
+}
+
+.control-new-frame svg {
+  transform: translateY(2px);
 }
 
 .control-redo svg {
