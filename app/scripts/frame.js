@@ -5,7 +5,6 @@ class Frame {
     this.ctx = this.canvas.getContext('2d');
     this.styles = styles;
     this.groups = [];
-    this.currentPointGroup = null;
   }
 
   startNewGroup() {
