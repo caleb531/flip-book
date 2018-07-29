@@ -1,3 +1,3 @@
-import Editor from './editor.js';
+import StoryEditor from './story-editor.js';
 
-new Editor();
+new StoryEditor();

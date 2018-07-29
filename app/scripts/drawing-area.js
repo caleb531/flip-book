@@ -1,24 +1,14 @@
-import Frame from './frame.js';
+class DrawingArea {
 
-class EditableCanvas {
-
-  constructor({canvas, interactivityEnabled = true}) {
+  constructor({canvas, frame, editingEnabled = true}) {
     this.canvas = canvas;
-    this.frame = new Frame({
-      canvas: canvas,
-      styles: {
-        strokeStyle: '#000',
-        lineWidth: 12,
-        lineCap: 'round',
-        lineJoin: 'round'
-      }
-    });
+    this.ctx = canvas.getContext('2d');
     this.canvasScaleFactor = canvas.width / canvas.offsetWidth;
+    this.frame = frame;
     this.mousedown = false;
     this.lastX = null;
     this.lastY = null;
-    this.undoHistory = [];
-    this.interactivityEnabled = interactivityEnabled;
+    this.editingEnabled = editingEnabled;
     this.bindMouseEvents();
   }
 
@@ -38,7 +28,7 @@ class EditableCanvas {
   }
 
   handleMousedown(event) {
-    if (this.interactivityEnabled) {
+    if (this.editingEnabled) {
       this.mousedown = true;
       // Cache computed canvas offsets for the duration of the drag
       this.canvasOffsetLeft = this.canvas.offsetLeft;
@@ -49,13 +39,13 @@ class EditableCanvas {
       this.frame.addPoint(startX, startY);
       this.lastX = startX;
       this.lastY = startY;
-      this.frame.render();
-      this.undoHistory.length = 0;
+      this.frame.render(this.ctx);
+      this.frame.undoHistory.length = 0;
     }
   }
 
   handleMousemove(event) {
-    if (this.mousedown && this.interactivityEnabled) {
+    if (this.mousedown && this.editingEnabled) {
       let endX = (event.pageX - this.canvasOffsetLeft) * this.canvasScaleFactor;
       let endY = (event.pageY - this.canvasOffsetTop) * this.canvasScaleFactor;
       let diffX = endX - this.lastX;
@@ -64,31 +54,25 @@ class EditableCanvas {
         this.frame.addPoint(diffX, diffY);
         this.lastX = endX;
         this.lastY = endY;
-        this.frame.render();
+        this.frame.render(this.ctx);
       }
     }
   }
 
   handleMouseup() {
-    if (this.interactivityEnabled) {
+    if (this.editingEnabled) {
       this.mousedown = false;
     }
   }
 
   undo() {
-    if (this.frame.groups.length > 0) {
-      this.undoHistory.push(this.frame.groups.pop());
-      this.frame.render();
-    }
+    this.frame.undo(this.ctx);
   }
 
   redo() {
-    if (this.undoHistory.length > 0) {
-      this.frame.groups.push(this.undoHistory.pop());
-      this.frame.render();
-    }
+    this.frame.redo(this.ctx);
   }
 
 }
 
-export default EditableCanvas;
+export default DrawingArea;
