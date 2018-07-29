@@ -1,0 +1,19 @@
+body {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0;
+  font-family: 'Roboto Slab', 'Open Sans', sans-serif;
+  text-align: center;
+  cursor: default;
+  user-select: none;
+}
+
+.app {
+  border: solid 1px #999;
+}
+
+canvas {
+  // Shrink the displayed width/height canvas by half
+  width: 800px;
+  height: 450px;
+}

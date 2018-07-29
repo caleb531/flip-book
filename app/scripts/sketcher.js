@@ -17,6 +17,7 @@ class Sketcher {
     this.mousedown = false;
     this.lastX = null;
     this.lastY = null;
+    this.undoHistory = [];
     this.interactivityEnabled = interactivityEnabled;
     this.bindMouseEvents();
   }
@@ -49,6 +50,7 @@ class Sketcher {
       this.lastX = startX;
       this.lastY = startY;
       this.frame.render();
+      this.undoHistory.length = 0;
     }
   }
 
@@ -70,6 +72,20 @@ class Sketcher {
   handleMouseup() {
     if (this.interactivityEnabled) {
       this.mousedown = false;
+    }
+  }
+
+  undo() {
+    if (this.frame.groups.length > 0) {
+      this.undoHistory.push(this.frame.groups.pop());
+      this.frame.render();
+    }
+  }
+
+  redo() {
+    if (this.undoHistory.length > 0) {
+      this.frame.groups.push(this.undoHistory.pop());
+      this.frame.render();
     }
   }
 

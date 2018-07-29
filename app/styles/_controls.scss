@@ -1,0 +1,42 @@
+.controls {
+  padding: 4px;
+  background-color: #456;
+  font-size: 0;
+  text-align: right;
+}
+
+.control {
+  display: inline-block;
+  width: auto;
+  height: auto;
+  border-width: 0;
+  border-radius: 3px;
+  margin: 0 2px;
+  padding: 2px 6px;
+  background-color: #234;
+  color: #fff;
+  &:focus {
+    outline-width: 0;
+  }
+  &:hover:active {
+    border-color: #36c;
+    background-color: #5be;
+    color: #fff;
+  }
+  &:first-child {
+    margin-left: 0;
+  }
+  &:last-child {
+    margin-right: 0;
+  }
+  svg {
+    fill: currentColor;
+    $icon-size: 30px;
+    width: $icon-size;
+    height: $icon-size;
+  }
+}
+
+.control-redo svg {
+  transform: scaleX(-1);
+}
