@@ -1,9 +1,9 @@
-import Sketcher from './sketcher.js';
+import EditableCanvas from './editable-canvas.js';
 
-class App {
+class Editor {
 
   constructor() {
-    this.sketcher = new Sketcher({
+    this.editableCanvas = new EditableCanvas({
       canvas: document.querySelector('.current-frame')
     });
     this.bindControlEvents();
@@ -11,13 +11,13 @@ class App {
 
   bindControlEvents() {
     document.querySelector('.control-undo').addEventListener('click', () => {
-      this.sketcher.undo();
+      this.editableCanvas.undo();
     });
     document.querySelector('.control-redo').addEventListener('click', () => {
-      this.sketcher.redo();
+      this.editableCanvas.redo();
     });
   }
 
 }
 
-export default App;
+export default Editor;

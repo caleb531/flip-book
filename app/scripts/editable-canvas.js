@@ -1,6 +1,6 @@
 import Frame from './frame.js';
 
-class Sketcher {
+class EditableCanvas {
 
   constructor({canvas, interactivityEnabled = true}) {
     this.canvas = canvas;
@@ -91,4 +91,4 @@ class Sketcher {
 
 }
 
-export default Sketcher;
+export default EditableCanvas;

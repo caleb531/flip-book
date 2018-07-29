@@ -1,3 +1,3 @@
-import App from './app.js';
+import Editor from './editor.js';
 
-new App();
+new Editor();
