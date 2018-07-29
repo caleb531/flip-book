@@ -13,8 +13,7 @@ class Sketcher {
         lineJoin: 'round'
       }
     });
-    // The actual size of the canvas divided by its display size
-    this.canvasScaleFactor = 2;
+    this.canvasScaleFactor = canvas.width / canvas.offsetWidth;
     this.mousedown = false;
     this.lastX = null;
     this.lastY = null;
