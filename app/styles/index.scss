@@ -8,5 +8,8 @@ body {
 }
 
 canvas {
+  // Shrink the displayed width/height canvas by half
+  width: 800px;
+  height: 450px;
   border: solid 1px #000;
 }
