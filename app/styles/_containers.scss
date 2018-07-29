@@ -8,44 +8,11 @@ body {
   user-select: none;
 }
 
-.app-header {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-}
-
-h1 {
-  font-size: 1.2rem;
-}
-
-a {
-  color: #36c;
-  text-decoration: none;
-}
-
-.app-header-mentions {
-  position: absolute;
-  top: 50%;
-  right: 0;
-  z-index: 10;
-  transform: translateY(-50%);
-  text-align: right;
-  font-size: 0.8rem;
-  color: #999;
-}
-.app-header-mention {
-  display: block;
-  a {
-    color: #9bd;
-  }
-}
-
 .story-editor {
   border: solid 1px #234;
 }
 
-canvas {
+.current-frame {
   // Shrink the displayed width/height canvas by half
   width: 800px;
   height: 450px;
