@@ -99,7 +99,11 @@ class StoryEditor {
       this.timelineThumbnailCanvases[t].setAttribute('data-index', t);
       this.timelineThumbnailCanvases[t].classList.remove('selected');
     }
-    this.timelineThumbnailCanvases[this.selectedFrameIndex].classList.add('selected');
+    let selectedCanvas = this.timelineThumbnailCanvases[this.selectedFrameIndex];
+    selectedCanvas.classList.add('selected');
+    selectedCanvas.scrollIntoView({
+      block: 'nearest'
+    });
   }
 
 }
