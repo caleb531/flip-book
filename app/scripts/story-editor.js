@@ -91,6 +91,7 @@ class StoryEditor {
 
   setSelectedTimelineThumbnail() {
     for (let t = 0; t < this.timelineThumbnailCanvases.length; t += 1) {
+      this.timelineThumbnailCanvases[t].setAttribute('data-index', t);
       this.timelineThumbnailCanvases[t].classList.remove('selected');
     }
     this.timelineThumbnailCanvases[this.selectedFrameIndex].classList.add('selected');
