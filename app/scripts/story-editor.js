@@ -51,10 +51,19 @@ class StoryEditor {
         this.setSelectedFrame(this.selectedFrameIndex + 1);
       }
     });
-    document.querySelector('.control-new-frame').addEventListener('click', () => {
+    document.querySelector('.control-add-frame').addEventListener('click', () => {
       this.frames.splice(this.selectedFrameIndex + 1, 0, new Frame());
       this.addTimelineThumbnail(this.selectedFrameIndex + 1);
       this.setSelectedFrame(this.selectedFrameIndex + 1);
+    });
+    document.querySelector('.control-remove-frame').addEventListener('click', () => {
+      if (this.frames.length === 1) {
+        this.drawingArea.frame.clearCanvas(this.drawingArea.ctx);
+      } else {
+        this.frames.splice(this.selectedFrameIndex, 1);
+        this.removeTimelineThumbnail(this.selectedFrameIndex - 1);
+        this.setSelectedFrame(this.selectedFrameIndex - 1);
+      }
     });
     document.querySelector('.frame-timeline').addEventListener('click', (event) => {
       if (event.target.classList.contains('timeline-thumbnail')) {
@@ -92,6 +101,11 @@ class StoryEditor {
     canvas.classList.add('timeline-thumbnail');
     this.timelineElement.insertBefore(canvas, this.timelineThumbnailCanvases[newCanvasIndex]);
     this.timelineThumbnailCanvases.splice(newCanvasIndex, 0, canvas);
+  }
+
+  removeTimelineThumbnail(canvasIndex) {
+    this.timelineThumbnailCanvases[canvasIndex].remove();
+    this.timelineThumbnailCanvases.splice(canvasIndex, 1);
   }
 
   setSelectedTimelineThumbnail() {
