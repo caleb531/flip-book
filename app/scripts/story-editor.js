@@ -53,8 +53,8 @@ class StoryEditor {
     });
     document.querySelector('.control-new-frame').addEventListener('click', () => {
       this.frames.splice(this.selectedFrameIndex + 1, 0, new Frame());
+      this.addTimelineThumbnail(this.selectedFrameIndex + 1);
       this.setSelectedFrame(this.selectedFrameIndex + 1);
-      this.addTimelineThumbnail(this.selectedFrameIndex);
     });
     document.querySelector('.control-undo').addEventListener('click', () => {
       this.drawingArea.undo();
@@ -77,6 +77,7 @@ class StoryEditor {
     for (let f = 0; f < this.frames.length; f += 1) {
       this.addTimelineThumbnail(f + 1);
     }
+    this.setSelectedTimelineThumbnail();
   }
 
   addTimelineThumbnail(newCanvasIndex) {
