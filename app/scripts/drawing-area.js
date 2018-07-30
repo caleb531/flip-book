@@ -32,8 +32,8 @@ class DrawingArea {
     if (this.editingEnabled) {
       this.mousedown = true;
       // Cache computed canvas offsets for the duration of the drag
-      this.canvasOffsetLeft = this.canvas.offsetLeft;
-      this.canvasOffsetTop = this.canvas.offsetTop;
+      this.canvasOffsetLeft = this.canvas.parentElement.offsetLeft;
+      this.canvasOffsetTop = this.canvas.parentElement.offsetTop;
       let startX = (event.pageX - this.canvasOffsetLeft) * this.canvasScaleFactor;
       let startY = (event.pageY - this.canvasOffsetTop) * this.canvasScaleFactor;
       this.frame.startNewGroup();

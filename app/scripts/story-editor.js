@@ -6,8 +6,10 @@ class StoryEditor {
   constructor() {
     this.frames = [new Frame()];
     this.selectedFrameIndex = 0;
+    this.previousFrameCanvas = document.querySelector('.previous-frame');
+    this.currentFrameCanvas = document.querySelector('.current-frame');
     this.drawingArea = new DrawingArea({
-      canvas: document.querySelector('.current-frame'),
+      canvas: this.currentFrameCanvas,
       frame: this.getSelectedFrame()
     });
     this.bindControlEvents();
@@ -21,21 +23,18 @@ class StoryEditor {
     this.selectedFrameIndex = newIndex;
     this.drawingArea.frame = this.getSelectedFrame();
     this.drawingArea.render();
+    this.renderPreviousFrame();
   }
 
   bindControlEvents() {
     document.querySelector('.control-prev-frame').addEventListener('click', () => {
       if (this.selectedFrameIndex > 0) {
-        this.selectedFrameIndex -= 1;
-        this.drawingArea.frame = this.getSelectedFrame();
-        this.drawingArea.render();
+        this.setSelectedFrame(this.selectedFrameIndex - 1);
       }
     });
     document.querySelector('.control-next-frame').addEventListener('click', () => {
       if (this.selectedFrameIndex < (this.frames.length - 1)) {
-        this.selectedFrameIndex += 1;
-        this.drawingArea.frame = this.getSelectedFrame();
-        this.drawingArea.render();
+        this.setSelectedFrame(this.selectedFrameIndex + 1);
       }
     });
     document.querySelector('.control-new-frame').addEventListener('click', () => {
@@ -48,6 +47,15 @@ class StoryEditor {
     document.querySelector('.control-redo').addEventListener('click', () => {
       this.drawingArea.redo();
     });
+  }
+
+  renderPreviousFrame() {
+    if (this.selectedFrameIndex === 0) {
+      this.previousFrameCanvas.classList.remove('visible');
+    } else {
+      this.previousFrameCanvas.classList.add('visible');
+      this.frames[this.selectedFrameIndex - 1].render(this.previousFrameCanvas.getContext('2d'));
+    }
   }
 
 }

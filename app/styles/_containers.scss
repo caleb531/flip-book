@@ -12,8 +12,30 @@ body {
   border: solid 1px #234;
 }
 
-.current-frame {
+.frame-container {
+  position: relative;
+}
+
+.current-frame,
+.previous-frame {
   // Shrink the displayed width/height canvas by half
   width: 800px;
   height: 450px;
+}
+
+.previous-frame {
+  display: none;
+  opacity: 0.3;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  &.visible {
+    display: inline-block;
+  }
+}
+
+.current-frame {
+  position: relative;
+  z-index: 10;
 }
