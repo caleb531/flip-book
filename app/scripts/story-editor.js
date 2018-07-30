@@ -62,6 +62,11 @@ class StoryEditor {
     document.querySelector('.control-redo').addEventListener('click', () => {
       this.drawingArea.redo();
     });
+    document.querySelector('.frame-timeline').addEventListener('click', (event) => {
+      if (event.target.classList.contains('timeline-thumbnail')) {
+        this.setSelectedFrame(Number(event.target.getAttribute('data-index')));
+      }
+    });
   }
 
   renderPreviousFrame() {
