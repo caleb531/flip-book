@@ -2,6 +2,8 @@
   margin: 0 20px;
   flex-grow: 1;
   text-align: left;
+  white-space: nowrap;
+  overflow-x: auto;
 }
 .timeline-thumbnail {
   width: 64px;
