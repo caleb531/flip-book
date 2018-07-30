@@ -6,11 +6,15 @@
   overflow-x: auto;
 }
 .timeline-thumbnail {
+  opacity: 0.3;
   width: 64px;
   height: 36px;
   margin-right: 4px;
   background-color: #fff;
   &:last-child {
     margin-right: 0;
+  }
+  &.selected {
+    opacity: 1;
   }
 }
