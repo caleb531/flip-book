@@ -63,8 +63,12 @@
   border-bottom-left-radius: 0;
 }
 
+.control-prev-frame svg,
+.control-next-frame svg {
+  transform: translateY(-1px);
+}
 .control-new-frame svg {
-  transform: translateY(2px);
+  transform: translateY(1px);
 }
 
 .control-redo svg {
