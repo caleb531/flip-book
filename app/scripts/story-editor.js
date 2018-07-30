@@ -56,16 +56,16 @@ class StoryEditor {
       this.addTimelineThumbnail(this.selectedFrameIndex + 1);
       this.setSelectedFrame(this.selectedFrameIndex + 1);
     });
+    document.querySelector('.frame-timeline').addEventListener('click', (event) => {
+      if (event.target.classList.contains('timeline-thumbnail')) {
+        this.setSelectedFrame(Number(event.target.getAttribute('data-index')));
+      }
+    });
     document.querySelector('.control-undo').addEventListener('click', () => {
       this.drawingArea.undo();
     });
     document.querySelector('.control-redo').addEventListener('click', () => {
       this.drawingArea.redo();
-    });
-    document.querySelector('.frame-timeline').addEventListener('click', (event) => {
-      if (event.target.classList.contains('timeline-thumbnail')) {
-        this.setSelectedFrame(Number(event.target.getAttribute('data-index')));
-      }
     });
   }
 
