@@ -1,6 +1,7 @@
 .frame-timeline {
   margin: 0 20px;
   flex-grow: 1;
+  background-color: #234;
   text-align: left;
   white-space: nowrap;
   overflow-x: auto;
@@ -9,7 +10,7 @@
   opacity: 0.3;
   width: 64px;
   height: 36px;
-  margin-right: 4px;
+  margin-right: 2px;
   background-color: #fff;
   &:last-child {
     margin-right: 0;
