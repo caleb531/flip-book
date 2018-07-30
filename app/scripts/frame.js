@@ -22,14 +22,22 @@ class Frame {
     this.groups[this.groups.length - 1].points.push([x, y]);
   }
 
-  render(ctx) {
+  render(ctx, {scale = 1} = {}) {
     this.clearCanvas(ctx);
+    if (scale !== 1) {
+      this.scaleCanvas(ctx, scale);
+    }
     this.setCanvasStyles(ctx);
     this.drawGroups(ctx);
   }
 
   clearCanvas(ctx) {
+    ctx.resetTransform();
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+  }
+
+  scaleCanvas(ctx, scale) {
+    ctx.scale(scale, scale);
   }
 
   setCanvasStyles(ctx) {

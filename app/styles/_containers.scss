@@ -16,7 +16,7 @@ body {
   position: relative;
 }
 
-.current-frame,
+.selected-frame,
 .previous-frame {
   // Shrink the displayed width/height canvas by half
   width: 800px;
@@ -35,7 +35,7 @@ body {
   }
 }
 
-.current-frame {
+.selected-frame {
   position: relative;
   z-index: 10;
 }

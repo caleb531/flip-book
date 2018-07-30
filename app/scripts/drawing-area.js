@@ -1,6 +1,6 @@
 class DrawingArea {
 
-  constructor({canvas, frame, editingEnabled = true}) {
+  constructor({canvas, frame, onEndDraw, editingEnabled = true}) {
     this.canvas = canvas;
     this.ctx = canvas.getContext('2d');
     this.canvasScaleFactor = canvas.width / canvas.offsetWidth;
@@ -8,6 +8,7 @@ class DrawingArea {
     this.mousedown = false;
     this.lastX = null;
     this.lastY = null;
+    this.onEndDraw = onEndDraw;
     this.editingEnabled = editingEnabled;
     this.bindMouseEvents();
     this.render();
@@ -63,6 +64,7 @@ class DrawingArea {
   handleMouseup() {
     if (this.editingEnabled) {
       this.mousedown = false;
+      this.onEndDraw();
     }
   }
 
@@ -72,10 +74,12 @@ class DrawingArea {
 
   undo() {
     this.frame.undo(this.ctx);
+    this.onEndDraw();
   }
 
   redo() {
     this.frame.redo(this.ctx);
+    this.onEndDraw();
   }
 
 }
