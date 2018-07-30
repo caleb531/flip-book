@@ -2,9 +2,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 4px;
+  padding: 8px;
   border-top: solid 1px #234;
-  background-color: #456;
+  background-color: #567;
   font-size: 0;
   white-space: nowrap;
 }
@@ -21,8 +21,8 @@
   width: auto;
   height: auto;
   border-width: 0;
-  border-radius: 3px;
-  margin: 0 2px;
+  border-radius: 5px;
+  margin: 0 4px;
   padding: 2px 6px;
   background-color: #234;
   color: #fff;
@@ -46,6 +46,20 @@
     width: $icon-size;
     height: $icon-size;
   }
+}
+
+// Style related controls to be closer together
+.control-prev-frame,
+.control-undo {
+  margin-right: 0;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+.control-next-frame,
+.control-redo {
+  margin-left: 2px;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
 }
 
 .control-new-frame svg {
