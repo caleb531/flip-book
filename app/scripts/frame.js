@@ -22,6 +22,11 @@ class Frame {
     this.groups[this.groups.length - 1].points.push([x, y]);
   }
 
+  reset() {
+    this.groups.length = 0;
+    this.undoHistory.length = 0;
+  }
+
   render(ctx, {scale = 1} = {}) {
     this.clearCanvas(ctx);
     if (scale !== 1) {

@@ -17,10 +17,7 @@ class StoryEditor {
       canvas: this.selectedFrameCanvas,
       frame: this.getSelectedFrame(),
       onEndDraw: () => {
-        let thumbnailCanvas = this.timelineThumbnailCanvases[this.selectedFrameIndex];
-        this.getSelectedFrame().render(thumbnailCanvas.getContext('2d'), {
-          scale: thumbnailCanvas.width / this.selectedFrameCanvas.width
-        });
+        this.renderSelectedThumbnail();
       }
     });
 
@@ -38,6 +35,10 @@ class StoryEditor {
     this.drawingArea.render();
     this.renderPreviousFrame();
     this.setSelectedTimelineThumbnail();
+  }
+
+  getSelectedTimelineThumbnailCanvas() {
+    return this.timelineThumbnailCanvases[this.selectedFrameIndex];
   }
 
   bindControlEvents() {
@@ -58,11 +59,16 @@ class StoryEditor {
     });
     document.querySelector('.control-remove-frame').addEventListener('click', () => {
       if (this.frames.length === 1) {
-        this.drawingArea.frame.clearCanvas(this.drawingArea.ctx);
+        this.drawingArea.reset();
+        this.renderSelectedThumbnail(this.selectedFrameIndex);
       } else {
         this.frames.splice(this.selectedFrameIndex, 1);
-        this.removeTimelineThumbnail(this.selectedFrameIndex - 1);
-        this.setSelectedFrame(this.selectedFrameIndex - 1);
+        this.removeTimelineThumbnail(this.selectedFrameIndex);
+        if (this.selectedFrameIndex === this.frames.length) {
+          this.setSelectedFrame(this.selectedFrameIndex - 1);
+        } else {
+          this.setSelectedFrame(this.selectedFrameIndex);
+        }
       }
     });
     document.querySelector('.frame-timeline').addEventListener('click', (event) => {
@@ -85,6 +91,13 @@ class StoryEditor {
       this.previousFrameCanvas.classList.add('visible');
       this.frames[this.selectedFrameIndex - 1].render(this.previousFrameCanvas.getContext('2d'));
     }
+  }
+
+  renderSelectedThumbnail() {
+    let thumbnailCanvas = this.getSelectedTimelineThumbnailCanvas();
+    this.getSelectedFrame().render(thumbnailCanvas.getContext('2d'), {
+      scale: thumbnailCanvas.width / this.selectedFrameCanvas.width
+    });
   }
 
   initializeTimeline() {
@@ -113,7 +126,7 @@ class StoryEditor {
       this.timelineThumbnailCanvases[t].setAttribute('data-index', t);
       this.timelineThumbnailCanvases[t].classList.remove('selected');
     }
-    let selectedCanvas = this.timelineThumbnailCanvases[this.selectedFrameIndex];
+    let selectedCanvas = this.getSelectedTimelineThumbnailCanvas();
     selectedCanvas.classList.add('selected');
     selectedCanvas.scrollIntoView({
       block: 'nearest'

@@ -68,6 +68,11 @@ class DrawingArea {
     }
   }
 
+  reset() {
+    this.frame.reset();
+    this.frame.clearCanvas(this.ctx);
+  }
+
   render() {
     this.frame.render(this.ctx);
   }
