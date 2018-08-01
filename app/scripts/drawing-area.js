@@ -82,12 +82,14 @@ class DrawingArea {
   }
 
   undo() {
-    this.frame.undo(this.ctx);
+    this.frame.undo();
+    this.frame.render(this.ctx);
     this.onEndDraw();
   }
 
   redo() {
-    this.frame.redo(this.ctx);
+    this.frame.redo();
+    this.frame.render(this.ctx);
     this.onEndDraw();
   }
 

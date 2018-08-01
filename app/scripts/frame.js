@@ -78,17 +78,15 @@ class Frame {
     }
   }
 
-  undo(ctx) {
+  undo() {
     if (this.groups.length > 0) {
       this.undoHistory.push(this.groups.pop());
-      this.render(ctx);
     }
   }
 
-  redo(ctx) {
+  redo() {
     if (this.undoHistory.length > 0) {
       this.groups.push(this.undoHistory.pop());
-      this.render(ctx);
     }
   }
 
