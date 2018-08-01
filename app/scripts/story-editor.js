@@ -42,6 +42,9 @@ class StoryEditor {
   }
 
   bindControlEvents() {
+    document.querySelector('.control-jump-to-first-frame').addEventListener('click', () => {
+      this.setSelectedFrame(0);
+    });
     document.querySelector('.control-prev-frame').addEventListener('click', () => {
       if (this.selectedFrameIndex > 0) {
         this.setSelectedFrame(this.selectedFrameIndex - 1);
