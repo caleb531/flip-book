@@ -27,6 +27,10 @@ class DrawingArea {
       event.preventDefault();
       this.handleMouseup(event);
     });
+    this.canvas.addEventListener('mouseout', (event) => {
+      event.preventDefault();
+      this.handleMouseup(event);
+    });
   }
 
   handleMousedown(event) {
