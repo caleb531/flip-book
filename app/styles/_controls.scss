@@ -38,12 +38,6 @@ $control-background-color: #234;
     background-color: #5be;
     color: #fff;
   }
-  &:first-child {
-    margin-left: 0;
-  }
-  &:last-child {
-    margin-right: 0;
-  }
   svg {
     fill: currentColor;
     $icon-size: 30px;
