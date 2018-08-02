@@ -54,12 +54,26 @@ $control-background-color: #234;
       border-top-left-radius: 5px;
       border-bottom-left-radius: 5px;
     }
-    &:last-child {
+    &:last-child,
+    &.control-play-story {
       margin-left: 2px;
       margin-right: $control-margin-x;
       border-top-right-radius: 5px;
       border-bottom-right-radius: 5px;
     }
+  }
+}
+
+.control-play-story {
+  display: inline-block;
+  .story-playing & {
+    display: none;
+  }
+}
+.control-pause-story {
+  display: none;
+  .story-playing & {
+    display: inline-block;
   }
 }
 

@@ -3,14 +3,16 @@ import Frame from './frame.js';
 
 class StoryEditor {
 
-  constructor() {
+  constructor({editorElement}) {
+    this.editorElement = editorElement;
     this.frames = [new Frame()];
     this.selectedFrameIndex = 0;
+    this.frameDuration = 500;
 
-    this.previousFrameCanvas = document.querySelector('.previous-frame');
-    this.selectedFrameCanvas = document.querySelector('.selected-frame');
+    this.previousFrameCanvas = this.querySelector('.previous-frame');
+    this.selectedFrameCanvas = this.querySelector('.selected-frame');
 
-    this.timelineElement = document.querySelector('.frame-timeline');
+    this.timelineElement = this.querySelector('.frame-timeline');
     this.timelineThumbnailCanvases = [];
 
     this.drawingArea = new DrawingArea({
@@ -23,6 +25,10 @@ class StoryEditor {
 
     this.bindControlEvents();
     this.initializeTimeline();
+  }
+
+  querySelector(selector) {
+    return this.editorElement.querySelector(selector);
   }
 
   getSelectedFrame() {
@@ -42,25 +48,31 @@ class StoryEditor {
   }
 
   bindControlEvents() {
-    document.querySelector('.control-skip-to-first-frame').addEventListener('click', () => {
+    this.querySelector('.control-skip-to-first-frame').addEventListener('click', () => {
       this.setSelectedFrame(0);
     });
-    document.querySelector('.control-prev-frame').addEventListener('click', () => {
+    this.querySelector('.control-play-story').addEventListener('click', () => {
+      this.playStory();
+    });
+    this.querySelector('.control-pause-story').addEventListener('click', () => {
+      this.pauseStory();
+    });
+    this.querySelector('.control-prev-frame').addEventListener('click', () => {
       if (this.selectedFrameIndex > 0) {
         this.setSelectedFrame(this.selectedFrameIndex - 1);
       }
     });
-    document.querySelector('.control-next-frame').addEventListener('click', () => {
+    this.querySelector('.control-next-frame').addEventListener('click', () => {
       if (this.selectedFrameIndex < (this.frames.length - 1)) {
         this.setSelectedFrame(this.selectedFrameIndex + 1);
       }
     });
-    document.querySelector('.control-add-frame').addEventListener('click', () => {
+    this.querySelector('.control-add-frame').addEventListener('click', () => {
       this.frames.splice(this.selectedFrameIndex + 1, 0, new Frame());
       this.addTimelineThumbnail(this.selectedFrameIndex + 1);
       this.setSelectedFrame(this.selectedFrameIndex + 1);
     });
-    document.querySelector('.control-remove-frame').addEventListener('click', () => {
+    this.querySelector('.control-remove-frame').addEventListener('click', () => {
       if (this.frames.length === 1) {
         this.drawingArea.reset();
         this.renderSelectedThumbnail(this.selectedFrameIndex);
@@ -74,17 +86,35 @@ class StoryEditor {
         }
       }
     });
-    document.querySelector('.frame-timeline').addEventListener('click', (event) => {
+    this.querySelector('.frame-timeline').addEventListener('click', (event) => {
       if (event.target.classList.contains('timeline-thumbnail')) {
         this.setSelectedFrame(Number(event.target.getAttribute('data-index')));
       }
     });
-    document.querySelector('.control-undo').addEventListener('click', () => {
+    this.querySelector('.control-undo').addEventListener('click', () => {
       this.drawingArea.undo();
     });
-    document.querySelector('.control-redo').addEventListener('click', () => {
+    this.querySelector('.control-redo').addEventListener('click', () => {
       this.drawingArea.redo();
     });
+  }
+
+  playStory() {
+    let callback;
+    this.editorElement.classList.add('story-playing');
+    this.playbackTimer = setTimeout(callback = () => {
+      if ((this.selectedFrameIndex + 1) < this.frames.length) {
+        this.setSelectedFrame(this.selectedFrameIndex + 1);
+        this.playbackTimer = setTimeout(callback, this.frameDuration);
+      } else {
+        this.pauseStory();
+      }
+    }, this.frameDuration);
+  }
+
+  pauseStory() {
+    this.editorElement.classList.remove('story-playing');
+    clearTimeout(this.playbackTimer);
   }
 
   renderPreviousFrame() {

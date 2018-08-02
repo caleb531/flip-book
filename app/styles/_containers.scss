@@ -33,6 +33,9 @@ body {
   &.visible {
     display: inline-block;
   }
+  .story-playing & {
+    display: none;
+  }
 }
 
 .selected-frame {
