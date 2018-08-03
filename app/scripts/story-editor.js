@@ -30,6 +30,7 @@ class StoryEditor {
 
     this.bindControlEvents();
     this.initializeTimeline();
+    this.setSelectedFrame(this.selectedFrameIndex);
   }
 
   querySelector(selector) {
