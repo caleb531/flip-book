@@ -3,10 +3,14 @@ import Frame from './frame.js';
 
 class StoryEditor {
 
-  constructor({editorElement}) {
+  constructor({editorElement, frames, selectedFrameIndex = 0}) {
     this.editorElement = editorElement;
-    this.frames = [new Frame()];
-    this.selectedFrameIndex = 0;
+    if (frames) {
+      this.frames = frames.map((frame) => new Frame(frame));
+    } else {
+       this.frames = [new Frame()];
+    }
+    this.selectedFrameIndex = selectedFrameIndex;
     this.frameDuration = 500;
 
     this.previousFrameCanvas = this.querySelector('.previous-frame');
@@ -20,6 +24,7 @@ class StoryEditor {
       frame: this.getSelectedFrame(),
       onEndDraw: () => {
         this.renderSelectedThumbnail();
+        this.save();
       }
     });
 
@@ -50,6 +55,7 @@ class StoryEditor {
   bindControlEvents() {
     this.querySelector('.control-skip-to-first-frame').addEventListener('click', () => {
       this.setSelectedFrame(0);
+      this.save();
     });
     this.querySelector('.control-play-story').addEventListener('click', () => {
       this.playStory();
@@ -60,17 +66,20 @@ class StoryEditor {
     this.querySelector('.control-prev-frame').addEventListener('click', () => {
       if (this.selectedFrameIndex > 0) {
         this.setSelectedFrame(this.selectedFrameIndex - 1);
+        this.save();
       }
     });
     this.querySelector('.control-next-frame').addEventListener('click', () => {
       if (this.selectedFrameIndex < (this.frames.length - 1)) {
         this.setSelectedFrame(this.selectedFrameIndex + 1);
+        this.save();
       }
     });
     this.querySelector('.control-add-frame').addEventListener('click', () => {
       this.frames.splice(this.selectedFrameIndex + 1, 0, new Frame());
       this.addTimelineThumbnail(this.selectedFrameIndex + 1);
       this.setSelectedFrame(this.selectedFrameIndex + 1);
+      this.save();
     });
     this.querySelector('.control-remove-frame').addEventListener('click', () => {
       if (this.frames.length === 1) {
@@ -85,10 +94,12 @@ class StoryEditor {
           this.setSelectedFrame(this.selectedFrameIndex);
         }
       }
+      this.save();
     });
     this.querySelector('.frame-timeline').addEventListener('click', (event) => {
       if (event.target.classList.contains('timeline-thumbnail')) {
         this.setSelectedFrame(Number(event.target.getAttribute('data-index')));
+        this.save();
       }
     });
     this.querySelector('.control-undo').addEventListener('click', () => {
@@ -136,6 +147,8 @@ class StoryEditor {
   initializeTimeline() {
     for (let f = 0; f < this.frames.length; f += 1) {
       this.addTimelineThumbnail(f + 1);
+      this.selectedFrameIndex = f;
+      this.renderSelectedThumbnail();
     }
     this.setSelectedTimelineThumbnail();
   }
@@ -166,6 +179,27 @@ class StoryEditor {
     });
   }
 
+  toJSON() {
+    return {
+      frames: this.frames,
+      selectedFrameIndex: this.selectedFrameIndex
+    };
+  }
+
+  save() {
+    clearTimeout(this.saveTimer);
+    this.saveTimer = setTimeout(() => {
+      localStorage.setItem('flipbook-story', JSON.stringify(this));
+    }, StoryEditor.saveDelay);
+  }
+
 }
+
+StoryEditor.saveDelay = 500;
+
+StoryEditor.restore = function ({editorElement}) {
+    let editorJson = JSON.parse(localStorage.getItem('flipbook-story'));
+    return new StoryEditor(Object.assign(editorJson || {}, {editorElement}));
+};
 
 export default StoryEditor;

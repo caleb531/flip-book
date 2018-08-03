@@ -1,5 +1,5 @@
 import StoryEditor from './story-editor.js';
 
-new StoryEditor({
+StoryEditor.restore({
   editorElement: document.querySelector('.story-editor')
 });
