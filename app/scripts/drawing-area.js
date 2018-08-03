@@ -1,6 +1,6 @@
 class DrawingArea {
 
-  constructor({canvas, frame, onEndDraw, editingEnabled = true}) {
+  constructor({canvas, frame, onEndDraw, drawingEnabled = true}) {
     this.canvas = canvas;
     this.ctx = canvas.getContext('2d');
     this.canvasScaleFactor = canvas.width / canvas.offsetWidth;
@@ -9,7 +9,7 @@ class DrawingArea {
     this.lastX = null;
     this.lastY = null;
     this.onEndDraw = onEndDraw;
-    this.editingEnabled = editingEnabled;
+    this.drawingEnabled = drawingEnabled;
     this.bindMouseEvents();
     this.render();
   }
@@ -34,7 +34,7 @@ class DrawingArea {
   }
 
   handleMousedown(event) {
-    if (this.editingEnabled) {
+    if (this.drawingEnabled) {
       this.mousedown = true;
       // Cache computed canvas offsets for the duration of the drag
       this.canvasOffsetLeft = this.canvas.parentElement.offsetLeft;
@@ -51,7 +51,7 @@ class DrawingArea {
   }
 
   handleMousemove(event) {
-    if (this.mousedown && this.editingEnabled) {
+    if (this.mousedown && this.drawingEnabled) {
       let endX = (event.pageX - this.canvasOffsetLeft) * this.canvasScaleFactor;
       let endY = (event.pageY - this.canvasOffsetTop) * this.canvasScaleFactor;
       let diffX = endX - this.lastX;
@@ -66,7 +66,7 @@ class DrawingArea {
   }
 
   handleMouseup() {
-    if (this.editingEnabled && this.mousedown) {
+    if (this.drawingEnabled && this.mousedown) {
       this.mousedown = false;
       this.onEndDraw();
     }

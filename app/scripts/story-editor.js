@@ -117,7 +117,7 @@ class StoryEditor {
   playStory() {
     let callback;
     this.editorElement.classList.add('story-playing');
-    this.drawingArea.editingEnabled = false;
+    this.drawingArea.drawingEnabled = false;
     this.playbackTimer = setTimeout(callback = () => {
       if ((this.selectedFrameIndex + 1) < this.frames.length) {
         this.setSelectedFrame(this.selectedFrameIndex + 1);
@@ -130,7 +130,7 @@ class StoryEditor {
 
   pauseStory() {
     this.editorElement.classList.remove('story-playing');
-    this.drawingArea.editingEnabled = true;
+    this.drawingArea.drawingEnabled = true;
     clearTimeout(this.playbackTimer);
   }
 
