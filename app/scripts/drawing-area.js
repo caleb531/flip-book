@@ -66,7 +66,7 @@ class DrawingArea {
   }
 
   handleMouseup() {
-    if (this.editingEnabled) {
+    if (this.editingEnabled && this.mousedown) {
       this.mousedown = false;
       this.onEndDraw();
     }
