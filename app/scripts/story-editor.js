@@ -82,7 +82,10 @@ class StoryEditor {
       this.setSelectedFrame(this.selectedFrameIndex + 1);
       this.save();
     });
-    this.querySelector('.control-remove-frame').addEventListener('click', () => {
+    this.querySelector('.control-delete-frame').addEventListener('click', () => {
+      if (!confirm('Are you sure you want to delete this frame?')) {
+        return;
+      }
       if (this.frames.length === 1) {
         this.drawingArea.reset();
         this.renderSelectedThumbnail(this.selectedFrameIndex);
