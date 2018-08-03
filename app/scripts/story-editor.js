@@ -144,11 +144,17 @@ class StoryEditor {
     });
   }
 
+  renderThumbnail(frameIndex) {
+    let thumbnailCanvas = this.timelineThumbnailCanvases[frameIndex];
+    this.frames[frameIndex].render(thumbnailCanvas.getContext('2d'), {
+      scale: thumbnailCanvas.width / this.selectedFrameCanvas.width
+    });
+  }
+
   initializeTimeline() {
     for (let f = 0; f < this.frames.length; f += 1) {
       this.addTimelineThumbnail(f + 1);
-      this.selectedFrameIndex = f;
-      this.renderSelectedThumbnail();
+      this.renderThumbnail(f);
     }
     this.setSelectedTimelineThumbnail();
   }
