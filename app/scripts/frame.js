@@ -1,6 +1,6 @@
 class Frame {
 
-  constructor({styles = null, groups = null} = {}) {
+  constructor({styles = null, groups = null, undoHistory = null} = {}) {
     this.styles = Object.assign(styles || {}, {
       strokeStyle: '#000',
       lineWidth: 12,
@@ -9,7 +9,7 @@ class Frame {
     });
     this.groups = groups || [];
     // The undo history only exists for the life of the current page
-    this.undoHistory = [];
+    this.undoHistory = undoHistory || [];
   }
 
   startNewGroup() {
