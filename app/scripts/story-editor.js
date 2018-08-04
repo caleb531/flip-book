@@ -65,7 +65,7 @@ class StoryEditor {
     } else {
       formattedDurationSeconds = frameDurationSeconds.toPrecision(2);
     }
-    this.frameDurationValueElement.innerText = formattedDurationSeconds;
+    this.frameDurationValueElement.innerText = `${formattedDurationSeconds}s`;
     if (initialize) {
       this.querySelector('.setting-frame-duration').value = frameDuration;
     }
