@@ -203,28 +203,33 @@ class StoryEditor {
     this.setSelectedTimelineThumbnail();
   }
 
-  addTimelineThumbnail(newCanvasIndex) {
+  addTimelineThumbnail(newThumbnailIndex) {
+    let container = document.createElement('div');
+    container.classList.add('timeline-thumbnail');
     let canvas = document.createElement('canvas');
     canvas.width = 128;
     canvas.height = 72;
-    canvas.classList.add('timeline-thumbnail');
-    this.timelineElement.insertBefore(canvas, this.timelineThumbnailCanvases[newCanvasIndex]);
-    this.timelineThumbnailCanvases.splice(newCanvasIndex, 0, canvas);
+    canvas.classList.add('timeline-thumbnail-canvas');
+    container.append(canvas);
+    let currentThumbnailCanvas = this.timelineThumbnailCanvases[newThumbnailIndex];
+    this.timelineElement.insertBefore(container, currentThumbnailCanvas ? currentThumbnailCanvas.parentElement : null);
+    this.timelineThumbnailCanvases.splice(newThumbnailIndex, 0, canvas);
   }
 
-  removeTimelineThumbnail(canvasIndex) {
-    this.timelineThumbnailCanvases[canvasIndex].remove();
-    this.timelineThumbnailCanvases.splice(canvasIndex, 1);
+  removeTimelineThumbnail(thumbnailIndex) {
+    this.timelineThumbnailCanvases[thumbnailIndex].parentElement.remove();
+    this.timelineThumbnailCanvases.splice(thumbnailIndex, 1);
   }
 
   setSelectedTimelineThumbnail() {
     for (let t = 0; t < this.timelineThumbnailCanvases.length; t += 1) {
-      this.timelineThumbnailCanvases[t].setAttribute('data-index', t);
-      this.timelineThumbnailCanvases[t].classList.remove('selected');
+      let thumbnailCanvas = this.timelineThumbnailCanvases[t];
+      thumbnailCanvas.parentElement.setAttribute('data-index', t);
+      thumbnailCanvas.parentElement.classList.remove('selected');
     }
     let selectedCanvas = this.getSelectedTimelineThumbnailCanvas();
-    selectedCanvas.classList.add('selected');
-    selectedCanvas.scrollIntoView({
+    selectedCanvas.parentElement.classList.add('selected');
+    selectedCanvas.parentElement.scrollIntoView({
       block: 'nearest'
     });
   }
