@@ -45,9 +45,11 @@ $control-background-color: #234;
   }
   &:last-of-type,
   &.control-play-story {
-    margin-left: 2px;
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
+    &:not(:only-of-type) {
+      margin-left: 2px;
+    }
   }
   svg {
     fill: currentColor;
