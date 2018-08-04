@@ -13,8 +13,7 @@ class StoryEditor {
     this.selectedFrameIndex = selectedFrameIndex;
 
     this.frameDurationValueElement = this.querySelector('.setting-value-frame-duration');
-    this.updateFrameDuration(frameDuration);
-    this.querySelector('.setting-frame-duration').value = frameDuration;
+    this.updateFrameDuration(frameDuration, {initialize: true});
 
     this.previousFrameCanvas = this.querySelector('.previous-frame');
     this.selectedFrameCanvas = this.querySelector('.selected-frame');
@@ -56,7 +55,7 @@ class StoryEditor {
     return this.timelineThumbnailCanvases[this.selectedFrameIndex];
   }
 
-  updateFrameDuration(newDuration) {
+  updateFrameDuration(newDuration, {initialize} = {}) {
     this.frameDuration = newDuration;
     let newDurationSeconds = newDuration / 1000;
     let formattedDurationSeconds;
@@ -66,6 +65,9 @@ class StoryEditor {
       formattedDurationSeconds = newDurationSeconds.toPrecision(2);
     }
     this.frameDurationValueElement.innerText = formattedDurationSeconds;
+    if (initialize) {
+      this.querySelector('.setting-frame-duration').value = newDuration;
+    }
     this.save();
   }
 
