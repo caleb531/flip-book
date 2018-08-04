@@ -200,7 +200,6 @@ class StoryEditor {
       this.addTimelineThumbnail(f + 1);
       this.renderThumbnail(f);
     }
-    this.setSelectedTimelineThumbnail();
   }
 
   addTimelineThumbnail(newThumbnailIndex) {
