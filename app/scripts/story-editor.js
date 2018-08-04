@@ -207,7 +207,7 @@ class StoryEditor {
 
 }
 
-StoryEditor.saveDelay = 500;
+StoryEditor.saveDelay = 250;
 
 StoryEditor.restore = function ({editorElement}) {
     let editorJson = JSON.parse(localStorage.getItem('flipbook-story'));
