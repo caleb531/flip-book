@@ -18,6 +18,10 @@ $control-background-color: #234;
   }
 }
 
+.control-group {
+  position: relative;
+}
+
 .control {
   display: inline-block;
   width: auto;

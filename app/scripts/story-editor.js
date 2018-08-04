@@ -3,7 +3,7 @@ import Frame from './frame.js';
 
 class StoryEditor {
 
-  constructor({editorElement, frames, selectedFrameIndex = 0}) {
+  constructor({editorElement, frames, frameDuration = 500, selectedFrameIndex = 0}) {
     this.editorElement = editorElement;
     if (frames) {
       this.frames = frames.map((frame) => new Frame(frame));
@@ -11,7 +11,10 @@ class StoryEditor {
        this.frames = [new Frame()];
     }
     this.selectedFrameIndex = selectedFrameIndex;
-    this.frameDuration = 500;
+
+    this.frameDurationValueElement = this.querySelector('.setting-value-frame-duration');
+    this.updateFrameDuration(frameDuration);
+    this.querySelector('.setting-frame-duration').value = frameDuration;
 
     this.previousFrameCanvas = this.querySelector('.previous-frame');
     this.selectedFrameCanvas = this.querySelector('.selected-frame');
@@ -53,7 +56,26 @@ class StoryEditor {
     return this.timelineThumbnailCanvases[this.selectedFrameIndex];
   }
 
+  updateFrameDuration(newDuration) {
+    this.frameDuration = newDuration;
+    let newDurationSeconds = newDuration / 1000;
+    let formattedDurationSeconds;
+    if (newDurationSeconds > 0 && newDurationSeconds < 1) {
+      formattedDurationSeconds = newDurationSeconds.toPrecision(1);
+    } else {
+      formattedDurationSeconds = newDurationSeconds.toPrecision(2);
+    }
+    this.frameDurationValueElement.innerText = formattedDurationSeconds;
+    this.save();
+  }
+
   bindControlEvents() {
+    this.querySelector('.control-settings').addEventListener('click', () => {
+      this.editorElement.classList.toggle('settings-open');
+    });
+    this.querySelector('.setting-frame-duration').addEventListener('input', (event) => {
+      this.updateFrameDuration(Number(event.target.value));
+    });
     this.querySelector('.control-skip-to-first-frame').addEventListener('click', () => {
       this.setSelectedFrame(0);
       this.save();
@@ -194,7 +216,8 @@ class StoryEditor {
   toJSON() {
     return {
       frames: this.frames,
-      selectedFrameIndex: this.selectedFrameIndex
+      selectedFrameIndex: this.selectedFrameIndex,
+      frameDuration: this.frameDuration
     };
   }
 
