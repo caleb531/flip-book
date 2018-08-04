@@ -3,7 +3,7 @@ import Frame from './frame.js';
 
 class StoryEditor {
 
-  constructor({editorElement, frames, frameDuration = 500, selectedFrameIndex = 0}) {
+  constructor({editorElement, frames, frameDuration = 500, showPreviousFrame = true, selectedFrameIndex = 0}) {
     this.editorElement = editorElement;
     if (frames) {
       this.frames = frames.map((frame) => new Frame(frame));
@@ -14,6 +14,7 @@ class StoryEditor {
 
     this.frameDurationValueElement = this.querySelector('.setting-value-frame-duration');
     this.updateFrameDuration(frameDuration, {initialize: true});
+    this.updateShowPreviousFrame(showPreviousFrame, {initialize: true});
 
     this.previousFrameCanvas = this.querySelector('.previous-frame');
     this.selectedFrameCanvas = this.querySelector('.selected-frame');
@@ -55,18 +56,26 @@ class StoryEditor {
     return this.timelineThumbnailCanvases[this.selectedFrameIndex];
   }
 
-  updateFrameDuration(newDuration, {initialize} = {}) {
-    this.frameDuration = newDuration;
-    let newDurationSeconds = newDuration / 1000;
+  updateFrameDuration(frameDuration, {initialize} = {}) {
+    this.frameDuration = frameDuration;
+    let frameDurationSeconds = frameDuration / 1000;
     let formattedDurationSeconds;
-    if (newDurationSeconds > 0 && newDurationSeconds < 1) {
-      formattedDurationSeconds = newDurationSeconds.toPrecision(1);
+    if (frameDurationSeconds > 0 && frameDurationSeconds < 1) {
+      formattedDurationSeconds = frameDurationSeconds.toPrecision(1);
     } else {
-      formattedDurationSeconds = newDurationSeconds.toPrecision(2);
+      formattedDurationSeconds = frameDurationSeconds.toPrecision(2);
     }
     this.frameDurationValueElement.innerText = formattedDurationSeconds;
     if (initialize) {
-      this.querySelector('.setting-frame-duration').value = newDuration;
+      this.querySelector('.setting-frame-duration').value = frameDuration;
+    }
+    this.save();
+  }
+
+  updateShowPreviousFrame(showPreviousFrame, {initialize} = {}) {
+    this.showPreviousFrame = showPreviousFrame;
+    if (initialize) {
+      this.querySelector('.setting-show-previous-frame').checked = showPreviousFrame;
     }
     this.save();
   }
@@ -77,6 +86,11 @@ class StoryEditor {
     });
     this.querySelector('.setting-frame-duration').addEventListener('input', (event) => {
       this.updateFrameDuration(Number(event.target.value));
+      this.drawingArea.render();
+    });
+    this.querySelector('.setting-show-previous-frame').addEventListener('change', (event) => {
+      this.updateShowPreviousFrame(event.target.checked);
+      this.renderPreviousFrame();
     });
     this.querySelector('.control-skip-to-first-frame').addEventListener('click', () => {
       this.setSelectedFrame(0);
@@ -159,9 +173,9 @@ class StoryEditor {
   }
 
   renderPreviousFrame() {
-    if (this.selectedFrameIndex === 0) {
+    if (this.selectedFrameIndex === 0 || !this.showPreviousFrame) {
       this.previousFrameCanvas.classList.remove('visible');
-    } else {
+    } else if (this.showPreviousFrame) {
       this.previousFrameCanvas.classList.add('visible');
       this.frames[this.selectedFrameIndex - 1].render(this.previousFrameCanvas.getContext('2d'));
     }
@@ -219,7 +233,8 @@ class StoryEditor {
     return {
       frames: this.frames,
       selectedFrameIndex: this.selectedFrameIndex,
-      frameDuration: this.frameDuration
+      frameDuration: this.frameDuration,
+      showPreviousFrame: this.showPreviousFrame
     };
   }
 
