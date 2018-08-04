@@ -199,8 +199,8 @@ class StoryEditor {
   }
 
   save() {
-    clearTimeout(this.saveTimer);
-    this.saveTimer = setTimeout(() => {
+    clearTimeout(this.autosaveTimer);
+    this.autosaveTimer = setTimeout(() => {
       localStorage.setItem('flipbook-story', JSON.stringify(this));
     }, StoryEditor.saveDelay);
   }
