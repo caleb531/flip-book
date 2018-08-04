@@ -13,7 +13,7 @@ $control-background-color: #234;
 
 .controls > * {
   margin-right: 20px;
-  &:last-child {
+  &:last-of-type {
     margin-right: 0;
   }
 }
@@ -39,11 +39,11 @@ $control-background-color: #234;
     background-color: #5be;
     color: #fff;
   }
-  &:first-child {
+  &:first-of-type {
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
   }
-  &:last-child,
+  &:last-of-type,
   &.control-play-story {
     margin-left: 2px;
     border-top-right-radius: 5px;
