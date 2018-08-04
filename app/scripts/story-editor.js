@@ -228,9 +228,22 @@ class StoryEditor {
     }
     let selectedCanvas = this.getSelectedTimelineThumbnailCanvas();
     selectedCanvas.parentElement.classList.add('selected');
-    selectedCanvas.parentElement.scrollIntoView({
-      block: 'nearest'
-    });
+    this.scrollThumbnailIntoView(selectedCanvas);
+  }
+
+  scrollThumbnailIntoView(thumbnailCanvas) {
+    let thumbnailContainer = thumbnailCanvas.parentElement;
+    let scrollLeft = this.timelineElement.scrollLeft;
+    let scrollRight = scrollLeft + this.timelineElement.offsetWidth;
+    let offsetLeft = thumbnailContainer.offsetLeft;
+    let offsetRight = thumbnailContainer.offsetLeft + thumbnailContainer.offsetWidth;
+
+    if (offsetRight > scrollRight) {
+      this.timelineElement.scrollLeft += offsetRight - scrollRight;
+    } else if (offsetLeft < scrollLeft) {
+      this.timelineElement.scrollLeft += offsetLeft - scrollLeft;
+    }
+
   }
 
   toJSON() {
