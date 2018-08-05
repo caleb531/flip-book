@@ -87,6 +87,11 @@ class StoryEditor {
     this.querySelector('.control-export-to-gif').addEventListener('click', () => {
       this.exportToGIF();
     });
+    this.querySelector('.export-overlay').addEventListener('click', () => {
+      this.gifGenerator.abort();
+      console.log(this.gifGenerator);
+      this.exportScreenElement.classList.remove('visible');
+    });
     this.querySelector('.control-settings').addEventListener('click', () => {
       this.editorElement.classList.toggle('settings-open');
     });
@@ -159,7 +164,7 @@ class StoryEditor {
   }
 
   exportToGIF() {
-    let gif = new GIF({
+    this.gifGenerator = new GIF({
       workers: 2,
       workerScript: 'scripts/gif.worker.js'
     });
@@ -170,9 +175,9 @@ class StoryEditor {
       this.frames[f].render(canvas.getContext('2d'), {
         backgroundColor: '#fff'
       });
-      gif.addFrame(canvas, {delay: this.frameDuration});
+      this.gifGenerator.addFrame(canvas, {delay: this.frameDuration});
     }
-    gif.on('finished', (blob) => {
+    this.gifGenerator.on('finished', (blob) => {
       let imageUrl = URL.createObjectURL(blob);
       let image = new Image();
       let callback;
@@ -191,7 +196,7 @@ class StoryEditor {
     this.exportScreenElement.classList.add('visible', 'loading');
     this.exportHeadingElement.classList.add('visible', 'loading');
     this.exportHeadingElement.innerText = 'Generating GIF...';
-    gif.render();
+    this.gifGenerator.render();
 
   }
 
