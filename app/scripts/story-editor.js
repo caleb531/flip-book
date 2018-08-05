@@ -165,8 +165,8 @@ class StoryEditor {
     });
     for (let f = 0; f < this.frames.length; f += 1) {
       let canvas = document.createElement('canvas');
-      canvas.width = 1600;
-      canvas.height = 900;
+      canvas.width = this.selectedFrameCanvas.width;
+      canvas.height = this.selectedFrameCanvas.height;
       this.frames[f].render(canvas.getContext('2d'), {
         backgroundColor: '#fff'
       });
