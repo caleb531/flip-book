@@ -160,8 +160,6 @@ class StoryEditor {
 
   exportToGIF() {
     let gif = new GIF({
-      width: 1600,
-      height: 900,
       workers: 2,
       workerScript: 'scripts/gif.worker.js'
     });
@@ -172,7 +170,7 @@ class StoryEditor {
       this.frames[f].render(canvas.getContext('2d'), {
         backgroundColor: '#fff'
       });
-      gif.addFrame(canvas.getContext('2d'), {delay: this.frameDuration});
+      gif.addFrame(canvas, {delay: this.frameDuration});
     }
     gif.on('finished', (blob) => {
       let imageUrl = URL.createObjectURL(blob);
