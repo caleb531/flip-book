@@ -31,6 +31,7 @@ class StoryEditor {
       }
     });
     this.exportScreenElement = this.querySelector('.export-screen');
+    this.exportHeadingElement = this.querySelector('.export-heading');
     this.exportMessageElement = this.querySelector('.export-message');
 
     this.bindControlEvents();
@@ -184,11 +185,15 @@ class StoryEditor {
       });
       image.classList.add('exported-gif');
       image.src = imageUrl;
-      this.exportMessageElement.innerText = 'Finished! Right-click the image and choose "Save Image As..."';
+      this.exportScreenElement.classList.remove('loading');
+      this.exportScreenElement.classList.add('loaded');
+      this.exportHeadingElement.innerText = 'GIF Generated!';
+      this.exportMessageElement.innerText = 'Right-click the image and choose "Save Image As..." to download.';
     });
 
-    this.exportScreenElement.classList.add('visible');
-    this.exportMessageElement.innerText = 'Generating GIF... please wait a moment';
+    this.exportScreenElement.classList.add('visible', 'loading');
+    this.exportHeadingElement.classList.add('visible', 'loading');
+    this.exportHeadingElement.innerText = 'Generating GIF...';
     gif.render();
 
   }
