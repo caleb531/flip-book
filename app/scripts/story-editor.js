@@ -89,7 +89,6 @@ class StoryEditor {
     });
     this.querySelector('.export-overlay').addEventListener('click', () => {
       this.gifGenerator.abort();
-      console.log(this.gifGenerator);
       this.exportScreenElement.classList.remove('visible');
     });
     this.querySelector('.control-settings').addEventListener('click', () => {
