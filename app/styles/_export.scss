@@ -1,0 +1,30 @@
+@keyframes fade-in {
+  100% {
+    opacity: 1;
+  }
+}
+
+.export-screen {
+  visibility: hidden;
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  background-color: rgba(#000, 0.8);
+  transition: all 250ms ease-in-out;
+  transition-property: visibility, opacity;
+  color: #fff;
+  &.visible {
+    visibility: visible;
+    opacity: 1;
+  }
+}
+.exported-gif {
+  opacity: 0;
+  max-width: 90%;
+  animation: fade-in 100ms ease-in-out forwards;
+}

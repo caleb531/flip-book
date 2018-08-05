@@ -30,6 +30,8 @@ class StoryEditor {
         this.save();
       }
     });
+    this.exportScreenElement = this.querySelector('.export-screen');
+    this.exportMessageElement = this.querySelector('.export-message');
 
     this.bindControlEvents();
     this.initializeTimeline();
@@ -81,6 +83,9 @@ class StoryEditor {
   }
 
   bindControlEvents() {
+    this.querySelector('.control-export-to-gif').addEventListener('click', () => {
+      this.exportToGIF();
+    });
     this.querySelector('.control-settings').addEventListener('click', () => {
       this.editorElement.classList.toggle('settings-open');
     });
@@ -150,6 +155,42 @@ class StoryEditor {
     this.querySelector('.control-redo').addEventListener('click', () => {
       this.drawingArea.redo();
     });
+  }
+
+  exportToGIF() {
+    let gif = new GIF({
+      width: 1600,
+      height: 900,
+      workers: 2,
+      workerScript: 'scripts/gif.worker.js'
+    });
+    for (let f = 0; f < this.frames.length; f += 1) {
+      console.log(f);
+      let canvas = document.createElement('canvas');
+      canvas.width = 1600;
+      canvas.height = 900;
+      this.frames[f].render(canvas.getContext('2d'), {
+        backgroundColor: '#fff'
+      });
+      gif.addFrame(canvas.getContext('2d'), {delay: this.frameDuration});
+    }
+    gif.on('finished', (blob) => {
+      let imageUrl = URL.createObjectURL(blob);
+      let image = new Image();
+      let callback;
+      image.addEventListener('load', callback = () => {
+        image.removeEventListener('load', callback);
+        this.exportScreenElement.appendChild(image);
+      });
+      image.classList.add('exported-gif');
+      image.src = imageUrl;
+      this.exportMessageElement.innerText = 'Finished! Right-click the image and choose "Save Image As..."';
+    });
+
+    this.exportScreenElement.classList.add('visible');
+    this.exportMessageElement.innerText = 'Generating GIF... please wait a moment';
+    gif.render();
+
   }
 
   playStory() {

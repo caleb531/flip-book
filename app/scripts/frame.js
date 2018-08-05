@@ -27,10 +27,13 @@ class Frame {
     this.undoHistory.length = 0;
   }
 
-  render(ctx, {scale = 1} = {}) {
+  render(ctx, {scale = 1, backgroundColor = null} = {}) {
     this.clearCanvas(ctx);
     if (scale !== 1) {
       this.scaleCanvas(ctx, scale);
+    }
+    if (backgroundColor) {
+      this.setBackground(ctx, backgroundColor);
     }
     this.setCanvasStyles(ctx);
     this.drawGroups(ctx);
@@ -43,6 +46,12 @@ class Frame {
 
   scaleCanvas(ctx, scale) {
     ctx.scale(scale, scale);
+  }
+
+  setBackground(ctx, backgroundColor) {
+    ctx.fillStyle = backgroundColor;
+    ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+    ctx.fillStyle = 'transparent';
   }
 
   setCanvasStyles(ctx) {

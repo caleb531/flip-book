@@ -24,8 +24,7 @@ module.exports = {
   */
 
   globals: {
-    'axios': true,
-    '_': true
+    'GIF': true
   },
 
   overrides: {

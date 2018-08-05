@@ -9,8 +9,17 @@ gulp.task('assets:core', () => {
   return gulp.src('app/assets/**/*')
     .pipe(gulp.dest('public'));
 });
+gulp.task('assets:js', () => {
+  return gulp.src([
+      'node_modules/gif.js.optimized/dist/gif.js',
+      'node_modules/gif.js.optimized/dist/gif.worker.js'
+    ])
+    .pipe(gulp.dest('public/scripts'));
+});
+
 gulp.task('assets', gulp.parallel(
-  'assets:core'
+  'assets:core',
+  'assets:js'
 ));
 gulp.task('assets:watch', () => {
   return gulp.watch('app/assets/**/*', gulp.series('assets:core', 'sw'));
