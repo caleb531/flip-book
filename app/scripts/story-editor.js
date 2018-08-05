@@ -166,7 +166,6 @@ class StoryEditor {
       workerScript: 'scripts/gif.worker.js'
     });
     for (let f = 0; f < this.frames.length; f += 1) {
-      console.log(f);
       let canvas = document.createElement('canvas');
       canvas.width = 1600;
       canvas.height = 900;
