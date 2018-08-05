@@ -8,7 +8,7 @@ class StoryEditor {
     if (frames) {
       this.frames = frames.map((frame) => new Frame(frame));
     } else {
-       this.frames = [new Frame()];
+      this.frames = [new Frame()];
     }
     this.selectedFrameIndex = selectedFrameIndex;
 
