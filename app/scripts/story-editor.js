@@ -204,12 +204,8 @@ class StoryEditor {
     this.editorElement.classList.add('story-playing');
     this.drawingArea.drawingEnabled = false;
     this.playbackTimer = setTimeout(callback = () => {
-      if ((this.selectedFrameIndex + 1) < this.frames.length) {
-        this.setSelectedFrame(this.selectedFrameIndex + 1);
-        this.playbackTimer = setTimeout(callback, this.frameDuration);
-      } else {
-        this.pauseStory();
-      }
+      this.setSelectedFrame((this.selectedFrameIndex + 1) % this.frames.length);
+      this.playbackTimer = setTimeout(callback, this.frameDuration);
     }, this.frameDuration);
   }
 
