@@ -182,7 +182,7 @@ class StoryEditor {
       let callback;
       image.addEventListener('load', callback = () => {
         image.removeEventListener('load', callback);
-        this.exportScreenElement.appendChild(image);
+        this.exportScreenElement.append(image);
       });
       image.classList.add('exported-gif');
       image.src = imageUrl;
