@@ -163,6 +163,10 @@ class StoryEditor {
   }
 
   exportToGIF() {
+    let existingExportedGif = this.exportScreenElement.querySelector('.exported-gif');
+    if (existingExportedGif) {
+      existingExportedGif.remove();
+    }
     this.gifGenerator = new GIF({
       workers: 2,
       workerScript: 'scripts/gif.worker.js'
