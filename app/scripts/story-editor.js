@@ -199,6 +199,7 @@ class StoryEditor {
     this.exportScreenElement.classList.add('visible', 'loading');
     this.exportHeadingElement.classList.add('visible', 'loading');
     this.exportHeadingElement.innerText = 'Generating GIF...';
+    this.exportMessageElement.innerText = '';
     this.gifGenerator.render();
 
   }
