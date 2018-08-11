@@ -3,7 +3,7 @@ import Frame from './frame.js';
 
 class StoryEditor {
 
-  constructor({editorElement, frames, frameDuration = 100, showPreviousFrame = false, selectedFrameIndex = 0}) {
+  constructor({editorElement, frames, frameDuration = 100, showPreviousFrame = true, selectedFrameIndex = 0}) {
     this.editorElement = editorElement;
     if (frames) {
       this.frames = frames.map((frame) => new Frame(frame));
