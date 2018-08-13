@@ -69,10 +69,12 @@ class Frame {
       let currentY = group.points[0][1];
       if (group.points.length === 1) {
         // Draw a circle
+        ctx.fillStyle = this.styles.strokeStyle;
         ctx.beginPath();
         ctx.arc(currentX, currentY, this.styles.lineWidth / 2, 0, Math.PI * 2, false);
         ctx.fill();
         ctx.closePath();
+        ctx.fillStyle = 'transparent';
       } else {
         ctx.beginPath();
         ctx.moveTo(currentX, currentY);
