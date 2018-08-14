@@ -1,8 +1,6 @@
-import StoryEditor from './story-editor.js';
+import App from './app.js';
 
-StoryEditor.restore({
-  editorElement: document.querySelector('.story-editor')
-});
+new App();
 
 window.addEventListener('load', () => {
   if (navigator.serviceWorker) {

@@ -31,6 +31,7 @@ $control-background-color: #234;
   background-color: $control-background-color;
   color: #fff;
   font-size: 0;
+  margin-left: 2px;
   &:focus {
     outline-width: 0;
   }
@@ -47,8 +48,8 @@ $control-background-color: #234;
   &.control-play-story {
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
-    &:not(:only-of-type) {
-      margin-left: 2px;
+    &:only-of-type {
+      margin-left: 0;
     }
   }
   svg {
