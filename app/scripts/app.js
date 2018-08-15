@@ -23,18 +23,11 @@ class App {
     if (!manifest) {
       // The default story for brand new sessions
       manifest = {
-        stories: [
-          {
-            createdDate: Date.now(),
-            name: 'My First Story',
-            lastUpdatedDate: Date.now()
-          },
-          {
-            createdDate: Date.now() + 1,
-            name: 'My Second Story',
-            lastUpdatedDate: Date.now() + 1
-          }
-        ]
+        stories: [{
+          createdDate: Date.now(),
+          name: 'My First Story',
+          lastUpdatedDate: Date.now()
+        }]
       };
     } else {
       // The order of the array elements is the reverse of
