@@ -11,6 +11,9 @@ class StoryEditor {
     this.frameDurationSettingElement = this.querySelector('.setting-frame-duration');
     this.frameDurationValueElement = this.querySelector('.setting-value-frame-duration');
 
+    this.settingsPanelElement = this.querySelector('.settings-panel');
+    this.managerPanelElement = this.querySelector('.manager-panel');
+
     this.previousFrameCanvas = this.querySelector('.previous-frame');
     this.selectedFrameCanvas = this.querySelector('.selected-frame');
 
@@ -91,6 +94,9 @@ class StoryEditor {
   }
 
   bindControlEvents() {
+    this.querySelector('.control-manage-my-stories').addEventListener('click', () => {
+      this.managerPanelElement.classList.toggle('panel-open');
+    });
     this.querySelector('.control-export-to-gif').addEventListener('click', () => {
       this.exportToGIF();
     });
@@ -99,7 +105,7 @@ class StoryEditor {
       this.exportScreenElement.classList.remove('visible');
     });
     this.querySelector('.control-settings').addEventListener('click', () => {
-      this.editorElement.classList.toggle('settings-open');
+      this.settingsPanelElement.classList.toggle('panel-open');
     });
     this.querySelector('.setting-frame-duration').addEventListener('input', (event) => {
       this.updateFrameDuration(Number(event.target.value));

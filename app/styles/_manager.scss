@@ -1,0 +1,49 @@
+.manager-panel {
+  width: 200px;
+  max-height: 400px;
+  text-align: left;
+  padding: 0;
+  &:after {
+    left: 14px;
+  }
+}
+
+.manager-panel h2 {
+  padding: 5px 10px;
+  text-align: left;
+}
+
+.story-list {
+  margin: 0;
+  padding: 0;
+  background-color: rgba(#fff, 0.1);
+  border: solid 1px rgba(#000, 0.3);
+  border-left-width: 0;
+  border-right-width: 0;
+}
+
+.story-list-item {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  border-top: solid 1px rgba(#000, 0.3);
+  &:first-child {
+    border-top-width: 0;
+  }
+}
+.story-list-item-name {
+  width: 100%;
+  border-width: 0;
+  margin: 0;
+  padding: 6px 8px;
+  box-sizing: border-box;
+  font-size: 0.7rem;
+  &[disabled] {
+    background: none;
+    color: #fff;
+    cursor: default;
+  }
+  &:focus {
+    outline-width: 0;
+  }
+}
