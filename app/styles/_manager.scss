@@ -9,8 +9,25 @@
   }
 }
 
+.manager-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 10px;
+}
+
+.manager-controls {
+  flex-grow: 1;
+  text-align: right;
+}
+
+.manager-panel .control svg {
+  $icon-size: 12px;
+  width: $icon-size;
+  height: $icon-size;
+}
+
 .manager-panel h2 {
-  padding: 5px 10px;
   margin-bottom: 0;
   text-align: left;
 }
