@@ -95,6 +95,7 @@ class StoryEditor {
 
   bindControlEvents() {
     this.querySelector('.control-manage-my-stories').addEventListener('click', () => {
+      this.settingsPanelElement.classList.remove('panel-open');
       this.managerPanelElement.classList.toggle('panel-open');
     });
     this.querySelector('.control-export-to-gif').addEventListener('click', () => {
@@ -105,6 +106,7 @@ class StoryEditor {
       this.exportScreenElement.classList.remove('visible');
     });
     this.querySelector('.control-settings').addEventListener('click', () => {
+      this.managerPanelElement.classList.remove('panel-open');
       this.settingsPanelElement.classList.toggle('panel-open');
     });
     this.querySelector('.setting-frame-duration').addEventListener('input', (event) => {
@@ -257,8 +259,10 @@ class StoryEditor {
   }
 
   initializeTimeline() {
-    for (let c = 0; c < this.timelineElement.children.length; c += 1) {
-      this.timelineElement.children[c].remove();
+    this.timelineThumbnailCanvases.length = 0;
+    let timelineChildren = Array.prototype.slice.call(this.timelineElement.children, 0);
+    for (let c = 0; c < timelineChildren.length; c += 1) {
+      timelineChildren[c].remove();
     }
     for (let f = 0; f < this.frames.length; f += 1) {
       this.addTimelineThumbnail(f + 1);

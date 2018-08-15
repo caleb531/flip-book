@@ -3,19 +3,25 @@ import Frame from './frame.js';
 
 class App {
 
-  constructor() {
+  constructor({appElement}) {
+    this.appElement = appElement;
     this.storyEditor = new StoryEditor({
-      editorElement: document.querySelector('.story-editor'),
+      editorElement: this.querySelector('.story-editor'),
       onSave: (storyData) => {
         this.saveStory(this.getSelectedStoryId(), storyData);
       }
     });
-    this.storyListElement = document.querySelector('.story-list');
+    this.storyListElement = this.querySelector('.story-list');
     this.appManifest = this.getAppManifest();
     this.saveManifest();
     // Select the most recent story by default
     this.setSelectedStory(this.appManifest.stories.length - 1);
     this.displayStories();
+    this.bindEvents();
+  }
+
+  querySelector(selector) {
+    return this.appElement.querySelector(selector);
   }
 
   getAppManifest() {
@@ -23,16 +29,28 @@ class App {
     if (!manifest) {
       // The default story for brand new sessions
       manifest = {
-        stories: [{
-          createdDate: Date.now(),
-          name: 'My First Story',
-          lastUpdatedDate: Date.now()
-        }]
+        stories: [
+          {
+            createdDate: Date.now() - 2,
+            name: 'My Third Story',
+            lastUpdatedDate: Date.now() - 2
+          },
+          {
+            createdDate: Date.now() - 1,
+            name: 'My Second Story',
+            lastUpdatedDate: Date.now() - 1
+          },
+          {
+            createdDate: Date.now(),
+            name: 'My First Story',
+            lastUpdatedDate: Date.now()
+          }
+        ]
       };
     } else {
-      // The order of the array elements is the reverse of
+      // The order of the array elements is the reverse of the display order
       manifest.stories.sort((storyA, storyB) => {
-        return storyB.lastUpdatedDate - storyA.lastUpdatedDate;
+        return storyA.createdDate - storyB.createdDate;
       });
     }
     return manifest;
@@ -74,16 +92,26 @@ class App {
   }
 
   displayStories() {
-    for (let s = 0; s < this.appManifest.stories.length; s += 1) {
+    for (let s = this.appManifest.stories.length - 1; s >= 0; s -= 1) {
       let story = this.appManifest.stories[s];
       let storyElement = document.createElement('div');
       storyElement.classList.add('story-list-item');
+      storyElement.setAttribute('data-list-index', s);
       let storyNameElement = document.createElement('div');
       storyNameElement.append(story.name);
       storyNameElement.classList.add('story-list-item-name');
       storyElement.append(storyNameElement);
       this.storyListElement.append(storyElement);
     }
+  }
+
+  bindEvents() {
+    this.storyListElement.addEventListener('click', (event) => {
+      if (event.target.classList.contains('story-list-item-name')) {
+        this.querySelector('.manager-panel').classList.remove('panel-open');
+        this.setSelectedStory(Number(event.target.parentElement.getAttribute('data-list-index')));
+      }
+    });
   }
 
 }

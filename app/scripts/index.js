@@ -1,6 +1,8 @@
 import App from './app.js';
 
-new App();
+new App({
+  appElement: document.querySelector('.app')
+});
 
 window.addEventListener('load', () => {
   if (navigator.serviceWorker) {
