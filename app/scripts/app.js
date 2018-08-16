@@ -8,7 +8,10 @@ class App {
     this.storyEditor = new StoryEditor({
       editorElement: this.querySelector('.story-editor'),
       onSave: (storyData) => {
-        this.saveStory(this.getSelectedStoryId(), storyData);
+        clearTimeout(this.autosaveTimer);
+        this.autosaveTimer = setTimeout(() => {
+          this.saveStory(this.getSelectedStoryId(), storyData);
+        }, this.saveDelay);
       }
     });
     this.managerPanelElement = this.querySelector('.manager-panel');
@@ -17,6 +20,7 @@ class App {
     this.appManifest = this.getAppManifest();
     this.saveManifest();
     // Select the most recent story by default
+    this.upgradeToMultiStoryFormat();
     this.setSelectedStory(this.appManifest.stories.length - 1);
     this.displayStories();
     this.bindEvents();
@@ -50,6 +54,16 @@ class App {
     localStorage.setItem(`flipbook-manifest`, JSON.stringify(this.appManifest));
   }
 
+  upgradeToMultiStoryFormat() {
+    if (localStorage.getItem('flipbook-storage-version') !== '2') {
+      let oldStoryData = JSON.parse(localStorage.getItem('flipbook-story'));
+      if (oldStoryData) {
+        this.saveStory(this.getStoryId(0), oldStoryData);
+        localStorage.setItem('flipbook-storage-version', '2');
+      }
+    }
+  }
+
   setSelectedStory(storyIndex) {
     this.selectedStoryIndex = storyIndex;
     let selectedStoryId = this.getSelectedStoryId();
@@ -62,7 +76,10 @@ class App {
     return this.appManifest.stories[this.selectedStoryIndex];
   }
   getSelectedStoryId() {
-    return this.getSelectedStory().createdDate;
+    return this.getStoryId(this.selectedStoryIndex);
+  }
+  getStoryId(storyIndex) {
+    return this.appManifest.stories[storyIndex].createdDate;
   }
 
   loadStory(storyId) {
@@ -79,10 +96,7 @@ class App {
   }
 
   saveStory(storyId, storyData) {
-    clearTimeout(this.autosaveTimer);
-    this.autosaveTimer = setTimeout(() => {
-      localStorage.setItem(`flipbook-story-${storyId}`, JSON.stringify(storyData));
-    }, App.saveDelay);
+    localStorage.setItem(`flipbook-story-${storyId}`, JSON.stringify(storyData));
   }
 
   displayStories() {
