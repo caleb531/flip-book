@@ -18,10 +18,9 @@ class App {
     this.selectedStoryNameElement = this.querySelector('.selected-story-name');
     this.storyListElement = this.querySelector('.story-list');
     this.appManifest = this.getAppManifest();
-    this.saveManifest();
     // Select the most recent story by default
     this.upgradeToMultiStoryFormat();
-    this.setSelectedStory(this.appManifest.stories.length - 1);
+    this.setSelectedStory(this.appManifest.selectedStoryIndex);
     this.displayStories();
     this.bindEvents();
   }
@@ -39,7 +38,8 @@ class App {
           createdDate: Date.now(),
           name: 'My First Story',
           lastUpdatedDate: Date.now()
-        }]
+        }],
+        selectedStoryIndex: 0
       };
     } else {
       // The order of the array elements is the reverse of the display order
@@ -51,6 +51,7 @@ class App {
   }
 
   saveManifest() {
+    this.appManifest.selectedStoryIndex = this.selectedStoryIndex;
     localStorage.setItem(`flipbook-manifest`, JSON.stringify(this.appManifest));
   }
 
@@ -65,11 +66,12 @@ class App {
   }
 
   setSelectedStory(storyIndex) {
-    this.selectedStoryIndex = storyIndex;
+    this.selectedStoryIndex = storyIndex || 0;
     let selectedStoryId = this.getSelectedStoryId();
     this.selectedStoryData = this.loadStory(selectedStoryId);
     this.storyEditor.setStory(this.selectedStoryData);
     this.selectedStoryNameElement.innerText = this.getSelectedStory().name;
+    this.saveManifest();
   }
 
   getSelectedStory() {
