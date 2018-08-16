@@ -120,6 +120,7 @@ class StoryEditor {
     });
     this.querySelector('.control-pause-story').addEventListener('click', () => {
       this.pauseStory();
+      this.save();
     });
     this.querySelector('.control-prev-frame').addEventListener('click', () => {
       if (this.selectedFrameIndex > 0) {
