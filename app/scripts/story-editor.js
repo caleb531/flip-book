@@ -3,18 +3,15 @@ import Frame from './frame.js';
 
 class StoryEditor {
 
-  constructor({editorElement, frames, frameDuration = 100, showPreviousFrame = true, selectedFrameIndex = 0}) {
+  constructor({editorElement, onSave}) {
     this.editorElement = editorElement;
-    if (frames) {
-      this.frames = frames.map((frame) => new Frame(frame));
-    } else {
-      this.frames = [new Frame()];
-    }
-    this.selectedFrameIndex = selectedFrameIndex;
+    this.onSave = onSave;
 
+    this.showPreviousFrameSettingElement = this.querySelector('.setting-show-previous-frame');
+    this.frameDurationSettingElement = this.querySelector('.setting-frame-duration');
     this.frameDurationValueElement = this.querySelector('.setting-value-frame-duration');
-    this.updateFrameDuration(frameDuration, {initialize: true});
-    this.updateShowPreviousFrame(showPreviousFrame, {initialize: true});
+
+    this.settingsPanelElement = this.querySelector('.settings-panel');
 
     this.previousFrameCanvas = this.querySelector('.previous-frame');
     this.selectedFrameCanvas = this.querySelector('.selected-frame');
@@ -24,7 +21,6 @@ class StoryEditor {
 
     this.drawingArea = new DrawingArea({
       canvas: this.selectedFrameCanvas,
-      frame: this.getSelectedFrame(),
       onEndDraw: () => {
         this.renderSelectedThumbnail();
         this.save();
@@ -35,6 +31,13 @@ class StoryEditor {
     this.exportMessageElement = this.querySelector('.export-message');
 
     this.bindControlEvents();
+  }
+
+  setStory({frames, frameDuration = 100, showPreviousFrame = true, selectedFrameIndex = 0}) {
+    this.frames = frames.map((frame) => new Frame(frame));
+    this.selectedFrameIndex = selectedFrameIndex;
+    this.updateFrameDuration(frameDuration, {initialize: true});
+    this.updateShowPreviousFrame(showPreviousFrame, {initialize: true});
     this.initializeTimeline();
     this.setSelectedFrame(this.selectedFrameIndex);
   }
@@ -60,6 +63,7 @@ class StoryEditor {
   }
 
   updateFrameDuration(frameDuration, {initialize} = {}) {
+    let valueHasChanged = (this.frameDuration !== undefined);
     this.frameDuration = frameDuration;
     let frameDurationSeconds = frameDuration / 1000;
     let formattedDurationSeconds;
@@ -70,17 +74,22 @@ class StoryEditor {
     }
     this.frameDurationValueElement.innerText = `${formattedDurationSeconds}s`;
     if (initialize) {
-      this.querySelector('.setting-frame-duration').value = frameDuration;
+      this.frameDurationSettingElement.value = frameDuration;
     }
-    this.save();
+    if (valueHasChanged) {
+      this.save();
+    }
   }
 
   updateShowPreviousFrame(showPreviousFrame, {initialize} = {}) {
+    let valueHasChanged = (this.showPreviousFrame !== undefined);
     this.showPreviousFrame = showPreviousFrame;
     if (initialize) {
-      this.querySelector('.setting-show-previous-frame').checked = showPreviousFrame;
+      this.showPreviousFrameSettingElement.checked = showPreviousFrame;
     }
-    this.save();
+    if (valueHasChanged) {
+      this.save();
+    }
   }
 
   bindControlEvents() {
@@ -92,7 +101,7 @@ class StoryEditor {
       this.exportScreenElement.classList.remove('visible');
     });
     this.querySelector('.control-settings').addEventListener('click', () => {
-      this.editorElement.classList.toggle('settings-open');
+      this.settingsPanelElement.classList.toggle('panel-open');
     });
     this.querySelector('.setting-frame-duration').addEventListener('input', (event) => {
       this.updateFrameDuration(Number(event.target.value));
@@ -244,6 +253,11 @@ class StoryEditor {
   }
 
   initializeTimeline() {
+    this.timelineThumbnailCanvases.length = 0;
+    let timelineChildren = Array.prototype.slice.call(this.timelineElement.children, 0);
+    for (let c = 0; c < timelineChildren.length; c += 1) {
+      timelineChildren[c].remove();
+    }
     for (let f = 0; f < this.frames.length; f += 1) {
       this.addTimelineThumbnail(f + 1);
       this.renderThumbnail(f);
@@ -294,29 +308,15 @@ class StoryEditor {
 
   }
 
-  toJSON() {
-    return {
+  save() {
+    this.onSave({
       frames: this.frames,
       selectedFrameIndex: this.selectedFrameIndex,
       frameDuration: this.frameDuration,
       showPreviousFrame: this.showPreviousFrame
-    };
-  }
-
-  save() {
-    clearTimeout(this.autosaveTimer);
-    this.autosaveTimer = setTimeout(() => {
-      localStorage.setItem('flipbook-story', JSON.stringify(this));
-    }, StoryEditor.saveDelay);
+    });
   }
 
 }
-
-StoryEditor.saveDelay = 250;
-
-StoryEditor.restore = function ({editorElement}) {
-    let editorJson = JSON.parse(localStorage.getItem('flipbook-story'));
-    return new StoryEditor(Object.assign(editorJson || {}, {editorElement}));
-};
 
 export default StoryEditor;

@@ -1,17 +1,15 @@
 class DrawingArea {
 
-  constructor({canvas, frame, onEndDraw, drawingEnabled = true}) {
+  constructor({canvas, onEndDraw, drawingEnabled = true}) {
     this.canvas = canvas;
     this.ctx = canvas.getContext('2d');
     this.canvasScaleFactor = canvas.width / canvas.offsetWidth;
-    this.frame = frame;
     this.mousedown = false;
     this.lastX = null;
     this.lastY = null;
     this.onEndDraw = onEndDraw;
     this.drawingEnabled = drawingEnabled;
     this.bindMouseEvents();
-    this.render();
   }
 
   bindMouseEvents() {

@@ -1,5 +1,3 @@
-$control-background-color: #234;
-
 .controls {
   display: flex;
   justify-content: center;
@@ -11,7 +9,8 @@ $control-background-color: #234;
   white-space: nowrap;
 }
 
-.controls > * {
+.controls > *,
+.control-group {
   margin-right: 20px;
   &:last-of-type {
     margin-right: 0;
@@ -31,10 +30,11 @@ $control-background-color: #234;
   background-color: $control-background-color;
   color: #fff;
   font-size: 0;
+  margin-left: 2px;
   &:focus {
     outline-width: 0;
   }
-  &:hover:active {
+  &:hover {
     border-color: #36c;
     background-color: #5be;
     color: #fff;
@@ -47,8 +47,8 @@ $control-background-color: #234;
   &.control-play-story {
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
-    &:not(:only-of-type) {
-      margin-left: 2px;
+    &:only-of-type {
+      margin-left: 0;
     }
   }
   svg {

@@ -1,0 +1,77 @@
+.manager-panel {
+  top: 100%;
+  left: 2px;
+  bottom: auto;
+  margin-top: 10px;
+  width: 200px;
+  max-height: 400px;
+  text-align: left;
+  padding: 0;
+  padding-bottom: 10px;
+  &:after {
+    top: auto;
+    bottom: 100%;
+    left: 10px;
+    border: solid 10px transparent;
+    border-bottom-color: $panel-background-color;
+    border-top-width: 0;
+  }
+}
+
+.manager-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 10px;
+}
+
+.manager-controls {
+  flex-grow: 1;
+  text-align: right;
+}
+
+.manager-panel .control svg {
+  $icon-size: 12px;
+  width: $icon-size;
+  height: $icon-size;
+}
+
+.manager-panel h2 {
+  margin-bottom: 0;
+  text-align: left;
+}
+
+.story-list {
+  margin: 0;
+  padding: 0;
+}
+
+.story-list-item {
+  margin: 0;
+  padding: 0;
+  background-color: $control-background-color;
+  list-style-type: none;
+  border-bottom: solid 1px $panel-background-color;
+  &:last-child {
+    border-bottom-width: 0;
+  }
+  &:hover {
+    background-color: $control-background-color-hover;
+  }
+}
+.story-list-item-name {
+  width: 100%;
+  border-width: 0;
+  margin: 0;
+  padding: 6px 8px;
+  box-sizing: border-box;
+  font-size: 0.7rem;
+  &[disabled] {
+    background: none;
+    color: #fff;
+    cursor: default;
+  }
+  &:focus {
+    outline-width: 0;
+  }
+}
