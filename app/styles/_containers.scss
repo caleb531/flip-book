@@ -12,6 +12,28 @@ body {
   border: solid 1px #234;
 }
 
+.global-story-controls {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  position: relative;
+  padding: 6px 8px;
+  background-color: $panel-background-color;
+  border: solid 1px $control-background-color;
+  border-bottom-width: 0;
+  font-size: 0.8rem;
+  text-align: left;
+  color: #fff;
+  & > .control-group:first-child {
+    margin-right: 10px;
+  }
+  .control svg {
+    $icon-size: 16px;
+    width: $icon-size;
+    height: $icon-size;
+  }
+}
+
 .frame-container {
   position: relative;
 }
