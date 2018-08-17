@@ -60,6 +60,7 @@ class App {
       let oldStoryData = JSON.parse(localStorage.getItem('flipbook-story'));
       if (oldStoryData) {
         this.saveStory(this.getStoryId(0), oldStoryData);
+        localStorage.removeItem('flipbook-story');
         localStorage.setItem('flipbook-storage-version', '2');
       }
     }
