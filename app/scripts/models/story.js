@@ -7,6 +7,7 @@ class Story {
     this.setSelectedFrame(selectedFrameIndex);
     this.frameDuration = frameDuration;
     this.showPreviousFrame = showPreviousFrame;
+    this.playing = false;
   }
 
   getSelectedFrame() {
@@ -26,6 +27,7 @@ class Story {
   }
 
   play() {
+    this.playing = true;
     let callback;
     this.playbackTimer = setTimeout(callback = () => {
       this.setSelectedFrame((this.selectedFrameIndex + 1) % this.frames.length);
@@ -34,6 +36,7 @@ class Story {
   }
 
   pause() {
+    this.playing = false;
     clearTimeout(this.playbackTimer);
   }
 
