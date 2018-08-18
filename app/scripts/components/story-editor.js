@@ -4,7 +4,9 @@ class StoryEditorComponent {
 
   oninit({attrs: {story, onSave}}) {
     this.story = story;
-    this.onSave = onSave;
+    if (onSave) {
+      this.onSave = onSave;
+    }
   }
 
   exportToGIF() {
@@ -53,7 +55,9 @@ class StoryEditorComponent {
   }
 
   save() {
-    this.onSave(this.story);
+    if (this.onSave) {
+      this.onSave(this.story);
+    }
   }
 
   view() {
@@ -63,7 +67,7 @@ class StoryEditorComponent {
         frame: this.story.getSelectedFrame(),
         previousFrame: this.story.getPreviousFrame(),
         showPreviousFrame: this.story.showPreviousFrame,
-        drawingEnabled: true,
+        drawingEnabled: !this.story.playing,
         onEndDraw: () => this.save()
       })
 

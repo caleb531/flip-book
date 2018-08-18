@@ -1,8 +1,6 @@
-import App from './app.js';
+import AppComponent from './components/app.js';
 
-new App({
-  appElement: document.querySelector('.app')
-});
+m.mount(document.querySelector('main'), AppComponent);
 
 window.addEventListener('load', () => {
   if (navigator.serviceWorker) {

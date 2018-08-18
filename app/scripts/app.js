@@ -57,9 +57,9 @@ class App {
 
   upgradeToMultiStoryFormat() {
     if (localStorage.getItem('flipbook-storage-version') !== '2') {
-      let oldStoryData = JSON.parse(localStorage.getItem('flipbook-story'));
-      if (oldStoryData) {
-        this.saveStory(this.getStoryId(0), oldStoryData);
+      let oldStory = JSON.parse(localStorage.getItem('flipbook-story'));
+      if (oldStory) {
+        this.saveStory(this.getStoryId(0), oldStory);
         localStorage.removeItem('flipbook-story');
         localStorage.setItem('flipbook-storage-version', '2');
       }
@@ -69,8 +69,8 @@ class App {
   setSelectedStory(storyIndex) {
     this.selectedStoryIndex = storyIndex || 0;
     let selectedStoryId = this.getSelectedStoryId();
-    this.selectedStoryData = this.loadStory(selectedStoryId);
-    this.storyEditor.setStory(this.selectedStoryData);
+    this.selectedStory = this.loadStory(selectedStoryId);
+    this.storyEditor.setStory(this.selectedStory);
     this.selectedStoryNameElement.innerText = this.getSelectedStory().name;
     this.saveManifest();
   }

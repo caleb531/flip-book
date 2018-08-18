@@ -4,7 +4,7 @@ class App {
 
   constructor({stories, selectedStoryIndex}) {
     this.stories = stories;
-    this.selectedStoryIndex = selectedStoryIndex;
+    this.setSelectedStory(selectedStoryIndex);
     this.upgradeToMultiStoryFormat();
   }
 
@@ -14,9 +14,9 @@ class App {
 
   upgradeToMultiStoryFormat() {
     if (localStorage.getItem('flipbook-storage-version') !== '2') {
-      let oldStoryData = JSON.parse(localStorage.getItem('flipbook-story'));
-      if (oldStoryData) {
-        this.saveStory(this.getStoryId(0), oldStoryData);
+      let oldStory = JSON.parse(localStorage.getItem('flipbook-story'));
+      if (oldStory) {
+        this.saveStory(this.getStoryId(0), oldStory);
         localStorage.removeItem('flipbook-story');
         localStorage.setItem('flipbook-storage-version', '2');
       }
@@ -25,14 +25,11 @@ class App {
 
   setSelectedStory(storyIndex) {
     this.selectedStoryIndex = storyIndex || 0;
-    let selectedStoryId = this.getStoryId(storyIndex);
-    this.selectedStoryData = this.loadStory(selectedStoryId);
-    this.storyEditor.setStory(this.selectedStoryData);
-    this.selectedStoryNameElement.innerText = this.getSelectedStory().name;
+    this.selectedStory = this.loadStory(this.getStoryId(storyIndex));
     this.save();
   }
 
-  getSelectedStory() {
+  getSelectedStoryMetadata() {
     return this.stories[this.selectedStoryIndex];
   }
   getStoryId(storyIndex) {
