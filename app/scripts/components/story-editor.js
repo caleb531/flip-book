@@ -2,7 +2,7 @@ import DrawingAreaComponent from './drawing-area.js';
 
 class StoryEditorComponent {
 
-  constructor({attrs: {story, onSave}}) {
+  oninit({attrs: {story, onSave}}) {
     this.story = story;
     this.onSave = onSave;
   }
