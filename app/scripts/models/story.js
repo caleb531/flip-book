@@ -2,7 +2,7 @@ import Frame from './frame.js';
 
 class Story {
 
-  constructor({frames, frameDuration, showPreviousFrame, selectedFrameIndex}) {
+  constructor({frames = [new Frame()], frameDuration = 100, showPreviousFrame = true, selectedFrameIndex = 0} = {}) {
     this.frames = frames.map((frame) => new Frame(frame));
     this.setSelectedFrame(selectedFrameIndex);
     this.frameDuration = frameDuration;
