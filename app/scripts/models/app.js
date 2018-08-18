@@ -35,13 +35,17 @@ class App {
   getStoryId(storyIndex) {
     return this.stories[storyIndex].createdDate;
   }
+  getSelectedStoryId() {
+    return this.getStoryId(this.selectedStoryIndex);
+  }
 
   loadStory(storyId) {
-    let storyData = JSON.parse(localStorage.getItem(`flipbook-story-${storyId}`));
-    if (!storyData) {
-      storyData = new Story();
+    let story = JSON.parse(localStorage.getItem(`flipbook-story-${storyId}`));
+    if (!story) {
+      return new Story();
+    } else {
+      return new Story(story);
     }
-    return storyData;
   }
 
   saveStory(storyId, storyData) {

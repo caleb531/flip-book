@@ -10,19 +10,20 @@ class DrawingAreaComponent {
     this.drawingEnabled = drawingEnabled;
   }
 
-  initSelectedFrame({dom}) {
+  oncreateSelectedFrame({dom}) {
     this.canvas = dom;
     this.ctx = this.canvas.getContext('2d');
     this.canvasScaleFactor = this.canvas.width / this.canvas.offsetWidth;
     this.mousedown = false;
     this.lastX = null;
     this.lastY = null;
+    this.renderCanvas();
   }
 
   onupdate({attrs: {frame}}) {
     if (frame !== this.frame) {
       this.frame = frame;
-      this.render();
+      this.renderCanvas();
     }
   }
 
@@ -40,7 +41,7 @@ class DrawingAreaComponent {
       this.lastX = startX;
       this.lastY = startY;
       this.frame.undoHistory.length = 0;
-      this.render();
+      this.renderCanvas();
     } else {
       event.redraw = false;
     }
@@ -57,7 +58,7 @@ class DrawingAreaComponent {
         this.frame.addPoint(diffX, diffY);
         this.lastX = endX;
         this.lastY = endY;
-        this.render();
+        this.renderCanvas();
       }
     } else {
       event.redraw = false;
@@ -76,7 +77,7 @@ class DrawingAreaComponent {
     }
   }
 
-  render() {
+  renderCanvas() {
     this.frame.render(this.ctx);
   }
 
@@ -87,7 +88,7 @@ class DrawingAreaComponent {
 
   undo() {
     this.frame.undo();
-    this.render();
+    this.renderCanvas();
     if (this.onEndDraw) {
       this.onEndDraw();
     }
@@ -95,7 +96,7 @@ class DrawingAreaComponent {
 
   redo() {
     this.frame.redo();
-    this.render();
+    this.renderCanvas();
     if (this.onEndDraw) {
       this.onEndDraw();
     }
@@ -110,7 +111,7 @@ class DrawingAreaComponent {
       m('canvas.selected-frame', {
         width: DrawingAreaComponent.width,
         height: DrawingAreaComponent.height,
-        oncreate: (vnode) => this.initSelectedFrame(vnode),
+        oncreate: (vnode) => this.oncreateSelectedFrame(vnode),
         onmousedown: (event) => this.handleMousedown(event),
         onmousemove: (event) => this.handleMousemove(event),
         onmouseup: (event) => this.handleMouseup(event),

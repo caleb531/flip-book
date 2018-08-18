@@ -13,7 +13,7 @@ class AppComponent {
       m(StoryEditorComponent, {
         story: this.app.selectedStory,
         onSave: (story) => {
-          this.app.saveStory(story);
+          this.app.saveStory(this.app.getSelectedStoryId(), story);
         }
       })
 
