@@ -54,10 +54,7 @@ class App {
   }
 
   toJSON() {
-    return {
-      stories: this.stories,
-      selectedStoryIndex: this.selectedStoryIndex
-    };
+    return _.pick(this, ['stories', 'selectedStoryIndex']);
   }
 
 }

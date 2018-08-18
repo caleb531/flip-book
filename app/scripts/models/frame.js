@@ -106,11 +106,7 @@ class Frame {
   }
 
   toJSON() {
-    return {
-      styles: this.styles,
-      groups: this.groups,
-      undoHistory: this.undoHistory
-    };
+    return _.pick(this, ['styles', 'groups', 'undoHistory']);
   }
 
 }

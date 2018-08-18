@@ -41,12 +41,12 @@ class Story {
   }
 
   toJSON() {
-    return {
-      frames: this.frames,
-      selectedFrameIndex: this.selectedFrameIndex,
-      frameDuration: this.frameDuration,
-      showPreviousFrame: this.showPreviousFramel
-    };
+    return _.pick(this, [
+      'frames',
+      'selectedFrameIndex',
+      'frameDuration',
+      'showPreviousFrame'
+    ]);
   }
 
 }
