@@ -34,9 +34,8 @@
   &:focus {
     outline-width: 0;
   }
-  &:hover {
-    border-color: #36c;
-    background-color: #5be;
+  &:hover:active {
+    background-color: $control-background-color-hover;
     color: #fff;
   }
   &:first-of-type {
