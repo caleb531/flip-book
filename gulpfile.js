@@ -11,6 +11,8 @@ gulp.task('assets:core', () => {
 });
 gulp.task('assets:js', () => {
   return gulp.src([
+      'node_modules/mithril/mithril.min.js',
+      'node_modules/lodash/lodash.min.js',
       'node_modules/gif.js.optimized/dist/gif.js',
       'node_modules/gif.js.optimized/dist/gif.worker.js'
     ])

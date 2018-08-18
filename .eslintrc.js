@@ -24,6 +24,11 @@ module.exports = {
   */
 
   globals: {
+    // Mithril
+    'm': true,
+    // Lodash
+    '_': true,
+    // gif.js
     'GIF': true
   },
 

@@ -25,6 +25,8 @@
     "workbox-build": "^3.3.0"
   },
   "dependencies": {
-    "gif.js.optimized": "^1.0.1"
+    "gif.js.optimized": "^1.0.1",
+    "lodash": "^4.17.10",
+    "mithril": "^1.1.6"
   }
 }
