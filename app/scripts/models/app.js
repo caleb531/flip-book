@@ -1,4 +1,5 @@
 import Story from './story.js';
+import StoryMetadata from './story-metadata.js';
 
 class App {
 
@@ -68,15 +69,11 @@ App.restore = function () {
   if (!app) {
     // The default app for brand new sessions
     return new App({
-      stories: [{
-        createdDate: Date.now(),
-        name: 'My First Story',
-        lastUpdatedDate: Date.now()
-      }],
+      stories: [new StoryMetadata()],
       selectedStoryIndex: 0
     });
   } else {
-    // The order of the array elements is the reverse of the display order
+    app.stories = app.stories.map((storyMetadata) => new StoryMetadata(storyMetadata));
     app.stories = _.orderBy(app.stories, (story) => story.createdDate, 'desc');
     return new App(app);
   }
