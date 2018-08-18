@@ -22,7 +22,7 @@ class DrawingAreaComponent {
   onupdate({attrs: {frame}}) {
     if (frame !== this.frame) {
       this.frame = frame;
-      this.frame.render(this.ctx);
+      this.render();
     }
   }
 
@@ -40,6 +40,7 @@ class DrawingAreaComponent {
       this.lastX = startX;
       this.lastY = startY;
       this.frame.undoHistory.length = 0;
+      this.render();
     } else {
       event.redraw = false;
     }
@@ -56,6 +57,7 @@ class DrawingAreaComponent {
         this.frame.addPoint(diffX, diffY);
         this.lastX = endX;
         this.lastY = endY;
+        this.render();
       }
     } else {
       event.redraw = false;
@@ -74,6 +76,10 @@ class DrawingAreaComponent {
     }
   }
 
+  render() {
+    this.frame.render(this.ctx);
+  }
+
   reset() {
     this.frame.reset();
     this.frame.clearCanvas(this.ctx);
@@ -81,7 +87,7 @@ class DrawingAreaComponent {
 
   undo() {
     this.frame.undo();
-    this.frame.render(this.ctx);
+    this.render();
     if (this.onEndDraw) {
       this.onEndDraw();
     }
@@ -89,7 +95,7 @@ class DrawingAreaComponent {
 
   redo() {
     this.frame.redo();
-    this.frame.render(this.ctx);
+    this.render();
     if (this.onEndDraw) {
       this.onEndDraw();
     }
