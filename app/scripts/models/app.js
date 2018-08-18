@@ -3,7 +3,7 @@ import StoryMetadata from './story-metadata.js';
 
 class App {
 
-  constructor({stories, selectedStoryIndex}) {
+  constructor({stories = [new StoryMetadata()], selectedStoryIndex = 0} = {}) {
     this.stories = stories;
     this.setSelectedStory(selectedStoryIndex);
     this.upgradeToMultiStoryFormat();
@@ -68,10 +68,7 @@ App.restore = function () {
   let app = JSON.parse(localStorage.getItem('flipbook-app'));
   if (!app) {
     // The default app for brand new sessions
-    return new App({
-      stories: [new StoryMetadata()],
-      selectedStoryIndex: 0
-    });
+    return new App();
   } else {
     app.stories = app.stories.map((storyMetadata) => new StoryMetadata(storyMetadata));
     app.stories = _.orderBy(app.stories, (story) => story.createdDate, 'desc');
