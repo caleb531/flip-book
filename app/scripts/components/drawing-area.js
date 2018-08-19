@@ -42,9 +42,8 @@ class DrawingAreaComponent {
       this.lastY = startY;
       this.frame.undoHistory.length = 0;
       this.renderCanvas();
-    } else {
-      event.redraw = false;
     }
+    event.redraw = false;
   }
 
   handleMousemove(event) {
@@ -60,9 +59,8 @@ class DrawingAreaComponent {
         this.lastY = endY;
         this.renderCanvas();
       }
-    } else {
-      event.redraw = false;
     }
+    event.redraw = false;
   }
 
   handleMouseup(event) {
