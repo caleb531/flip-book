@@ -4,11 +4,40 @@ class StoryControlsComponent {
 
   oninit({attrs: {story}}) {
     this.story = story;
-    console.log(story);
+  }
+
+  skipToFirstFrame() {
+    this.story.setSelectedFrame(0);
+  }
+
+  playStory() {
+    this.story.play(() => m.redraw());
+  }
+
+  pauseStory() {
+    this.story.pause();
+  }
+
+  selectPreviousFrame() {
+    this.story.selectPreviousFrame();
+  }
+
+  selectNextFrame() {
+    this.story.selectNextFrame();
+  }
+
+  addFrame() {
+    this.story.addFrame();
+  }
+
+  removeSelectedFrame() {
+    this.story.removeSelectedFrame();
   }
 
   view() {
-    return m('div.story-controls.controls', [
+    return m('div.story-controls.controls', {
+      class: this.story.playing ? 'story-playing' : ''
+    }, [
 
       m('div.control-group', [
         m(ControlComponent, {
@@ -72,7 +101,7 @@ class StoryControlsComponent {
           id: 'remove-frame',
           title: 'Remove Frame',
           icon: 'remove',
-          action: () => this.removeFrame()
+          action: () => this.removeSelectedFrame()
         }),
       ]),
 
