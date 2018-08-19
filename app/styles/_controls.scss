@@ -1,6 +1,6 @@
 .controls {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   padding: 8px;
   border-top: solid 1px $control-background-color;
@@ -26,7 +26,7 @@
   width: auto;
   height: auto;
   border-width: 0;
-  padding: 3px 6px;
+  padding: 6px 8px;
   background-color: $control-background-color;
   color: #fff;
   font-size: 0;
@@ -50,9 +50,9 @@
       margin-left: 0;
     }
   }
-  svg {
+  img {
     fill: currentColor;
-    $icon-size: 30px;
+    $icon-size: 24px;
     width: $icon-size;
     height: $icon-size;
   }

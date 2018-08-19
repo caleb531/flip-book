@@ -1,4 +1,5 @@
 import DrawingAreaComponent from './drawing-area.js';
+import StoryControlsComponent from './story-controls.js';
 
 class StoryEditorComponent {
 
@@ -69,6 +70,10 @@ class StoryEditorComponent {
         showPreviousFrame: this.story.showPreviousFrame,
         drawingEnabled: !this.story.playing,
         onEndDraw: () => this.save()
+      }),
+
+      m(StoryControlsComponent, {
+        story: this.story
       })
 
     ]);
