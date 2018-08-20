@@ -1,12 +1,10 @@
 class FrameComponent {
 
-    oninit({attrs}) {
-      this.frame = attrs.frame;
-      console.log(attrs.class, 'INIT');
+    oninit({attrs: {frame}}) {
+      this.frame = frame;
     }
 
     oncreate({dom}) {
-      console.log(dom.className, 'CREATE');
       this.canvas = dom;
       this.ctx = this.canvas.getContext('2d');
       this.canvasScaleFactor = this.canvas.width / this.canvas.offsetWidth;
@@ -14,7 +12,6 @@ class FrameComponent {
     }
 
     onupdate({attrs: {frame}}) {
-      console.log(this.canvas.className, 'UPDATE');
       if (frame !== this.frame) {
         this.frame = frame;
         this.renderCanvas();
@@ -26,7 +23,11 @@ class FrameComponent {
     }
 
     view({attrs}) {
-      return m('canvas', attrs);
+      return m('canvas', {
+        class: attrs.class,
+        width: attrs.width || FrameComponent.width,
+        height: attrs.height || FrameComponent.height
+      });
     }
 
 }
