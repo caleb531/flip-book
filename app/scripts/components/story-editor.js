@@ -1,3 +1,4 @@
+import FrameComponent from './frame.js';
 import DrawingAreaComponent from './drawing-area.js';
 import StoryControlsComponent from './story-controls.js';
 
@@ -66,13 +67,18 @@ class StoryEditorComponent {
       class: this.story.playing ? 'story-playing' : ''
     }, [
 
-      m(DrawingAreaComponent, {
-        selectedFrame: this.story.getSelectedFrame(),
-        previousFrame: this.story.getPreviousFrame(),
-        showPreviousFrame: this.story.showPreviousFrame,
-        drawingEnabled: !this.story.playing,
-        onEndDraw: () => this.save()
-      }),
+      m('div.story-stage', [
+        this.story.getPreviousFrame() ? m(FrameComponent, {
+          class: 'previous-frame',
+          frame: this.story.getPreviousFrame(),
+        }) : null,
+        m(DrawingAreaComponent, {
+          class: 'selected-frame',
+          frame: this.story.getSelectedFrame(),
+          drawingEnabled: !this.story.playing,
+          onEndDraw: () => this.save()
+        }),
+      ]),
 
       m(StoryControlsComponent, {
         story: this.story

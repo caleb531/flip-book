@@ -1,10 +1,12 @@
-class CanvasComponent {
+class FrameComponent {
 
-    oninit({attrs: {frame}}) {
-      this.frame = frame;
+    oninit({attrs}) {
+      this.frame = attrs.frame;
+      console.log(attrs.class, 'INIT');
     }
 
-    oncreateSelectedFrame({dom}) {
+    oncreate({dom}) {
+      console.log(dom.className, 'CREATE');
       this.canvas = dom;
       this.ctx = this.canvas.getContext('2d');
       this.canvasScaleFactor = this.canvas.width / this.canvas.offsetWidth;
@@ -12,6 +14,7 @@ class CanvasComponent {
     }
 
     onupdate({attrs: {frame}}) {
+      console.log(this.canvas.className, 'UPDATE');
       if (frame !== this.frame) {
         this.frame = frame;
         this.renderCanvas();
@@ -23,11 +26,11 @@ class CanvasComponent {
     }
 
     view({attrs}) {
-      return m('canvas', Object.assign(attrs, {
-        oncreate: (vnode) => this.oncreateSelectedFrame(vnode)
-      }));
+      return m('canvas', attrs);
     }
 
 }
+FrameComponent.width = 1600;
+FrameComponent.height = 900;
 
-export default CanvasComponent;
+export default FrameComponent;

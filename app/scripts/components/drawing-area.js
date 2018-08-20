@@ -1,11 +1,9 @@
-import CanvasComponent from './canvas.js';
+import FrameComponent from './frame.js';
 
-class DrawingAreaComponent {
+class DrawingAreaComponent extends FrameComponent {
 
-  oninit({attrs: {selectedFrame, previousFrame, showPreviousFrame, onEndDraw = null, drawingEnabled = true}}) {
-    this.selectedFrame = selectedFrame;
-    this.previousFrame = previousFrame;
-    this.showPreviousFrame = showPreviousFrame;
+  oninit({attrs: {frame, onEndDraw = null, drawingEnabled = true}}) {
+    this.frame = frame;
     if (onEndDraw) {
       this.onEndDraw = onEndDraw;
     }
@@ -21,11 +19,11 @@ class DrawingAreaComponent {
       this.canvasOffsetTop = event.target.parentElement.offsetTop;
       let startX = (event.pageX - this.canvasOffsetLeft) * this.canvasScaleFactor;
       let startY = (event.pageY - this.canvasOffsetTop) * this.canvasScaleFactor;
-      this.selectedFrame.startNewGroup();
-      this.selectedFrame.addPoint(startX, startY);
+      this.frame.startNewGroup();
+      this.frame.addPoint(startX, startY);
       this.lastX = startX;
       this.lastY = startY;
-      this.selectedFrame.undoHistory.length = 0;
+      this.frame.undoHistory.length = 0;
       this.renderCanvas();
     }
     event.redraw = false;
@@ -39,7 +37,7 @@ class DrawingAreaComponent {
       let diffX = endX - this.lastX;
       let diffY = endY - this.lastY;
       if (diffX !== 0 || diffY !== 0) {
-        this.selectedFrame.addPoint(diffX, diffY);
+        this.frame.addPoint(diffX, diffY);
         this.lastX = endX;
         this.lastY = endY;
         this.renderCanvas();
@@ -61,7 +59,7 @@ class DrawingAreaComponent {
   }
 
   undo() {
-    this.selectedFrame.undo();
+    this.frame.undo();
     this.renderCanvas();
     if (this.onEndDraw) {
       this.onEndDraw();
@@ -69,7 +67,7 @@ class DrawingAreaComponent {
   }
 
   redo() {
-    this.selectedFrame.redo();
+    this.frame.redo();
     this.renderCanvas();
     if (this.onEndDraw) {
       this.onEndDraw();
@@ -77,28 +75,15 @@ class DrawingAreaComponent {
   }
 
   view() {
-    return m('div.drawing-area', [
-      this.previousFrame ? m(CanvasComponent, {
-        class: 'previous-frame',
-        frame: this.previousFrame,
-        width: DrawingAreaComponent.width,
-        height: DrawingAreaComponent.height
-      }) : null,
-      m(CanvasComponent, {
-        class: 'selected-frame',
-        frame: this.selectedFrame,
-        width: DrawingAreaComponent.width,
-        height: DrawingAreaComponent.height,
-        onmousedown: (event) => this.handleMousedown(event),
-        onmousemove: (event) => this.handleMousemove(event),
-        onmouseup: (event) => this.handleMouseup(event),
-        onmouseout: (event) => this.handleMouseup(event)
-      })
-    ]);
+    return m('canvas.selected-frame', {
+      width: FrameComponent.width,
+      height: FrameComponent.height,
+      onmousedown: (event) => this.handleMousedown(event),
+      onmousemove: (event) => this.handleMousemove(event),
+      onmouseup: (event) => this.handleMouseup(event),
+      onmouseout: (event) => this.handleMouseup(event)
+    });
   }
 
 }
-DrawingAreaComponent.width = 1600;
-DrawingAreaComponent.height = 900;
-
 export default DrawingAreaComponent;
