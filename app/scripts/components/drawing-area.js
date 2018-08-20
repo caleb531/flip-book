@@ -1,7 +1,9 @@
+import CanvasComponent from './canvas.js';
+
 class DrawingAreaComponent {
 
-  oninit({attrs: {frame, previousFrame, showPreviousFrame, onEndDraw = null, drawingEnabled = true}}) {
-    this.frame = frame;
+  oninit({attrs: {selectedFrame, previousFrame, showPreviousFrame, onEndDraw = null, drawingEnabled = true}}) {
+    this.selectedFrame = selectedFrame;
     this.previousFrame = previousFrame;
     this.showPreviousFrame = showPreviousFrame;
     if (onEndDraw) {
@@ -10,34 +12,20 @@ class DrawingAreaComponent {
     this.drawingEnabled = drawingEnabled;
   }
 
-  oncreateSelectedFrame({dom}) {
-    this.canvas = dom;
-    this.ctx = this.canvas.getContext('2d');
-    this.canvasScaleFactor = this.canvas.width / this.canvas.offsetWidth;
-    this.renderCanvas();
-  }
-
-  onupdate({attrs: {frame}}) {
-    if (frame !== this.frame) {
-      this.frame = frame;
-      this.renderCanvas();
-    }
-  }
-
   handleMousedown(event) {
     event.preventDefault();
     if (this.drawingEnabled) {
       this.mousedown = true;
       // Cache computed canvas offsets for the duration of the drag
-      this.canvasOffsetLeft = this.canvas.parentElement.offsetLeft;
-      this.canvasOffsetTop = this.canvas.parentElement.offsetTop;
+      this.canvasOffsetLeft = event.target.parentElement.offsetLeft;
+      this.canvasOffsetTop = event.target.parentElement.offsetTop;
       let startX = (event.pageX - this.canvasOffsetLeft) * this.canvasScaleFactor;
       let startY = (event.pageY - this.canvasOffsetTop) * this.canvasScaleFactor;
-      this.frame.startNewGroup();
-      this.frame.addPoint(startX, startY);
+      this.selectedFrame.startNewGroup();
+      this.selectedFrame.addPoint(startX, startY);
       this.lastX = startX;
       this.lastY = startY;
-      this.frame.undoHistory.length = 0;
+      this.selectedFrame.undoHistory.length = 0;
       this.renderCanvas();
     }
     event.redraw = false;
@@ -51,7 +39,7 @@ class DrawingAreaComponent {
       let diffX = endX - this.lastX;
       let diffY = endY - this.lastY;
       if (diffX !== 0 || diffY !== 0) {
-        this.frame.addPoint(diffX, diffY);
+        this.selectedFrame.addPoint(diffX, diffY);
         this.lastX = endX;
         this.lastY = endY;
         this.renderCanvas();
@@ -72,17 +60,8 @@ class DrawingAreaComponent {
     }
   }
 
-  renderCanvas() {
-    this.frame.render(this.ctx);
-  }
-
-  reset() {
-    this.frame.reset();
-    this.frame.clearCanvas(this.ctx);
-  }
-
   undo() {
-    this.frame.undo();
+    this.selectedFrame.undo();
     this.renderCanvas();
     if (this.onEndDraw) {
       this.onEndDraw();
@@ -90,7 +69,7 @@ class DrawingAreaComponent {
   }
 
   redo() {
-    this.frame.redo();
+    this.selectedFrame.redo();
     this.renderCanvas();
     if (this.onEndDraw) {
       this.onEndDraw();
@@ -99,14 +78,17 @@ class DrawingAreaComponent {
 
   view() {
     return m('div.drawing-area', [
-      m('canvas.previous-frame', {
+      this.previousFrame ? m(CanvasComponent, {
+        class: 'previous-frame',
+        frame: this.previousFrame,
         width: DrawingAreaComponent.width,
         height: DrawingAreaComponent.height
-      }),
-      m('canvas.selected-frame', {
+      }) : null,
+      m(CanvasComponent, {
+        class: 'selected-frame',
+        frame: this.selectedFrame,
         width: DrawingAreaComponent.width,
         height: DrawingAreaComponent.height,
-        oncreate: (vnode) => this.oncreateSelectedFrame(vnode),
         onmousedown: (event) => this.handleMousedown(event),
         onmousemove: (event) => this.handleMousemove(event),
         onmouseup: (event) => this.handleMouseup(event),

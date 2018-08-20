@@ -67,7 +67,7 @@ class StoryEditorComponent {
     }, [
 
       m(DrawingAreaComponent, {
-        frame: this.story.getSelectedFrame(),
+        selectedFrame: this.story.getSelectedFrame(),
         previousFrame: this.story.getPreviousFrame(),
         showPreviousFrame: this.story.showPreviousFrame,
         drawingEnabled: !this.story.playing,
