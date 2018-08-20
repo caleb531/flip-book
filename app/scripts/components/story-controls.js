@@ -35,9 +35,7 @@ class StoryControlsComponent {
   }
 
   view() {
-    return m('div.story-controls.controls', {
-      class: this.story.playing ? 'story-playing' : ''
-    }, [
+    return m('div.story-controls.controls', [
 
       m('div.control-group', [
         m(ControlComponent, {

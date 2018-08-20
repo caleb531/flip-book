@@ -62,7 +62,9 @@ class StoryEditorComponent {
   }
 
   view() {
-    return m('div.story-editor', [
+    return m('div.story-editor', {
+      class: this.story.playing ? 'story-playing' : ''
+    }, [
 
       m(DrawingAreaComponent, {
         frame: this.story.getSelectedFrame(),
