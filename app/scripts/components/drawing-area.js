@@ -14,9 +14,6 @@ class DrawingAreaComponent {
     this.canvas = dom;
     this.ctx = this.canvas.getContext('2d');
     this.canvasScaleFactor = this.canvas.width / this.canvas.offsetWidth;
-    this.mousedown = false;
-    this.lastX = null;
-    this.lastY = null;
     this.renderCanvas();
   }
 
