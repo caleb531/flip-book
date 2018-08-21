@@ -5,7 +5,7 @@ class App {
 
   constructor({stories = [new StoryMetadata()], selectedStoryIndex = 0} = {}) {
     this.stories = stories;
-    this.setSelectedStory(selectedStoryIndex);
+    this.selectStory(selectedStoryIndex);
     this.upgradeToMultiStoryFormat();
   }
 
@@ -24,7 +24,7 @@ class App {
     }
   }
 
-  setSelectedStory(storyIndex) {
+  selectStory(storyIndex) {
     this.selectedStoryIndex = storyIndex || 0;
     this.selectedStory = this.loadStory(this.getStoryId(storyIndex));
     this.saveApp();

@@ -8,7 +8,7 @@ class TimelineComponent {
 
   selectThumbnail(event, story) {
     if (event.target.dataset.index) {
-      story.setSelectedFrame(Number(event.target.dataset.index));
+      story.selectFrame(Number(event.target.dataset.index));
       this.scrollSelectedThumbnailIntoView(event.target);
       this.save();
     }

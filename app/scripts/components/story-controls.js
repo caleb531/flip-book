@@ -8,7 +8,7 @@ class StoryControlsComponent {
   }
 
   skipToFirstFrame(story) {
-    story.setSelectedFrame(0);
+    story.selectFrame(0);
     this.save();
   }
 
