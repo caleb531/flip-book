@@ -30,8 +30,8 @@ class FrameComponent {
     view({attrs: {className, width = FrameComponent.width, height = FrameComponent.height}}) {
       return m('canvas', {
         class: className,
-        width: width,
-        height: height
+        width,
+        height
       });
     }
 

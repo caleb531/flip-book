@@ -24,7 +24,7 @@ class TimelineComponent {
         'data-index': f
       }, m(FrameComponent, {
         className: 'timeline-thumbnail-canvas',
-        frame: frame,
+        frame,
         width: 128,
         height: 72
       }));
