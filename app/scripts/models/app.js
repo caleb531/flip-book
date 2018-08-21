@@ -9,7 +9,7 @@ class App {
     this.upgradeToMultiStoryFormat();
   }
 
-  save() {
+  saveApp() {
     localStorage.setItem(`flipbook-app`, JSON.stringify(this));
   }
 
@@ -27,7 +27,7 @@ class App {
   setSelectedStory(storyIndex) {
     this.selectedStoryIndex = storyIndex || 0;
     this.selectedStory = this.loadStory(this.getStoryId(storyIndex));
-    this.save();
+    this.saveApp();
   }
 
   getSelectedStoryMetadata() {
