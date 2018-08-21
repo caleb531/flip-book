@@ -2,9 +2,14 @@ import FrameComponent from './frame.js';
 
 class TimelineComponent {
 
+  oninit({attrs: {save}}) {
+    this.save = save;
+  }
+
   selectFrame(story, frameIndex) {
     if (Number.isInteger(frameIndex)) {
       story.setSelectedFrame(frameIndex);
+      this.save();
     }
   }
 

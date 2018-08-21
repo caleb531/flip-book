@@ -120,7 +120,10 @@ class StoryControlsComponent {
         }),
       ]),
 
-      m(TimelineComponent, {story}),
+      m(TimelineComponent, {
+        story,
+        save: this.save
+      }),
 
       m('div.control-group', [
         m(ControlComponent, {
