@@ -12,8 +12,8 @@ class AppComponent {
 
       m(StoryEditorComponent, {
         story: this.app.selectedStory,
-        onSave: (story) => {
-          this.app.saveStory(this.app.getSelectedStoryId(), story);
+        save: () => {
+          this.app.saveStory(this.app.getSelectedStoryId(), this.app.selectedStory);
         }
       })
 

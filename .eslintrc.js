@@ -133,8 +133,6 @@ module.exports = {
     // disallow division operators explicitly at the beginning of regular
     // expressions
     'no-div-regex': ['error'],
-    // disallow empty functions
-    'no-empty-function': ['error'],
     // disallow the use of eval
     'no-eval': ['error'],
     // disallow extending native types

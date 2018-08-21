@@ -2,39 +2,45 @@ import ControlComponent from './control.js';
 
 class StoryControlsComponent {
 
-  oninit({attrs: {story}}) {
-    this.story = story;
+  oninit({attrs: {save}}) {
+    this.save = save;
   }
 
-  skipToFirstFrame() {
-    this.story.setSelectedFrame(0);
+  skipToFirstFrame(story) {
+    story.setSelectedFrame(0);
+    this.save();
   }
 
-  playStory() {
-    this.story.play(() => m.redraw());
+  playStory(story) {
+    story.play(() => m.redraw());
   }
 
-  pauseStory() {
-    this.story.pause();
+  pauseStory(story) {
+    story.pause();
+    this.save();
   }
 
-  selectPreviousFrame() {
-    this.story.selectPreviousFrame();
+  selectPreviousFrame(story) {
+    story.selectPreviousFrame();
+    this.save();
   }
 
-  selectNextFrame() {
-    this.story.selectNextFrame();
+  selectNextFrame(story) {
+    story.selectNextFrame();
+    this.save();
   }
 
-  addFrame() {
-    this.story.addFrame();
+  addFrame(story) {
+    story.addFrame();
+    this.save();
   }
 
-  removeSelectedFrame() {
-    this.story.removeSelectedFrame();
+  removeSelectedFrame(story) {
+    story.removeSelectedFrame();
+    this.save();
   }
 
-  view() {
+  view({attrs: {story}}) {
     return m('div.story-controls.controls', [
 
       m('div.control-group', [
@@ -48,7 +54,7 @@ class StoryControlsComponent {
           id: 'export',
           title: 'Export to GIF',
           icon: 'save',
-          action: () => this.exportStory()
+          action: () => this.exportStory(story)
         })
       ]),
 
@@ -57,19 +63,19 @@ class StoryControlsComponent {
           id: 'skip-to-first-frame',
           title: 'Skip to First Frame',
           icon: 'skip-previous',
-          action: () => this.skipToFirstFrame()
+          action: () => this.skipToFirstFrame(story)
         }),
         m(ControlComponent, {
           id: 'play-story',
           title: 'Play Story',
           icon: 'play',
-          action: () => this.playStory()
+          action: () => this.playStory(story)
         }),
         m(ControlComponent, {
           id: 'pause-story',
           title: 'Pause Story',
           icon: 'pause',
-          action: () => this.pauseStory()
+          action: () => this.pauseStory(story)
         })
       ]),
 
@@ -78,13 +84,13 @@ class StoryControlsComponent {
           id: 'previous-frame',
           title: 'Previous Frame',
           icon: 'arrow-back',
-          action: () => this.selectPreviousFrame()
+          action: () => this.selectPreviousFrame(story)
         }),
         m(ControlComponent, {
           id: 'next-frame',
           title: 'Next Frame',
           icon: 'arrow-forward',
-          action: () => this.selectNextFrame()
+          action: () => this.selectNextFrame(story)
         }),
       ]),
 
@@ -93,13 +99,13 @@ class StoryControlsComponent {
           id: 'add-frame',
           title: 'Add Frame',
           icon: 'add',
-          action: () => this.addFrame()
+          action: () => this.addFrame(story)
         }),
         m(ControlComponent, {
           id: 'remove-frame',
           title: 'Remove Frame',
           icon: 'remove',
-          action: () => this.removeSelectedFrame()
+          action: () => this.removeSelectedFrame(story)
         }),
       ]),
 
@@ -108,13 +114,13 @@ class StoryControlsComponent {
           id: 'undo-stroke',
           title: 'Undo Stroke',
           icon: 'undo',
-          action: () => this.undoStroke()
+          action: () => this.undoStroke(story)
         }),
         m(ControlComponent, {
           id: 'redo-stroke',
           title: 'Redo Stroke',
           icon: 'redo',
-          action: () => this.redoStroke()
+          action: () => this.redoStroke(story)
         }),
       ])
 

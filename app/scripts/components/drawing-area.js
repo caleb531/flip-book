@@ -2,11 +2,9 @@ import FrameComponent from './frame.js';
 
 class DrawingAreaComponent extends FrameComponent {
 
-  oninit({attrs: {frame, onEndDraw = null, drawingEnabled = true}}) {
+  oninit({attrs: {frame, save, drawingEnabled = true}}) {
     this.frame = frame;
-    if (onEndDraw) {
-      this.onEndDraw = onEndDraw;
-    }
+    this.save = save;
     this.drawingEnabled = drawingEnabled;
   }
 
@@ -50,9 +48,7 @@ class DrawingAreaComponent extends FrameComponent {
     event.preventDefault();
     if (this.drawingEnabled && this.mousedown) {
       this.mousedown = false;
-      if (this.onEndDraw) {
-        this.onEndDraw();
-      }
+      this.save();
     } else {
       event.redraw = false;
     }
@@ -61,17 +57,13 @@ class DrawingAreaComponent extends FrameComponent {
   undo() {
     this.frame.undo();
     this.renderCanvas();
-    if (this.onEndDraw) {
-      this.onEndDraw();
-    }
+    this.save();
   }
 
   redo() {
     this.frame.redo();
     this.renderCanvas();
-    if (this.onEndDraw) {
-      this.onEndDraw();
-    }
+    this.save();
   }
 
   view() {

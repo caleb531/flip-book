@@ -4,13 +4,6 @@ import StoryControlsComponent from './story-controls.js';
 
 class StoryEditorComponent {
 
-  oninit({attrs: {story, onSave}}) {
-    this.story = story;
-    if (onSave) {
-      this.onSave = onSave;
-    }
-  }
-
   exportToGIF() {
     this.gifGenerator = new GIF({
       workers: 2,
@@ -56,33 +49,25 @@ class StoryEditorComponent {
 
   }
 
-  save() {
-    if (this.onSave) {
-      this.onSave(this.story);
-    }
-  }
-
-  view() {
+  view({attrs: {story, save = () => {}}}) {
     return m('div.story-editor', {
-      class: this.story.playing ? 'story-playing' : ''
+      class: story.playing ? 'story-playing' : ''
     }, [
 
       m('div.story-stage', [
-        this.story.getPreviousFrame() ? m(FrameComponent, {
+        story.getPreviousFrame() ? m(FrameComponent, {
           className: 'previous-frame',
-          frame: this.story.getPreviousFrame(),
+          frame: story.getPreviousFrame(),
         }) : null,
         m(DrawingAreaComponent, {
           className: 'selected-frame',
-          frame: this.story.getSelectedFrame(),
-          drawingEnabled: !this.story.playing,
-          onEndDraw: () => this.save()
+          frame: story.getSelectedFrame(),
+          drawingEnabled: !story.playing,
+          save
         }),
       ]),
 
-      m(StoryControlsComponent, {
-        story: this.story
-      })
+      m(StoryControlsComponent, {story, save})
 
     ]);
   }
