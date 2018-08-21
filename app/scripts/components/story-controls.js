@@ -37,6 +37,9 @@ class StoryControlsComponent {
   }
 
   removeSelectedFrame(story) {
+    if (!confirm('Are you sure you want to delete this frame?')) {
+      return;
+    }
     story.removeSelectedFrame();
     this.save();
   }
