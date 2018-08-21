@@ -1,4 +1,5 @@
 import ControlComponent from './control.js';
+import TimelineComponent from './timeline.js';
 
 class StoryControlsComponent {
 
@@ -118,6 +119,8 @@ class StoryControlsComponent {
           action: () => this.removeSelectedFrame(story)
         }),
       ]),
+
+      m(TimelineComponent, {story}),
 
       m('div.control-group', [
         m(ControlComponent, {

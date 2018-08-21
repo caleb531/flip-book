@@ -1,8 +1,12 @@
-.frame-timeline {
+.timeline {
   position: relative;
   flex-grow: 1;
+  margin: 0;
+  margin-right: 20px;
   border-radius: 5px;
+  padding: 0;
   background-color: $control-background-color;
+  list-style-type: none;
   text-align: left;
   white-space: nowrap;
   overflow-x: auto;
@@ -11,6 +15,8 @@
 .timeline-thumbnail {
   display: inline-block;
   position: relative;
+  margin: 0;
+  padding: 0;
   margin-right: 2px;
   &:last-child {
     margin-right: 0;
