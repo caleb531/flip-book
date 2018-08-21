@@ -69,11 +69,11 @@ class StoryEditorComponent {
 
       m('div.story-stage', [
         this.story.getPreviousFrame() ? m(FrameComponent, {
-          class: 'previous-frame',
+          className: 'previous-frame',
           frame: this.story.getPreviousFrame(),
         }) : null,
         m(DrawingAreaComponent, {
-          class: 'selected-frame',
+          className: 'selected-frame',
           frame: this.story.getSelectedFrame(),
           drawingEnabled: !this.story.playing,
           onEndDraw: () => this.save()

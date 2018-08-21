@@ -22,11 +22,11 @@ class FrameComponent {
       this.frame.render(this.ctx);
     }
 
-    view({attrs}) {
+    view({attrs: {className}}) {
       return m('canvas', {
-        class: attrs.class,
-        width: attrs.width || FrameComponent.width,
-        height: attrs.height || FrameComponent.height
+        class: className,
+        width: FrameComponent.width,
+        height: FrameComponent.height
       });
     }
 
