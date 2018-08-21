@@ -2,6 +2,9 @@ class FrameComponent {
 
     oninit({attrs: {frame}}) {
       this.frame = frame;
+      // Store the current number of stroke groups in the frame so we can later
+      // detect changes to the same frame
+      this.frameGroupCount = frame.groups.length;
     }
 
     oncreate({dom}) {
@@ -12,7 +15,7 @@ class FrameComponent {
     }
 
     onupdate({attrs: {frame}}) {
-      if (frame !== this.frame) {
+      if (frame !== this.frame || frame.groups.length !== this.frameGroupCount) {
         this.frame = frame;
         this.renderCanvas();
       }

@@ -40,6 +40,16 @@ class StoryControlsComponent {
     this.save();
   }
 
+  undo(story) {
+    story.undo();
+    this.save();
+  }
+
+  redo(story) {
+    story.redo();
+    this.save();
+  }
+
   view({attrs: {story}}) {
     return m('div.story-controls.controls', [
 
@@ -114,13 +124,13 @@ class StoryControlsComponent {
           id: 'undo-stroke',
           title: 'Undo Stroke',
           icon: 'undo',
-          action: () => this.undoStroke(story)
+          action: () => this.undo(story)
         }),
         m(ControlComponent, {
           id: 'redo-stroke',
           title: 'Redo Stroke',
           icon: 'redo',
-          action: () => this.redoStroke(story)
+          action: () => this.redo(story)
         }),
       ])
 

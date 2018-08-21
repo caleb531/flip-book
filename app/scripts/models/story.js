@@ -73,6 +73,14 @@ class Story {
     clearTimeout(this.playbackTimer);
   }
 
+  undo() {
+    this.getSelectedFrame().undo();
+  }
+
+  redo() {
+    this.getSelectedFrame().redo();
+  }
+
   toJSON() {
     return _.pick(this, [
       'frames',
