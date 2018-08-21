@@ -17,6 +17,7 @@ class FrameComponent {
     onupdate({attrs: {frame}}) {
       if (frame !== this.frame || frame.groups.length !== this.frameGroupCount) {
         this.frame = frame;
+        this.frameGroupCount = frame.groups.length;
         this.renderCanvas();
       }
     }
