@@ -6,20 +6,38 @@ class TimelineComponent {
     this.save = save;
   }
 
-  selectFrame(story, frameIndex) {
-    if (Number.isInteger(frameIndex)) {
-      story.setSelectedFrame(frameIndex);
+  selectThumbnail(event, story) {
+    if (event.target.dataset.index) {
+      story.setSelectedFrame(Number(event.target.dataset.index));
+      this.scrollSelectedThumbnailIntoView(event.target);
       this.save();
+    }
+  }
+
+  scrollSelectedThumbnailIntoView(thumbnailElement) {
+    if (thumbnailElement.classList.contains('selected')) {
+      let timelineElement = thumbnailElement.parentElement;
+      let scrollLeft = timelineElement.scrollLeft;
+      let scrollRight = scrollLeft + timelineElement.offsetWidth;
+      let offsetLeft = thumbnailElement.offsetLeft;
+      let offsetRight = thumbnailElement.offsetLeft + thumbnailElement.offsetWidth;
+
+      if (offsetRight > scrollRight) {
+        timelineElement.scrollLeft += offsetRight - scrollRight;
+      } else if (offsetLeft < scrollLeft) {
+        timelineElement.scrollLeft += offsetLeft - scrollLeft;
+      }
     }
   }
 
   view({attrs: {story}}) {
     return m('ol.timeline', {
-      onclick: (event) => this.selectFrame(story, Number(event.target.dataset.index))
+      onclick: (event) => this.selectThumbnail(event, story)
     }, story.frames.map((frame, f) => {
       return m('li.timeline-thumbnail', {
         // Keying each thumbnail prevents the canvas redraws from compounding
         key: frame.temporaryId,
+        oncreate: ({dom}) => this.scrollSelectedThumbnailIntoView(dom),
         class: story.selectedFrameIndex === f ? 'selected' : '',
         'data-index': f
       }, m(FrameComponent, {
