@@ -37,7 +37,9 @@ class TimelineComponent {
       return m('li.timeline-thumbnail', {
         // Keying each thumbnail prevents the canvas redraws from compounding
         key: frame.temporaryId,
+        // Scroll newly-added frames into view
         oncreate: ({dom}) => this.scrollSelectedThumbnailIntoView(dom),
+        // Scroll selected frame into view when navigating frames (Prev/Next)
         onupdate: ({dom}) => this.scrollSelectedThumbnailIntoView(dom),
         class: story.selectedFrameIndex === f ? 'selected' : '',
         'data-index': f
