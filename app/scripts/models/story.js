@@ -81,6 +81,55 @@ class Story {
     this.getSelectedFrame().redo();
   }
 
+  export({width, height, success}) {
+    this.gifGenerator = new GIF({
+      workers: 2,
+      workerScript: 'scripts/gif.worker.js'
+    });
+    this.frames.forEach((frame) => {
+      let canvas = document.createElement('canvas');
+      canvas.width = width;
+      canvas.height = height;
+      frame.render(canvas.getContext('2d'), {
+        backgroundColor: '#fff'
+      });
+      this.gifGenerator.addFrame(canvas, {delay: this.frameDuration});
+    });
+    this.gifGenerator.on('finished', (blob) => {
+      let image = new Image();
+      image.onload = () => {
+        this.exportedImageUrl = image.src;
+        success();
+      };
+      image.src = URL.createObjectURL(blob);
+    });
+    this.exportedImageUrl = null;
+    this.gifGenerator.render();
+  }
+
+  isExporting() {
+    if (this.gifGenerator) {
+      return this.gifGenerator.running;
+    } else {
+      return false;
+    }
+  }
+
+  exportIsFinished() {
+    if (this.gifGenerator) {
+      return this.gifGenerator.finishedFrames === this.frames.length;
+    } else {
+      return false;
+    }
+  }
+
+  abortExport() {
+    if (this.gifGenerator) {
+      this.gifGenerator.abort();
+      this.gifGenerator = false;
+    }
+  }
+
   toJSON() {
     return _.pick(this, [
       'frames',

@@ -1,10 +1,20 @@
 import ControlComponent from './control.js';
+import ExportComponent from './export.js';
 import TimelineComponent from './timeline.js';
+import FrameComponent from './frame.js';
 
 class StoryControlsComponent {
 
   oninit({attrs: {save}}) {
     this.save = save;
+  }
+
+  exportStory(story) {
+    story.export({
+      width: FrameComponent.width,
+      height: FrameComponent.height,
+      success: () => m.redraw()
+    });
   }
 
   skipToFirstFrame(story) {
@@ -71,6 +81,11 @@ class StoryControlsComponent {
           action: () => this.exportStory(story)
         })
       ]),
+
+      m(ExportComponent, {
+        story,
+        save: this.save
+      }),
 
       m('div.control-group', [
         m(ControlComponent, {

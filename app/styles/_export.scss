@@ -44,9 +44,11 @@
 .export-heading {
   pointer-events: none;
   margin-bottom: 0;
+  font-size: 2rem;
 }
 .export-message {
   pointer-events: none;
+  font-size: 1.1rem;
 }
 .export-loading-icon {
   display: none;
@@ -55,14 +57,14 @@
   width: 50%;
   fill: none;
   stroke: currentColor;
-  stroke-width: 10;
-  animation: loading 2000ms linear infinite;
-  .loading & {
+  stroke-width: 0.5;
+  animation: loading 1000ms linear infinite;
+  &.visible {
     display: block;
   }
 }
 
-.exported-gif {
+.exported-image {
   opacity: 0;
   max-width: 800px;
   width: 100%;
