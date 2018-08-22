@@ -56,10 +56,10 @@
   display: none;
   pointer-events: none;
   margin: 0 auto;
-  width: 50%;
+  width: 25%;
   fill: none;
   stroke: currentColor;
-  stroke-width: 0.5;
+  stroke-width: 0.75;
   animation: loading 1000ms linear infinite;
   &.visible {
     display: block;
