@@ -1,4 +1,5 @@
 import ControlComponent from './control.js';
+import SettingsComponent from './settings.js';
 import ExportComponent from './export.js';
 import TimelineComponent from './timeline.js';
 import FrameComponent from './frame.js';
@@ -73,7 +74,7 @@ class StoryControlsComponent {
           id: 'settings',
           title: 'Settings',
           icon: 'settings',
-          action: () => this.toggleSettings()
+          panel: SettingsComponent
         }),
         m(ControlComponent, {
           id: 'export',

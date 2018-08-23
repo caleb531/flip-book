@@ -22,32 +22,32 @@
 
 .control {
   display: inline-block;
+  position: relative;
   width: auto;
   height: auto;
-  border-width: 0;
-  padding: 6px 8px;
-  background-color: $control-background-color;
-  color: #fff;
   font-size: 0;
   margin-left: 2px;
-  &:focus {
-    outline-width: 0;
-  }
-  &:hover:active {
-    background-color: $control-background-color-active;
+  button {
+    border-width: 0;
+    padding: 6px 8px;
+    background-color: $control-background-color;
     color: #fff;
+    &:focus {
+      outline-width: 0;
+    }
+    &:hover:active {
+      background-color: $control-background-color-active;
+      color: #fff;
+    }
   }
-  &:first-of-type {
+  &:first-of-type button {
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
   }
-  &:last-of-type,
-  &.control-play-story {
+  &:last-of-type button,
+  &.control-play-story button {
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
-    &:only-of-type {
-      margin-left: 0;
-    }
   }
   img {
     fill: currentColor;
@@ -68,19 +68,4 @@
   .story-playing & {
     display: inline-block;
   }
-}
-
-.control-prev-frame svg,
-.control-next-frame svg {
-  transform: translateY(-1px);
-}
-.control-add-frame svg {
-  transform: translateY(1px);
-}
-.control-export-to-gif svg {
-  transform: translateY(2px);
-}
-
-.control-redo svg {
-  transform: scaleX(-1);
 }

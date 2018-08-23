@@ -2,10 +2,11 @@
   display: none;
   position: absolute;
   bottom: 100%;
-  left: 0;
+  left: 50%;
   z-index: 100;
   border-radius: 5px;
   padding: 5px 10px;
+  margin-left: -($control-arrow-width * 2);
   margin-bottom: 20px;
   // TODO: remove this arbitrary height so the height is calculated naturally
   background-color: $panel-background-color;
@@ -18,7 +19,8 @@
     content: '';
     position: absolute;
     top: 100%;
-    border: solid 10px transparent;
+    left: $control-arrow-width;
+    border: solid $control-arrow-width transparent;
     border-top-color: $panel-background-color;
     border-bottom-width: 0;
   }
