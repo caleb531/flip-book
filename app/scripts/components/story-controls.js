@@ -13,7 +13,8 @@ class StoryControlsComponent {
     story.export({
       width: FrameComponent.width,
       height: FrameComponent.height,
-      success: () => m.redraw()
+      success: () => m.redraw(),
+      progress: () => m.redraw()
     });
   }
 

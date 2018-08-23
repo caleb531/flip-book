@@ -15,11 +15,12 @@ class ExportComponent {
       m('p.export-message', story.exportedImageUrl ?
         'Right-click the image and choose "Save Image As..." to download.' :
         ''),
-      m('div.export-loading-icon', {
-        class: !story.exportedImageUrl ? 'visible' : ''
-      }, m('svg[viewBox="0 0 24 24"]', [
-        m('path', {d: 'M 3,12 A 6,6 0,0,0 21,12'})
-      ])),
+      !story.exportedImageUrl ? m('div.export-progress-bar', [
+        m('div.export-progress-bar-current-progress', {
+          class: story.exportProgress === 0 ? 'no-progress' : '',
+          style: {width: `${story.exportProgress * 100}%`}
+        })
+      ]) : null,
       story.exportedImageUrl ? m('img.exported-image', {
         src: story.exportedImageUrl,
         alt: 'Exported GIF'

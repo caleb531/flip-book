@@ -81,7 +81,7 @@ class Story {
     this.getSelectedFrame().redo();
   }
 
-  export({width, height, success}) {
+  export({width, height, progress = null, success = null}) {
     this.gifGenerator = new GIF({
       workers: 2,
       workerScript: 'scripts/gif.worker.js'
@@ -95,11 +95,19 @@ class Story {
       });
       this.gifGenerator.addFrame(canvas, {delay: this.frameDuration});
     });
+    this.gifGenerator.on('progress', (currentProgress) => {
+      this.exportProgress = currentProgress;
+      if (progress) {
+        progress();
+      }
+    });
     this.gifGenerator.on('finished', (blob) => {
       let image = new Image();
       image.onload = () => {
         this.exportedImageUrl = image.src;
-        success();
+        if (success) {
+          success();
+        }
       };
       image.src = URL.createObjectURL(blob);
     });
