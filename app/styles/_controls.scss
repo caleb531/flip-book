@@ -2,8 +2,8 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  padding: 8px;
-  border-top: solid 1px $control-background-color;
+  padding: 0 8px;
+  border-top: solid 1px $panel-background-color;
   background-color: $panel-background-color;
   font-size: 0;
   white-space: nowrap;
@@ -26,23 +26,13 @@
   width: auto;
   height: auto;
   font-size: 0;
-  margin-left: 2px;
-  &:first-of-type .control-button {
-    border-top-left-radius: 5px;
-    border-bottom-left-radius: 5px;
-  }
-  &:last-of-type .control-button,
-  &.control-play-story .control-button {
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
-  }
 }
 .control-button {
   border-width: 0;
-  padding: 6px 8px;
+  padding: 8px 8px;
   background-color: $control-background-color;
-  font-family: inherit;
   color: #fff;
+  font-size: 0;
   &:focus {
     outline-width: 0;
   }
