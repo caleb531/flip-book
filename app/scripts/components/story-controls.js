@@ -74,7 +74,7 @@ class StoryControlsComponent {
           id: 'settings',
           title: 'Settings',
           icon: 'settings',
-          panel: SettingsComponent
+          panel: m(SettingsComponent, {story, save: this.save})
         }),
         m(ControlComponent, {
           id: 'export',

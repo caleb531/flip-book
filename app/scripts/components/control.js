@@ -12,7 +12,7 @@ class ControlComponent {
 
   view({attrs: {id, title, icon, action = null, panel = null}}) {
     return m('div.control', {class: `control-${id}`, title}, [
-      panel ? m(PanelComponent, {open: this.panelOpen}, m(panel)) : null,
+      panel ? m(PanelComponent, {open: this.panelOpen}, panel) : null,
       m('button', {
         onclick: panel ? () => this.togglePanel(panel) : action
       }, m('img', {src: `icons/${icon}.svg`, alt: title}))

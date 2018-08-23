@@ -3,6 +3,9 @@
   justify-content: flex-start;
   align-items: center;
   margin: 10px 0;
+  input[type="checkbox"] {
+    margin-right: 8px;
+  }
 }
 
 .setting-value {

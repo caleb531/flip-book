@@ -10,7 +10,7 @@ class StoryEditorComponent {
     }, [
 
       m('div.story-stage', [
-        story.getPreviousFrame() ? m(FrameComponent, {
+        story.getPreviousFrame() && story.showPreviousFrame ? m(FrameComponent, {
           className: 'previous-frame',
           frame: story.getPreviousFrame(),
         }) : null,
