@@ -5,13 +5,12 @@ class AppHeaderComponent {
       m('h1', 'Flip Book'),
       m('.app-header-mentions', [
         m('span.app-header-mention', [
-          m('span.preposition', 'By'),
+          'By ',
           m('a[href="https://calebevans.me/"]', 'Caleb Evans'),
           '.'
         ]),
         m('span.app-header-mention', [
-          m('span.preposition', 'For'),
-          'my friend and brother, Bill.'
+          'For my friend and brother, Bill.'
         ])
       ])
     ]);
