@@ -60,7 +60,7 @@
   left: 0;
   width: 0;
   height: 100%;
-  background: $control-background-color-hover;
+  background: $control-background-color-active;
   transition: width 500ms ease-in-out;
   &.no-progress {
     transition: none;
