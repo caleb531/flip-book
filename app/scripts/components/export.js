@@ -15,9 +15,9 @@ class ExportComponent {
   view({attrs: {story}}) {
     return m('div.export-options', [
       m('h2', 'Export'),
-      m('div.control', m('button.control-button', {
+      m('button.text-control', {
         onclick: () => this.exportStory(story)
-      }, 'Export to GIF')),
+      }, 'Export to GIF'),
       m(GifExportComponent, {story})
     ]);
   }

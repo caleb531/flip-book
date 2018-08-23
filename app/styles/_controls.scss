@@ -32,6 +32,7 @@
   padding: 8px 8px;
   background-color: $control-background-color;
   color: #fff;
+  font-family: inherit;
   font-size: 0;
   &:focus {
     outline-width: 0;
@@ -58,5 +59,20 @@
   display: none;
   .story-playing & {
     display: inline-block;
+  }
+}
+
+.text-control {
+  padding: 6px 8px;
+  border-width: 0;
+  border-radius: 3px;
+  background-color: rgba(#fff, 0.2);
+  font-family: inherit;
+  color: #fff;
+  &:focus {
+    outline-width: 0;
+  }
+  &:hover:active {
+    background-color: $control-background-color-active;
   }
 }
