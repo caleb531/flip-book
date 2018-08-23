@@ -27,34 +27,35 @@
   height: auto;
   font-size: 0;
   margin-left: 2px;
-  button {
-    border-width: 0;
-    padding: 6px 8px;
-    background-color: $control-background-color;
-    color: #fff;
-    &:focus {
-      outline-width: 0;
-    }
-    &:hover:active {
-      background-color: $control-background-color-active;
-      color: #fff;
-    }
-  }
-  &:first-of-type button {
+  &:first-of-type .control-button {
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
   }
-  &:last-of-type button,
-  &.control-play-story button {
+  &:last-of-type .control-button,
+  &.control-play-story .control-button {
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
   }
-  img {
-    fill: currentColor;
-    $icon-size: 24px;
-    width: $icon-size;
-    height: $icon-size;
+}
+.control-button {
+  border-width: 0;
+  padding: 6px 8px;
+  background-color: $control-background-color;
+  font-family: inherit;
+  color: #fff;
+  &:focus {
+    outline-width: 0;
   }
+  &:hover:active {
+    background-color: $control-background-color-active;
+    color: #fff;
+  }
+}
+.control-icon {
+  fill: currentColor;
+  $icon-size: 24px;
+  width: $icon-size;
+  height: $icon-size;
 }
 
 .control-play-story {

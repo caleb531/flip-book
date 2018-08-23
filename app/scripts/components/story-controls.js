@@ -2,21 +2,11 @@ import ControlComponent from './control.js';
 import SettingsComponent from './settings.js';
 import ExportComponent from './export.js';
 import TimelineComponent from './timeline.js';
-import FrameComponent from './frame.js';
 
 class StoryControlsComponent {
 
   oninit({attrs: {save}}) {
     this.save = save;
-  }
-
-  exportStory(story) {
-    story.export({
-      width: FrameComponent.width,
-      height: FrameComponent.height,
-      success: () => m.redraw(),
-      progress: () => m.redraw()
-    });
   }
 
   skipToFirstFrame(story) {
@@ -78,16 +68,11 @@ class StoryControlsComponent {
         }),
         m(ControlComponent, {
           id: 'export',
-          title: 'Export to GIF',
+          title: 'Export',
           icon: 'save',
-          action: () => this.exportStory(story)
+          panel: m(ExportComponent, {story})
         })
       ]),
-
-      m(ExportComponent, {
-        story,
-        save: this.save
-      }),
 
       m('div.control-group', [
         m(ControlComponent, {

@@ -4,7 +4,7 @@
   }
 }
 
-.export-screen {
+.gif-export-screen {
   visibility: hidden;
   opacity: 0;
   position: fixed;
@@ -29,7 +29,7 @@
     opacity: 1;
   }
 }
-.export-overlay {
+.gif-export-overlay {
   position: absolute;
   top: 0;
   left: 0;
@@ -37,16 +37,16 @@
   height: 100%;
   z-index: -1;
 }
-.export-heading {
+.gif-export-heading {
   pointer-events: none;
   margin-bottom: 0;
   font-size: 2rem;
 }
-.export-message {
+.gif-export-message {
   pointer-events: none;
   font-size: 1.1rem;
 }
-.export-progress-bar {
+.gif-export-progress-bar {
   pointer-events: none;
   position: relative;
   width: 200px;
@@ -54,7 +54,7 @@
   border-radius: 4px;
   background-color: #fff;
 }
-.export-progress-bar-current-progress {
+.gif-export-progress-bar-current-progress {
   position: absolute;
   top: 0;
   left: 0;
