@@ -8,7 +8,9 @@ class ExportComponent {
     story.export({
       width: FrameComponent.width,
       height: FrameComponent.height,
-      success: () => m.redraw(),
+      // Aribtrarily wait a second before loading to give the progress bar time
+      // to reach 100%
+      success: () => setTimeout(() => m.redraw(), 1000),
       progress: () => m.redraw()
     });
   }
