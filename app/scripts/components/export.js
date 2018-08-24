@@ -1,4 +1,5 @@
 import FrameComponent from './frame.js';
+import ControlComponent from './control.js';
 import GifExportComponent from './gif-export.js';
 
 class ExportComponent {
@@ -15,9 +16,12 @@ class ExportComponent {
   view({attrs: {story}}) {
     return m('div.export-options', [
       m('h2', 'Export'),
-      m('button.text-control', {
-        onclick: () => this.exportStory(story)
-      }, 'Export to GIF'),
+      m(ControlComponent, {
+        id: 'export-as-gif',
+        title: 'Export as GIF',
+        label: 'Export as GIF',
+        action: () => this.exportStory(story)
+      }),
       m(GifExportComponent, {story})
     ]);
   }
