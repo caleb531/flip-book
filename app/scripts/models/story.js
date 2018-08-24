@@ -138,6 +138,10 @@ class Story {
     }
   }
 
+  save() {
+    localStorage.setItem(`flipbook-story-${this.metadata.createdDate}`, JSON.stringify(this));
+  }
+
   toJSON() {
     return _.pick(this, [
       'frames',

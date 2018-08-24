@@ -9,7 +9,7 @@ class App {
     this.upgradeToMultiStoryFormat();
   }
 
-  saveApp() {
+  save() {
     localStorage.setItem(`flipbook-app`, JSON.stringify(this));
   }
 
@@ -17,17 +17,22 @@ class App {
     if (localStorage.getItem('flipbook-storage-version') !== '2') {
       let oldStory = JSON.parse(localStorage.getItem('flipbook-story'));
       if (oldStory) {
-        this.saveStory(this.getStoryId(0), oldStory);
+        // Replace the contents of the default v2 story with the contents of the
+        // old (v1) story
+        oldStory.metadata = this.selectedStory.metadata;
+        oldStory.save();
         localStorage.removeItem('flipbook-story');
         localStorage.setItem('flipbook-storage-version', '2');
+        this.selectStory(0);
       }
     }
   }
 
   selectStory(storyIndex) {
     this.selectedStoryIndex = storyIndex || 0;
-    this.selectedStory = this.loadStory(this.getStoryId(storyIndex));
-    this.saveApp();
+    this.selectedStory = this.loadStory(this.stories[storyIndex].createdDate);
+    this.selectedStory.metadata = this.getSelectedStoryMetadata();
+    this.save();
   }
 
   getSelectedStoryMetadata() {
@@ -35,9 +40,6 @@ class App {
   }
   getStoryId(storyIndex) {
     return this.stories[storyIndex].createdDate;
-  }
-  getSelectedStoryId() {
-    return this.getStoryId(this.selectedStoryIndex);
   }
 
   loadStory(storyId) {
@@ -47,10 +49,6 @@ class App {
     } else {
       return new Story(story);
     }
-  }
-
-  saveStory(storyId, storyData) {
-    localStorage.setItem(`flipbook-story-${storyId}`, JSON.stringify(storyData));
   }
 
   toJSON() {
