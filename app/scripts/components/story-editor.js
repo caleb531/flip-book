@@ -4,7 +4,7 @@ import StoryControlsComponent from './story-controls.js';
 
 class StoryEditorComponent {
 
-  view({attrs: {story, save = () => {}}}) {
+  view({attrs: {story}}) {
     return m('div.story-editor', {
       class: story.playing ? 'story-playing' : ''
     }, [
@@ -18,11 +18,11 @@ class StoryEditorComponent {
           className: 'selected-frame',
           frame: story.getSelectedFrame(),
           drawingEnabled: !story.playing,
-          save
+          save: () => story.save()
         }),
       ]),
 
-      m(StoryControlsComponent, {story, save})
+      m(StoryControlsComponent, {story})
 
     ]);
   }

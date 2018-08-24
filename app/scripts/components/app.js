@@ -14,8 +14,7 @@ class AppComponent {
       m(AppHeaderComponent),
 
       m(StoryEditorComponent, {
-        story: this.app.selectedStory,
-        save: () => this.app.selectedStory.save()
+        story: this.app.selectedStory
       })
 
     ]);

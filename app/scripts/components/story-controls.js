@@ -5,13 +5,9 @@ import TimelineComponent from './timeline.js';
 
 class StoryControlsComponent {
 
-  oninit({attrs: {save}}) {
-    this.save = save;
-  }
-
   skipToFirstFrame(story) {
     story.selectFrame(0);
-    this.save();
+    story.save();
   }
 
   playStory(story) {
@@ -20,22 +16,22 @@ class StoryControlsComponent {
 
   pauseStory(story) {
     story.pause();
-    this.save();
+    story.save();
   }
 
   selectPreviousFrame(story) {
     story.selectPreviousFrame();
-    this.save();
+    story.save();
   }
 
   selectNextFrame(story) {
     story.selectNextFrame();
-    this.save();
+    story.save();
   }
 
   addFrame(story) {
     story.addFrame();
-    this.save();
+    story.save();
   }
 
   removeSelectedFrame(story) {
@@ -43,17 +39,17 @@ class StoryControlsComponent {
       return;
     }
     story.removeSelectedFrame();
-    this.save();
+    story.save();
   }
 
   undo(story) {
     story.undo();
-    this.save();
+    story.save();
   }
 
   redo(story) {
     story.redo();
-    this.save();
+    story.save();
   }
 
   view({attrs: {story}}) {
@@ -64,7 +60,7 @@ class StoryControlsComponent {
           id: 'settings',
           title: 'Settings',
           icon: 'settings',
-          panel: m(SettingsComponent, {story, save: this.save})
+          panel: m(SettingsComponent, {story})
         }),
         m(ControlComponent, {
           id: 'export',
@@ -125,10 +121,7 @@ class StoryControlsComponent {
         }),
       ]),
 
-      m(TimelineComponent, {
-        story,
-        save: this.save
-      }),
+      m(TimelineComponent, {story}),
 
       m('div.control-group', [
         m(ControlComponent, {
