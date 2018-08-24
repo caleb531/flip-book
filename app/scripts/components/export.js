@@ -1,6 +1,6 @@
 import FrameComponent from './frame.js';
 import ControlComponent from './control.js';
-import GifExportComponent from './gif-export.js';
+import ExportGifComponent from './export-gif.js';
 
 class ExportComponent {
 
@@ -22,7 +22,7 @@ class ExportComponent {
         label: 'Export as GIF',
         action: () => this.exportStory(story)
       }),
-      m(GifExportComponent, {story})
+      m(ExportGifComponent, {story})
     ]);
   }
 

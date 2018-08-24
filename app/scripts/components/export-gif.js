@@ -1,22 +1,22 @@
-class GifExportComponent {
+class ExportGifComponent {
 
   abortExport(story) {
     story.abortExport();
   }
 
   view({attrs: {story}}) {
-    return m('div.gif-export-screen', {
+    return m('div.export-gif-screen', {
       class: story.isExporting() || story.exportIsFinished() ? 'visible' : ''
     }, [
-      m('div.gif-export-overlay', {onclick: () => this.abortExport(story)}),
-      m('div.gif-export-heading', story.exportedImageUrl ?
+      m('div.export-gif-overlay', {onclick: () => this.abortExport(story)}),
+      m('div.export-gif-heading', story.exportedImageUrl ?
         'GIF Generated!' :
         'Generating GIF...'),
-      m('p.gif-export-message', story.exportedImageUrl ?
+      m('p.export-gif-message', story.exportedImageUrl ?
         'Right-click the image and choose "Save Image As..." to download.' :
         ''),
-      !story.exportedImageUrl ? m('div.gif-export-progress-bar', [
-        m('div.gif-export-progress-bar-current-progress', {
+      !story.exportedImageUrl ? m('div.export-gif-progress-bar', [
+        m('div.export-gif-progress-bar-current-progress', {
           class: story.exportProgress === 0 ? 'no-progress' : '',
           style: {width: `${story.exportProgress * 100}%`}
         })
@@ -30,4 +30,4 @@ class GifExportComponent {
 
 }
 
-export default GifExportComponent;
+export default ExportGifComponent;
