@@ -38,9 +38,6 @@ class App {
   getSelectedStoryMetadata() {
     return this.stories[this.selectedStoryIndex];
   }
-  getStoryId(storyIndex) {
-    return this.stories[storyIndex].createdDate;
-  }
 
   loadStory(storyId) {
     let story = JSON.parse(localStorage.getItem(`flipbook-story-${storyId}`));
