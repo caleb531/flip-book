@@ -22,9 +22,9 @@ class App {
         oldStory.metadata = this.selectedStory.metadata;
         oldStory.save();
         localStorage.removeItem('flipbook-story');
-        localStorage.setItem('flipbook-storage-version', '2');
         this.selectStory(0);
       }
+      localStorage.setItem('flipbook-storage-version', '2');
     }
   }
 
