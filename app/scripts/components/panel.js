@@ -1,11 +1,12 @@
 class PanelComponent {
 
-  view({attrs: {open}, children}) {
+  view({attrs: {id}, children}) {
     return m('div.panel', {
-      class: open ? 'panel-open' : ''
+      class: PanelComponent.currentlyOpenPanel === id ? 'panel-open' : ''
     }, children);
   }
 
 }
+PanelComponent.currentlyOpenPanel = null;
 
 export default PanelComponent;
