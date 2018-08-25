@@ -3,10 +3,10 @@ import PanelComponent from './panel.js';
 
 class TimelineComponent {
 
-  selectThumbnail(event, story) {
-    if (event.target.dataset.index) {
-      story.selectFrame(Number(event.target.dataset.index));
-      this.scrollSelectedThumbnailIntoView(event.target);
+  selectThumbnail(target, story) {
+    if (target.dataset.index) {
+      story.selectFrame(Number(target.dataset.index));
+      this.scrollSelectedThumbnailIntoView(target);
       story.save();
     }
     PanelComponent.closeAllPanels();
@@ -30,7 +30,7 @@ class TimelineComponent {
 
   view({attrs: {story}}) {
     return m('ol.timeline', {
-      onclick: (event) => this.selectThumbnail(event, story)
+      onclick: (target) => this.selectThumbnail(target, story)
     }, story.frames.map((frame, f) => {
       return m('li.timeline-thumbnail', {
         // Keying each thumbnail prevents the canvas redraws from compounding
