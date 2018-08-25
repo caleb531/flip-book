@@ -26,6 +26,14 @@ class Frame {
     this.groups[this.groups.length - 1].points.push([x, y]);
   }
 
+  countPointsInLastGroup() {
+    if (this.groups.length > 0) {
+      return this.groups[this.groups.length - 1].points.length;
+    } else {
+      return 0;
+    }
+  }
+
   reset() {
     this.groups.length = 0;
     this.undoHistory.length = 0;

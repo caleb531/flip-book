@@ -5,6 +5,8 @@ class FrameComponent {
       // Store the current number of stroke groups in the frame so we can later
       // detect changes to the same frame
       this.frameGroupCount = frame.groups.length;
+      // Store the current number of points in the last stroke group
+      this.pointCount = frame.countPointsInLastGroup();
     }
 
     oncreate({dom}) {
@@ -15,9 +17,10 @@ class FrameComponent {
     }
 
     onupdate({attrs: {frame}}) {
-      if (frame !== this.frame || frame.groups.length !== this.frameGroupCount) {
+      if (frame !== this.frame || frame.groups.length !== this.frameGroupCount || frame.countPointsInLastGroup() !== this.pointCount) {
         this.frame = frame;
         this.frameGroupCount = frame.groups.length;
+        this.pointCount = frame.countPointsInLastGroup();
         this.renderCanvas();
       }
     }
