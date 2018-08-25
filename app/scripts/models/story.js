@@ -56,6 +56,14 @@ class Story {
     }
   }
 
+  getFPS() {
+    return Math.round(Story.MS_IN_S / this.frameDuration);
+  }
+
+  setFrameDurationFromFPS(framesPerSecond) {
+    this.frameDuration = Story.MS_IN_S / framesPerSecond;
+  }
+
   play(onNextFrame) {
     this.playing = true;
     let callback;
@@ -152,5 +160,6 @@ class Story {
   }
 
 }
+Story.MS_IN_S = 1000;
 
 export default Story;
