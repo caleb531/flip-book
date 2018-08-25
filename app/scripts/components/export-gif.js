@@ -1,9 +1,16 @@
+import ControlComponent from './control.js';
+
 class ExportGifComponent {
 
   view({attrs: {story}}) {
     return m('div.export-gif-screen', {
       class: story.isExportingGif() || story.isGifExportFinished() ? 'visible' : ''
     }, [
+      m(ControlComponent, {
+        id: 'close-export-gif-overlay',
+        title: 'Close Overlay',
+        icon: 'close'
+      }),
       m('div.export-gif-overlay', {onclick: () => story.abortExport()}),
       m('div.export-gif-heading', story.exportedImageUrl ?
         'GIF Generated!' :

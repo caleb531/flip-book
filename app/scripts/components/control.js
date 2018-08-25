@@ -12,7 +12,7 @@ class ControlComponent {
         onclick: ({target}) => {
           if (panel) {
             PanelComponent.togglePanel(id);
-          } else {
+          } else if (action) {
             // Do not close the panel where the clicked control resides
             if (!target.closest('.panel')) {
               PanelComponent.closeAllPanels();
