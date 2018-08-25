@@ -1,4 +1,5 @@
 import ControlComponent from './control.js';
+import PanelComponent from './panel.js';
 
 class StoryListComponent {
 
@@ -11,6 +12,8 @@ class StoryListComponent {
 
   selectStory(app, storyItemElement) {
     app.selectStory(Number(storyItemElement.dataset.index));
+    // Close open panel after selecting story
+    PanelComponent.currentlyOpenPanel = null;
   }
 
   view({attrs: {app}}) {
