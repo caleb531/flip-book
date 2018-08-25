@@ -1,0 +1,24 @@
+.story-header {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  position: relative;
+  background-color: $panel-background-color;
+  border-bottom: solid 1px $control-background-color;
+  font-size: 0.8rem;
+  text-align: left;
+  color: #fff;
+  & > .control-group:first-child {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+  .control-icon {
+    $icon-size: 16px;
+    width: $icon-size;
+    height: $icon-size;
+  }
+  .control-group:last-of-type {
+    flex-grow: 1;
+    text-align: right;
+  }
+}

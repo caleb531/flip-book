@@ -56,6 +56,17 @@ class App {
     this.save();
   }
 
+  deleteSelectedStory() {
+    if (this.stories.length > 1) {
+      this.stories.splice(this.selectedStoryIndex, 1);
+      if (this.selectedStoryIndex === 0) {
+        this.selectStory(this.selectedStoryIndex);
+      } else {
+        this.selectStory(this.selectedStoryIndex - 1);
+      }
+    }
+  }
+
   toJSON() {
     return _.pick(this, ['stories', 'selectedStoryIndex']);
   }

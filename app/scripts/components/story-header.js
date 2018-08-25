@@ -3,6 +3,12 @@ import StoryListComponent from './story-list.js';
 
 class StoryHeaderComponent {
 
+  deleteSelectedStory(app) {
+    if (confirm('Are you sure you want to permanently delete this story?')) {
+      app.deleteSelectedStory();
+    }
+  }
+
   view({attrs: {app, story}}) {
     return m('div.story-header', [
       m('.control-group', [
@@ -14,7 +20,15 @@ class StoryHeaderComponent {
           panelPosition: 'bottom',
         })
       ]),
-      m('span.selected-story-name', story.metadata.name)
+      m('span.selected-story-name', story.metadata.name),
+      m('.control-group', [
+        m(ControlComponent, {
+          id: 'delete-story',
+          title: 'Delete Story',
+          icon: 'delete',
+          action: () => this.deleteSelectedStory(app)
+        })
+      ])
     ]);
   }
 
