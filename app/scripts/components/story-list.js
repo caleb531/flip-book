@@ -11,6 +11,7 @@ class StoryListComponent {
       let storyName = prompt('Please enter a name for your new story:') || '';
       if (storyName.trim()) {
         app.createStory(storyName.trim());
+        PanelComponent.closeAllPanels();
         m.redraw();
       }
     });
