@@ -29,11 +29,14 @@
   h2 {
     padding-left: ($story-list-item-padding-x - $story-list-header-padding);
   }
-}
-
-.story-list-controls {
-  flex-grow: 1;
-  text-align: right;
+  .control-button {
+    padding: 2px;
+  }
+  .control-icon {
+    $icon-size: 20px;
+    width: $icon-size;
+    height: $icon-size;
+  }
 }
 
 .story-list-container h2 {
