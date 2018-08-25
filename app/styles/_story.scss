@@ -1,5 +1,8 @@
 .story {
   border: solid 1px $panel-background-color;
+  &:focus {
+    outline-width: 0;
+  }
 }
 
 .story-stage {
