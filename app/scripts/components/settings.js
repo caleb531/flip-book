@@ -1,7 +1,10 @@
+import Story from '../models/story.js';
+
 class SettingsComponent {
 
   setFrameDuration(story, framesPerSecond) {
     story.setFrameDurationFromFPS(Number(framesPerSecond));
+    story.save();
   }
 
   toggleShowPreviousFrame(story) {
@@ -14,14 +17,14 @@ class SettingsComponent {
       m('h2', 'Settings'),
       m('div.setting', [
         m('label[for="setting-fps"]', 'FPS'),
-        m('input[type=range][step=5][min=5][max=30]#setting-fps', {
-          value: story.getFPS(),
-          // Update the story frame duration while dragging slider
-          oninput: ({target}) => this.setFrameDuration(story, target.value),
-          // Only save when the user lets go of dragging slider
-          onchange: () => story.save()
-        }),
-        m('span.setting-value', `${story.getFPS()} fps`)
+        m('select#setting-fps', {
+          onchange: ({target}) => this.setFrameDuration(story, target.value),
+        }, Story.fpsOptions.map((fpsOption) => {
+          return m('option', {
+            value: fpsOption,
+            selected: story.getFPS() === fpsOption
+          }, `${fpsOption} fps`);
+        }))
       ]),
       m('div.setting', [
         m('input[type=checkbox]#setting-show-previous-frame', {
