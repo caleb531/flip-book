@@ -71,7 +71,7 @@
 
 .exported-image {
   opacity: 0;
-  max-width: 800px;
+  max-width: $frame-width;
   width: 100%;
   animation: fade-in 100ms ease-in-out forwards;
 }
