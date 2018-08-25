@@ -34,11 +34,11 @@ class StoryControlsComponent {
     story.save();
   }
 
-  removeSelectedFrame(story) {
+  deleteSelectedFrame(story) {
     if (!confirm('Are you sure you want to delete this frame?')) {
       return;
     }
-    story.removeSelectedFrame();
+    story.deleteSelectedFrame();
     story.save();
   }
 
@@ -114,10 +114,10 @@ class StoryControlsComponent {
           action: () => this.addFrame(story)
         }),
         m(ControlComponent, {
-          id: 'remove-frame',
-          title: 'Remove Frame',
-          icon: 'remove',
-          action: () => this.removeSelectedFrame(story)
+          id: 'delete-frame',
+          title: 'Delete Frame',
+          icon: 'delete',
+          action: () => this.deleteSelectedFrame(story)
         }),
       ]),
 

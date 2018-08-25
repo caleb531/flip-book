@@ -43,7 +43,7 @@ class Story {
     this.selectFrame(this.selectedFrameIndex + 1);
   }
 
-  removeSelectedFrame() {
+  deleteSelectedFrame() {
     if (this.frames.length === 1) {
       this.frames.splice(this.selectedFrameIndex, 1, new Frame());
     } else {
