@@ -4,8 +4,8 @@ import ExportGifComponent from './export-gif.js';
 
 class ExportComponent {
 
-  exportStory(story) {
-    story.export({
+  exportStoryToGif(story) {
+    story.exportGif({
       width: FrameComponent.width,
       height: FrameComponent.height,
       // Aribtrarily wait half a second before loading to give the progress bar
@@ -22,7 +22,7 @@ class ExportComponent {
         id: 'export-as-gif',
         title: 'Export as GIF',
         label: 'Export as GIF',
-        action: () => this.exportStory(story)
+        action: () => this.exportStoryToGif(story)
       }),
       m(ExportGifComponent, {story})
     ]);

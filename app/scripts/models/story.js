@@ -89,7 +89,7 @@ class Story {
     this.getSelectedFrame().redo();
   }
 
-  export({width, height, progress = null, success = null}) {
+  exportGif({width, height, progress = null, success = null}) {
     this.gifGenerator = new GIF({
       workers: 2,
       workerScript: 'scripts/gif.worker.js'
@@ -123,7 +123,7 @@ class Story {
     this.gifGenerator.render();
   }
 
-  isExporting() {
+  isExportingGif() {
     if (this.gifGenerator) {
       return this.gifGenerator.running;
     } else {
@@ -131,7 +131,7 @@ class Story {
     }
   }
 
-  exportIsFinished() {
+  isGifExportFinished() {
     if (this.gifGenerator) {
       return this.gifGenerator.finishedFrames === this.frames.length;
     } else {

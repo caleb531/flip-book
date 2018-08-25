@@ -2,7 +2,7 @@ class ExportGifComponent {
 
   view({attrs: {story}}) {
     return m('div.export-gif-screen', {
-      class: story.isExporting() || story.exportIsFinished() ? 'visible' : ''
+      class: story.isExportingGif() || story.isGifExportFinished() ? 'visible' : ''
     }, [
       m('div.export-gif-overlay', {onclick: () => story.abortExport()}),
       m('div.export-gif-heading', story.exportedImageUrl ?
