@@ -20,8 +20,8 @@ class ExportComponent {
       m('h2', 'Export'),
       m(ControlComponent, {
         id: 'export-as-gif',
-        title: 'Export as GIF',
-        label: 'Export as GIF',
+        title: 'Export GIF',
+        label: 'Export GIF',
         action: () => this.exportStoryToGif(story)
       }),
       m(ExportGifComponent, {story})

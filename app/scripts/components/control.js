@@ -12,7 +12,9 @@ class ControlComponent {
   }
 
   view({attrs: {id, title, icon = null, label = null, action = null, panel = null, panelPosition = 'top'}}) {
-    return m('div.control', {class: `control-${id}`}, [
+    return m('div.control', {
+      class: [`control-${id}`, label ? 'control-has-label' : ''].join(' ')
+    }, [
       panel ? m(PanelComponent, {id, position: panelPosition}, panel) : null,
       m('button.control-button', {
         title,

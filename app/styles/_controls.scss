@@ -28,8 +28,11 @@
   font-size: 0;
 }
 .control-button {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
   border-width: 0;
-  padding: 8px 8px;
+  padding: 8px;
   background-color: $control-background-color;
   color: #fff;
   font-family: inherit;
@@ -42,12 +45,11 @@
     color: #fff;
   }
   .panel & {
-    padding: 6px 8px;
-    border-radius: 3px;
-    background-color: rgba(#fff, 0.1);
-    .control-label {
-      font-size: 0.6rem;
-    }
+    padding: 6px;
+    border-radius: ($panel-border-radius - $story-list-header-padding);
+  }
+  .control-has-label & {
+    background-color: $control-background-color-labeled;
   }
 }
 .control-icon {
@@ -55,13 +57,12 @@
   $icon-size: 24px;
   width: $icon-size;
   height: $icon-size;
-  vertical-align: middle;
   &:not(:only-child) {
     margin-right: 3px;
   }
 }
 .control-label {
-  vertical-align: middle;
+  font-size: 0.8rem;
 }
 
 .control-play-story {
