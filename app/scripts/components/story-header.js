@@ -22,12 +22,12 @@ class StoryHeaderComponent {
       ]),
       m('span.selected-story-name', story.metadata.name),
       m('.control-group', [
-        m(ControlComponent, {
+        app.stories.length > 1 ? m(ControlComponent, {
           id: 'delete-story',
           title: 'Delete Story',
           icon: 'delete',
           action: () => this.deleteSelectedStory(app)
-        })
+        }) : null
       ])
     ]);
   }
