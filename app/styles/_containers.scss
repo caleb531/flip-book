@@ -7,35 +7,3 @@ body {
   cursor: default;
   user-select: none;
 }
-
-.story {
-  border: solid 1px $panel-background-color;
-}
-
-.story-stage {
-  position: relative;
-  background-color: #fff;
-}
-
-.selected-frame,
-.previous-frame {
-  // Shrink the displayed width/height canvas by half
-  width: $frame-width;
-  height: $frame-height;
-}
-
-.previous-frame {
-  opacity: 0.2;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 0;
-  .story-playing & {
-    display: none;
-  }
-}
-
-.selected-frame {
-  position: relative;
-  z-index: 10;
-}
