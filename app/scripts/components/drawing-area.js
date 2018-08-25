@@ -1,4 +1,5 @@
 import FrameComponent from './frame.js';
+import PanelComponent from './panel.js';
 
 class DrawingAreaComponent extends FrameComponent {
 
@@ -29,9 +30,8 @@ class DrawingAreaComponent extends FrameComponent {
       this.lastX = startX;
       this.lastY = startY;
       this.frame.undoHistory.length = 0;
-      this.renderCanvas();
     }
-    event.redraw = false;
+    PanelComponent.closeAllPanels();
   }
 
   handleMousemove(event) {

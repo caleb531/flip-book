@@ -1,4 +1,5 @@
 import FrameComponent from './frame.js';
+import PanelComponent from './panel.js';
 
 class TimelineComponent {
 
@@ -8,6 +9,7 @@ class TimelineComponent {
       this.scrollSelectedThumbnailIntoView(event.target);
       story.save();
     }
+    PanelComponent.closeAllPanels();
   }
 
   scrollSelectedThumbnailIntoView(thumbnailElement) {

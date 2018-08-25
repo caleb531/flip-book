@@ -4,9 +4,15 @@ import StoryListComponent from './story-list.js';
 class StoryHeaderComponent {
 
   deleteSelectedStory(app) {
-    if (confirm('Are you sure you want to permanently delete this story?')) {
-      app.deleteSelectedStory();
-    }
+    // Prevent the synchronous confirm() call from blocking the main thread;
+    // this will allow Mithril to redraw and close all panels before showing the
+    // modal
+    setTimeout(() => {
+      if (confirm('Are you sure you want to permanently delete this story?')) {
+        app.deleteSelectedStory();
+        m.redraw();
+      }
+    });
   }
 
   view({attrs: {app, story}}) {

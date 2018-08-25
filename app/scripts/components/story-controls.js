@@ -35,11 +35,17 @@ class StoryControlsComponent {
   }
 
   deleteSelectedFrame(story) {
-    if (!confirm('Are you sure you want to delete this frame?')) {
-      return;
-    }
-    story.deleteSelectedFrame();
-    story.save();
+    // Prevent the synchronous confirm() call from blocking the main thread;
+    // this will allow Mithril to redraw and close all panels before showing the
+    // modal
+    setTimeout(() => {
+      if (!confirm('Are you sure you want to delete this frame?')) {
+        return;
+      }
+      story.deleteSelectedFrame();
+      story.save();
+      m.redraw();
+    });
   }
 
   undo(story) {

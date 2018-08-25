@@ -4,16 +4,21 @@ import PanelComponent from './panel.js';
 class StoryListComponent {
 
   createStory(app) {
-    let storyName = prompt('Please enter a name for your new story:') || '';
-    if (storyName.trim()) {
-      app.createStory(storyName.trim());
-    }
+    // Prevent the synchronous prompt() call from blocking the main thread; this
+    // will allow Mithril to redraw and close all panels before showing the
+    // modal
+    setTimeout(() => {
+      let storyName = prompt('Please enter a name for your new story:') || '';
+      if (storyName.trim()) {
+        app.createStory(storyName.trim());
+        m.redraw();
+      }
+    });
   }
 
   selectStory(app, storyItemElement) {
     app.selectStory(Number(storyItemElement.dataset.index));
-    // Close open panel after selecting story
-    PanelComponent.currentlyOpenPanel = null;
+    PanelComponent.closeAllPanels();
   }
 
   view({attrs: {app}}) {
