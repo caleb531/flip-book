@@ -4,9 +4,9 @@ import PanelComponent from './panel.js';
 class StoryListComponent {
 
   createStory(app) {
-    let storyName = prompt('Please enter a name for your new story:');
-    if (storyName) {
-      app.createStory(storyName);
+    let storyName = prompt('Please enter a name for your new story:') || '';
+    if (storyName.trim()) {
+      app.createStory(storyName.trim());
     }
   }
 
