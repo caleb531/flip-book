@@ -30,7 +30,7 @@ class TimelineComponent {
 
   view({attrs: {story}}) {
     return m('ol.timeline', {
-      onclick: (target) => this.selectThumbnail(target, story)
+      onclick: ({target}) => this.selectThumbnail(target, story)
     }, story.frames.map((frame, f) => {
       return m('li.timeline-thumbnail', {
         // Keying each thumbnail prevents the canvas redraws from compounding
