@@ -19,16 +19,6 @@ class StoryControlsComponent {
     story.save();
   }
 
-  selectPreviousFrame(story) {
-    story.selectPreviousFrame();
-    story.save();
-  }
-
-  selectNextFrame(story) {
-    story.selectNextFrame();
-    story.save();
-  }
-
   addFrame(story) {
     story.addFrame();
     story.save();
@@ -95,21 +85,6 @@ class StoryControlsComponent {
           icon: 'pause',
           action: () => this.pauseStory(story)
         })
-      ]),
-
-      m('div.control-group', [
-        m(ControlComponent, {
-          id: 'previous-frame',
-          title: 'Previous Frame',
-          icon: 'arrow-back',
-          action: () => this.selectPreviousFrame(story)
-        }),
-        m(ControlComponent, {
-          id: 'next-frame',
-          title: 'Next Frame',
-          icon: 'arrow-forward',
-          action: () => this.selectNextFrame(story)
-        }),
       ]),
 
       m('div.control-group', [
