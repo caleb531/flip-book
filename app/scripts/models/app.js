@@ -39,6 +39,14 @@ class App {
     return this.stories[this.selectedStoryIndex];
   }
 
+  getSelectedStoryName() {
+    return this.selectedStory.metadata.name;
+  }
+
+  renameSelectedStory(newStoryName) {
+    this.selectedStory.metadata.name = newStoryName;
+  }
+
   loadStory(storyId) {
     let story = JSON.parse(localStorage.getItem(`flipbook-story-${storyId}`));
     if (!story) {

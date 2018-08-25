@@ -3,6 +3,19 @@ import StoryListComponent from './story-list.js';
 
 class StoryHeaderComponent {
 
+  renameSelectedStory(app) {
+    // Prevent the synchronous confirm() call from blocking the main thread;
+    // this will allow Mithril to redraw and close all panels before showing the
+    // modal
+    setTimeout(() => {
+      let newStoryName = prompt('Enter the new name for your story:', app.getSelectedStoryName()) || '';
+      if (newStoryName.trim()) {
+        app.renameSelectedStory(newStoryName.trim());
+        m.redraw();
+      }
+    });
+  }
+
   deleteSelectedStory(app) {
     // Prevent the synchronous confirm() call from blocking the main thread;
     // this will allow Mithril to redraw and close all panels before showing the
@@ -27,6 +40,12 @@ class StoryHeaderComponent {
         })
       ]),
       m('span.selected-story-name', story.metadata.name),
+      m(ControlComponent, {
+        id: 'rename-story',
+        title: 'Rename Story',
+        icon: 'edit',
+        action: () => this.renameSelectedStory(app)
+      }),
       m('.control-group', [
         app.stories.length > 1 ? m(ControlComponent, {
           id: 'delete-story',
