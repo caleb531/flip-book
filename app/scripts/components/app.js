@@ -1,6 +1,6 @@
 import App from '../models/app.js';
 import AppHeaderComponent from './app-header.js';
-import StoryEditorComponent from './story-editor.js';
+import StoryComponent from './story.js';
 
 class AppComponent {
 
@@ -13,7 +13,8 @@ class AppComponent {
 
       m(AppHeaderComponent),
 
-      m(StoryEditorComponent, {
+      m(StoryComponent, {
+        app: this.app,
         story: this.app.selectedStory
       })
 
