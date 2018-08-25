@@ -48,6 +48,14 @@ class App {
     }
   }
 
+  createStory(storyName) {
+    this.stories.unshift(new StoryMetadata({
+      name: storyName
+    }));
+    this.selectStory(0);
+    this.save();
+  }
+
   toJSON() {
     return _.pick(this, ['stories', 'selectedStoryIndex']);
   }

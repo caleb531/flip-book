@@ -17,13 +17,13 @@ body {
   justify-content: flex-start;
   align-items: center;
   position: relative;
-  padding: 6px 8px;
   background-color: $panel-background-color;
   border-bottom: solid 1px $control-background-color;
   font-size: 0.8rem;
   text-align: left;
   color: #fff;
   & > .control-group:first-child {
+    margin-left: 10px;
     margin-right: 10px;
   }
   .control-icon {

@@ -1,14 +1,12 @@
 .panel {
   display: none;
   position: absolute;
-  bottom: 100%;
   left: 50%;
   z-index: 100;
   border-radius: 5px;
   padding: 5px 10px;
   padding-bottom: 10px;
   margin-left: -($control-arrow-width * 2);
-  margin-bottom: 20px;
   // TODO: remove this arbitrary height so the height is calculated naturally
   background-color: $panel-background-color;
   color: #fff;
@@ -16,14 +14,31 @@
   &.panel-open {
     display: block;
   }
+  // Dropdown arrow
   &:after {
     content: '';
     position: absolute;
-    top: 100%;
     left: $control-arrow-width;
     border: solid $control-arrow-width transparent;
+  }
+}
+
+.panel-position-top {
+  bottom: 100%;
+  margin-bottom: $panel-position-offset;
+  &:after {
+    top: 100%;
     border-top-color: $panel-background-color;
     border-bottom-width: 0;
+  }
+}
+.panel-position-bottom {
+  top: 100%;
+  margin-top: $panel-position-offset;
+  &:after {
+    bottom: 100%;
+    border-bottom-color: $panel-background-color;
+    border-top-width: 0;
   }
 }
 

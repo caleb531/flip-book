@@ -11,9 +11,9 @@ class ControlComponent {
     }
   }
 
-  view({attrs: {id, title, icon = null, label = null, action = null, panel = null}}) {
+  view({attrs: {id, title, icon = null, label = null, action = null, panel = null, panelPosition = 'top'}}) {
     return m('div.control', {class: `control-${id}`}, [
-      panel ? m(PanelComponent, {id}, panel) : null,
+      panel ? m(PanelComponent, {id, position: panelPosition}, panel) : null,
       m('button.control-button', {
         title,
         onclick: panel ? () => this.togglePanel(id) : action

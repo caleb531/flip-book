@@ -3,9 +3,16 @@ import FrameComponent from './frame.js';
 class DrawingAreaComponent extends FrameComponent {
 
   oninit({attrs: {frame, save, drawingEnabled = true}}) {
+    super.oninit({attrs: {frame}});
     this.frame = frame;
     this.save = save;
     this.drawingEnabled = drawingEnabled;
+  }
+
+  onupdate({attrs: {frame, save, drawingEnabled = true}}) {
+    this.save = save;
+    this.drawingEnabled = drawingEnabled;
+    super.onupdate({attrs: {frame}});
   }
 
   handleMousedown(event) {

@@ -1,8 +1,11 @@
 class PanelComponent {
 
-  view({attrs: {id}, children}) {
+  view({attrs: {id, position}, children}) {
     return m('div.panel', {
-      class: PanelComponent.currentlyOpenPanel === id ? 'panel-open' : ''
+      class: [
+        PanelComponent.currentlyOpenPanel === id ? 'panel-open' : '',
+        position ? `panel-position-${position}` : ''
+      ].join(' ')
     }, children);
   }
 

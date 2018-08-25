@@ -1,9 +1,13 @@
-.manager-panel {
+.control-story-list > .panel {
+  padding: 0;
+}
+
+.story-list-container {
   top: 100%;
   left: 2px;
   bottom: auto;
   margin-top: 10px;
-  width: 200px;
+  width: 180px;
   max-height: 400px;
   text-align: left;
   padding: 0;
@@ -18,60 +22,49 @@
   }
 }
 
-.manager-header {
+.story-list-header {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  padding: 10px 10px;
 }
 
-.manager-controls {
+.story-list-controls {
   flex-grow: 1;
   text-align: right;
 }
 
-.manager-panel .control svg {
+.story-list-container .control img {
   $icon-size: 12px;
   width: $icon-size;
   height: $icon-size;
 }
 
-.manager-panel h2 {
+.story-list-container h2 {
   margin-bottom: 0;
   text-align: left;
 }
 
 .story-list {
   margin: 0;
+  margin-top: 10px;
   padding: 0;
 }
 
 .story-list-item {
   margin: 0;
-  padding: 0;
-  background-color: $control-background-color;
+  background-color: rgba(#fff, 0.1);
   list-style-type: none;
   border-bottom: solid 1px $panel-background-color;
+  font-size: 0.8rem;
   &:last-child {
     border-bottom-width: 0;
   }
-  &:hover {
+  &:hover:active {
     background-color: $control-background-color-active;
   }
 }
-.story-list-item-name {
-  width: 100%;
-  border-width: 0;
-  margin: 0;
-  padding: 6px 8px;
-  box-sizing: border-box;
-  font-size: 0.7rem;
-  &[disabled] {
-    background: none;
-    color: #fff;
-    cursor: default;
-  }
-  &:focus {
-    outline-width: 0;
-  }
+
+.story-list-header,
+.story-list-item {
+  padding: 6px 10px;
 }
