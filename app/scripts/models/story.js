@@ -48,10 +48,10 @@ class Story {
       this.frames.splice(this.selectedFrameIndex, 1, new Frame());
     } else {
       this.frames.splice(this.selectedFrameIndex, 1);
-      if (this.selectedFrameIndex === this.frames.length) {
-        this.selectFrame(this.selectedFrameIndex - 1);
-      } else {
+      if (this.selectedFrameIndex === 0) {
         this.selectFrame(this.selectedFrameIndex);
+      } else {
+        this.selectFrame(this.selectedFrameIndex - 1);
       }
     }
   }
