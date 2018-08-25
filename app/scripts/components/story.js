@@ -3,11 +3,13 @@ import StoryEditorComponent from './story-editor.js';
 
 class StoryComponent {
 
-  navigateFramesViaKeyboard(story, key) {
-    if (key === 'ArrowLeft') {
+  navigateFramesViaKeyboard(event, story) {
+    if (event.key === 'ArrowLeft') {
       story.selectPreviousFrame();
-    } else if (key === 'ArrowRight') {
+    } else if (event.key === 'ArrowRight') {
       story.selectNextFrame();
+    } else {
+      event.redraw = false;
     }
   }
 
@@ -15,7 +17,7 @@ class StoryComponent {
     return m('div.story[tabindex=-1]', {
       oncreate: ({dom}) => dom.focus(),
       onupdate: ({dom}) => dom.focus(),
-      onkeydown: ({key}) => this.navigateFramesViaKeyboard(story, key)
+      onkeydown: (event) => this.navigateFramesViaKeyboard(event, story)
     }, [
       m(StoryHeaderComponent, {app, story}),
       m(StoryEditorComponent, {story})
