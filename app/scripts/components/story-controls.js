@@ -87,7 +87,7 @@ class StoryControlsComponent {
         })
       ]),
 
-      m('div.control-group', [
+      m('div.control-group.control-group-frames', [
         m(ControlComponent, {
           id: 'add-frame',
           title: 'Add Frame',

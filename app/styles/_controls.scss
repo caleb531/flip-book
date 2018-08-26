@@ -10,14 +10,14 @@
 }
 
 .control-group {
+  position: relative;
   margin-right: 20px;
   &:last-of-type {
     margin-right: 0;
   }
 }
-
-.control-group {
-  position: relative;
+.control-group-frames {
+  margin-right: $control-padding;
 }
 
 .control {
@@ -32,7 +32,7 @@
   justify-content: center;
   align-items: center;
   border-width: 0;
-  padding: 8px;
+  padding: $control-padding;
   background-color: $control-background-color;
   color: #fff;
   font-family: inherit;
@@ -45,7 +45,7 @@
     color: #fff;
   }
   .panel & {
-    padding: 6px;
+    padding: $control-padding-panel;
     border-radius: ($panel-border-radius - $story-list-header-padding);
   }
   .control-has-label & {
