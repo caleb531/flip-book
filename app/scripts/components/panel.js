@@ -3,7 +3,7 @@ import classNames from '../classnames.js';
 class PanelComponent {
 
   view({attrs: {id, position}, children}) {
-    return m(`div.panel.panel-position-${position}`, {
+    return m(`div.panel.panel-${id}.panel-position-${position}`, {
       class: classNames({'panel-open': PanelComponent.panelIsOpen(id)})
     }, children);
   }
