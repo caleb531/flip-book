@@ -84,7 +84,7 @@ class App {
 App.saveDelay = 250;
 
 App.restore = function () {
-  let app = JSON.parse(localStorage.getItem('flipbook-app'));
+  let app = JSON.parse(localStorage.getItem('flipbook-manifest'));
   if (!app) {
     // The default app for brand new sessions
     return new App();
