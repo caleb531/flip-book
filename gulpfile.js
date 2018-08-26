@@ -51,29 +51,22 @@ gulp.task('sw', () => {
   return workboxBuild.generateSW({
     globDirectory: 'public',
     globPatterns: [
-      '**\/*.{html,svg,png}',
-      'scripts/!(index).js'
+      '**\/*.{html,js,css,svg,png}'
     ],
     swDest: 'public/service-worker.js',
-    runtimeCaching: [
-      {
-        urlPattern: new RegExp('index.(css|js)$'),
-        handler: 'staleWhileRevalidate',
-      },
-      {
-        urlPattern: new RegExp('^https://fonts.(?:googleapis|gstatic).com/(.*)'),
-        handler: 'cacheFirst',
-        options: {
-          cacheName: 'google-fonts',
-          expiration: {
-            maxEntries: 30
-          },
-          cacheableResponse: {
-            statuses: [0, 200]
-          }
+    runtimeCaching: [{
+      urlPattern: new RegExp('^https://fonts.(?:googleapis|gstatic).com/(.*)'),
+      handler: 'cacheFirst',
+      options: {
+        cacheName: 'google-fonts',
+        expiration: {
+          maxEntries: 30
+        },
+        cacheableResponse: {
+          statuses: [0, 200]
         }
       }
-    ]
+    }]
   }).then(({warnings}) => {
     warnings.forEach(console.warn);
   });
