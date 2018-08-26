@@ -1,3 +1,4 @@
+import classNames from '../classnames.js';
 import FrameComponent from './frame.js';
 import DrawingAreaComponent from './drawing-area.js';
 import StoryControlsComponent from './story-controls.js';
@@ -6,7 +7,7 @@ class StoryEditorComponent {
 
   view({attrs: {story}}) {
     return m('div.story-editor', {
-      class: story.playing ? 'story-playing' : ''
+      class: classNames({'story-playing': story.playing})
     }, [
 
       m('div.story-stage', [

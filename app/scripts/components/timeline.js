@@ -1,3 +1,4 @@
+import classNames from '../classnames.js';
 import FrameComponent from './frame.js';
 import PanelComponent from './panel.js';
 
@@ -39,7 +40,7 @@ class TimelineComponent {
         oncreate: ({dom}) => this.scrollSelectedThumbnailIntoView(dom),
         // Scroll selected frame into view when navigating frames (Prev/Next)
         onupdate: ({dom}) => this.scrollSelectedThumbnailIntoView(dom),
-        class: story.selectedFrameIndex === f ? 'selected' : '',
+        class: classNames({'selected': story.selectedFrameIndex === f}),
         'data-index': f
       }, m(FrameComponent, {
         className: 'timeline-thumbnail-canvas',
