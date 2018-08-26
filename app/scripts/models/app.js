@@ -10,7 +10,7 @@ class App {
   }
 
   save() {
-    localStorage.setItem(`flipbook-app`, JSON.stringify(this));
+    localStorage.setItem('flipbook-manifest', JSON.stringify(this));
   }
 
   upgradeToMultiStoryFormat() {
