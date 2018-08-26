@@ -51,12 +51,13 @@ gulp.task('sw', () => {
   return workboxBuild.generateSW({
     globDirectory: 'public',
     globPatterns: [
-      '**\/*.{html,svg,png}'
+      '**\/*.{html,svg,png}',
+      'scripts/!(index).js'
     ],
     swDest: 'public/service-worker.js',
     runtimeCaching: [
       {
-        urlPattern: new RegExp('.(css|js)$'),
+        urlPattern: new RegExp('index.(css|js)$'),
         handler: 'staleWhileRevalidate',
       },
       {
