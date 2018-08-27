@@ -12,7 +12,7 @@ class ExportGifComponent {
         title: 'Close Overlay',
         icon: 'close'
       }),
-      m('div.export-gif-overlay', {onclick: () => story.abortExport()}),
+      m('div.export-gif-overlay', {onclick: () => story.abortGifExport()}),
       m('div.export-gif-heading', story.exportedImageUrl ?
         'GIF Generated!' :
         'Generating GIF...'),

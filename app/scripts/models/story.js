@@ -139,7 +139,7 @@ class Story {
     }
   }
 
-  abortExport() {
+  abortGifExport() {
     if (this.gifGenerator) {
       this.gifGenerator.abort();
       this.gifGenerator = false;
