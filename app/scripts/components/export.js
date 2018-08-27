@@ -16,7 +16,10 @@ class ExportComponent {
   }
 
   exportStoryToProjectFile(story) {
-    let slugName = story.metadata.name.toLowerCase().replace(/\W+/gi, '-');
+    let slugName = story.metadata.name
+      .toLowerCase()
+      .replace(/(^\W+)|(\W+$)/gi, '')
+      .replace(/\W+/gi, '-');
     let blob = new Blob([story.exportProject()]);
     let a = document.createElement('a');
     a.href = URL.createObjectURL(blob, {type: 'application/json'});
