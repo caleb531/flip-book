@@ -1,0 +1,16 @@
+import classNames from '../classnames.js';
+
+class UpdateNotificationComponent {
+
+  view({attrs: {updateManager}}) {
+    return m('div.update-notification', {
+      class: classNames({'update-available': updateManager.isUpdateAvailable}),
+      onclick: () => updateManager.update()
+    }, [
+      m('div.update-notification-message', 'Update available! Click here to update.'),
+    ]);
+  }
+
+}
+
+export default UpdateNotificationComponent;

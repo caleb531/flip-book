@@ -48,25 +48,13 @@ gulp.task('rollup:watch', () => {
 });
 
 gulp.task('sw', () => {
-  return workboxBuild.generateSW({
+  return workboxBuild.injectManifest({
     globDirectory: 'public',
     globPatterns: [
       '**\/*.{html,js,css,svg,png}'
     ],
-    swDest: 'public/service-worker.js',
-    runtimeCaching: [{
-      urlPattern: new RegExp('^https://fonts.(?:googleapis|gstatic).com/(.*)'),
-      handler: 'cacheFirst',
-      options: {
-        cacheName: 'google-fonts',
-        expiration: {
-          maxEntries: 30
-        },
-        cacheableResponse: {
-          statuses: [0, 200]
-        }
-      }
-    }]
+    swSrc: 'app/scripts/service-worker.js',
+    swDest: 'public/service-worker.js'
   }).then(({warnings}) => {
     warnings.forEach(console.warn);
   });
