@@ -4,7 +4,7 @@ class UpdateManager {
 
   constructor({workerURL = 'service-worker.js', workerOptions = null, updateAvailable = null} = {}) {
     // User callbacks
-    this.updateAvailable = updateAvailable;
+    this.events = {updateAvailable};
 
     // Internal state
     this.isUpdateAvailable = false;
@@ -41,8 +41,8 @@ class UpdateManager {
 
     this.onNewServiceWorker(() => {
       this.isUpdateAvailable = true;
-      if (this.updateAvailable) {
-        this.updateAvailable();
+      if (this.events.updateAvailable) {
+        this.events.updateAvailable();
       }
     });
   }
