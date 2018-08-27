@@ -27,6 +27,10 @@
   height: auto;
   font-size: 0;
 }
+.control-has-label {
+  display: block;
+  margin: 5px 0;
+}
 .control-button {
   display: inline-flex;
   justify-content: center;

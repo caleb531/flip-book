@@ -146,6 +146,15 @@ class Story {
     }
   }
 
+  exportProject() {
+    // The story metadata is not returned by toJSON() so that the information is
+    // not duplicated in localStorage (the story metadata is already stored in
+    // the app manifest); reconstruct the object with the metadata key added
+    // first, since ES6 preserves object key order
+    let json = Object.assign({metadata: this.metadata}, this.toJSON());
+    return JSON.stringify(json, null, 2);
+  }
+
   save() {
     localStorage.setItem(`flipbook-story-${this.metadata.createdDate}`, JSON.stringify(this));
   }

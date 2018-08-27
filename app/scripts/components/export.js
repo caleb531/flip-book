@@ -15,14 +15,29 @@ class ExportComponent {
     });
   }
 
+  exportStoryToProjectFile(story) {
+    let slugName = story.metadata.name.toLowerCase().replace(/\W+/gi, '-');
+    let blob = new Blob([story.exportProject()]);
+    let a = document.createElement('a');
+    a.href = URL.createObjectURL(blob, {type: 'application/json'});
+    a.download = `${slugName}.flipbook`;
+    a.click();
+  }
+
   view({attrs: {story}}) {
     return m('div.export-options', [
       m('h2', 'Export'),
       m(ControlComponent, {
-        id: 'export-as-gif',
+        id: 'export-gif',
         title: 'Export GIF',
         label: 'Export GIF',
         action: () => this.exportStoryToGif(story)
+      }),
+      m(ControlComponent, {
+        id: 'export-project',
+        title: 'Export Project',
+        label: 'Export Project',
+        action: () => this.exportStoryToProjectFile(story)
       }),
       m(ExportGifComponent, {story})
     ]);
