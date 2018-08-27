@@ -45,6 +45,7 @@ class App {
 
   renameSelectedStory(newStoryName) {
     this.selectedStory.metadata.name = newStoryName;
+    this.save();
   }
 
   loadStory(storyId) {
