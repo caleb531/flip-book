@@ -30,4 +30,7 @@
 
 .control-upload-file {
   text-align: right;
+  .control-button {
+    background-color: $color-green;
+  }
 }
