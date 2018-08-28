@@ -152,7 +152,7 @@ class Story {
     // the app manifest); reconstruct the object with the metadata key added
     // first, since ES6 preserves object key order
     let json = Object.assign({metadata: this.metadata}, this.toJSON());
-    return JSON.stringify(json, null, 2);
+    return JSON.stringify(json);
   }
 
   save() {
