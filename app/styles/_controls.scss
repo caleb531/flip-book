@@ -54,6 +54,7 @@
   }
   .control-has-label & {
     background-color: $control-background-color-labeled;
+    white-space: nowrap;
   }
 }
 .control-icon {

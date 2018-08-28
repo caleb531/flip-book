@@ -1,5 +1,6 @@
 import ControlComponent from './control.js';
 import StoryListComponent from './story-list.js';
+import ImportComponent from './import.js';
 
 class StoryHeaderComponent {
 
@@ -36,6 +37,13 @@ class StoryHeaderComponent {
           title: 'Story List',
           icon: 'folder',
           panel: m(StoryListComponent, {app}),
+          panelPosition: 'bottom',
+        }),
+        m(ControlComponent, {
+          id: 'import-story',
+          title: 'Import Story',
+          icon: 'upload',
+          panel: m(ImportComponent, {app}),
           panelPosition: 'bottom',
         })
       ]),

@@ -1,0 +1,33 @@
+.import-options h2 {
+  text-align: left;
+}
+
+.import-control-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.import-file-input {
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  &:hover:active + .control .control-button {
+    @extend .control-button:hover:active;
+  }
+}
+
+.import-chosen-file-name {
+  margin-left: 8px;
+  font-size: 0.8rem;
+  white-space: nowrap;
+}
+
+.control-upload-file {
+  text-align: right;
+}
