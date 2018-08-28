@@ -1,3 +1,9 @@
+// Colors
+$color-blue: #5be;
+$color-green: #6c3;
+$color-slate-dark: #234;
+$color-slate-light: #456;
+
 $story-border-width: 1px;
 
 $frame-width: 800px;
@@ -9,9 +15,9 @@ $panel-background-color: #234;
 
 $control-padding: 8px;
 $control-padding-panel: 6px;
-$control-background-color: #234;
-$control-background-color-labeled: #456;
-$control-background-color-active: #5be;
+$control-background-color: $color-slate-dark;
+$control-background-color-labeled: $color-slate-light;
+$control-background-color-active: $color-blue;
 $control-arrow-width: 10px;
 
 $story-list-header-padding: 1px;
