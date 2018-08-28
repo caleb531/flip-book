@@ -97,7 +97,7 @@ class StoryControlsComponent {
         m(ControlComponent, {
           id: 'delete-frame',
           title: 'Delete Frame',
-          icon: 'delete',
+          icon: 'remove',
           action: () => this.deleteSelectedFrame(story)
         }),
       ]),
