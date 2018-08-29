@@ -4,7 +4,7 @@
 
 .import-control-wrapper {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   position: relative;
 }
@@ -28,8 +28,19 @@
   white-space: nowrap;
 }
 
+.import-footer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: stretch;
+  position: relative;
+  .progress-bar {
+    flex-grow: 1;
+    margin-right: 10px;
+  }
+}
+
 .control-upload-file {
-  text-align: right;
+  margin: 0;
   .control-button {
     background-color: $color-green;
   }

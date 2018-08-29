@@ -65,6 +65,13 @@ class App {
     this.save();
   }
 
+  addExistingStory(story) {
+    story.metadata = new StoryMetadata(story.metadata);
+    this.stories.unshift(story.metadata);
+    story.save();
+    this.save();
+  }
+
   deleteSelectedStory() {
     if (this.stories.length > 1) {
       this.stories.splice(this.selectedStoryIndex, 1);

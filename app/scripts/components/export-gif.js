@@ -1,5 +1,6 @@
 import classNames from '../classnames.js';
 import ControlComponent from './control.js';
+import ProgressBarComponent from './progress-bar.js';
 
 class ExportGifComponent {
 
@@ -19,12 +20,9 @@ class ExportGifComponent {
       m('p.export-gif-message', story.exportedImageUrl ?
         'Right-click the image and choose "Save Image As..." to download.' :
         ''),
-      !story.exportedImageUrl ? m('div.export-gif-progress-bar', [
-        m('div.export-gif-progress-bar-current-progress', {
-          class: classNames({'no-progress': story.exportProgress === 0}),
-          style: {width: `${story.exportProgress * 100}%`}
-        })
-      ]) : null,
+      !story.exportedImageUrl ? m(ProgressBarComponent, {
+        progress: story.exportProgress
+      }) : null,
       story.exportedImageUrl ? m('img.exported-image', {
         src: story.exportedImageUrl,
         alt: 'Exported GIF'

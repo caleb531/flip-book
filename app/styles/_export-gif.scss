@@ -46,26 +46,10 @@
   pointer-events: none;
   font-size: 1.1rem;
 }
-.export-gif-progress-bar {
+.export-gif-screen .progress-bar {
   pointer-events: none;
-  position: relative;
   width: 200px;
   height: 30px;
-  border-radius: 4px;
-  background-color: #fff;
-  overflow: hidden;
-}
-.export-gif-progress-bar-current-progress {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 0;
-  height: 100%;
-  background: $control-background-color-active;
-  transition: width 500ms ease-in-out;
-  &.no-progress {
-    transition: none;
-  }
 }
 
 .exported-image {

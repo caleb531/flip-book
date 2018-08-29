@@ -1,5 +1,6 @@
 import FrameComponent from './frame.js';
 import ControlComponent from './control.js';
+import ProgressBarComponent from './progress-bar.js';
 import ExportGifComponent from './export-gif.js';
 
 class ExportComponent {
@@ -10,8 +11,8 @@ class ExportComponent {
       height: FrameComponent.height,
       // Aribtrarily wait half a second before loading to give the progress bar
       // time to reach 100%
-      success: () => setTimeout(() => m.redraw(), 500),
-      progress: () => m.redraw()
+      success: () => setTimeout(() => m.redraw(), ProgressBarComponent.delay),
+      progress: () => console.log('o!!!!!') || m.redraw()
     });
   }
 

@@ -1,4 +1,6 @@
+import Story from '../models/story.js';
 import ControlComponent from './control.js';
+import ProgressBarComponent from './progress-bar.js';
 
 class ImportComponent {
 
@@ -6,17 +8,27 @@ class ImportComponent {
     this.chosenFile = chosenFile;
   }
 
-  uploadChosenFile() {
+  uploadChosenFile(app) {
     let reader = new FileReader();
-    reader.onload = (event) => {
-      let data = event.target.result;
-      console.log(data);
-      // TODO: write this logic
+    reader.onprogress = (event) => {
+      this.uploadProgress = event.loaded / event.total;
+      m.redraw();
     };
-    reader.readAsText(this.chosenFile);
+    reader.onload = (event) => {
+      setTimeout(() => {
+        let story = new Story(event.target.result);
+        app.addExistingStory(story);
+        this.storyAdded = story;
+        m.redraw();
+      }, ProgressBarComponent.delay);
+    };
+    this.uploadProgress = 0;
+    setTimeout(() => {
+      reader.readAsText(this.chosenFile);
+    }, ProgressBarComponent.delay);
   }
 
-  view() {
+  view({attrs: {app}}) {
     return m('div.import-options', [
       m('h2', 'Import Story'),
       m('div.import-control-wrapper', [
@@ -30,12 +42,17 @@ class ImportComponent {
         }),
         m('div.import-chosen-file-name', this.chosenFile ? this.chosenFile.name : 'No file chosen')
       ]),
-      this.chosenFile ? m(ControlComponent, {
-        id: 'upload-file',
-        title: 'Upload Now',
-        label: 'Upload Now',
-        action: () => this.uploadChosenFile()
-      }) : null
+      m('div.import-footer', [
+        this.uploadProgress >= 0 ? m(ProgressBarComponent, {
+          progress: this.uploadProgress
+        }) : null,
+        this.chosenFile ? m(ControlComponent, {
+          id: 'upload-file',
+          title: 'Upload Now',
+          label: 'Upload Now',
+          action: () => this.uploadChosenFile(app)
+        }) : null
+      ])
     ]);
   }
 
