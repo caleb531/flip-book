@@ -23,9 +23,7 @@ class ImportComponent {
       }, ProgressBarComponent.delay);
     };
     this.uploadProgress = 0;
-    setTimeout(() => {
-      reader.readAsText(this.chosenFile);
-    }, ProgressBarComponent.delay);
+    reader.readAsText(this.chosenFile);
   }
 
   view({attrs: {app}}) {
