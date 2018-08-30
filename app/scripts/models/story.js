@@ -1,12 +1,14 @@
 import Frame from './frame.js';
+import StoryMetadata from './story-metadata.js';
 
 class Story {
 
-  constructor({frames = [new Frame()], frameDuration = 100, showPreviousFrame = true, selectedFrameIndex = 0} = {}) {
+  constructor({frames = [new Frame()], frameDuration = 100, showPreviousFrame = true, selectedFrameIndex = 0, metadata = {}} = {}) {
     this.frames = frames.map((frame) => new Frame(frame));
     this.selectFrame(selectedFrameIndex);
     this.frameDuration = frameDuration;
     this.showPreviousFrame = showPreviousFrame;
+    this.metadata = new StoryMetadata(metadata);
     this.playing = false;
   }
 

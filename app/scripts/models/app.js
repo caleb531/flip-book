@@ -66,10 +66,9 @@ class App {
   }
 
   addExistingStory(story) {
-    story.metadata = new StoryMetadata(story.metadata);
     this.stories.unshift(story.metadata);
     story.save();
-    this.save();
+    this.selectStory(0);
   }
 
   deleteSelectedStory() {

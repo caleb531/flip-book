@@ -6,6 +6,8 @@ class ImportComponent {
 
   setChosenFile(chosenFile) {
     this.chosenFile = chosenFile;
+    this.storyAdded = null;
+    this.uploadProgress = null;
   }
 
   uploadChosenFile(app) {
@@ -16,7 +18,7 @@ class ImportComponent {
     };
     reader.onload = (event) => {
       setTimeout(() => {
-        let story = new Story(event.target.result);
+        let story = new Story(JSON.parse(event.target.result));
         app.addExistingStory(story);
         this.storyAdded = story;
         m.redraw();
@@ -41,15 +43,18 @@ class ImportComponent {
         m('div.import-chosen-file-name', this.chosenFile ? this.chosenFile.name : 'No file chosen')
       ]),
       m('div.import-footer', [
-        this.uploadProgress >= 0 ? m(ProgressBarComponent, {
-          progress: this.uploadProgress
-        }) : null,
-        this.chosenFile ? m(ControlComponent, {
-          id: 'upload-file',
-          title: 'Upload Now',
-          label: 'Upload Now',
-          action: () => this.uploadChosenFile(app)
-        }) : null
+        this.storyAdded ? m('div.import-success-message', `"${this.storyAdded.metadata.name}" successfully added!`) :
+        [
+          this.uploadProgress >= 0 ? m(ProgressBarComponent, {
+            progress: this.uploadProgress
+          }) : null,
+          this.chosenFile ? m(ControlComponent, {
+            id: 'upload-file',
+            title: 'Upload Now',
+            label: 'Upload Now',
+            action: () => this.uploadChosenFile(app)
+          }) : null
+        ]
       ])
     ]);
   }
