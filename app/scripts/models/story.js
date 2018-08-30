@@ -152,6 +152,9 @@ class Story {
     // the app manifest); reconstruct the object with the metadata key added
     // first, since ES6 preserves object key order
     let json = Object.assign({metadata: this.metadata}, this.toJSON());
+    // When we import the story somewhere else, it would be more convenient for
+    // the first frame to be selected
+    delete json.selectedFrameIndex;
     return JSON.stringify(json);
   }
 
