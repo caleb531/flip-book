@@ -1,7 +1,8 @@
 # Flip Book
 
 *Copyright 2018 Caleb Evans*  
-*Released under the MIT license*
+*Released under the MIT license*  
+*For my friend and brother, Bill.*
 
 This application enables you to create simple flip book-type animations from
 drawings that you create.
