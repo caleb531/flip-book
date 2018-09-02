@@ -60,7 +60,15 @@ class StoryHeaderComponent {
           title: 'Delete Story',
           icon: 'delete',
           action: () => this.deleteSelectedStory(app)
-        }) : null
+        }) : null,
+        m(ControlComponent, {
+          id: 'help',
+          title: 'Help',
+          icon: 'help',
+          action: () => {
+            window.open('https://github.com/caleb531/flip-book#how-to-use');
+          }
+        })
       ])
     ]);
   }
