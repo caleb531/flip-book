@@ -44,7 +44,7 @@ Export icon towards the left side of the toolbar. In the panel that appears,
 choose "Export to GIF" and your animation will be automagically converted to a
 GIF that you can download.
 
-## Creating another story
+### Creating another story
 
 Click the folder icon in the top-left of the editor view, and you can view all
 of the stories you've created. Click the plus (+) icon in that open panel to
@@ -54,7 +54,7 @@ To delete a story, select a story in the list and click the trash can icon in
 the top-right corner of the editor. To rename a story, click the pencil icon
 next to the story's name.
 
-## Importing a project
+### Importing a project
 
 You can also import a project that you have downloaded via the "Export Project"
 button. To do so, click the up-arrow icon near the top-left corner of the
