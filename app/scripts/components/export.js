@@ -12,7 +12,7 @@ class ExportComponent {
       // Aribtrarily wait half a second before loading to give the progress bar
       // time to reach 100%
       success: () => setTimeout(() => m.redraw(), ProgressBarComponent.delay),
-      progress: () => console.log('o!!!!!') || m.redraw()
+      progress: () => m.redraw()
     });
   }
 
