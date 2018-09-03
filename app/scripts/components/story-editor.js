@@ -17,9 +17,9 @@ class StoryEditorComponent {
         }) : null,
         m(DrawingAreaComponent, {
           className: 'selected-frame',
+          story,
           frame: story.getSelectedFrame(),
-          drawingEnabled: !story.playing,
-          save: () => story.save()
+          drawingEnabled: !story.playing
         }),
       ]),
 

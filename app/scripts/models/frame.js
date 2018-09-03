@@ -5,19 +5,18 @@ class Frame {
   constructor({styles = {}, groups = [], undoHistory = []} = {}) {
     this.temporaryId = Frame.nextAutoIncrementedId;
     Frame.nextAutoIncrementedId += 1;
-    this.styles = Object.assign({
-      strokeStyle: '#000',
-      lineWidth: 12,
-      lineCap: 'round',
-      lineJoin: 'round'
-    }, styles);
+    this.styles = Object.assign({}, Frame.defaultStyles, _.pick(styles, [
+      'strokeStyle',
+      'lineWidth'
+    ]));
     this.groups = groups;
     this.undoHistory = undoHistory;
   }
 
-  startNewGroup() {
+  startNewGroup({styles}) {
     this.groups.push({
-      points: []
+      points: [],
+      styles
     });
   }
 
@@ -46,7 +45,6 @@ class Frame {
     if (backgroundColor) {
       this.setBackground(ctx, backgroundColor);
     }
-    this.setCanvasStyles(ctx);
     this.drawGroups(ctx);
   }
 
@@ -65,24 +63,40 @@ class Frame {
     ctx.fillStyle = 'transparent';
   }
 
-  setCanvasStyles(ctx) {
-    for (let styleKey in this.styles) {
-      if (Object.prototype.hasOwnProperty.call(this.styles, styleKey)) {
-        ctx[styleKey] = this.styles[styleKey];
-      }
+  setGlobalStyles(ctx) {
+    ctx.lineCap = this.styles.lineCap;
+    ctx.lineJoin = this.styles.lineJoin;
+  }
+
+  setGroupStyles(ctx, group) {
+    this.setGroupStyle(ctx, group, 'strokeStyle');
+    this.setGroupStyle(ctx, group, 'lineWidth');
+  }
+
+  setGroupStyle(ctx, group, styleName) {
+    let styleValue = group.styles ? group.styles[styleName] : this.styles[styleName];
+    if (styleValue !== ctx[styleName]) {
+      ctx[styleName] = styleValue;
     }
   }
 
   drawGroups(ctx) {
+    this.setGlobalStyles(ctx);
     for (let g = 0; g < this.groups.length; g += 1) {
       let group = this.groups[g];
       let currentX = group.points[0][0];
       let currentY = group.points[0][1];
+      this.setGroupStyles(ctx, group);
       if (group.points.length === 1) {
         // Draw a circle
-        ctx.fillStyle = this.styles.strokeStyle;
+        ctx.fillStyle = group.styles ? group.styles.strokeStyle : this.styles.strokeStyle;
         ctx.beginPath();
-        ctx.arc(currentX, currentY, this.styles.lineWidth / 2, 0, Math.PI * 2, false);
+        ctx.arc(
+          currentX, currentY,
+          (group.styles ? group.styles.lineWidth : this.styles.lineWidth) / 2,
+          0, Math.PI * 2,
+          false
+        );
         ctx.fill();
         ctx.closePath();
         ctx.fillStyle = 'transparent';
@@ -118,5 +132,11 @@ class Frame {
 
 }
 Frame.nextAutoIncrementedId = 0;
+Frame.defaultStyles = {
+  strokeStyle: '#000',
+  lineWidth: 12,
+  lineCap: 'round',
+  lineJoin: 'round'
+};
 
 export default Frame;

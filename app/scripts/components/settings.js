@@ -12,6 +12,11 @@ class SettingsComponent {
     story.save();
   }
 
+  setLineWidth(story, lineWidth) {
+    story.frameStyles.lineWidth = Number(lineWidth);
+    story.save();
+  }
+
   view({attrs: {story}}) {
     return m('div.settings', [
       m('h2', 'Settings'),
@@ -27,11 +32,18 @@ class SettingsComponent {
         }))
       ]),
       m('div.setting', [
+        m('label[for="setting-show-previous-frame"]', 'Show Previous Frame?'),
         m('input[type=checkbox]#setting-show-previous-frame', {
           checked: story.showPreviousFrame,
           onchange: () => this.toggleShowPreviousFrame(story)
         }),
-        m('label[for="setting-show-previous-frame"]', 'Show Previous Frame?'),
+      ]),
+      m('div.setting', [
+        m('label[for="setting-line-width"]', 'Stroke Width'),
+        m('input[type=range][min=4][max=20][step=4]#setting-line-width', {
+          value: story.frameStyles.lineWidth,
+          onchange: ({target}) => this.setLineWidth(story, target.value)
+        }),
       ])
     ]);
   }
