@@ -73,7 +73,7 @@ class Frame {
   }
 
   setGroupStyle(ctx, group, styleName) {
-    let styleValue = group.styles ? group.styles.strokeStyle : this.styles.strokeStyle;
+    let styleValue = group.styles ? group.styles[styleName] : this.styles[styleName];
     if (styleValue !== ctx[styleName]) {
       ctx[styleName] = styleValue;
     }
