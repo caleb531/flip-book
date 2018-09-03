@@ -12,7 +12,6 @@ class Frame {
       lineJoin: 'round'
     }, styles);
     this.groups = groups;
-    // The undo history only exists for the life of the current page
     this.undoHistory = undoHistory;
   }
 
