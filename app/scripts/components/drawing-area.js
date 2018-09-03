@@ -3,15 +3,15 @@ import PanelComponent from './panel.js';
 
 class DrawingAreaComponent extends FrameComponent {
 
-  oninit({attrs: {frame, save, drawingEnabled = true}}) {
+  oninit({attrs: {story, frame, drawingEnabled = true}}) {
+    this.story = story;
     super.oninit({attrs: {frame}});
     this.frame = frame;
-    this.save = save;
     this.drawingEnabled = drawingEnabled;
   }
 
-  onupdate({attrs: {frame, save, drawingEnabled = true}}) {
-    this.save = save;
+  onupdate({attrs: {story, frame, drawingEnabled = true}}) {
+    this.story = story;
     this.drawingEnabled = drawingEnabled;
     super.onupdate({attrs: {frame}});
   }
@@ -25,7 +25,9 @@ class DrawingAreaComponent extends FrameComponent {
       this.canvasOffsetTop = event.target.parentElement.offsetTop;
       let startX = (event.pageX - this.canvasOffsetLeft) * this.canvasScaleFactor;
       let startY = (event.pageY - this.canvasOffsetTop) * this.canvasScaleFactor;
-      this.frame.startNewGroup();
+      this.frame.startNewGroup({
+        styles: Object.assign({}, this.story.frameStyles)
+      });
       this.frame.addPoint(startX, startY);
       this.lastX = startX;
       this.lastY = startY;
@@ -55,7 +57,7 @@ class DrawingAreaComponent extends FrameComponent {
     event.preventDefault();
     if (this.drawingEnabled && this.mousedown) {
       this.mousedown = false;
-      this.save();
+      this.story.save();
     } else {
       event.redraw = false;
     }
@@ -64,13 +66,13 @@ class DrawingAreaComponent extends FrameComponent {
   undo() {
     this.frame.undo();
     this.renderCanvas();
-    this.save();
+    this.story.save();
   }
 
   redo() {
     this.frame.redo();
     this.renderCanvas();
-    this.save();
+    this.story.save();
   }
 
   view() {

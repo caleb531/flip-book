@@ -3,13 +3,17 @@ import StoryMetadata from './story-metadata.js';
 
 class Story {
 
-  constructor({frames = [new Frame()], frameDuration = 100, showPreviousFrame = true, selectedFrameIndex = 0, metadata = {}} = {}) {
+  constructor({frames = [new Frame()], frameDuration = 100, showPreviousFrame = true, selectedFrameIndex = 0, metadata = {}, frameStyles} = {}) {
     this.frames = frames.map((frame) => new Frame(frame));
     this.selectFrame(selectedFrameIndex);
     this.frameDuration = frameDuration;
     this.showPreviousFrame = showPreviousFrame;
     this.metadata = new StoryMetadata(metadata);
     this.playing = false;
+    this.frameStyles = Object.assign({}, {
+      strokeStyle: Frame.defaultStyles.strokeStyle,
+      lineWidth: Frame.defaultStyles.lineWidth
+    }, frameStyles);
   }
 
   getSelectedFrame() {
@@ -169,7 +173,8 @@ class Story {
       'frames',
       'selectedFrameIndex',
       'frameDuration',
-      'showPreviousFrame'
+      'showPreviousFrame',
+      'frameStyles'
     ]);
   }
 

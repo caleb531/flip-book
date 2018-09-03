@@ -13,9 +13,10 @@ class Frame {
     this.undoHistory = undoHistory;
   }
 
-  startNewGroup() {
+  startNewGroup({styles}) {
     this.groups.push({
-      points: []
+      points: [],
+      styles
     });
   }
 
@@ -88,9 +89,14 @@ class Frame {
       this.setGroupStyles(ctx, group);
       if (group.points.length === 1) {
         // Draw a circle
-        ctx.fillStyle = this.styles.strokeStyle;
+        ctx.fillStyle = group.styles ? group.styles.strokeStyle : this.styles.strokeStyle;
         ctx.beginPath();
-        ctx.arc(currentX, currentY, this.styles.lineWidth / 2, 0, Math.PI * 2, false);
+        ctx.arc(
+          currentX, currentY,
+          (group.styles ? group.styles.lineWidth : this.styles.lineWidth) / 2,
+          0, Math.PI * 2,
+          false
+        );
         ctx.fill();
         ctx.closePath();
         ctx.fillStyle = 'transparent';
@@ -128,7 +134,7 @@ class Frame {
 Frame.nextAutoIncrementedId = 0;
 Frame.defaultStyles = {
   strokeStyle: '#000',
-  lineWidth: 1,
+  lineWidth: 12,
   lineCap: 'round',
   lineJoin: 'round'
 };
