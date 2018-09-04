@@ -72,7 +72,10 @@ class App {
   }
 
   deleteSelectedStory() {
-    if (this.stories.length > 1) {
+    if (this.stories.length === 1) {
+      this.stories.splice(this.selectedStoryIndex, 1, new StoryMetadata());
+      this.selectStory(0);
+    } else {
       this.stories.splice(this.selectedStoryIndex, 1);
       if (this.selectedStoryIndex === 0) {
         this.selectStory(this.selectedStoryIndex);

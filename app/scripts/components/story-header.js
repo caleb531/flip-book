@@ -55,12 +55,12 @@ class StoryHeaderComponent {
         action: () => this.renameSelectedStory(app)
       }),
       m('.control-group', [
-        app.stories.length > 1 ? m(ControlComponent, {
+        m(ControlComponent, {
           id: 'delete-story',
           title: 'Delete Story',
           icon: 'delete',
           action: () => this.deleteSelectedStory(app)
-        }) : null,
+        }),
         m(ControlComponent, {
           id: 'help',
           title: 'Help',
