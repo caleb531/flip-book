@@ -58,6 +58,7 @@
   }
 }
 .control-icon {
+  pointer-events: none;
   fill: currentColor;
   $icon-size: 24px;
   width: $icon-size;
