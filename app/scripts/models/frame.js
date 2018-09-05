@@ -9,6 +9,7 @@ class Frame {
       'strokeStyle',
       'lineWidth'
     ]));
+    this.lastRenderedStyles = {};
     this.groups = groups;
     this.undoHistory = undoHistory;
   }
@@ -75,8 +76,12 @@ class Frame {
 
   setGroupStyle(ctx, group, styleName) {
     let styleValue = group.styles ? group.styles[styleName] : this.styles[styleName];
-    if (styleValue !== ctx[styleName]) {
+    // ctx[styleName] cannot be used to check if styleValue has changed, because
+    // when setting ctx.strokeStyle to #000, ctx.strokeStyle evaluates to
+    // #000000; we therefore need to store the exact value on a separate object
+    if (styleValue !== this.lastRenderedStyles[styleName]) {
       ctx[styleName] = styleValue;
+      this.lastRenderedStyles[styleName] = styleValue;
     }
   }
 
