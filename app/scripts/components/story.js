@@ -6,8 +6,10 @@ class StoryComponent {
   navigateFramesViaKeyboard(event, story) {
     if (event.key === 'ArrowLeft') {
       story.selectPreviousFrame();
+      story.save();
     } else if (event.key === 'ArrowRight') {
       story.selectNextFrame();
+      story.save();
     } else {
       event.redraw = false;
     }
