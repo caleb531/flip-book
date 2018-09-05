@@ -33,15 +33,11 @@ class Story {
   }
 
   selectPreviousFrame() {
-    if (this.selectedFrameIndex > 0) {
-      this.selectFrame(this.selectedFrameIndex - 1);
-    }
+    this.selectFrame((this.selectedFrameIndex - 1 + this.frames.length) % this.frames.length);
   }
 
   selectNextFrame() {
-    if (this.selectedFrameIndex < (this.frames.length - 1)) {
-      this.selectFrame(this.selectedFrameIndex + 1);
-    }
+    this.selectFrame((this.selectedFrameIndex + 1) % this.frames.length);
   }
 
   addFrame() {
