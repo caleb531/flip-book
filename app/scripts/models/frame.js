@@ -9,7 +9,6 @@ class Frame {
       'strokeStyle',
       'lineWidth'
     ]));
-    this.lastRenderedStyles = {};
     this.groups = groups;
     this.undoHistory = undoHistory;
   }
@@ -39,6 +38,13 @@ class Frame {
   }
 
   render(ctx, {scale = 1, backgroundColor = null} = {}) {
+    // The map of last rendered styles must be reset every time the canvas
+    // context changes, because a single frame object can be rendered to
+    // multiple canvases
+    if (ctx !== this.lastCtx) {
+      this.lastCtx = ctx;
+      this.lastRenderedStyles = {};
+    }
     this.clearCanvas(ctx);
     if (scale !== 1) {
       this.scaleCanvas(ctx, scale);
