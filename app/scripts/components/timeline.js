@@ -37,34 +37,33 @@ class TimelineComponent {
     event.redraw = false;
   }
 
-  handleFrameDragover(event) {
-    event.preventDefault();
-    event.dataTransfer.dropEffect = 'move';
-  }
-
-  getNearestX(xValue, roundValue) {
-    return Math.round(xValue / roundValue) * roundValue;
-  }
-
-  handleFrameDragmove(event) {
-    event.preventDefault();
+  handleFrameDragenter(event, story) {
     if (event.target.dataset.index) {
-      let thumbnailWidth = event.target.offsetWidth;
-      let currentX = event.pageX - event.target.parentElement.offsetLeft;
-      console.log(this.getNearestX(currentX, thumbnailWidth));
+      this.newFrameIndex = Number(event.target.dataset.index);
+      if (this.newFrameIndex !== story.selectedFrameIndex) {
+        story.moveFrame(this.oldFrameIndex, this.newFrameIndex);
+        story.selectFrame(this.newFrameIndex);
+        this.oldFrameIndex = this.newFrameIndex;
+        story.save();
+      } else {
+        event.preventDefault();
+        event.redraw = false;
+      }
+    } else {
+      event.preventDefault();
+      event.redraw = false;
     }
   }
 
-  handleFrameDrop(event, story) {
+  handleFrameDragover(event) {
     event.preventDefault();
+    event.dataTransfer.dropEffect = 'move';
+    event.redraw = false;
+  }
+
+  handleFrameDrop(event) {
     if (this.mousedown) {
       this.mousedown = false;
-      if (event.target.dataset.index) {
-        this.newFrameIndex = Number(event.target.dataset.index);
-        story.moveFrame(this.oldFrameIndex, this.newFrameIndex);
-        story.selectFrame(this.newFrameIndex);
-        story.save();
-      }
     } else {
       event.redraw = false;
     }
@@ -74,8 +73,8 @@ class TimelineComponent {
     return m('ol.timeline', {
       onclick: ({target}) => this.selectThumbnail(target, story),
       ondragstart: (event) => this.handleFrameDragstart(event),
-      ondrag: (event) => this.handleFrameDragmove(event),
-      ondragover: (event) => this.handleFrameDragover(event),
+      ondragover: (event) => this.handleFrameDragover(event, story),
+      ondragenter: (event) => this.handleFrameDragenter(event, story),
       ondrop: (event) => this.handleFrameDrop(event, story)
     }, story.frames.map((frame, f) => {
       return m('li.timeline-thumbnail', {
