@@ -6,13 +6,19 @@
   input[type="checkbox"] {
     margin-right: 8px;
   }
-  input[type="range"] {
-    width: 100px;
-  }
+}
+
+#setting-fps {
+  flex-grow: 1;
+}
+
+#setting-stroke-width {
+  width: 100px;
 }
 
 .setting-value {
+  width: 20px;
   margin-left: 5px;
   font-size: 0.8rem;
-  font-family: sans-serif;
+  text-align: center;
 }

@@ -1,5 +1,3 @@
-import Story from '../models/story.js';
-
 class SettingsComponent {
 
   setFrameDuration(story, framesPerSecond) {
@@ -22,14 +20,11 @@ class SettingsComponent {
       m('h2', 'Settings'),
       m('div.setting', [
         m('label[for="setting-fps"]', 'FPS'),
-        m('select#setting-fps', {
-          onchange: ({target}) => this.setFrameDuration(story, target.value),
-        }, Story.fpsOptions.map((fpsOption) => {
-          return m('option', {
-            value: fpsOption,
-            selected: story.getFPS() === fpsOption
-          }, `${fpsOption} fps`);
-        }))
+        m('input[type=range][min=2][max=30][step=2]#setting-fps', {
+          value: story.getFPS(),
+          oninput: ({target}) => this.setFrameDuration(story, target.value)
+        }),
+        m('span.setting-value', story.getFPS())
       ]),
       m('div.setting', [
         m('label[for="setting-show-previous-frame"]', 'Show Previous Frame?'),
@@ -39,11 +34,12 @@ class SettingsComponent {
         }),
       ]),
       m('div.setting', [
-        m('label[for="setting-line-width"]', 'Stroke Width'),
-        m('input[type=range][min=4][max=20][step=4]#setting-line-width', {
+        m('label[for="setting-stroke-width"]', 'Stroke Width'),
+        m('input[type=range][min=4][max=20][step=4]#setting-stroke-width', {
           value: story.frameStyles.lineWidth,
-          onchange: ({target}) => this.setLineWidth(story, target.value)
+          oninput: ({target}) => this.setLineWidth(story, target.value)
         }),
+        m('span.setting-value', story.frameStyles.lineWidth)
       ])
     ]);
   }

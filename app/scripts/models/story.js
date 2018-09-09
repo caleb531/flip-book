@@ -183,7 +183,5 @@ class Story {
 }
 // The number of milliseconds in one second
 Story.MS_IN_S = 1000;
-// The available options for Frames Per Second (FPS)
-Story.fpsOptions = [8, 10, 24, 30];
 
 export default Story;
