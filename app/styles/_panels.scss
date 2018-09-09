@@ -4,7 +4,7 @@
   left: 50%;
   z-index: 100;
   border-radius: $panel-border-radius;
-  padding: 5px 10px;
+  padding: $panel-padding-y $panel-padding-x;
   padding-bottom: 10px;
   margin-left: -($control-arrow-width * 2);
   // TODO: remove this arbitrary height so the height is calculated naturally
@@ -50,6 +50,6 @@
 }
 
 .panel label {
-  margin-right: 10px;
+  margin-right: $panel-padding-x;
   font-size: 0.8rem;
 }
