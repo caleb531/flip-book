@@ -16,15 +16,15 @@
   position: relative;
   margin: 0;
   padding: 0;
-  margin-right: 2px;
+  padding-right: 2px;
   &:last-child {
-    margin-right: 0;
+    padding-right: 0;
   }
   &:after {
     pointer-events: none;
     position: absolute;
     top: 1px;
-    right: 1px;
+    right: 3px;
     $index-size: 14px;
     width: $index-size;
     height: $index-size;

@@ -29,11 +29,57 @@ class TimelineComponent {
     }
   }
 
+  handleFrameDragstart(event) {
+    if (event.target.dataset.index) {
+      this.mousedown = true;
+      this.oldFrameIndex = Number(event.target.dataset.index);
+    }
+    event.redraw = false;
+  }
+
+  handleFrameDragover(event) {
+    event.preventDefault();
+    event.dataTransfer.dropEffect = 'move';
+  }
+
+  getNearestX(xValue, roundValue) {
+    return Math.round(xValue / roundValue) * roundValue;
+  }
+
+  handleFrameDragmove(event) {
+    event.preventDefault();
+    if (event.target.dataset.index) {
+      let thumbnailWidth = event.target.offsetWidth;
+      let currentX = event.pageX - event.target.parentElement.offsetLeft;
+      console.log(this.getNearestX(currentX, thumbnailWidth));
+    }
+  }
+
+  handleFrameDrop(event, story) {
+    event.preventDefault();
+    if (this.mousedown) {
+      this.mousedown = false;
+      if (event.target.dataset.index) {
+        this.newFrameIndex = Number(event.target.dataset.index);
+        story.moveFrame(this.oldFrameIndex, this.newFrameIndex);
+        story.selectFrame(this.newFrameIndex);
+        story.save();
+      }
+    } else {
+      event.redraw = false;
+    }
+  }
+
   view({attrs: {story}}) {
     return m('ol.timeline', {
-      onclick: ({target}) => this.selectThumbnail(target, story)
+      onclick: ({target}) => this.selectThumbnail(target, story),
+      ondragstart: (event) => this.handleFrameDragstart(event),
+      ondrag: (event) => this.handleFrameDragmove(event),
+      ondragover: (event) => this.handleFrameDragover(event),
+      ondrop: (event) => this.handleFrameDrop(event, story)
     }, story.frames.map((frame, f) => {
       return m('li.timeline-thumbnail', {
+        draggable: true,
         // Keying each thumbnail prevents the canvas redraws from compounding
         key: frame.temporaryId,
         // Scroll newly-added frames into view

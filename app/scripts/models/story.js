@@ -58,6 +58,12 @@ class Story {
     }
   }
 
+  moveFrame(oldFrameIndex, newFrameIndex) {
+    let frame = this.frames[oldFrameIndex];
+    this.frames.splice(oldFrameIndex, 1);
+    this.frames.splice(newFrameIndex, 0, frame);
+  }
+
   getFPS() {
     return Math.round(Story.MS_IN_S / this.frameDuration);
   }
