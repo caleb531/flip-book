@@ -31,7 +31,6 @@ class TimelineComponent {
 
   handleFrameDragstart(event) {
     if (event.target.dataset.index) {
-      this.mousedown = true;
       this.oldFrameIndex = Number(event.target.dataset.index);
     }
     event.redraw = false;
@@ -60,11 +59,7 @@ class TimelineComponent {
   }
 
   handleFrameDrop(event) {
-    if (this.mousedown) {
-      this.mousedown = false;
-    } else {
-      event.redraw = false;
-    }
+    event.redraw = false;
   }
 
   view({attrs: {story}}) {
