@@ -13,6 +13,11 @@ $panel-position-offset: 15px;
 $panel-border-radius: 5px;
 $panel-background-color: #234;
 
+$slider-thumb-size: 16px;
+$slider-track-visible-height: 2px;
+$slider-track-padding: ($slider-thumb-size - $slider-track-visible-height) / 2;
+$slider-track-total-height: $slider-track-visible-height + ($slider-track-padding * 2);
+
 $control-padding: 7px;
 $control-padding-panel: 6px;
 $control-background-color: $color-slate-dark;
