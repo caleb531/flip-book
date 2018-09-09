@@ -8,6 +8,8 @@ class Frame {
     this.styles = Object.assign({}, Frame.defaultStyles, _.pick(styles, [
       'strokeStyle',
       'lineWidth'
+      // lineCap and lineJoin will be the same for every frame, so we don't need
+      // to add extra bloat by exporting them onto each frame
     ]));
     this.groups = groups;
     this.undoHistory = undoHistory;
