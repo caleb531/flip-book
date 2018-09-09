@@ -76,7 +76,9 @@ class Frame {
   }
 
   setGroupStyles(ctx, group) {
-    this.setGroupStyle(ctx, group, 'strokeStyle');
+    // TODO: implement the ability to change stroke color within the UI; the
+    // below line isn't needed until that is done
+    // this.setGroupStyle(ctx, group, 'strokeStyle');
     this.setGroupStyle(ctx, group, 'lineWidth');
   }
 
