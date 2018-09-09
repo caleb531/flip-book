@@ -38,6 +38,8 @@ class TimelineComponent {
   }
 
   handleFrameDragenter(event, story) {
+    event.preventDefault();
+    event.redraw = false;
     if (event.target.dataset.index) {
       this.newFrameIndex = Number(event.target.dataset.index);
       if (this.newFrameIndex !== story.selectedFrameIndex) {
@@ -45,13 +47,9 @@ class TimelineComponent {
         story.selectFrame(this.newFrameIndex);
         this.oldFrameIndex = this.newFrameIndex;
         story.save();
-      } else {
-        event.preventDefault();
-        event.redraw = false;
+        // Do not defer the next redraw
+        delete event.redraw;
       }
-    } else {
-      event.preventDefault();
-      event.redraw = false;
     }
   }
 
