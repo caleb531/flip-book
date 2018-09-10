@@ -5,8 +5,8 @@ class SettingsComponent {
     story.save();
   }
 
-  toggleShowPreviousFrame(story) {
-    story.showPreviousFrame = !story.showPreviousFrame;
+  toggleShowPreviousFrame(story, showPreviousFrame) {
+    story.showPreviousFrame = showPreviousFrame;
     story.save();
   }
 
@@ -30,7 +30,7 @@ class SettingsComponent {
         m('label[for="setting-show-previous-frame"]', 'Show Previous Frame?'),
         m('input[type=checkbox]#setting-show-previous-frame', {
           checked: story.showPreviousFrame,
-          onchange: () => this.toggleShowPreviousFrame(story)
+          onchange: ({target}) => this.toggleShowPreviousFrame(story, target.checked)
         }),
       ]),
       m('div.setting', [
