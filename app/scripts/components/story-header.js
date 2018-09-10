@@ -54,8 +54,8 @@ class StoryHeaderComponent {
           action: () => this.createStory(app)
         }),
         m(ControlComponent, {
-          id: 'story-list',
-          title: 'Story List',
+          id: 'open-story',
+          title: 'Open Story',
           icon: 'folder',
           panel: m(StoryListComponent, {app}),
           panelPosition: 'bottom',
