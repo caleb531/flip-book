@@ -1,8 +1,23 @@
 import ControlComponent from './control.js';
+import PanelComponent from './panel.js';
 import StoryListComponent from './story-list.js';
 import ImportComponent from './import.js';
 
 class StoryHeaderComponent {
+
+  createStory(app) {
+    // Prevent the synchronous prompt() call from blocking the main thread; this
+    // will allow Mithril to redraw and close all panels before showing the
+    // modal
+    setTimeout(() => {
+      let storyName = prompt('Please enter a name for your new story:') || '';
+      if (storyName.trim()) {
+        app.createStory(storyName.trim());
+        PanelComponent.closeAllPanels();
+        m.redraw();
+      }
+    });
+  }
 
   renameSelectedStory(app) {
     // Prevent the synchronous confirm() call from blocking the main thread;
@@ -32,6 +47,12 @@ class StoryHeaderComponent {
   view({attrs: {app, story}}) {
     return m('div.story-header', [
       m('.control-group', [
+        m(ControlComponent, {
+          id: 'create-new-story',
+          title: 'Create New Story',
+          icon: 'add',
+          action: () => this.createStory(app)
+        }),
         m(ControlComponent, {
           id: 'story-list',
           title: 'Story List',

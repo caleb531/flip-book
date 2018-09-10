@@ -48,10 +48,6 @@
     background-color: $control-background-color-active;
     color: #fff;
   }
-  .panel & {
-    padding: $control-padding-panel;
-    border-radius: ($panel-border-radius - $story-list-header-padding);
-  }
   .control-has-label & {
     background-color: $control-background-color-labeled;
     white-space: nowrap;

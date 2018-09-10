@@ -1,15 +1,11 @@
 .control-story-list > .panel {
-  padding: 0;
+  padding-left: 0;
+  padding-right: 0;
 }
 
 .story-list-container {
-  top: 100%;
-  left: 2px;
-  bottom: auto;
   width: 180px;
   text-align: left;
-  padding: 0;
-  padding-bottom: 10px;
   &:after {
     top: auto;
     bottom: 100%;
@@ -18,29 +14,10 @@
     border-bottom-color: $panel-background-color;
     border-top-width: 0;
   }
-}
-
-.story-list-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: $story-list-header-padding;
   h2 {
-    padding-left: ($story-list-item-padding-x - $story-list-header-padding);
+    padding-left: $story-list-item-padding-x;
+    text-align: left;
   }
-  .control-button {
-    padding: 2px;
-  }
-  .control-icon {
-    $icon-size: 20px;
-    width: $icon-size;
-    height: $icon-size;
-  }
-}
-
-.story-list-container h2 {
-  margin-bottom: 0;
-  text-align: left;
 }
 
 .story-list {
