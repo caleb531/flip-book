@@ -1,6 +1,5 @@
 import Frame from './frame.js';
 import StoryMetadata from './story-metadata.js';
-import FrameComponent from '../components/frame.js';
 
 class Story {
 
@@ -97,76 +96,6 @@ class Story {
 
   redo() {
     this.getSelectedFrame().redo();
-  }
-
-  exportGif({scale = 1, progress = null, success = null}) {
-    this.gifGenerator = new GIF({
-      workers: 2,
-      workerScript: 'scripts/gif.worker.js'
-    });
-    this.frames.forEach((frame) => {
-      let canvas = document.createElement('canvas');
-      canvas.width = FrameComponent.width * scale;
-      canvas.height = FrameComponent.height * scale;
-      frame.render(canvas.getContext('2d'), {
-        scale: scale,
-        backgroundColor: '#fff'
-      });
-      this.gifGenerator.addFrame(canvas, {delay: this.frameDuration});
-    });
-    this.gifGenerator.on('progress', (currentProgress) => {
-      this.exportProgress = currentProgress;
-      if (progress) {
-        progress();
-      }
-    });
-    this.gifGenerator.on('finished', (blob) => {
-      let image = new Image();
-      image.onload = () => {
-        this.exportedImageUrl = image.src;
-        if (success) {
-          success();
-        }
-      };
-      image.src = URL.createObjectURL(blob);
-    });
-    this.exportedImageUrl = null;
-    this.gifGenerator.render();
-  }
-
-  isExportingGif() {
-    if (this.gifGenerator) {
-      return this.gifGenerator.running;
-    } else {
-      return false;
-    }
-  }
-
-  isGifExportFinished() {
-    if (this.gifGenerator) {
-      return this.gifGenerator.finishedFrames === this.frames.length;
-    } else {
-      return false;
-    }
-  }
-
-  abortGifExport() {
-    if (this.gifGenerator) {
-      this.gifGenerator.abort();
-      this.gifGenerator = false;
-    }
-  }
-
-  exportProject() {
-    // The story metadata is not returned by toJSON() so that the information is
-    // not duplicated in localStorage (the story metadata is already stored in
-    // the app manifest); reconstruct the object with the metadata key added
-    // first, since ES6 preserves object key order
-    let json = Object.assign({metadata: this.metadata}, this.toJSON());
-    // When we import the story somewhere else, it would be more convenient for
-    // the first frame to be selected
-    delete json.selectedFrameIndex;
-    return JSON.stringify(json);
   }
 
   save() {

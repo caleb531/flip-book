@@ -5,22 +5,76 @@ import ExportGifComponent from './export-gif.js';
 
 class ExportComponent {
 
-  exportStoryToGif(story) {
-    story.exportGif({
-      scale: story.exportedGifSize,
-      // Aribtrarily wait half a second before loading to give the progress bar
-      // time to reach 100%
-      success: () => setTimeout(() => m.redraw(), ProgressBarComponent.delay),
-      progress: () => m.redraw()
+  exportGif(story) {
+    this.gifGenerator = new GIF({
+      workers: 2,
+      workerScript: 'scripts/gif.worker.js'
     });
+    story.frames.forEach((frame) => {
+      let canvas = document.createElement('canvas');
+      canvas.width = FrameComponent.width * (story.exportedGifSize / FrameComponent.height);
+      canvas.height = story.exportedGifSize;
+      frame.render(canvas.getContext('2d'), {
+        scale: story.exportedGifSize / FrameComponent.height,
+        backgroundColor: '#fff'
+      });
+      this.gifGenerator.addFrame(canvas, {delay: story.frameDuration});
+    });
+    this.gifGenerator.on('progress', (currentProgress) => {
+      this.exportProgress = currentProgress;
+      m.redraw();
+    });
+    this.gifGenerator.on('finished', (blob) => {
+      let image = new Image();
+      image.onload = () => {
+        this.exportedImageUrl = image.src;
+        // Aribtrarily wait half a second before loading to give the progress bar
+        // time to reach 100%
+        setTimeout(() => m.redraw(), ProgressBarComponent.delay);
+      };
+      image.src = URL.createObjectURL(blob);
+    });
+    this.exportedImageUrl = null;
+    this.gifGenerator.render();
   }
 
-  exportStoryToProjectFile(story) {
+  isExportingGif() {
+    if (this.gifGenerator) {
+      return this.gifGenerator.running;
+    } else {
+      return false;
+    }
+  }
+
+  isGifExportFinished() {
+    if (this.gifGenerator) {
+      return this.gifGenerator.finishedFrames === this.gifGenerator.frames.length;
+    } else {
+      return false;
+    }
+  }
+
+  abortGifExport() {
+    if (this.gifGenerator) {
+      this.gifGenerator.abort();
+      this.gifGenerator = false;
+    }
+  }
+
+  exportProject(story) {
+    // The story metadata is not returned by toJSON() so that the information is
+    // not duplicated in localStorage (the story metadata is already stored in
+    // the app manifest); reconstruct the object with the metadata key added
+    // first, since ES6 preserves object key order
+    let storyJson = Object.assign({metadata: story.metadata}, story.toJSON());
+    // When we import the story somewhere else, it would be more convenient for
+    // the first frame to be selected
+    delete storyJson.selectedFrameIndex;
     let slugName = story.metadata.name
       .toLowerCase()
       .replace(/(^\W+)|(\W+$)/gi, '')
       .replace(/\W+/gi, '-');
-    let blob = new Blob([story.exportProject()]);
+    let blob = new Blob([JSON.stringify(storyJson)]);
     let a = document.createElement('a');
     a.href = URL.createObjectURL(blob, {type: 'application/json'});
     a.download = `${slugName}.flipbook`;
@@ -40,17 +94,17 @@ class ExportComponent {
           id: 'export-gif',
           title: 'Export GIF',
           label: 'Export GIF',
-          action: () => this.exportStoryToGif(story)
+          action: () => this.exportGif(story)
         }),
         m('div.exported-gif-size', [
           m('label[for=exported-gif-size]', 'GIF Size:'),
           m('select#exported-gif-size', {
             onchange: ({target}) => this.setExportedGifSize(story, target.value)
-          }, ExportComponent.gifSizes.map((size) => {
+          }, ExportComponent.exportedGifSizes.map((size) => {
             return m('option', {
               selected: size === story.exportedGifSize,
               value: size
-            }, `${FrameComponent.width * size} x ${FrameComponent.height * size}`);
+            }, `${FrameComponent.width * (size / FrameComponent.height)} x ${size}`);
           }))
         ])
       ]),
@@ -58,9 +112,15 @@ class ExportComponent {
         id: 'export-project',
         title: 'Export Project',
         label: 'Export Project',
-        action: () => this.exportStoryToProjectFile(story)
+        action: () => this.exportProject(story)
       }),
-      m(ExportGifComponent, {story})
+      m(ExportGifComponent, {
+        isExportingGif: this.isExportingGif(),
+        isGifExportFinished: this.isGifExportFinished(),
+        exportProgress: this.exportProgress,
+        exportedImageUrl: this.exportedImageUrl,
+        abort: () => this.abortGifExport()
+      })
     ]);
   }
 
@@ -68,12 +128,7 @@ class ExportComponent {
 
 // The list of sizes the story can be exported at; each value is a fraction of
 // the default frame width/height
-ExportComponent.gifSizes = [
-  1080 / FrameComponent.height,
-  720 / FrameComponent.height,
-  540 / FrameComponent.height,
-  360 / FrameComponent.height
-];
+ExportComponent.exportedGifSizes = [1080, 720, 540, 360];
 
 
 export default ExportComponent;
