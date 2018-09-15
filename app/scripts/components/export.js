@@ -14,8 +14,10 @@ class ExportComponent {
       let canvas = document.createElement('canvas');
       canvas.width = FrameComponent.width * (story.exportedGifSize / FrameComponent.height);
       canvas.height = story.exportedGifSize;
-      frame.render(canvas.getContext('2d'), {
-        scale: story.exportedGifSize / FrameComponent.height,
+      let frameComponent = new FrameComponent();
+      frameComponent.oninit({attrs: {frame}});
+      frameComponent.oncreate({dom: canvas});
+      frameComponent.render({
         backgroundColor: '#fff'
       });
       this.gifGenerator.addFrame(canvas, {delay: story.frameDuration});

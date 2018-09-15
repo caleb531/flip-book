@@ -6,8 +6,12 @@ class DrawingAreaComponent extends FrameComponent {
   oninit({attrs: {story, frame, drawingEnabled = true}}) {
     this.story = story;
     super.oninit({attrs: {frame}});
-    this.frame = frame;
     this.drawingEnabled = drawingEnabled;
+  }
+
+  oncreate({dom}) {
+    super.oncreate({dom});
+    this.canvasScaleFactor = this.canvas.width / this.canvas.offsetWidth;
   }
 
   onupdate({attrs: {story, frame, drawingEnabled = true}}) {
@@ -47,7 +51,7 @@ class DrawingAreaComponent extends FrameComponent {
         this.frame.addPoint(diffX, diffY);
         this.lastX = endX;
         this.lastY = endY;
-        this.renderCanvas();
+        this.render();
       }
     }
     event.redraw = false;
@@ -65,13 +69,13 @@ class DrawingAreaComponent extends FrameComponent {
 
   undo() {
     this.frame.undo();
-    this.renderCanvas();
+    this.render();
     this.story.save();
   }
 
   redo() {
     this.frame.redo();
-    this.renderCanvas();
+    this.render();
     this.story.save();
   }
 
