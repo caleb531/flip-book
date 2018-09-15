@@ -69,7 +69,7 @@ class ExportComponent {
 // The list of sizes the story can be exported at; each value is a fraction of
 // the default frame width/height
 ExportComponent.gifSizes = [
-  1,
+  1080 / FrameComponent.height,
   720 / FrameComponent.height,
   540 / FrameComponent.height,
   360 / FrameComponent.height
