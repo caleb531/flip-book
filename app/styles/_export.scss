@@ -1,0 +1,18 @@
+.exported-gif-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: $panel-padding-y;
+}
+
+.exported-gif-size {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  margin-left: $panel-padding-x;
+}
+
+.control-export-gif .control-button {
+  margin: 0;
+}

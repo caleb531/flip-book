@@ -1,15 +1,17 @@
 import Frame from './frame.js';
 import StoryMetadata from './story-metadata.js';
+import FrameComponent from '../components/frame.js';
 
 class Story {
 
-  constructor({frames = [new Frame()], frameDuration = 100, showPreviousFrame = true, selectedFrameIndex = 0, metadata = {}, frameStyles} = {}) {
+  constructor({frames = [new Frame()], frameDuration = 100, showPreviousFrame = true, selectedFrameIndex = 0, metadata = {}, frameStyles, exportedGifSize = 1} = {}) {
     this.frames = frames.map((frame) => new Frame(frame));
     this.selectFrame(selectedFrameIndex);
     this.frameDuration = frameDuration;
     this.showPreviousFrame = showPreviousFrame;
     this.metadata = new StoryMetadata(metadata);
     this.playing = false;
+    this.exportedGifSize = exportedGifSize;
     this.frameStyles = Object.assign({}, {
       strokeStyle: Frame.defaultStyles.strokeStyle,
       lineWidth: Frame.defaultStyles.lineWidth
@@ -97,16 +99,17 @@ class Story {
     this.getSelectedFrame().redo();
   }
 
-  exportGif({width, height, progress = null, success = null}) {
+  exportGif({scale = 1, progress = null, success = null}) {
     this.gifGenerator = new GIF({
       workers: 2,
       workerScript: 'scripts/gif.worker.js'
     });
     this.frames.forEach((frame) => {
       let canvas = document.createElement('canvas');
-      canvas.width = width;
-      canvas.height = height;
+      canvas.width = FrameComponent.width * scale;
+      canvas.height = FrameComponent.height * scale;
       frame.render(canvas.getContext('2d'), {
+        scale: scale,
         backgroundColor: '#fff'
       });
       this.gifGenerator.addFrame(canvas, {delay: this.frameDuration});
@@ -176,7 +179,8 @@ class Story {
       'selectedFrameIndex',
       'frameDuration',
       'showPreviousFrame',
-      'frameStyles'
+      'frameStyles',
+      'exportedGifSize'
     ]);
   }
 

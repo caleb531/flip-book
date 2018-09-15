@@ -47,12 +47,12 @@ class Frame {
       this.lastCtx = ctx;
       this.lastRenderedStyles = {};
     }
-    this.clearCanvas(ctx);
-    if (scale !== 1) {
-      this.scaleCanvas(ctx, scale);
-    }
+    this.clearCanvas(ctx, scale);
     if (backgroundColor) {
       this.setBackground(ctx, backgroundColor);
+    }
+    if (scale !== 1) {
+      this.scaleCanvas(ctx, scale);
     }
     this.drawGroups(ctx);
   }
