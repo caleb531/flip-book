@@ -2,7 +2,7 @@ class Frame {
 
   // Default arguments get evaluated at call time (unlike Python); see:
   // <https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Default_parameters#Evaluated_at_call_time>
-  constructor({styles = {}, groups = [], undoHistory = []} = {}) {
+  constructor({styles = {}, groups = []} = {}) {
     this.temporaryId = Frame.nextAutoIncrementedId;
     Frame.nextAutoIncrementedId += 1;
     this.styles = Object.assign({}, Frame.defaultStyles, _.pick(styles, [
@@ -12,7 +12,7 @@ class Frame {
       // to add extra bloat by exporting them onto each frame
     ]));
     this.groups = groups;
-    this.undoHistory = undoHistory;
+    this.undoHistory = [];
   }
 
   startNewGroup({styles}) {
@@ -52,7 +52,7 @@ class Frame {
   }
 
   toJSON() {
-    return _.pick(this, ['styles', 'groups', 'undoHistory']);
+    return _.pick(this, ['styles', 'groups']);
   }
 
 }
