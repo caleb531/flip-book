@@ -63,7 +63,7 @@ class DrawingAreaComponent extends FrameComponent {
       this.mousedown = false;
       // TODO: add stabilization logic here
       this.stabilizeGroup();
-      // this.story.save();
+      this.story.save();
     } else {
       event.redraw = false;
     }
@@ -121,41 +121,41 @@ class DrawingAreaComponent extends FrameComponent {
 
   stabilizeGroup() {
     let origGroup = this.frame.groups[this.frame.groups.length - 1];
-    // let newGroup = {
-    //   styles: origGroup.styles,
-    //   points: []
-    // };
+    let newGroup = {
+      styles: origGroup.styles,
+      points: []
+    };
     if (origGroup.points.length < 3) {
       return;
     }
-    let threshold = 20;
+    let threshold = -1;
     let lastX = origGroup.points[0][0];
     let lastY = origGroup.points[0][1];
     let currentX = lastX + origGroup.points[1][0];
     let currentY = lastY + origGroup.points[1][1];
     let lastAngle = this.calculateAngle(lastX, lastY, currentX, currentY);
-    // console.log(`(${currentX}, ${currentY}), (${lastX}, ${lastY})`);
+    let newX = origGroup.points[0][0];
+    let newY = origGroup.points[0][1];
+    newGroup.points.push([newX, newY]);
     for (let p = 2; p < origGroup.points.length; p += 1) {
       let origPoint = origGroup.points[p];
       currentX += origPoint[0];
       currentY += origPoint[1];
       let currentAngle = this.calculateAngle(lastX, lastY, currentX, currentY);
-      if (currentAngle === lastAngle) {
-        continue;
-      }
-      if (Math.abs(currentAngle - lastAngle) > threshold) {
-        console.log(lastAngle, currentAngle, 'cut!!');
+      if (p === (origGroup.points.length - 1) || (currentAngle !== lastAngle && Math.abs(currentAngle - lastAngle) >= threshold)) {
         lastAngle = currentAngle;
-        // console.log(newGroup.points[newGroup.points.length - 1][0], newGroup.points[newGroup.points.length - 1][1]);
-        // newGroup.points.push([
-        //   currentX - currentNewX,
-        //   currentY - currentNewY
-        // ]);
-        // currentNewX += newGroup.points[newGroup.points.length - 1][0];
-        // currentNewY += newGroup.points[newGroup.points.length - 1][1];
+        lastX = currentX;
+        lastY = currentY;
+        newGroup.points.push([
+          currentX - newX,
+          currentY - newY
+        ]);
+        newX += newGroup.points[newGroup.points.length - 1][0];
+        newY += newGroup.points[newGroup.points.length - 1][1];
       }
     }
-    // this.frame.groups[this.frame.groups.length - 1] = newGroup;
+    this.frame.groups[this.frame.groups.length - 1] = newGroup;
+    console.log(`${origGroup.points.length - newGroup.points.length} points removed!`);
   }
 
   view() {
