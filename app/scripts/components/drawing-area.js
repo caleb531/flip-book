@@ -61,7 +61,9 @@ class DrawingAreaComponent extends FrameComponent {
     event.preventDefault();
     if (this.drawingEnabled && this.mousedown) {
       this.mousedown = false;
-      this.story.save();
+      // TODO: add stabilization logic here
+      this.stabilizeGroup();
+      // this.story.save();
     } else {
       event.redraw = false;
     }
@@ -107,6 +109,39 @@ class DrawingAreaComponent extends FrameComponent {
     this.frame.redo();
     this.render();
     this.story.save();
+  }
+
+  stabilizeGroup() {
+    let origGroup = this.frame.groups[this.frame.groups.length - 1];
+    let newGroup = {
+      styles: origGroup.styles,
+      points: []
+    };
+    let threshold = 10;
+    let currentOrigX = 0;
+    let currentOrigY = 0;
+    let currentNextX = 0;
+    let currentNextY = 0;
+    for (let p = 0; p < origGroup.points.length - 1; p += 1) {
+      let origPoint = origGroup.points[p];
+      let nextPoint = origGroup.points[p + 1];
+      currentOrigX += origPoint[0];
+      currentOrigY += origPoint[1];
+      currentNextX += origPoint[0] + nextPoint[0];
+      currentNextY += origPoint[1] + nextPoint[1];
+      let absSlope = (currentNextY - currentOrigY) / (currentNextX - currentOrigX);
+      console.log(absSlope);
+      // if ()) {
+      //   console.log(newGroup.points[newGroup.points.length - 1][0], newGroup.points[newGroup.points.length - 1][1]);
+      //   // newGroup.points.push([
+      //   //   currentOrigX - currentNewX,
+      //   //   currentOrigY - currentNewY
+      //   // ]);
+      //   // currentNewX += newGroup.points[newGroup.points.length - 1][0];
+      //   // currentNewY += newGroup.points[newGroup.points.length - 1][1];
+      // }
+    }
+    // this.frame.groups[this.frame.groups.length - 1] = newGroup;
   }
 
   view() {
