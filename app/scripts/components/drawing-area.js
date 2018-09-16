@@ -61,8 +61,7 @@ class DrawingAreaComponent extends FrameComponent {
     event.preventDefault();
     if (this.drawingEnabled && this.mousedown) {
       this.mousedown = false;
-      // TODO: add stabilization logic here
-      this.stabilizeGroup();
+      this.stabilizeGroup({threshold: 2});
       this.story.save();
     } else {
       event.redraw = false;
@@ -116,10 +115,10 @@ class DrawingAreaComponent extends FrameComponent {
     if (angle < 0) {
       angle = 360 + angle;
     }
-    return angle;
+    return angle % 180;
   }
 
-  stabilizeGroup() {
+  stabilizeGroup({threshold = 0}) {
     let origGroup = this.frame.groups[this.frame.groups.length - 1];
     let newGroup = {
       styles: origGroup.styles,
@@ -128,21 +127,22 @@ class DrawingAreaComponent extends FrameComponent {
     if (origGroup.points.length < 3) {
       return;
     }
-    let threshold = -1;
+    // Smaller numbers mean fewer points are optimized out; larger numbers mean
+    // heavier optimization
     let lastX = origGroup.points[0][0];
     let lastY = origGroup.points[0][1];
-    let currentX = lastX + origGroup.points[1][0];
-    let currentY = lastY + origGroup.points[1][1];
-    let lastAngle = this.calculateAngle(lastX, lastY, currentX, currentY);
+    let currentX = lastX;
+    let currentY = lastY;
+    let lastAngle = 0;
     let newX = origGroup.points[0][0];
     let newY = origGroup.points[0][1];
     newGroup.points.push([newX, newY]);
-    for (let p = 2; p < origGroup.points.length; p += 1) {
+    for (let p = 1; p < origGroup.points.length; p += 1) {
       let origPoint = origGroup.points[p];
       currentX += origPoint[0];
       currentY += origPoint[1];
       let currentAngle = this.calculateAngle(lastX, lastY, currentX, currentY);
-      if (p === (origGroup.points.length - 1) || (currentAngle !== lastAngle && Math.abs(currentAngle - lastAngle) >= threshold)) {
+      if (p === (origGroup.points.length - 1) || (Math.abs(currentAngle - lastAngle) >= threshold)) {
         lastAngle = currentAngle;
         lastX = currentX;
         lastY = currentY;
@@ -155,7 +155,7 @@ class DrawingAreaComponent extends FrameComponent {
       }
     }
     this.frame.groups[this.frame.groups.length - 1] = newGroup;
-    console.log(`${origGroup.points.length - newGroup.points.length} points removed!`);
+    console.log(`${origGroup.points.length - newGroup.points.length}/${origGroup.points.length} point(s) removed!`, newGroup);
   }
 
   view() {
