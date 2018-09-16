@@ -12,6 +12,7 @@ class FrameComponent {
     oncreate({dom}) {
       this.canvas = dom;
       this.ctx = this.canvas.getContext('2d');
+      this.lastRenderedStyles = {};
       this.render();
     }
 
@@ -25,7 +26,6 @@ class FrameComponent {
     }
 
     render({backgroundColor = null} = {}) {
-      this.lastRenderedStyles = {};
       this.clearCanvas();
       if (backgroundColor) {
         this.setBackground(backgroundColor);
