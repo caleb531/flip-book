@@ -7,7 +7,7 @@ class UpdateNotificationComponent {
       class: classNames({'update-available': updateManager.isUpdateAvailable}),
       onclick: () => updateManager.update()
     }, [
-      m('div.update-notification-message', 'Update available! Click here to update.'),
+      m('span.update-notification-message', 'Update available! Click here to update.'),
     ]);
   }
 
