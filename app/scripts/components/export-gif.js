@@ -20,13 +20,12 @@ class ExportGifComponent {
       m('p.export-gif-message', exportedImageUrl ?
         'Right-click the image and choose "Save Image As..." to download.' :
         ''),
-      !exportedImageUrl ? m(ProgressBarComponent, {
-        progress: exportProgress
-      }) : null,
       exportedImageUrl ? m('img.exported-image', {
         src: exportedImageUrl,
         alt: 'Exported GIF'
-      }) : null
+      }) : m(ProgressBarComponent, {
+        progress: exportProgress
+      })
     ]);
   }
 
