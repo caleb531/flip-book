@@ -29,10 +29,12 @@ class ExportComponent {
     this.gifGenerator.on('finished', (blob) => {
       let image = new Image();
       image.onload = () => {
-        this.exportedImageUrl = image.src;
         // Aribtrarily wait half a second before loading to give the progress bar
         // time to reach 100%
-        setTimeout(() => m.redraw(), ProgressBarComponent.delay);
+        setTimeout(() => {
+          this.exportedImageUrl = image.src;
+          m.redraw();
+        }, ProgressBarComponent.delay);
       };
       image.src = URL.createObjectURL(blob);
     });
