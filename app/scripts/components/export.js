@@ -12,7 +12,7 @@ class ExportComponent {
     });
     story.frames.forEach((frame) => {
       let canvas = document.createElement('canvas');
-      canvas.width = FrameComponent.width * (story.exportedGifSize / FrameComponent.height);
+      canvas.width = Math.ceil(FrameComponent.width * (story.exportedGifSize / FrameComponent.height));
       canvas.height = story.exportedGifSize;
       let frameComponent = new FrameComponent();
       frameComponent.oninit({attrs: {frame}});
@@ -108,7 +108,7 @@ class ExportComponent {
             return m('option', {
               selected: size === story.exportedGifSize,
               value: size
-            }, `${FrameComponent.width * (size / FrameComponent.height)} x ${size}`);
+            }, `${Math.ceil(FrameComponent.width * (size / FrameComponent.height))} x ${size}`);
           }))
         ])
       ]),
