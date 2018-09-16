@@ -52,6 +52,7 @@ class FrameComponent {
     }
 
     setGlobalStyles() {
+      this.ctx.strokeStyle = this.frame.styles.strokeStyle;
       this.ctx.lineCap = this.frame.styles.lineCap;
       this.ctx.lineJoin = this.frame.styles.lineJoin;
     }
