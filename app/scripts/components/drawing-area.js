@@ -111,35 +111,49 @@ class DrawingAreaComponent extends FrameComponent {
     this.story.save();
   }
 
+  calculateAngle(lastX, lastY, currentX, currentY) {
+    let angle = Math.atan2(lastY - currentY, lastX - currentX) * (180 / Math.PI);
+    if (angle < 0) {
+      angle = 360 + angle;
+    }
+    return angle;
+  }
+
   stabilizeGroup() {
     let origGroup = this.frame.groups[this.frame.groups.length - 1];
-    let newGroup = {
-      styles: origGroup.styles,
-      points: []
-    };
-    let threshold = 10;
-    let currentOrigX = 0;
-    let currentOrigY = 0;
-    let currentNextX = 0;
-    let currentNextY = 0;
-    for (let p = 0; p < origGroup.points.length - 1; p += 1) {
+    // let newGroup = {
+    //   styles: origGroup.styles,
+    //   points: []
+    // };
+    if (origGroup.points.length < 3) {
+      return;
+    }
+    let threshold = 20;
+    let lastX = origGroup.points[0][0];
+    let lastY = origGroup.points[0][1];
+    let currentX = lastX + origGroup.points[1][0];
+    let currentY = lastY + origGroup.points[1][1];
+    let lastAngle = this.calculateAngle(lastX, lastY, currentX, currentY);
+    // console.log(`(${currentX}, ${currentY}), (${lastX}, ${lastY})`);
+    for (let p = 2; p < origGroup.points.length; p += 1) {
       let origPoint = origGroup.points[p];
-      let nextPoint = origGroup.points[p + 1];
-      currentOrigX += origPoint[0];
-      currentOrigY += origPoint[1];
-      currentNextX += origPoint[0] + nextPoint[0];
-      currentNextY += origPoint[1] + nextPoint[1];
-      let absSlope = (currentNextY - currentOrigY) / (currentNextX - currentOrigX);
-      console.log(absSlope);
-      // if ()) {
-      //   console.log(newGroup.points[newGroup.points.length - 1][0], newGroup.points[newGroup.points.length - 1][1]);
-      //   // newGroup.points.push([
-      //   //   currentOrigX - currentNewX,
-      //   //   currentOrigY - currentNewY
-      //   // ]);
-      //   // currentNewX += newGroup.points[newGroup.points.length - 1][0];
-      //   // currentNewY += newGroup.points[newGroup.points.length - 1][1];
-      // }
+      currentX += origPoint[0];
+      currentY += origPoint[1];
+      let currentAngle = this.calculateAngle(lastX, lastY, currentX, currentY);
+      if (currentAngle === lastAngle) {
+        continue;
+      }
+      if (Math.abs(currentAngle - lastAngle) > threshold) {
+        console.log(lastAngle, currentAngle, 'cut!!');
+        lastAngle = currentAngle;
+        // console.log(newGroup.points[newGroup.points.length - 1][0], newGroup.points[newGroup.points.length - 1][1]);
+        // newGroup.points.push([
+        //   currentX - currentNewX,
+        //   currentY - currentNewY
+        // ]);
+        // currentNewX += newGroup.points[newGroup.points.length - 1][0];
+        // currentNewY += newGroup.points[newGroup.points.length - 1][1];
+      }
     }
     // this.frame.groups[this.frame.groups.length - 1] = newGroup;
   }
