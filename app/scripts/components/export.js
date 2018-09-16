@@ -61,7 +61,7 @@ class ExportComponent {
   abortGifExport() {
     if (this.gifGenerator) {
       this.gifGenerator.abort();
-      this.gifGenerator = false;
+      this.gifGenerator = null;
     }
   }
 
