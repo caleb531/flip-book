@@ -63,9 +63,10 @@ class FrameComponent {
 
     setGroupStyle(group, styleName) {
       let styleValue = group.styles ? group.styles[styleName] : this.frame.styles[styleName];
-      // this.ctx[styleName] cannot be used to check if styleValue has changed, because
-      // when setting this.ctx.strokeStyle to #000, this.ctx.strokeStyle evaluates to
-      // #000000; we therefore need to store the exact value on a separate object
+      // this.ctx[styleName] cannot be used to check if styleValue has changed,
+      // because when setting this.ctx.strokeStyle to #000, this.ctx.strokeStyle
+      // evaluates to #000000; we therefore need to store the exact value on a
+      // separate object
       if (styleValue !== this.lastRenderedStyles[styleName]) {
         this.ctx[styleName] = styleValue;
         this.lastRenderedStyles[styleName] = styleValue;
