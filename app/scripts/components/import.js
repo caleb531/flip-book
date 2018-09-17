@@ -4,13 +4,17 @@ import ProgressBarComponent from './progress-bar.js';
 
 class ImportComponent {
 
+  oninit({attrs: {app}}) {
+    this.app = app;
+  }
+
   setChosenFile(chosenFile) {
     this.chosenFile = chosenFile;
     this.storyAdded = null;
     this.uploadProgress = null;
   }
 
-  uploadChosenFile(app) {
+  uploadChosenFile() {
     let reader = new FileReader();
     reader.onprogress = (event) => {
       this.uploadProgress = event.loaded / event.total;
@@ -19,7 +23,7 @@ class ImportComponent {
     reader.onload = (event) => {
       setTimeout(() => {
         let story = new Story(JSON.parse(event.target.result));
-        app.addExistingStory(story);
+        this.app.addExistingStory(story);
         this.storyAdded = story;
         m.redraw();
       }, ProgressBarComponent.delay);
@@ -28,7 +32,7 @@ class ImportComponent {
     reader.readAsText(this.chosenFile);
   }
 
-  view({attrs: {app}}) {
+  view() {
     return m('div.import-options', [
       m('h2', 'Import Story'),
       m('div.import-control-wrapper', [
@@ -52,7 +56,7 @@ class ImportComponent {
             id: 'upload-file',
             title: 'Upload Now',
             label: 'Upload Now',
-            action: () => this.uploadChosenFile(app)
+            action: () => this.uploadChosenFile()
           }) : null
         ]
       ])

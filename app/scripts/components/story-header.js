@@ -5,66 +5,70 @@ import ImportComponent from './import.js';
 
 class StoryHeaderComponent {
 
-  createStory(app) {
+  oninit({attrs: {app}}) {
+    this.app = app;
+  }
+
+  createStory() {
     // Prevent the synchronous prompt() call from blocking the main thread; this
     // will allow Mithril to redraw and close all panels before showing the
     // modal
     setTimeout(() => {
       let storyName = prompt('Please enter a name for your new story:') || '';
       if (storyName.trim()) {
-        app.createStory(storyName.trim());
+        this.app.createStory(storyName.trim());
         PanelComponent.closeAllPanels();
         m.redraw();
       }
     });
   }
 
-  renameSelectedStory(app) {
+  renameSelectedStory() {
     // Prevent the synchronous confirm() call from blocking the main thread;
     // this will allow Mithril to redraw and close all panels before showing the
     // modal
     setTimeout(() => {
-      let newStoryName = prompt('Enter the new name for your story:', app.getSelectedStoryName()) || '';
+      let newStoryName = prompt('Enter the new name for your story:', this.app.getSelectedStoryName()) || '';
       if (newStoryName.trim()) {
-        app.renameSelectedStory(newStoryName.trim());
+        this.app.renameSelectedStory(newStoryName.trim());
         m.redraw();
       }
     });
   }
 
-  deleteSelectedStory(app) {
+  deleteSelectedStory() {
     // Prevent the synchronous confirm() call from blocking the main thread;
     // this will allow Mithril to redraw and close all panels before showing the
     // modal
     setTimeout(() => {
       if (confirm('Are you sure you want to permanently delete this story?')) {
-        app.deleteSelectedStory();
+        this.app.deleteSelectedStory();
         m.redraw();
       }
     });
   }
 
-  view({attrs: {app, story}}) {
+  view({attrs: {story}}) {
     return m('div.story-header', [
       m('.control-group', [
         m(ControlComponent, {
           id: 'create-new-story',
           title: 'Create New Story',
           icon: 'add',
-          action: () => this.createStory(app)
+          action: () => this.createStory()
         }),
         m(ControlComponent, {
           id: 'open-story',
           title: 'Open Story',
           icon: 'folder',
-          panel: m(StoryListComponent, {app}),
+          panel: m(StoryListComponent, {app: this.app}),
           panelPosition: 'bottom',
         }),
         m(ControlComponent, {
           id: 'import-story',
           title: 'Import Story',
           icon: 'upload',
-          panel: m(ImportComponent, {app}),
+          panel: m(ImportComponent, {app: this.app}),
           panelPosition: 'bottom',
         })
       ]),
@@ -73,14 +77,14 @@ class StoryHeaderComponent {
         id: 'rename-story',
         title: 'Rename Story',
         icon: 'edit',
-        action: () => this.renameSelectedStory(app)
+        action: () => this.renameSelectedStory()
       }),
       m('.control-group', [
         m(ControlComponent, {
           id: 'delete-story',
           title: 'Delete Story',
           icon: 'delete',
-          action: () => this.deleteSelectedStory(app)
+          action: () => this.deleteSelectedStory()
         }),
         m(ControlComponent, {
           id: 'help',
