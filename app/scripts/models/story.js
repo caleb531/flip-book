@@ -22,7 +22,7 @@ class Story {
   }
 
   selectFrame(newIndex) {
-    this.selectedFrameIndex = Math.min(newIndex, this.frames.length - 1);
+    this.selectedFrameIndex = newIndex;
   }
 
   getPreviousFrame() {
