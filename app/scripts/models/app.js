@@ -100,7 +100,6 @@ App.restore = function () {
     return new App();
   } else {
     app.stories = app.stories.map((storyMetadata) => new StoryMetadata(storyMetadata));
-    app.stories = _.orderBy(app.stories, (story) => story.createdDate, 'desc');
     return new App(app);
   }
 };
