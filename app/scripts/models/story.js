@@ -51,11 +51,7 @@ class Story {
       this.frames.splice(this.selectedFrameIndex, 1, new Frame());
     } else {
       this.frames.splice(this.selectedFrameIndex, 1);
-      if (this.selectedFrameIndex === 0) {
-        this.selectFrame(this.selectedFrameIndex);
-      } else {
-        this.selectFrame(this.selectedFrameIndex - 1);
-      }
+      this.selectFrame(Math.max(0, this.selectedFrameIndex - 1));
     }
   }
 

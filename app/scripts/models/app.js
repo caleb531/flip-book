@@ -77,11 +77,7 @@ class App {
       this.selectStory(0);
     } else {
       this.stories.splice(this.selectedStoryIndex, 1);
-      if (this.selectedStoryIndex === 0) {
-        this.selectStory(this.selectedStoryIndex);
-      } else {
-        this.selectStory(this.selectedStoryIndex - 1);
-      }
+      this.selectStory(Math.max(0, this.selectedStoryIndex - 1));
     }
   }
 
