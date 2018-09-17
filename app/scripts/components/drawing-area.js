@@ -61,7 +61,7 @@ class DrawingAreaComponent extends FrameComponent {
     event.preventDefault();
     if (this.drawingEnabled && this.mousedown) {
       this.mousedown = false;
-      this.stabilizeGroup({threshold: 2});
+      this.stabilizeGroup({threshold: 3});
       this.story.save();
     } else {
       event.redraw = false;
