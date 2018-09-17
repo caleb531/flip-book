@@ -61,11 +61,11 @@ class Story {
     this.frames.splice(newFrameIndex, 0, frame);
   }
 
-  getFPS() {
+  getFramesPerSecond() {
     return Math.round(Story.MS_IN_S / this.frameDuration);
   }
 
-  setFrameDurationFromFPS(framesPerSecond) {
+  setFramesPerSecond(framesPerSecond) {
     this.frameDuration = Story.MS_IN_S / framesPerSecond;
   }
 

@@ -1,7 +1,7 @@
 class SettingsComponent {
 
   setFrameDuration(story, framesPerSecond) {
-    story.setFrameDurationFromFPS(Number(framesPerSecond));
+    story.setFramesPerSecond(Number(framesPerSecond));
     story.save();
   }
 
@@ -21,10 +21,10 @@ class SettingsComponent {
       m('div.setting', [
         m('label[for="setting-fps"]', 'FPS'),
         m('input[type=range][min=2][max=30][step=2]#setting-fps', {
-          value: story.getFPS(),
+          value: story.getFramesPerSecond(),
           oninput: ({target}) => this.setFrameDuration(story, target.value)
         }),
-        m('span.setting-value', story.getFPS())
+        m('span.setting-value', story.getFramesPerSecond())
       ]),
       m('div.setting', [
         m('label[for="setting-show-previous-frame"]', 'Show Previous Frame?'),
