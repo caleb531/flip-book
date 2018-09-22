@@ -26,7 +26,7 @@ self.addEventListener('message', (event) => {
   if (!event.data) {
     return;
   }
-  if (event.data.action === 'skipWaiting') {
+  if (event.data.updateManagerEvent === 'update') {
     self.skipWaiting();
   }
 });

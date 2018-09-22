@@ -29,7 +29,9 @@ module.exports = {
     // Lodash
     '_': true,
     // gif.js
-    'GIF': true
+    'GIF': true,
+    // Service Worker Update Manager library
+    'ServiceWorkerUpdateManager': true
   },
 
   overrides: {
