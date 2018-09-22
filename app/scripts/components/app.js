@@ -9,7 +9,7 @@ class AppComponent {
     this.app = App.restore();
     if (navigator.serviceWorker) {
       let serviceWorker = navigator.serviceWorker.register('service-worker.js');
-      this.updateManager = new ServiceWorkerUpdateManager(serviceWorker);
+      this.updateManager = new SWUpdateManager(serviceWorker);
       this.updateManager.on('updateAvailable', () => m.redraw());
     }
   }

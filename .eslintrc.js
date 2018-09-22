@@ -31,7 +31,7 @@ module.exports = {
     // gif.js
     'GIF': true,
     // Service Worker Update Manager library
-    'ServiceWorkerUpdateManager': true
+    'SWUpdateManager': true
   },
 
   overrides: {
