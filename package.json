@@ -28,6 +28,6 @@
     "gif.js.optimized": "^1.0.1",
     "lodash": "^4.17.11",
     "mithril": "^1.1.6",
-    "sw-update-manager": "^0.2.0"
+    "sw-update-manager": "^0.3.0"
   }
 }
