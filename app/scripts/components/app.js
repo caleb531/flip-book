@@ -11,6 +11,7 @@ class AppComponent {
       let serviceWorker = navigator.serviceWorker.register('service-worker.js');
       this.updateManager = new SWUpdateManager(serviceWorker);
       this.updateManager.on('updateAvailable', () => m.redraw());
+      this.updateManager.checkForUpdates();
     }
   }
 
