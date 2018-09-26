@@ -44,6 +44,16 @@ gulp.task('rollup', () => {
     return bundle.write(rollupConfig.output);
   });
 });
+gulp.task('rollup:test', () => {
+  return rollup.rollup(Object.assign(rollupConfig, {
+    input: 'test/index.js'
+  })).then((bundle) => {
+    return bundle.write(Object.assign(rollupConfig.output, {
+      file: 'public/scripts/test.js',
+      name: 'flipBookTests'
+    }));
+  });
+});
 gulp.task('rollup:watch', () => {
   return gulp.watch('app/scripts/**/*.js', gulp.series('rollup', 'sw'));
 });

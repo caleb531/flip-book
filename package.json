@@ -3,6 +3,9 @@
   "name": "flip-book",
   "version": "2.1.0",
   "description": "An interactive flip book",
+  "scripts": {
+    "test": "karma start --single-run"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://gitlab.com/caleb531/flip-book.git"
@@ -14,14 +17,23 @@
   },
   "homepage": "https://gitlab.com/caleb531/flip-book#README",
   "devDependencies": {
+    "chai": "^4.2.0",
+    "chai-dom": "^1.8.0",
     "gulp": "^4.0.0",
     "gulp-sass": "^4.0.1",
     "gulp-sourcemaps": "^2.6.4",
+    "karma": "^3.0.0",
+    "karma-chrome-launcher": "^2.2.0",
+    "karma-mocha": "^1.3.0",
+    "karma-sourcemap-loader": "^0.3.7",
+    "mocha": "^5.2.0",
     "rollup": "^0.59.4",
     "rollup-plugin-commonjs": "^9.1.8",
     "rollup-plugin-json": "^3.1.0",
     "rollup-plugin-node-resolve": "^3.4.0",
     "rollup-plugin-uglify-es": "0.0.1",
+    "sinon": "^6.3.4",
+    "sinon-chai": "^3.2.0",
     "workbox-build": "^3.6.1"
   },
   "dependencies": {
