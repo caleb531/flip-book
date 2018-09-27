@@ -4,7 +4,7 @@ describe('story model', function () {
 
   it('should initialize', function () {
     let story = new Story();
-    chai.expect(story).to.have.property('playing', false);
+    expect(story).to.have.property('playing', false);
   });
 
 });

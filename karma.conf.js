@@ -5,7 +5,6 @@ module.exports = function (config) {
     basePath: 'public',
     browsers: ['ChromeHeadlessCustom'],
     files: [
-      '../node_modules/chai/chai.js',
       'styles/index.css',
       'scripts/mithril.min.js',
       'scripts/lodash.min.js',
@@ -15,7 +14,7 @@ module.exports = function (config) {
       'scripts/test.js'
     ],
     reporters: ['dots'],
-    frameworks: ['mocha'],
+    frameworks: ['mocha', 'chai'],
     preprocessors: {
       '**/*.js': ['sourcemap']
     },

@@ -13,8 +13,15 @@ module.exports = {
 
   },
 
+  /**
+   * Allowed global variables
+   */
   globals: {
+
+    // expose chai statements to test environment, since chai is loaded in as
+    // external script
     'expect': true
+
   }
 
 };
