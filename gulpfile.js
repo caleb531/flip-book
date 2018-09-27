@@ -39,7 +39,7 @@ gulp.task('sass:watch', () => {
   return gulp.watch('app/styles/**/*.scss', gulp.series('sass', 'sw'));
 });
 
-gulp.task('rollup', () => {
+gulp.task('rollup:app', () => {
   return rollup.rollup(rollupConfig).then((bundle) => {
     return bundle.write(rollupConfig.output);
   });
@@ -55,8 +55,16 @@ gulp.task('rollup:test', () => {
   });
 });
 gulp.task('rollup:watch', () => {
-  return gulp.watch('app/scripts/**/*.js', gulp.series('rollup', 'sw'));
+  return gulp.watch(
+    ['app/scripts/**/*.js', 'test/**/*.js'],
+    gulp.series('rollup', 'sw')
+  );
 });
+gulp.task('rollup', gulp.parallel(
+  'rollup:app',
+  'rollup:test'
+));
+
 
 gulp.task('sw', () => {
   return workboxBuild.injectManifest({
