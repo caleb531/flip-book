@@ -3,7 +3,7 @@ import StoryMetadata from './story-metadata.js';
 
 class Story {
 
-  constructor({frames = [new Frame()], frameDuration = 100, showPreviousFrame = true, selectedFrameIndex = 0, metadata = {}, frameStyles, exportedGifSize = 1} = {}) {
+  constructor({frames = [new Frame()], frameDuration = 100, showPreviousFrame = true, selectedFrameIndex = 0, metadata = {}, frameStyles, exportedGifSize = 1080} = {}) {
     this.frames = frames.map((frame) => new Frame(frame));
     this.selectFrame(selectedFrameIndex);
     this.frameDuration = frameDuration;
