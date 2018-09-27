@@ -26,7 +26,7 @@ class Story {
   }
 
   getPreviousFrame() {
-    if (this.frames.length > 0) {
+    if (this.selectedFrameIndex > 0) {
       return this.frames[this.selectedFrameIndex - 1];
     } else {
       return null;

@@ -45,4 +45,72 @@ describe('story model', function () {
     expect(story.frameStyles).to.have.property('lineWidth', 8);
   });
 
+  it('should select frame', function () {
+    let story = new Story({
+      frames: [new Frame(), new Frame(), new Frame()]
+    });
+    expect(story.selectedFrameIndex).to.equal(0);
+    story.selectFrame(2);
+    expect(story.selectedFrameIndex).to.equal(2);
+    story.selectFrame(1);
+    expect(story.selectedFrameIndex).to.equal(1);
+  });
+
+  it('should get selected frame', function () {
+    let story = new Story({
+      frames: [new Frame(), new Frame(), new Frame()],
+      selectedFrameIndex: 1
+    });
+    expect(story.getSelectedFrame()).to.equal(story.frames[1]);
+  });
+
+  it('should get previous frame', function () {
+    let story = new Story({
+      frames: [new Frame(), new Frame(), new Frame()],
+      selectedFrameIndex: 1
+    });
+    expect(story.getPreviousFrame()).to.equal(story.frames[0]);
+  });
+
+  it('should not wrap around to get previous frame', function () {
+    let story = new Story({
+      frames: [new Frame(), new Frame(), new Frame()]
+    });
+    expect(story.getPreviousFrame()).to.equal(null);
+  });
+
+  it('should select next frame', function () {
+    let story = new Story({
+      frames: [new Frame(), new Frame(), new Frame()]
+    });
+    story.selectNextFrame();
+    expect(story.getSelectedFrame()).to.equal(story.frames[1]);
+  });
+
+  it('should wrap around when selecting next frame', function () {
+    let story = new Story({
+      frames: [new Frame(), new Frame(), new Frame()],
+      selectedFrameIndex: 2
+    });
+    story.selectNextFrame();
+    expect(story.getSelectedFrame()).to.equal(story.frames[0]);
+  });
+
+  it('should select previous frame', function () {
+    let story = new Story({
+      frames: [new Frame(), new Frame(), new Frame()],
+      selectedFrameIndex: 2
+    });
+    story.selectPreviousFrame();
+    expect(story.getSelectedFrame()).to.equal(story.frames[1]);
+  });
+
+  it('should wrap around when selecting previous frame', function () {
+    let story = new Story({
+      frames: [new Frame(), new Frame(), new Frame()]
+    });
+    story.selectPreviousFrame();
+    expect(story.getSelectedFrame()).to.equal(story.frames[2]);
+  });
+
 });
