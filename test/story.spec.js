@@ -236,4 +236,48 @@ describe('story model', function () {
     clock.restore();
   });
 
+  it('should undo', function () {
+    let story = new Story({
+      frames: [new Frame(), new Frame(), new Frame()],
+      selectedFrameIndex: 1
+    });
+    story.frames[1].undo = sinon.spy();
+    story.undo();
+    expect(story.frames[1].undo).to.have.been.calledOnce;
+  });
+
+  it('should redo', function () {
+    let story = new Story({
+      frames: [new Frame(), new Frame(), new Frame()],
+      selectedFrameIndex: 1
+    });
+    story.frames[1].redo = sinon.spy();
+    story.redo();
+    expect(story.frames[1].redo).to.have.been.calledOnce;
+  });
+
+  it('should export JSON', function () {
+    let json = new Story().toJSON();
+    expect(json).to.have.property('frames');
+    expect(json).to.have.property('selectedFrameIndex');
+    expect(json).to.have.property('frameDuration');
+    expect(json).to.have.property('showPreviousFrame');
+    expect(json).to.have.property('frameStyles');
+    expect(json).to.have.property('exportedGifSize');
+  });
+
+  it('should export JSON', function () {
+    let createdDate = Date.now();
+    let story = new Story({
+      metadata: {
+        name: 'Foo',
+        createdDate
+      }
+    });
+    let key = `flipbook-story-${createdDate}`;
+    expect(localStorage.getItem(key)).to.equal(null);
+    story.save();
+    expect(localStorage.getItem(key)).to.equal(JSON.stringify(story));
+  });
+
 });
