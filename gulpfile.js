@@ -45,10 +45,10 @@ gulp.task('rollup:app', () => {
   });
 });
 gulp.task('rollup:test', () => {
-  return rollup.rollup(Object.assign(rollupConfig, {
+  return rollup.rollup(Object.assign({}, rollupConfig, {
     input: 'test/index.js'
   })).then((bundle) => {
-    return bundle.write(Object.assign(rollupConfig.output, {
+    return bundle.write(Object.assign({}, rollupConfig.output, {
       file: 'public/scripts/test.js',
       name: 'flipBookTests'
     }));
