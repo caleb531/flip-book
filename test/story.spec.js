@@ -214,6 +214,20 @@ describe('story model', function () {
     clock.restore();
   });
 
+  it('should play without a user callback', function () {
+    let frameDuration = 125;
+    let story = new Story({
+      frames: [new Frame(), new Frame(), new Frame()],
+      frameDuration
+    });
+    let clock = sinon.useFakeTimers();
+    story.play();
+    expect(story.playing).to.equal(true);
+    clock.tick(frameDuration);
+    expect(story.selectedFrameIndex).to.equal(1);
+    clock.restore();
+  });
+
   it('should pause', function () {
     let frameDuration = 125;
     let story = new Story({
