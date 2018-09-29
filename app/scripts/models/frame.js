@@ -15,7 +15,7 @@ class Frame {
     this.undoHistory = [];
   }
 
-  startNewGroup({styles}) {
+  startNewGroup({styles = {}} = {}) {
     this.groups.push({
       points: [],
       styles
