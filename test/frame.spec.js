@@ -73,4 +73,56 @@ describe('frame model', function () {
     expect(frame.countPointsInLastGroup()).to.equal(3);
   });
 
+  it('should count zero points if there are no groups', function () {
+    let frame = new Frame();
+    expect(frame.countPointsInLastGroup()).to.equal(0);
+  });
+
+  it('should undo stroke', function () {
+    let frame = new Frame();
+    frame.startNewGroup();
+    frame.addPoint(300, 150);
+    frame.startNewGroup();
+    frame.addPoint(200, 120);
+    expect(frame.undoHistory).to.have.lengthOf(0);
+    let lastGroup = frame.groups[1];
+    frame.undo();
+    expect(frame.undoHistory).to.have.lengthOf(1);
+    expect(frame.undoHistory[0]).to.equal(lastGroup);
+  });
+
+  it('should do nothing if there is nothing to undo', function () {
+    let frame = new Frame();
+    frame.undo();
+    expect(frame.undoHistory).to.have.lengthOf(0);
+  });
+
+  it('should redo stroke', function () {
+    let frame = new Frame();
+    frame.startNewGroup();
+    frame.addPoint(300, 150);
+    frame.startNewGroup();
+    frame.addPoint(200, 120);
+    expect(frame.undoHistory).to.have.lengthOf(0);
+    let lastGroup = frame.groups[1];
+    frame.undo();
+    frame.redo();
+    expect(frame.undoHistory).to.have.lengthOf(0);
+    expect(frame.groups[1]).to.equal(lastGroup);
+  });
+
+  it('should do nothing if there is nothing to redo', function () {
+    let frame = new Frame();
+    frame.redo();
+    expect(frame.undoHistory).to.have.lengthOf(0);
+  });
+
+  it('should export JSON', function () {
+    let json = new Frame().toJSON();
+    expect(json).to.have.property('styles');
+    expect(json.styles).to.have.property('strokeStyle');
+    expect(json.styles).to.have.property('lineWidth');
+    expect(json).to.have.property('groups');
+  });
+
 });
