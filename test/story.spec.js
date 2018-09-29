@@ -113,4 +113,40 @@ describe('story model', function () {
     expect(story.getSelectedFrame()).to.equal(story.frames[2]);
   });
 
+  it('should add new frame', function () {
+    let story = new Story({
+      frames: [new Frame(), new Frame(), new Frame()],
+      selectedFrameIndex: 1
+    });
+    story.addFrame();
+    expect(story.frames.length).to.equal(4);
+    expect(story.selectedFrameIndex).to.equal(2);
+  });
+
+  it('should delete selected frame', function () {
+    let story = new Story({
+      frames: [new Frame(), new Frame(), new Frame(), new Frame()],
+      selectedFrameIndex: 2
+    });
+    story.deleteSelectedFrame();
+    expect(story.frames.length).to.equal(3);
+    expect(story.selectedFrameIndex).to.equal(1);
+  });
+
+  it('should move selected frame', function () {
+    let story = new Story({
+      frames: [new Frame(), new Frame(), new Frame(), new Frame(), new Frame()],
+      selectedFrameIndex: 2
+    });
+    let oldIndex = 1;
+    let newIndex = 3;
+    let oldFrames = story.frames.slice(0);
+    story.moveFrame(oldIndex, newIndex);
+    expect(story.frames[0]).to.equal(oldFrames[0]);
+    expect(story.frames[1]).to.equal(oldFrames[2]);
+    expect(story.frames[2]).to.equal(oldFrames[3]);
+    expect(story.frames[3]).to.equal(oldFrames[1]);
+    expect(story.frames[4]).to.equal(oldFrames[4]);
+  });
+
 });
