@@ -4,6 +4,8 @@
 *Released under the MIT license*  
 *For my friend and brother, Bill.*
 
+[![Build Status](https://travis-ci.org/caleb531/flip-book.svg?branch=master)](https://travis-ci.org/caleb531/flip-book)
+
 This application enables you to create flip book-style animations to share with
 friends.
 
