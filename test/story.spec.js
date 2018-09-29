@@ -149,4 +149,20 @@ describe('story model', function () {
     expect(story.frames[4]).to.equal(oldFrames[4]);
   });
 
+  it('should get frames per second', function () {
+    let story = new Story({
+      frames: [new Frame()],
+      frameDuration: 125
+    });
+    expect(story.getFramesPerSecond()).to.equal(8);
+  });
+
+  it('should set frames per second', function () {
+    let story = new Story({
+      frames: [new Frame()]
+    });
+    story.setFramesPerSecond(8);
+    expect(story.frameDuration).to.equal(125);
+  });
+
 });
