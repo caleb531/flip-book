@@ -4,6 +4,7 @@
   "version": "2.1.0",
   "description": "An interactive flip book",
   "scripts": {
+    "lint": "eslint app/scripts/**/*.js test/*.js",
     "test": "karma start --single-run",
     "coverage": "COVERAGE=true npm test && npm run remap-coverage && npm run coverage-report",
     "remap-coverage": "remap-istanbul -i coverage/coverage-unmapped.json -o coverage/coverage-remapped.json -e test/",
@@ -22,6 +23,7 @@
   "devDependencies": {
     "chai": "^4.2.0",
     "chai-dom": "^1.8.0",
+    "eslint": "^5.6.1",
     "gulp": "^4.0.0",
     "gulp-sass": "^4.0.1",
     "gulp-sourcemaps": "^2.6.4",
