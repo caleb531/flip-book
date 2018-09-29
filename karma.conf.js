@@ -10,7 +10,6 @@ module.exports = function (config) {
       'scripts/lodash.min.js',
       'scripts/gif.js',
       'scripts/sw-update-manager.js',
-      'scripts/main.js',
       'scripts/test.js'
     ],
     reporters: ['dots'],
