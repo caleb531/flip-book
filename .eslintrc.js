@@ -175,8 +175,6 @@ module.exports = {
     'no-sequences': ['error'],
     // disallow unmodified loop conditions
     'no-unmodified-loop-condition': ['error'],
-    // disallow unused expressions
-    'no-unused-expressions': ['error'],
     // disallow unnecessary calls to .call() and .apply()
     'no-useless-call': ['error'],
     // disallow redundant return statements

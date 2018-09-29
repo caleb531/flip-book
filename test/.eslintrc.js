@@ -20,7 +20,9 @@ module.exports = {
 
     // expose chai statements to test environment, since chai is loaded in as
     // external script
-    'expect': true
+    'expect': true,
+    // expose sinon global for mocking
+    'sinon': true
 
   }
 

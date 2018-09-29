@@ -13,7 +13,7 @@ module.exports = function (config) {
       'scripts/test.js'
     ],
     reporters: ['dots'].concat(process.env.COVERAGE ? ['coverage'] : []),
-    frameworks: ['mocha', 'chai'],
+    frameworks: ['mocha', 'chai', 'sinon', 'sinon-chai'],
     preprocessors: {
       '**/*.js': ['sourcemap'],
       'scripts/test.js': process.env.COVERAGE ? ['coverage'] : []

@@ -174,4 +174,66 @@ describe('story model', function () {
     expect(story.frameDuration).to.equal(125);
   });
 
+  it('should play', function () {
+    let frameDuration = 125;
+    let story = new Story({
+      frames: [new Frame(), new Frame(), new Frame()],
+      frameDuration
+    });
+    let clock = sinon.useFakeTimers();
+    let callback = sinon.spy();
+    story.play(callback);
+    clock.tick(frameDuration);
+    expect(callback).to.have.callCount(1);
+    expect(story.selectedFrameIndex).to.equal(1);
+    clock.tick(frameDuration);
+    expect(callback).to.have.callCount(2);
+    expect(story.selectedFrameIndex).to.equal(2);
+    clock.restore();
+  });
+
+  it('should wrap around when playing', function () {
+    let frameDuration = 125;
+    let story = new Story({
+      frames: [new Frame(), new Frame(), new Frame()],
+      frameDuration
+    });
+    let clock = sinon.useFakeTimers();
+    let callback = sinon.spy();
+    story.play(callback);
+    expect(story.playing).to.equal(true);
+    clock.tick(frameDuration);
+    expect(callback).to.have.callCount(1);
+    expect(story.selectedFrameIndex).to.equal(1);
+    clock.tick(frameDuration);
+    expect(callback).to.have.callCount(2);
+    expect(story.selectedFrameIndex).to.equal(2);
+    clock.tick(frameDuration);
+    expect(callback).to.have.callCount(3);
+    expect(story.selectedFrameIndex).to.equal(0);
+    clock.restore();
+  });
+
+  it('should pause', function () {
+    let frameDuration = 125;
+    let story = new Story({
+      frames: [new Frame(), new Frame(), new Frame()],
+      frameDuration
+    });
+    let clock = sinon.useFakeTimers();
+    let callback = sinon.spy();
+    story.play(callback);
+    clock.tick(frameDuration);
+    expect(callback).to.have.callCount(1);
+    expect(story.selectedFrameIndex).to.equal(1);
+    clock.tick(frameDuration);
+    expect(callback).to.have.callCount(2);
+    expect(story.selectedFrameIndex).to.equal(2);
+    story.pause();
+    expect(story.playing).to.equal(false);
+    clock.tick(frameDuration);
+    expect(callback).to.have.callCount(2);
+    clock.restore();
+  });
+
 });
