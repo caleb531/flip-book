@@ -40,13 +40,8 @@ gulp.task('sass:watch', () => {
 });
 
 gulp.task('rollup:app', () => {
-  return rollup.rollup(Object.assign({}, rollupConfig, {
-    input: 'app/scripts/index.js'
-  })).then((bundle) => {
-    return bundle.write(Object.assign({}, rollupConfig.output, {
-        file: 'public/scripts/index.js',
-        name: 'flipBook'
-    }));
+  return rollup.rollup(rollupConfig).then((bundle) => {
+    return bundle.write(rollupConfig.output);
   });
 });
 gulp.task('rollup:test', () => {
