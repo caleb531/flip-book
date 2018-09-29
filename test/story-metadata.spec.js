@@ -14,4 +14,10 @@ describe('story metadata model', function () {
     expect(storyMetadata).to.have.property('createdDate');
   });
 
+  it('should export JSON', function () {
+    let json = new StoryMetadata().toJSON();
+    expect(json).to.have.property('name');
+    expect(json).to.have.property('createdDate');
+  });
+
 });
