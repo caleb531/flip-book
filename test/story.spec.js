@@ -133,6 +133,15 @@ describe('story model', function () {
     expect(story.selectedFrameIndex).to.equal(1);
   });
 
+  it('should delete the only frame by replacing it', function () {
+    let story = new Story({
+      frames: [new Frame()]
+    });
+    let deletedFrame = story.frames[0];
+    story.deleteSelectedFrame();
+    expect(story.frames[0]).not.to.equal(deletedFrame);
+  });
+
   it('should move selected frame', function () {
     let story = new Story({
       frames: [new Frame(), new Frame(), new Frame(), new Frame(), new Frame()],
