@@ -34,11 +34,6 @@ class Frame {
     }
   }
 
-  reset() {
-    this.groups.length = 0;
-    this.undoHistory.length = 0;
-  }
-
   undo() {
     if (this.groups.length > 0) {
       this.undoHistory.push(this.groups.pop());
