@@ -12,10 +12,17 @@ module.exports = function (config) {
       'scripts/sw-update-manager.js',
       'scripts/test.js'
     ],
-    reporters: ['dots'],
+    reporters: ['dots'].concat(process.env.COVERAGE ? ['coverage'] : []),
     frameworks: ['mocha', 'chai'],
     preprocessors: {
-      '**/*.js': ['sourcemap']
+      '**/*.js': ['sourcemap'],
+      'scripts/test.js': process.env.COVERAGE ? ['coverage'] : []
+    },
+    coverageReporter: {
+      type: 'json',
+      dir: '../coverage/',
+      subdir: '.',
+      file: 'coverage-unmapped.json'
     },
     customLaunchers: {
       ChromeHeadlessCustom: {

@@ -4,7 +4,10 @@
   "version": "2.1.0",
   "description": "An interactive flip book",
   "scripts": {
-    "test": "karma start --single-run"
+    "test": "karma start --single-run",
+    "coverage": "COVERAGE=true npm test && npm run remap-coverage && npm run coverage-report",
+    "remap-coverage": "remap-istanbul -i coverage/coverage-unmapped.json -o coverage/coverage-remapped.json -e test/",
+    "coverage-report": "istanbul report --include coverage/coverage-remapped.json lcov text html"
   },
   "repository": {
     "type": "git",
@@ -22,12 +25,15 @@
     "gulp": "^4.0.0",
     "gulp-sass": "^4.0.1",
     "gulp-sourcemaps": "^2.6.4",
+    "istanbul": "^0.4.5",
     "karma": "^3.0.0",
     "karma-chai": "^0.1.0",
     "karma-chrome-launcher": "^2.2.0",
+    "karma-coverage": "^1.1.2",
     "karma-mocha": "^1.3.0",
     "karma-sourcemap-loader": "^0.3.7",
     "mocha": "^5.2.0",
+    "remap-istanbul": "^0.12.0",
     "rollup": "^0.59.4",
     "rollup-plugin-commonjs": "^9.1.8",
     "rollup-plugin-json": "^3.1.0",
