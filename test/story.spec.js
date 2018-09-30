@@ -19,7 +19,7 @@ describe('story model', function () {
   it('should initialize with supplied arguments', function () {
     let createdDate = Date.now();
     let story = new Story({
-      frames: [new Frame(), new Frame()],
+      frames: [{}, {}],
       selectedFrameIndex: 1,
       frameDuration: 125,
       showPreviousFrame: false,
@@ -34,6 +34,7 @@ describe('story model', function () {
       }
     });
     expect(story.frames).to.have.lengthOf(2);
+    expect(story.frames[0]).to.be.instanceOf(Frame);
     expect(story).to.have.property('selectedFrameIndex', 1);
     expect(story).to.have.property('frameDuration', 125);
     expect(story).to.have.property('showPreviousFrame', false);
