@@ -144,7 +144,7 @@ describe('app model', function () {
   it('should create new story', function () {
     let app = new App();
     let defaultStory = app.stories[0];
-    app.createStory('My New Story');
+    app.createNewStoryWithName('My New Story');
     expect(app.stories).to.have.lengthOf(2);
     expect(app.selectedStoryIndex).to.equal(0);
     expect(app.stories[0]).not.to.equal(defaultStory);

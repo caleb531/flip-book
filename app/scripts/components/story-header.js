@@ -9,14 +9,14 @@ class StoryHeaderComponent {
     this.app = app;
   }
 
-  createStory() {
+  createNewStoryWithName() {
     // Prevent the synchronous prompt() call from blocking the main thread; this
     // will allow Mithril to redraw and close all panels before showing the
     // modal
     setTimeout(() => {
       let storyName = prompt('Please enter a name for your new story:') || '';
       if (storyName.trim()) {
-        this.app.createStory(storyName.trim());
+        this.app.createNewStoryWithName(storyName.trim());
         PanelComponent.closeAllPanels();
         m.redraw();
       }
@@ -55,7 +55,7 @@ class StoryHeaderComponent {
           id: 'create-new-story',
           title: 'Create New Story',
           icon: 'add',
-          action: () => this.createStory()
+          action: () => this.createNewStoryWithName()
         }),
         m(ControlComponent, {
           id: 'open-story',

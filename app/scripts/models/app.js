@@ -58,7 +58,7 @@ class App {
     }
   }
 
-  createStory(storyName) {
+  createNewStoryWithName(storyName) {
     this.stories.unshift(new StoryMetadata({
       name: storyName
     }));
