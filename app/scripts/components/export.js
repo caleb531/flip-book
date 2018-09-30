@@ -20,7 +20,7 @@ class ExportComponent {
       frameComponent.render({
         backgroundColor: '#fff'
       });
-      this.gifGenerator.addFrame(canvas, {delay: story.frameDuration});
+      this.gifGenerator.addNewFrame(canvas, {delay: story.frameDuration});
     });
     this.gifGenerator.on('progress', (currentProgress) => {
       this.exportProgress = currentProgress;

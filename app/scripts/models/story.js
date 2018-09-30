@@ -26,7 +26,7 @@ class Story {
   }
 
   getPreviousFrame() {
-    if (this.frames.length > 0) {
+    if (this.selectedFrameIndex > 0) {
       return this.frames[this.selectedFrameIndex - 1];
     } else {
       return null;
@@ -41,7 +41,7 @@ class Story {
     this.selectFrame((this.selectedFrameIndex + 1) % this.frames.length);
   }
 
-  addFrame() {
+  addNewFrame() {
     this.frames.splice(this.selectedFrameIndex + 1, 0, new Frame());
     this.selectFrame(this.selectedFrameIndex + 1);
   }

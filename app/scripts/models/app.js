@@ -4,7 +4,7 @@ import StoryMetadata from './story-metadata.js';
 class App {
 
   constructor({stories = [new StoryMetadata()], selectedStoryIndex = 0} = {}) {
-    this.stories = stories;
+    this.stories = stories.map((storyMetadata) => new StoryMetadata(storyMetadata));
     this.selectStory(selectedStoryIndex);
     this.upgradeToMultiStoryFormat();
   }
@@ -15,11 +15,12 @@ class App {
 
   upgradeToMultiStoryFormat() {
     if (localStorage.getItem('flipbook-storage-version') !== '2') {
-      let oldStory = JSON.parse(localStorage.getItem('flipbook-story'));
-      if (oldStory) {
+      let oldStoryJson = JSON.parse(localStorage.getItem('flipbook-story'));
+      if (oldStoryJson) {
+        let oldStory = new Story(oldStoryJson);
         // Replace the contents of the default v2 story with the contents of the
         // old (v1) story
-        oldStory.metadata = this.selectedStory.metadata;
+        oldStory.metadata = this.getSelectedStoryMetadata();
         oldStory.save();
         localStorage.removeItem('flipbook-story');
         this.selectStory(0);
@@ -30,7 +31,7 @@ class App {
 
   selectStory(storyIndex) {
     this.selectedStoryIndex = storyIndex || 0;
-    this.selectedStory = this.loadStory(this.stories[storyIndex].createdDate);
+    this.selectedStory = this.loadStory(this.getSelectedStoryMetadata().createdDate);
     this.selectedStory.metadata = this.getSelectedStoryMetadata();
     this.save();
   }
@@ -57,7 +58,7 @@ class App {
     }
   }
 
-  createStory(storyName) {
+  createNewStoryWithName(storyName) {
     this.stories.unshift(new StoryMetadata({
       name: storyName
     }));
@@ -66,8 +67,8 @@ class App {
   }
 
   addExistingStory(story) {
-    this.stories.unshift(story.metadata);
     story.save();
+    this.stories.unshift(story.metadata);
     this.selectStory(0);
   }
 
@@ -95,7 +96,6 @@ App.restore = function () {
     // The default app for brand new sessions
     return new App();
   } else {
-    app.stories = app.stories.map((storyMetadata) => new StoryMetadata(storyMetadata));
     return new App(app);
   }
 };

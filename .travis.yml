@@ -1,0 +1,17 @@
+# Travis CI Configuration
+
+language: node_js
+node_js:
+  - "8"
+  - "7"
+  - "6"
+install:
+  - npm install
+  - npm install coveralls
+before_script:
+  - gulp build
+script:
+  - npm run lint
+  - npm run coverage
+after_success:
+  - cat coverage/lcov.info | coveralls

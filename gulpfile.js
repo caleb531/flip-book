@@ -2,7 +2,8 @@ let gulp = require('gulp');
 let sourcemaps = require('gulp-sourcemaps');
 let sass = require('gulp-sass');
 let rollup = require('rollup');
-let rollupConfig = require('./rollup.config.js');
+let rollupAppConfig = require('./rollup.config.app.js');
+let rollupTestConfig = require('./rollup.config.test.js');
 let workboxBuild = require('workbox-build');
 
 gulp.task('assets:core', () => {
@@ -39,14 +40,27 @@ gulp.task('sass:watch', () => {
   return gulp.watch('app/styles/**/*.scss', gulp.series('sass', 'sw'));
 });
 
-gulp.task('rollup', () => {
-  return rollup.rollup(rollupConfig).then((bundle) => {
-    return bundle.write(rollupConfig.output);
+gulp.task('rollup:app', () => {
+  return rollup.rollup(rollupAppConfig).then((bundle) => {
+    return bundle.write(rollupAppConfig.output);
+  });
+});
+gulp.task('rollup:test', () => {
+  return rollup.rollup(rollupTestConfig).then((bundle) => {
+    return bundle.write(rollupTestConfig.output);
   });
 });
 gulp.task('rollup:watch', () => {
-  return gulp.watch('app/scripts/**/*.js', gulp.series('rollup', 'sw'));
+  return gulp.watch(
+    ['app/scripts/**/*.js', 'test/**/*.js'],
+    gulp.series('rollup', 'sw')
+  );
 });
+gulp.task('rollup', gulp.parallel(
+  'rollup:app',
+  'rollup:test'
+));
+
 
 gulp.task('sw', () => {
   return workboxBuild.injectManifest({
