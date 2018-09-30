@@ -20,6 +20,12 @@
     "url": "https://gitlab.com/caleb531/flip-book/issues"
   },
   "homepage": "https://gitlab.com/caleb531/flip-book#README",
+  "dependencies": {
+    "gif.js.optimized": "^1.0.1",
+    "lodash": "^4.17.11",
+    "mithril": "^1.1.6",
+    "sw-update-manager": "^1.0.0"
+  },
   "devDependencies": {
     "chai": "^4.2.0",
     "chai-dom": "^1.8.0",
@@ -44,11 +50,5 @@
     "sinon": "^6.3.4",
     "sinon-chai": "^3.2.0",
     "workbox-build": "^3.6.1"
-  },
-  "dependencies": {
-    "gif.js.optimized": "^1.0.1",
-    "lodash": "^4.17.11",
-    "mithril": "^1.1.6",
-    "sw-update-manager": "^1.0.0"
   }
 }
