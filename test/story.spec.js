@@ -281,7 +281,7 @@ describe('story model', function () {
     expect(json).to.have.property('exportedGifSize');
   });
 
-  it('should export JSON', function () {
+  it('should save', function () {
     let createdDate = Date.now();
     let story = new Story({
       metadata: {
@@ -290,7 +290,7 @@ describe('story model', function () {
       }
     });
     let key = `flipbook-story-${createdDate}`;
-    expect(localStorage.getItem(key)).to.equal(null);
+    localStorage.removeItem(key);
     story.save();
     expect(localStorage.getItem(key)).to.equal(JSON.stringify(story));
   });
