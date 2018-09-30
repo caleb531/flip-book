@@ -4,7 +4,7 @@ import StoryMetadata from './story-metadata.js';
 class App {
 
   constructor({stories = [new StoryMetadata()], selectedStoryIndex = 0} = {}) {
-    this.stories = stories;
+    this.stories = stories.map((storyMetadata) => new StoryMetadata(storyMetadata));
     this.selectStory(selectedStoryIndex);
     this.upgradeToMultiStoryFormat();
   }
@@ -95,7 +95,6 @@ App.restore = function () {
     // The default app for brand new sessions
     return new App();
   } else {
-    app.stories = app.stories.map((storyMetadata) => new StoryMetadata(storyMetadata));
     return new App(app);
   }
 };
