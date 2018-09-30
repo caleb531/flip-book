@@ -15,11 +15,12 @@ class App {
 
   upgradeToMultiStoryFormat() {
     if (localStorage.getItem('flipbook-storage-version') !== '2') {
-      let oldStory = JSON.parse(localStorage.getItem('flipbook-story'));
-      if (oldStory) {
+      let oldStoryJson = JSON.parse(localStorage.getItem('flipbook-story'));
+      if (oldStoryJson) {
+        let oldStory = new Story(oldStoryJson);
         // Replace the contents of the default v2 story with the contents of the
         // old (v1) story
-        oldStory.metadata = this.selectedStory.metadata;
+        oldStory.metadata = this.getSelectedStoryMetadata();
         oldStory.save();
         localStorage.removeItem('flipbook-story');
         this.selectStory(0);
@@ -66,8 +67,8 @@ class App {
   }
 
   addExistingStory(story) {
-    this.stories.unshift(story.metadata);
     story.save();
+    this.stories.unshift(story.metadata);
     this.selectStory(0);
   }
 

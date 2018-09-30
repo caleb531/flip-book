@@ -4,11 +4,20 @@ import Story from '../app/scripts/models/story.js';
 
 describe('app model', function () {
 
+  beforeEach(function () {
+    localStorage.setItem('flipbook-storage-version', '2');
+  });
+
+  afterEach(function () {
+    localStorage.removeItem('flipbook-storage-version');
+  });
+
   it('should initialize with default arguments', function () {
     let app = new App();
     expect(app).to.have.property('stories');
     expect(app.stories).to.have.lengthOf(1);
     expect(app.stories[0]).to.be.instanceOf(StoryMetadata);
+    expect(app).to.have.property('selectedStoryIndex', 0);
     expect(app).to.have.property('selectedStoryIndex', 0);
   });
 
@@ -28,6 +37,29 @@ describe('app model', function () {
     expect(app).to.have.property('selectedStoryIndex', 1);
     expect(app).to.have.property('selectedStory');
     expect(app.selectedStory).to.be.instanceOf(Story);
+  });
+
+  it('should upgrade data store on initialization', function () {
+    localStorage.removeItem('flipbook-storage-version');
+    localStorage.setItem('flipbook-story', JSON.stringify({
+      frameDuration: 125,
+      showPreviousFrame: true
+    }));
+    let app = new App();
+    let key = `flipbook-story-${app.stories[0].createdDate}`;
+    let storyJson = JSON.parse(localStorage.getItem(key));
+    expect(storyJson).to.have.property('frameDuration', 125);
+    expect(storyJson).to.have.property('showPreviousFrame', true);
+    expect(localStorage.getItem('flipbook-storage-version')).to.equal('2');
+    expect(localStorage.getItem('flipbook-story')).to.equal(null);
+  });
+
+  it('should mark data store as v2 even if nothing to upgrade', function () {
+    localStorage.removeItem('flipbook-storage-version');
+    let app = new App();
+    expect(app.stories).to.have.lengthOf(1);
+    expect(localStorage.getItem('flipbook-storage-version')).to.equal('2');
+    expect(localStorage.getItem('flipbook-story')).to.equal(null);
   });
 
   it('should select story', function () {
@@ -107,6 +139,36 @@ describe('app model', function () {
     expect(app.stories).to.have.lengthOf(2);
     expect(app.stories[0].name).to.equal('Foo Story');
     expect(app.stories[1].name).to.equal('Baz Story');
+  });
+
+  it('should create new story', function () {
+    let app = new App();
+    let defaultStory = app.stories[0];
+    app.createStory('My New Story');
+    expect(app.stories).to.have.lengthOf(2);
+    expect(app.selectedStoryIndex).to.equal(0);
+    expect(app.stories[0]).not.to.equal(defaultStory);
+    expect(app.stories[1]).to.equal(defaultStory);
+  });
+
+  it('should add existing story', function () {
+    let app = new App();
+    let story = new Story({
+      frames: [{}, {}],
+      selectedFrameIndex: 1,
+      frameDuration: 125,
+      metadata: {
+        name: 'My Test Story',
+        createdDate: Date.now()
+      }
+    });
+    let defaultStory = app.stories[0];
+    app.addExistingStory(story);
+    expect(app.stories).to.have.lengthOf(2);
+    expect(app.selectedStoryIndex).to.equal(0);
+    expect(app.selectedStory.frameDuration).to.equal(story.frameDuration);
+    expect(app.stories[0]).not.to.equal(defaultStory);
+    expect(app.stories[1]).to.equal(defaultStory);
   });
 
   it('should export JSON', function () {
