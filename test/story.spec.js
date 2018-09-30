@@ -119,7 +119,7 @@ describe('story model', function () {
       frames: [new Frame(), new Frame(), new Frame()],
       selectedFrameIndex: 1
     });
-    story.addFrame();
+    story.addNewFrame();
     expect(story.frames.length).to.equal(4);
     expect(story.selectedFrameIndex).to.equal(2);
   });

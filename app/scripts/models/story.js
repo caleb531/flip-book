@@ -41,7 +41,7 @@ class Story {
     this.selectFrame((this.selectedFrameIndex + 1) % this.frames.length);
   }
 
-  addFrame() {
+  addNewFrame() {
     this.frames.splice(this.selectedFrameIndex + 1, 0, new Frame());
     this.selectFrame(this.selectedFrameIndex + 1);
   }

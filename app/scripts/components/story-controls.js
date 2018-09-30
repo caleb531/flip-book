@@ -19,8 +19,8 @@ class StoryControlsComponent {
     story.save();
   }
 
-  addFrame(story) {
-    story.addFrame();
+  addNewFrame(story) {
+    story.addNewFrame();
     story.save();
   }
 
@@ -92,7 +92,7 @@ class StoryControlsComponent {
           id: 'add-frame',
           title: 'Add Frame',
           icon: 'add',
-          action: () => this.addFrame(story)
+          action: () => this.addNewFrame(story)
         }),
         m(ControlComponent, {
           id: 'delete-frame',
