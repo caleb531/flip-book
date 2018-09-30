@@ -30,7 +30,7 @@ class App {
 
   selectStory(storyIndex) {
     this.selectedStoryIndex = storyIndex || 0;
-    this.selectedStory = this.loadStory(this.stories[storyIndex].createdDate);
+    this.selectedStory = this.loadStory(this.getSelectedStoryMetadata().createdDate);
     this.selectedStory.metadata = this.getSelectedStoryMetadata();
     this.save();
   }
