@@ -24,6 +24,7 @@ class App {
         oldStory.save();
         localStorage.removeItem('flipbook-story');
         this.selectStory(0);
+        this.save();
       }
       localStorage.setItem('flipbook-storage-version', '2');
     }
@@ -33,7 +34,6 @@ class App {
     this.selectedStoryIndex = storyIndex || 0;
     this.selectedStory = this.loadStory(this.getSelectedStoryMetadata().createdDate);
     this.selectedStory.metadata = this.getSelectedStoryMetadata();
-    this.save();
   }
 
   getSelectedStoryMetadata() {
@@ -70,6 +70,7 @@ class App {
     story.save();
     this.stories.unshift(story.metadata);
     this.selectStory(0);
+    this.save();
   }
 
   deleteSelectedStory() {
@@ -80,6 +81,7 @@ class App {
       this.stories.splice(this.selectedStoryIndex, 1);
       this.selectStory(Math.max(0, this.selectedStoryIndex - 1));
     }
+    this.save();
   }
 
   toJSON() {

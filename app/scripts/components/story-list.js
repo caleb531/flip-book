@@ -8,6 +8,7 @@ class StoryListComponent {
 
   selectStory(storyItemElement) {
     this.app.selectStory(Number(storyItemElement.dataset.index));
+    this.app.save();
     PanelComponent.closeAllPanels();
   }
 
