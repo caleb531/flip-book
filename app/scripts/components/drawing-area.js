@@ -61,7 +61,7 @@ class DrawingAreaComponent extends FrameComponent {
     event.preventDefault();
     if (this.drawingEnabled && this.mousedown) {
       this.mousedown = false;
-      this.stabilizeGroup({threshold: 3});
+      this.simplifyGroup(this.frame.groups[this.frame.groups.length - 1]);
       this.story.save();
     } else {
       event.redraw = false;
@@ -110,7 +110,7 @@ class DrawingAreaComponent extends FrameComponent {
     this.story.save();
   }
 
-  calculateAngle(lastX, lastY, currentX, currentY) {
+  calculateAngle([lastX, lastY], [currentX, currentY]) {
     let angle = Math.atan2(lastY - currentY, lastX - currentX) * (180 / Math.PI);
     if (angle < 0) {
       angle = 360 + angle;
@@ -118,44 +118,22 @@ class DrawingAreaComponent extends FrameComponent {
     return angle % 180;
   }
 
-  stabilizeGroup({threshold = 0}) {
-    let origGroup = this.frame.groups[this.frame.groups.length - 1];
-    let newGroup = {
-      styles: origGroup.styles,
-      points: []
-    };
-    if (origGroup.points.length < 3) {
-      return;
-    }
-    // Smaller numbers mean fewer points are optimized out; larger numbers mean
-    // heavier optimization
-    let lastX = origGroup.points[0][0];
-    let lastY = origGroup.points[0][1];
-    let currentX = lastX;
-    let currentY = lastY;
-    let lastAngle = 0;
-    let newX = origGroup.points[0][0];
-    let newY = origGroup.points[0][1];
-    newGroup.points.push([newX, newY]);
-    for (let p = 1; p < origGroup.points.length; p += 1) {
-      let origPoint = origGroup.points[p];
-      currentX += origPoint[0];
-      currentY += origPoint[1];
-      let currentAngle = this.calculateAngle(lastX, lastY, currentX, currentY);
-      if (p === (origGroup.points.length - 1) || (Math.abs(currentAngle - lastAngle) >= threshold)) {
-        lastAngle = currentAngle;
-        lastX = currentX;
-        lastY = currentY;
-        newGroup.points.push([
-          currentX - newX,
-          currentY - newY
-        ]);
-        newX += newGroup.points[newGroup.points.length - 1][0];
-        newY += newGroup.points[newGroup.points.length - 1][1];
+  simplifyGroup(group) {
+    let pointsRemoved = 0;
+    let origPointCount = group.points.length;
+    let prevAngle = null;
+    // There must be at least 3 points in the stroke group for simplification to
+    // be possible
+    for (let p = 1; p < (group.points.length - 1); p += 1) {
+      let currentPoint = group.points[p];
+      let nextPoint = group.points[p + 1];
+      let currentAngle = this.calculateAngle(currentPoint, nextPoint);
+      if (nextPoint && currentAngle === prevAngle) {
+        pointsRemoved += 1;
       }
+      prevAngle = currentAngle;
     }
-    this.frame.groups[this.frame.groups.length - 1] = newGroup;
-    console.log(`${origGroup.points.length - newGroup.points.length}/${origGroup.points.length} point(s) removed!`, newGroup);
+    console.log(`${pointsRemoved}/${group.points.length} point(s) removed!`);
   }
 
   view() {
