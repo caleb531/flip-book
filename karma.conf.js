@@ -7,7 +7,7 @@ module.exports = function (config) {
     files: [
       'styles/index.css',
       'scripts/mithril.min.js',
-      'scripts/lodash.min.js',
+      'scripts/underscore-min.js',
       'scripts/gif.js',
       'scripts/sw-update-manager.js',
       'scripts/test.js'
