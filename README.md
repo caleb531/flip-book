@@ -62,3 +62,21 @@ next to the story's name.
 You can also import a project that you have downloaded via the "Export Project"
 button. To do so, click the up-arrow icon near the top-left corner of the
 editor.
+
+## Local development
+
+If you'd like to contribute to Flip Book by making your own changes to the
+source, clone the repository and run the following commands to set up the
+project:
+
+```sh
+npm install
+gulp build:watch
+```
+
+You can then serve the app locally using an npm package like `http-server`:
+
+```sh
+npm install -g http-server
+http-server -o
+```
