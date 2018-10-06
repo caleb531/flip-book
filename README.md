@@ -62,10 +62,3 @@ next to the story's name.
 You can also import a project that you have downloaded via the "Export Project"
 button. To do so, click the up-arrow icon near the top-left corner of the
 editor.
-
-## Setup
-
-```bash
-npm install
-gulp build:watch
-```
