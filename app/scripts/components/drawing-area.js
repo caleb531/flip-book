@@ -35,7 +35,7 @@ class DrawingAreaComponent extends FrameComponent {
       this.frame.addPoint(startX, startY);
       this.lastX = startX;
       this.lastY = startY;
-      this.frame.undoHistory.length = 0;
+      this.frame.resetUndoHistory();
     }
     PanelComponent.closeAllPanels();
   }

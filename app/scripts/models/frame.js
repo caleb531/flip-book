@@ -46,6 +46,10 @@ class Frame {
     }
   }
 
+  resetUndoHistory() {
+    this.undoHistory.length = 0;
+  }
+
   toJSON() {
     return _.pick(this, ['styles', 'groups']);
   }

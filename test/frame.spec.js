@@ -117,6 +117,16 @@ describe('frame model', function () {
     expect(frame.undoHistory).to.have.lengthOf(0);
   });
 
+  it('should reset undo history', function () {
+    let frame = new Frame();
+    frame.startNewGroup();
+    frame.addPoint(300, 150);
+    frame.undo();
+    expect(frame.undoHistory).to.have.lengthOf(1);
+    frame.resetUndoHistory();
+    expect(frame.undoHistory).to.have.lengthOf(0);
+  });
+
   it('should export JSON', function () {
     let json = new Frame().toJSON();
     expect(json).to.have.property('styles');
