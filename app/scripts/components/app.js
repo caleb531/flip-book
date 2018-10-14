@@ -7,7 +7,7 @@ class AppComponent {
 
   oninit() {
     this.app = App.restore();
-    if (navigator.serviceWorker && !window.__karma__) {
+    if (navigator.serviceWorker && !window.__karma__ && window.location.hostname !== 'localhost') {
       let serviceWorker = navigator.serviceWorker.register('service-worker.js');
       this.updateManager = new SWUpdateManager(serviceWorker);
       this.updateManager.on('updateAvailable', () => m.redraw());
