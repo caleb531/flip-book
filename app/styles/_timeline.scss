@@ -10,6 +10,15 @@
   white-space: nowrap;
   overflow-x: auto;
   counter-reset: thumbnail;
+  @media screen and (max-width: $app-mobile-width) {
+    width: 100%;
+    margin-top: 10px;
+    background-color: darken($panel-background-color, 10%);
+    // All other controls in the container have a default flex order of 0, so
+    // this will force the timeline to appear as the last element in the
+    // container
+    order: 1;
+  }
 }
 .timeline-thumbnail {
   display: inline-block;

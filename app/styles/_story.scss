@@ -45,3 +45,9 @@
   position: relative;
   z-index: 10;
 }
+
+.story-controls {
+  @media screen and (max-width: $app-mobile-width) {
+    flex-wrap: wrap;
+  }
+}
