@@ -1,8 +1,7 @@
 let gulp = require('gulp');
 let sourcemaps = require('gulp-sourcemaps');
 let sass = require('gulp-sass');
-let uglify = require('gulp-uglify');
-let rename = require('gulp-rename');
+let uglify = require('gulp-uglify-es').default;
 let rollup = require('rollup');
 let rollupAppConfig = require('./rollup.config.app.js');
 let rollupTestConfig = require('./rollup.config.test.js');
@@ -17,8 +16,7 @@ gulp.task('assets:js', () => {
       'node_modules/mithril/mithril.min.js',
       'node_modules/underscore/underscore-min.js',
       'node_modules/gif.js.optimized/dist/gif.js',
-      'node_modules/gif.js.optimized/dist/gif.worker.js',
-      'node_modules/sw-update-manager/sw-update-manager.js'
+      'node_modules/gif.js.optimized/dist/gif.worker.js'
     ])
     .pipe(gulp.dest('public/scripts'));
 });
@@ -65,10 +63,10 @@ gulp.task('rollup', gulp.parallel(
 
 gulp.task('uglify', () => {
   return gulp.src([
-      'node_modules/fastclick/lib/fastclick.js'
+      'node_modules/fastclick/lib/fastclick.js',
+      'node_modules/sw-update-manager/sw-update-manager.js'
     ])
     .pipe(uglify())
-    .pipe(rename({suffix: '.min'}))
     .pipe(gulp.dest('public/scripts'));
 });
 
