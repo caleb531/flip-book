@@ -66,10 +66,17 @@ gulp.task('sw', () => {
   return workboxBuild.injectManifest({
     globDirectory: 'public',
     globPatterns: [
-      '**\/*.{html,js,css,svg,png}'
+      '**\/*.{js,css,svg,png}'
     ],
     swSrc: 'app/scripts/service-worker.js',
-    swDest: 'public/service-worker.js'
+    swDest: 'public/service-worker.js',
+    // Precaching index.html using templatedUrls fixes a "Response served by
+    // service worker has redirections" error on iOS 12; see
+    // <https://github.com/v8/v8.dev/issues/4> and
+    // <https://github.com/v8/v8.dev/pull/7>
+    templatedUrls: {
+      '/': ['index.html']
+    }
   }).then(({warnings}) => {
     warnings.forEach(console.warn);
   });
