@@ -21,6 +21,7 @@
   },
   "homepage": "https://gitlab.com/caleb531/flip-book#README",
   "dependencies": {
+    "fastclick": "^1.0.6",
     "gif.js.optimized": "^1.0.1",
     "mithril": "^1.1.6",
     "sw-update-manager": "^1.0.0",
@@ -31,8 +32,10 @@
     "chai-dom": "^1.8.0",
     "eslint": "^5.6.1",
     "gulp": "^4.0.0",
+    "gulp-rename": "^1.4.0",
     "gulp-sass": "^4.0.1",
     "gulp-sourcemaps": "^2.6.4",
+    "gulp-uglify": "^3.0.1",
     "istanbul": "^0.4.5",
     "karma": "^3.0.0",
     "karma-chrome-launcher": "^2.2.0",

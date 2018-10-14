@@ -15,6 +15,10 @@ class AppComponent {
     }
   }
 
+  oncreate({dom}) {
+    FastClick.attach(dom);
+  }
+
   view() {
     return m('div.app', [
 
