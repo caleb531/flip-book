@@ -1,26 +1,40 @@
-.controls {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  padding: 0 8px;
-  border-top: solid 1px $panel-background-color;
-  background-color: $panel-background-color;
-  white-space: nowrap;
-}
-
 .control-group {
   position: relative;
   margin-right: 20px;
-  &:last-of-type {
+  &:last-child {
     margin-right: 0;
     @media screen and (max-width: $app-mobile-width) {
-      flex-grow: 1;
       text-align: right;
     }
   }
 }
-.control-group-frames {
-  margin-right: $control-padding;
+.timeline-control-group {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  @media screen and (max-width: $app-mobile-width) {
+    width: 100%;
+    margin-right: 0;
+    // All other controls in the container have a default flex order of 0, so
+    // this will force the timeline to appear as the last element in the
+    // container
+    order: -1;
+  }
+  // Controls for adding and removing frames
+  .control-group:first-child {
+    margin-right: $control-padding;
+    border-right: solid 1px $panel-background-color;
+    @media screen and (max-width: $app-mobile-width) {
+      margin-right: 0;
+    }
+  }
+  .control-button {
+    @media screen and (max-width: $app-mobile-width) {
+      $control-padding-compact: 6px;
+      padding-top: $control-padding-compact;
+      padding-bottom: $control-padding-compact;
+    }
+  }
 }
 
 .control {

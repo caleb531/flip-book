@@ -47,7 +47,21 @@
 }
 
 .story-controls {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  border: solid 1px $panel-background-color;
+  border-left: 0;
+  border-right: 0;
+  border-bottom: 0;
+  padding: 0 8px;
+  background-color: $panel-background-color;
+  white-space: nowrap;
   @media screen and (max-width: $app-mobile-width) {
+    border-left: 1px;
+    border-right: 1px;
+    padding: 0;
+    justify-content: space-between;
     flex-wrap: wrap;
   }
 }

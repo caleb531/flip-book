@@ -1,8 +1,11 @@
 .timeline {
   position: relative;
+  // If a width of zero (or any arbitrary pixel value) isn't set, the timeline
+  // will cause the control container to overflow beyond the edge of the story
+  // container
+  width: 0;
   flex-grow: 1;
   margin: 0;
-  margin-right: 20px;
   padding: 0;
   background-color: $control-background-color;
   list-style-type: none;
@@ -11,14 +14,7 @@
   overflow-x: auto;
   counter-reset: thumbnail;
   @media screen and (max-width: $app-mobile-width) {
-    width: 100%;
-    margin-top: 10px;
-    margin-right: 0;
     background-color: darken($panel-background-color, 10%);
-    // All other controls in the container have a default flex order of 0, so
-    // this will force the timeline to appear as the last element in the
-    // container
-    order: 1;
   }
 }
 .timeline-thumbnail {

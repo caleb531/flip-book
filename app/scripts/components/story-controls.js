@@ -49,7 +49,7 @@ class StoryControlsComponent {
   }
 
   view({attrs: {story}}) {
-    return m('div.story-controls.controls', [
+    return m('div.story-controls', [
 
       m('div.control-group', [
         m(ControlComponent, {
@@ -87,22 +87,26 @@ class StoryControlsComponent {
         })
       ]),
 
-      m('div.control-group.control-group-frames', [
-        m(ControlComponent, {
-          id: 'add-frame',
-          title: 'Add Frame',
-          icon: 'add',
-          action: () => this.addNewFrame(story)
-        }),
-        m(ControlComponent, {
-          id: 'delete-frame',
-          title: 'Delete Frame',
-          icon: 'remove',
-          action: () => this.deleteSelectedFrame(story)
-        }),
-      ]),
+      m('div.control-group.timeline-control-group', [
 
-      m(TimelineComponent, {story}),
+        m('div.control-group', [
+          m(ControlComponent, {
+            id: 'add-frame',
+            title: 'Add Frame',
+            icon: 'add',
+            action: () => this.addNewFrame(story)
+          }),
+          m(ControlComponent, {
+            id: 'delete-frame',
+            title: 'Delete Frame',
+            icon: 'remove',
+            action: () => this.deleteSelectedFrame(story)
+          }),
+        ]),
+
+        m(TimelineComponent, {story}),
+
+      ]),
 
       m('div.control-group', [
         m(ControlComponent, {
