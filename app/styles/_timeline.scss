@@ -13,6 +13,7 @@
   @media screen and (max-width: $app-mobile-width) {
     width: 100%;
     margin-top: 10px;
+    margin-right: 0;
     background-color: darken($panel-background-color, 10%);
     // All other controls in the container have a default flex order of 0, so
     // this will force the timeline to appear as the last element in the
