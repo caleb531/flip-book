@@ -9,6 +9,8 @@ $story-border-width: 1px;
 $frame-width: 800px;
 $frame-height: 450px;
 
+$app-max-width: $frame-width + ($story-border-width * 2);
+
 $panel-position-offset: 15px;
 $panel-border-radius: 5px;
 $panel-padding-x: 10px;

@@ -11,7 +11,6 @@ class DrawingAreaComponent extends FrameComponent {
 
   oncreate({dom}) {
     super.oncreate({dom});
-    this.canvasScaleFactor = this.canvas.width / this.canvas.offsetWidth;
   }
 
   onupdate({attrs: {story, frame, drawingEnabled = true}}) {
@@ -24,7 +23,8 @@ class DrawingAreaComponent extends FrameComponent {
     event.preventDefault();
     if (this.drawingEnabled) {
       this.mousedown = true;
-      // Cache computed canvas offsets for the duration of the drag
+      // Cache canvas size/position computations for the duration of the drag
+      this.canvasScaleFactor = this.canvas.width / this.canvas.offsetWidth;
       this.canvasOffsetLeft = event.target.parentElement.offsetLeft;
       this.canvasOffsetTop = event.target.parentElement.offsetTop;
       let startX = (event.pageX - this.canvasOffsetLeft) * this.canvasScaleFactor;

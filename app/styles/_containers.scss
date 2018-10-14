@@ -1,5 +1,6 @@
 body {
-  width: $frame-width + ($story-border-width * 2);
+  width: 100%;
+  max-width: $app-max-width;
   margin: 0 auto;
   padding: 0;
   font-family: 'Roboto Slab', 'Open Sans', sans-serif;
