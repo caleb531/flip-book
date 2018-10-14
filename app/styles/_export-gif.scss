@@ -24,6 +24,7 @@
   transition: all 250ms ease-in-out;
   transition-property: visibility, opacity;
   color: #fff;
+  white-space: normal;
   &.visible {
     visibility: visible;
     opacity: 1;
@@ -54,8 +55,14 @@
 
 .exported-image {
   opacity: 0;
-  max-width: $frame-width;
   animation: fade-in 100ms ease-in-out forwards;
+  // Default to the natural width of the image, unless it exceeds the viewport
+  // width OR the below max $frame-width
+  width: auto;
+  max-width: 100%;
+  @media screen and (min-width: $frame-width) {
+    max-width: $frame-width;
+  }
 }
 
 .control-close-export-gif-overlay {
