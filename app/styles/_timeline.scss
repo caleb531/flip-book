@@ -12,6 +12,8 @@
   text-align: left;
   white-space: nowrap;
   overflow-x: auto;
+  // Enable inertia scrolling on iOS
+  -webkit-overflow-scrolling: touch;
   counter-reset: thumbnail;
   @media screen and (max-width: $app-mobile-width) {
     background-color: darken($panel-background-color, 10%);
