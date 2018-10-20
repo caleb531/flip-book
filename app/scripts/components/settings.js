@@ -1,3 +1,5 @@
+import ControlComponent from './control.js';
+
 class SettingsComponent {
 
   setFrameDuration(story, framesPerSecond) {
@@ -5,8 +7,13 @@ class SettingsComponent {
     story.save();
   }
 
-  toggleShowPreviousFrame(story, showPreviousFrame) {
-    story.showPreviousFrame = showPreviousFrame;
+  incrementNumPreviousFramesToShow(story) {
+    story.numPreviousFramesToShow = Math.min(story.numPreviousFramesToShow + 1, 5);
+    story.save();
+  }
+
+  decrementNumPreviousFramesToShow(story) {
+    story.numPreviousFramesToShow = Math.max(0, story.numPreviousFramesToShow - 1);
     story.save();
   }
 
@@ -27,11 +34,20 @@ class SettingsComponent {
         m('span.setting-value', story.getFramesPerSecond())
       ]),
       m('div.setting', [
-        m('label[for="setting-show-previous-frame"]', 'Show Previous Frame?'),
-        m('input[type=checkbox]#setting-show-previous-frame', {
-          checked: story.showPreviousFrame,
-          onchange: ({target}) => this.toggleShowPreviousFrame(story, target.checked)
+        m('label', 'Previous Frames to Show'),
+        m(ControlComponent, {
+          id: 'decrement-previous-frames',
+          title: 'Show One Less Previous Frame',
+          icon: 'decrement',
+          action: () => this.decrementNumPreviousFramesToShow(story)
         }),
+        m('spam.setting-value.setting-value-previous-frames', story.numPreviousFramesToShow),
+        m(ControlComponent, {
+          id: 'increment-previous-frames',
+          title: 'Show One More Previous Frame',
+          icon: 'increment',
+          action: () => this.incrementNumPreviousFramesToShow(story)
+        })
       ]),
       m('div.setting', [
         m('label[for="setting-stroke-width"]', 'Stroke Width'),
