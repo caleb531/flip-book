@@ -12,3 +12,9 @@ body {
   -moz-user-select: none;
   -ms-user-select: none;
 }
+
+.app {
+  &:focus {
+    outline-width: 0;
+  }
+}
