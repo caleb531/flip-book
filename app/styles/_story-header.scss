@@ -16,7 +16,7 @@
     width: $icon-size;
     height: $icon-size;
   }
-  .control-group:last-of-type {
+  .control-group:last-child {
     flex-grow: 1;
     text-align: right;
   }

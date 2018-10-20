@@ -11,7 +11,6 @@ class DrawingAreaComponent extends FrameComponent {
 
   oncreate({dom}) {
     super.oncreate({dom});
-    this.canvasScaleFactor = this.canvas.width / this.canvas.offsetWidth;
   }
 
   onupdate({attrs: {story, frame, drawingEnabled = true}}) {
@@ -20,15 +19,16 @@ class DrawingAreaComponent extends FrameComponent {
     super.onupdate({attrs: {frame}});
   }
 
-  handleMousedown(event) {
+  handleDrawStart(event, pageX, pageY) {
     event.preventDefault();
     if (this.drawingEnabled) {
       this.mousedown = true;
-      // Cache computed canvas offsets for the duration of the drag
+      // Cache canvas size/position computations for the duration of the drag
+      this.canvasScaleFactor = this.canvas.width / this.canvas.offsetWidth;
       this.canvasOffsetLeft = event.target.parentElement.offsetLeft;
       this.canvasOffsetTop = event.target.parentElement.offsetTop;
-      let startX = (event.pageX - this.canvasOffsetLeft) * this.canvasScaleFactor;
-      let startY = (event.pageY - this.canvasOffsetTop) * this.canvasScaleFactor;
+      let startX = (pageX - this.canvasOffsetLeft) * this.canvasScaleFactor;
+      let startY = (pageY - this.canvasOffsetTop) * this.canvasScaleFactor;
       this.frame.startNewGroup({
         styles: Object.assign({}, this.story.frameStyles)
       });
@@ -40,11 +40,11 @@ class DrawingAreaComponent extends FrameComponent {
     PanelComponent.closeAllPanels();
   }
 
-  handleMousemove(event) {
+  handleDrawMove(event, pageX, pageY) {
     event.preventDefault();
     if (this.mousedown && this.drawingEnabled) {
-      let endX = (event.pageX - this.canvasOffsetLeft) * this.canvasScaleFactor;
-      let endY = (event.pageY - this.canvasOffsetTop) * this.canvasScaleFactor;
+      let endX = (pageX - this.canvasOffsetLeft) * this.canvasScaleFactor;
+      let endY = (pageY - this.canvasOffsetTop) * this.canvasScaleFactor;
       let diffX = endX - this.lastX;
       let diffY = endY - this.lastY;
       if (diffX !== 0 || diffY !== 0) {
@@ -57,7 +57,7 @@ class DrawingAreaComponent extends FrameComponent {
     event.redraw = false;
   }
 
-  handleMouseup(event) {
+  handleDrawEnd(event) {
     event.preventDefault();
     if (this.drawingEnabled && this.mousedown) {
       this.mousedown = false;
@@ -65,6 +65,36 @@ class DrawingAreaComponent extends FrameComponent {
     } else {
       event.redraw = false;
     }
+  }
+
+  handleTouchStart(event) {
+    if (event.changedTouches && event.changedTouches.length > 0) {
+      this.handleDrawStart(event, event.changedTouches[0].pageX, event.changedTouches[0].pageY);
+    }
+  }
+
+  handleTouchMove(event) {
+    if (event.changedTouches && event.changedTouches.length > 0) {
+      this.handleDrawMove(event, event.changedTouches[0].pageX, event.changedTouches[0].pageY);
+    }
+  }
+
+  handleTouchEnd(event) {
+    if (event.changedTouches && event.changedTouches.length > 0) {
+      this.handleDrawEnd(event);
+    }
+  }
+
+  handleMouseDown(event) {
+    this.handleDrawStart(event, event.pageX, event.pageY);
+  }
+
+  handleMouseMove(event) {
+    this.handleDrawMove(event, event.pageX, event.pageY);
+  }
+
+  handleMouseUp(event) {
+    this.handleDrawEnd(event);
   }
 
   undo() {
@@ -83,10 +113,15 @@ class DrawingAreaComponent extends FrameComponent {
     return m('canvas.selected-frame', {
       width: FrameComponent.width,
       height: FrameComponent.height,
-      onmousedown: (event) => this.handleMousedown(event),
-      onmousemove: (event) => this.handleMousemove(event),
-      onmouseup: (event) => this.handleMouseup(event),
-      onmouseout: (event) => this.handleMouseup(event)
+      // Touch events
+      ontouchstart: (event) => this.handleTouchStart(event),
+      ontouchmove: (event) => this.handleTouchMove(event),
+      ontouchend: (event) => this.handleTouchEnd(event),
+      // Mouse events
+      onmousedown: (event) => this.handleMouseDown(event),
+      onmousemove: (event) => this.handleMouseMove(event),
+      onmouseup: (event) => this.handleMouseUp(event),
+      onmouseout: (event) => this.handleMouseUp(event)
     });
   }
 

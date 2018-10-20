@@ -1,15 +1,23 @@
 .timeline {
   position: relative;
+  // If a width of zero (or any arbitrary pixel value) isn't set, the timeline
+  // will cause the control container to overflow beyond the edge of the story
+  // container
+  width: 0;
   flex-grow: 1;
   margin: 0;
-  margin-right: 20px;
   padding: 0;
   background-color: $control-background-color;
   list-style-type: none;
   text-align: left;
   white-space: nowrap;
   overflow-x: auto;
+  // Enable inertia scrolling on iOS
+  -webkit-overflow-scrolling: touch;
   counter-reset: thumbnail;
+  @media screen and (max-width: $app-mobile-width) {
+    background-color: darken($panel-background-color, 10%);
+  }
 }
 .timeline-thumbnail {
   display: inline-block;

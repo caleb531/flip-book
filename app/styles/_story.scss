@@ -1,5 +1,11 @@
 .story {
-  border: solid 1px $panel-background-color;
+  border: solid $story-border-width $panel-background-color;
+  // Remove left and right borders if viewport width is less than or equal to
+  // the frame's display width
+  @media screen and (max-width: $app-max-width) {
+    border-left-width: 0;
+    border-right-width: 0;
+  }
   &:focus {
     outline-width: 0;
   }
@@ -14,8 +20,14 @@
 .selected-frame,
 .previous-frame {
   // Shrink the displayed width/height canvas by half
-  width: $frame-width;
-  height: $frame-height;
+  width: 100%;
+  height: #{($frame-height / $frame-width * 100)}vw;
+  max-width: $frame-width;
+  max-height: $frame-height;
+  @media screen and (max-width: $app-max-width) {
+    max-width: none;
+    max-height: none;
+  }
 }
 
 .previous-frame {
@@ -32,4 +44,24 @@
 .selected-frame {
   position: relative;
   z-index: 10;
+}
+
+.story-controls {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  border: solid 1px $panel-background-color;
+  border-left: 0;
+  border-right: 0;
+  border-bottom: 0;
+  padding: 0 8px;
+  background-color: $panel-background-color;
+  white-space: nowrap;
+  @media screen and (max-width: $app-mobile-width) {
+    border-left: 1px;
+    border-right: 1px;
+    padding: 0;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
 }

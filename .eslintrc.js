@@ -31,7 +31,9 @@ module.exports = {
     // gif.js
     'GIF': true,
     // Service Worker Update Manager library
-    'SWUpdateManager': true
+    'SWUpdateManager': true,
+    // FastClick to remove the 300ms tap delay on mobile browsers
+    'FastClick': true
   },
 
   overrides: {
