@@ -66,11 +66,13 @@
 }
 
 .control-close-export-gif-overlay {
-  pointer-events: none;
   position: absolute;
   top: 0;
   right: 0;
   .control-button {
     background: none;
+    &:hover:active {
+      border-bottom-left-radius: $panel-border-radius;
+    }
   }
 }

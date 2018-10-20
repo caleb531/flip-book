@@ -11,9 +11,10 @@ class ExportGifComponent {
       m(ControlComponent, {
         id: 'close-export-gif-overlay',
         title: 'Close Overlay',
-        icon: 'close'
+        icon: 'close',
+        action: () => abort()
       }),
-      m('div.export-gif-overlay', {onclick: () => abort()}),
+      m('div.export-gif-overlay'),
       m('div.export-gif-heading', exportedImageUrl ?
         'GIF Generated!' :
         'Generating GIF...'),
