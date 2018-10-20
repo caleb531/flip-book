@@ -114,8 +114,8 @@ class ExportComponent {
       ]),
       m(ControlComponent, {
         id: 'export-project',
-        title: 'Export Project',
-        label: 'Export Project',
+        title: 'Export Project Data',
+        label: 'Export Project Data',
         action: () => this.exportProject(story)
       }),
       m(ExportGifComponent, {
