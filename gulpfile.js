@@ -81,7 +81,7 @@ gulp.task('sw', () => {
     // <https://github.com/v8/v8.dev/issues/4> and
     // <https://github.com/v8/v8.dev/pull/7>
     templatedUrls: {
-      '/': ['index.html']
+      '.': ['index.html']
     },
     swSrc: 'app/scripts/service-worker.js',
     swDest: 'public/service-worker.js'
