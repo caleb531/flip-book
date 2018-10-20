@@ -64,7 +64,7 @@
     background-color: $control-background-color-active;
     color: #fff;
   }
-  .control-has-label & {
+  .panel & {
     border-radius: 3px;
     background-color: $control-background-color-labeled;
     white-space: nowrap;
@@ -102,5 +102,18 @@
     margin-left: 5px;
     border-radius: 3px;
     padding: 2px;
+  }
+}
+
+.control-decrement-previous-frames,
+.control-increment-previous-frames {
+  .control-button {
+    padding: 0;
+    border-radius: 50%;
+  }
+  .control-icon {
+    $icon-size: 20px;
+    width: $icon-size;
+    height: $icon-size;
   }
 }

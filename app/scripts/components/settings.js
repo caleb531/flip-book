@@ -1,4 +1,4 @@
-import Story from '../models/story.js';
+import ControlComponent from './control.js';
 
 class SettingsComponent {
 
@@ -7,8 +7,13 @@ class SettingsComponent {
     story.save();
   }
 
-  setPreviousFramesToShow(story, numPreviousFramesToShow) {
-    story.numPreviousFramesToShow = Number(numPreviousFramesToShow);
+  incrementNumPreviousFramesToShow(story) {
+    story.numPreviousFramesToShow = Math.min(story.numPreviousFramesToShow + 1, 5);
+    story.save();
+  }
+
+  decrementNumPreviousFramesToShow(story) {
+    story.numPreviousFramesToShow = Math.max(0, story.numPreviousFramesToShow - 1);
     story.save();
   }
 
@@ -29,15 +34,20 @@ class SettingsComponent {
         m('span.setting-value', story.getFramesPerSecond())
       ]),
       m('div.setting', [
-        m('label[for="setting-previous-frames"]', 'Previous Frames to Show'),
-          m('select#setting-previous-frames', {
-            onchange: ({target}) => this.setPreviousFramesToShow(story, target.value)
-          }, _.times(Story.maxPreviousFramesToShow + 1, (count) => {
-            return m('option', {
-              selected: count === story.numPreviousFramesToShow,
-              value: count
-            }, count);
-          }))
+        m('label', 'Previous Frames to Show'),
+        m(ControlComponent, {
+          id: 'decrement-previous-frames',
+          title: 'Show One Less Previous Frame',
+          icon: 'decrement',
+          action: () => this.decrementNumPreviousFramesToShow(story)
+        }),
+        m('spam.setting-value.setting-value-previous-frames', story.numPreviousFramesToShow),
+        m(ControlComponent, {
+          id: 'increment-previous-frames',
+          title: 'Show One More Previous Frame',
+          icon: 'increment',
+          action: () => this.incrementNumPreviousFramesToShow(story)
+        })
       ]),
       m('div.setting', [
         m('label[for="setting-stroke-width"]', 'Stroke Width'),
