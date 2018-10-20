@@ -10,7 +10,7 @@ class ExportGifComponent {
     }, [
       m(ControlComponent, {
         id: 'close-export-gif-overlay',
-        title: 'Close Overlay',
+        title: 'Abort GIF export',
         icon: 'close',
         action: () => abort()
       }),
