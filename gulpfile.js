@@ -74,7 +74,8 @@ gulp.task('sw', () => {
   return workboxBuild.injectManifest({
     globDirectory: 'public',
     globPatterns: [
-      '**\/*.{js,css,svg,png}'
+      '**\/*.{js,css,png}',
+      'icons/*.svg'
     ],
     // Precaching index.html using templatedUrls fixes a "Response served by
     // service worker has redirections" error on iOS 12; see
