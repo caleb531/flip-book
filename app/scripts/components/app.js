@@ -17,10 +17,30 @@ class AppComponent {
 
   oncreate({dom}) {
     FastClick.attach(dom);
+    dom.focus();
+  }
+
+  onupdate({dom}) {
+    dom.focus();
+  }
+
+  navigateFramesViaKeyboard(event) {
+    let story = this.app.selectedStory;
+    if (event.key === 'ArrowLeft') {
+      story.selectPreviousFrame();
+      story.save();
+    } else if (event.key === 'ArrowRight') {
+      story.selectNextFrame();
+      story.save();
+    } else {
+      event.redraw = false;
+    }
   }
 
   view() {
-    return m('div.app', [
+    return m('div.app[tabindex=-1]', {
+      onkeydown: (event) => this.navigateFramesViaKeyboard(event)
+    }, [
 
       this.updateManager ? m(UpdateNotificationComponent, {
         updateManager: this.updateManager
