@@ -1,3 +1,5 @@
+import Story from '../models/story.js';
+
 class SettingsComponent {
 
   setFrameDuration(story, framesPerSecond) {
@@ -5,8 +7,8 @@ class SettingsComponent {
     story.save();
   }
 
-  toggleShowPreviousFrame(story, showPreviousFrame) {
-    story.showPreviousFrame = showPreviousFrame;
+  setPreviousFramesToShow(story, previousFramesToShow) {
+    story.previousFramesToShow = Number(previousFramesToShow);
     story.save();
   }
 
@@ -27,11 +29,15 @@ class SettingsComponent {
         m('span.setting-value', story.getFramesPerSecond())
       ]),
       m('div.setting', [
-        m('label[for="setting-show-previous-frame"]', 'Show Previous Frame?'),
-        m('input[type=checkbox]#setting-show-previous-frame', {
-          checked: story.showPreviousFrame,
-          onchange: ({target}) => this.toggleShowPreviousFrame(story, target.checked)
-        }),
+        m('label[for="setting-previous-frames"]', 'Previous Frames to Show'),
+          m('select#setting-previous-frames', {
+            onchange: ({target}) => this.setPreviousFramesToShow(story, target.value)
+          }, _.times(Story.maxPreviousFramesToShow + 1, (count) => {
+            return m('option', {
+              selected: count === story.previousFramesToShow,
+              value: count
+            }, count);
+          }))
       ]),
       m('div.setting', [
         m('label[for="setting-stroke-width"]', 'Stroke Width'),

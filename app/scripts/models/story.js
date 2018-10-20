@@ -3,11 +3,15 @@ import StoryMetadata from './story-metadata.js';
 
 class Story {
 
-  constructor({frames = [new Frame()], frameDuration = 100, showPreviousFrame = true, selectedFrameIndex = 0, metadata = {}, frameStyles, exportedGifSize = 1080} = {}) {
+  constructor({frames = [new Frame()], frameDuration = 100, showPreviousFrame = null, previousFramesToShow = 1, selectedFrameIndex = 0, metadata = {}, frameStyles, exportedGifSize = 1080} = {}) {
     this.frames = frames.map((frame) => new Frame(frame));
     this.selectFrame(selectedFrameIndex);
     this.frameDuration = frameDuration;
-    this.showPreviousFrame = showPreviousFrame;
+    if (showPreviousFrame !== null) {
+      this.previousFramesToShow = Number(showPreviousFrame);
+    } else {
+      this.previousFramesToShow = previousFramesToShow;
+    }
     this.metadata = new StoryMetadata(metadata);
     this.playing = false;
     this.exportedGifSize = exportedGifSize;
@@ -103,7 +107,7 @@ class Story {
       'frames',
       'selectedFrameIndex',
       'frameDuration',
-      'showPreviousFrame',
+      'previousFramesToShow',
       'frameStyles',
       'exportedGifSize'
     ]);
@@ -112,5 +116,8 @@ class Story {
 }
 // The number of milliseconds in one second
 Story.MS_IN_S = 1000;
+
+// The maximum number of previous frames to show
+Story.maxPreviousFramesToShow = 5;
 
 export default Story;
