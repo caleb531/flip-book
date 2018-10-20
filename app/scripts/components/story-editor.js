@@ -11,9 +11,11 @@ class StoryEditorComponent {
     }, [
 
       m('div.story-stage', [
-        story.getPreviousFrame() && story.showPreviousFrame ? m(FrameComponent, {
-          className: 'previous-frame',
-          frame: story.getPreviousFrame(),
+        story.selectedFrameIndex > 0 && story.numPreviousFramesToShow > 0 ? story.getPreviousFramesToShow().map((previousFrame) => {
+          return m(FrameComponent, {
+            className: 'previous-frame',
+            frame: previousFrame
+          });
         }) : null,
         m(DrawingAreaComponent, {
           className: 'selected-frame',

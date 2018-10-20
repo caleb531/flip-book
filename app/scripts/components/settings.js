@@ -7,8 +7,8 @@ class SettingsComponent {
     story.save();
   }
 
-  setPreviousFramesToShow(story, previousFramesToShow) {
-    story.previousFramesToShow = Number(previousFramesToShow);
+  setPreviousFramesToShow(story, numPreviousFramesToShow) {
+    story.numPreviousFramesToShow = Number(numPreviousFramesToShow);
     story.save();
   }
 
@@ -34,7 +34,7 @@ class SettingsComponent {
             onchange: ({target}) => this.setPreviousFramesToShow(story, target.value)
           }, _.times(Story.maxPreviousFramesToShow + 1, (count) => {
             return m('option', {
-              selected: count === story.previousFramesToShow,
+              selected: count === story.numPreviousFramesToShow,
               value: count
             }, count);
           }))

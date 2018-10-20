@@ -8,7 +8,7 @@ describe('story model', function () {
     expect(story.frames).to.have.lengthOf(1);
     expect(story).to.have.property('selectedFrameIndex', 0);
     expect(story).to.have.property('frameDuration', 100);
-    expect(story).to.have.property('previousFramesToShow', 1);
+    expect(story).to.have.property('numPreviousFramesToShow', 1);
     expect(story.metadata).to.have.property('name', 'My First Story');
     expect(story).to.have.property('playing', false);
     expect(story).to.have.property('exportedGifSize', 1080);
@@ -22,7 +22,7 @@ describe('story model', function () {
       frames: [{}, {}],
       selectedFrameIndex: 1,
       frameDuration: 125,
-      previousFramesToShow: 2,
+      numPreviousFramesToShow: 2,
       metadata: {
         name: 'My Test Story',
         createdDate: createdDate
@@ -37,7 +37,7 @@ describe('story model', function () {
     expect(story.frames[0]).to.be.instanceOf(Frame);
     expect(story).to.have.property('selectedFrameIndex', 1);
     expect(story).to.have.property('frameDuration', 125);
-    expect(story).to.have.property('previousFramesToShow', 2);
+    expect(story).to.have.property('numPreviousFramesToShow', 2);
     expect(story.metadata).to.have.property('name', 'My Test Story');
     expect(story.metadata).to.have.property('createdDate', createdDate);
     expect(story).to.have.property('playing', false);
@@ -48,12 +48,12 @@ describe('story model', function () {
 
   it('should honor showPreviousFrame when false', function () {
     let story = new Story({showPreviousFrame: false});
-    expect(story).to.have.property('previousFramesToShow', 0);
+    expect(story).to.have.property('numPreviousFramesToShow', 0);
   });
 
   it('should honor showPreviousFrame when true', function () {
     let story = new Story({showPreviousFrame: true});
-    expect(story).to.have.property('previousFramesToShow', 1);
+    expect(story).to.have.property('numPreviousFramesToShow', 1);
   });
 
   it('should select frame', function () {
@@ -75,19 +75,42 @@ describe('story model', function () {
     expect(story.getSelectedFrame()).to.equal(story.frames[1]);
   });
 
-  it('should get previous frame', function () {
+  it('should get last previous frame by default', function () {
     let story = new Story({
       frames: [new Frame(), new Frame(), new Frame()],
-      selectedFrameIndex: 1
+      selectedFrameIndex: 2,
+      numPreviousFramesToShow: 1
     });
-    expect(story.getPreviousFrame()).to.equal(story.frames[0]);
+    expect(story.getPreviousFramesToShow()).to.have.lengthOf(1);
+    expect(story.getPreviousFramesToShow()[0]).to.equal(story.frames[1]);
+  });
+
+  it('should get all previous frames', function () {
+    let story = new Story({
+      frames: [new Frame(), new Frame(), new Frame()],
+      selectedFrameIndex: 2,
+      numPreviousFramesToShow: 2
+    });
+    expect(story.getPreviousFramesToShow()).to.have.lengthOf(2);
+    expect(story.getPreviousFramesToShow()[0]).to.equal(story.frames[0]);
+    expect(story.getPreviousFramesToShow()[1]).to.equal(story.frames[1]);
+  });
+
+  it('should get as many previous frames even if bound is exceeded', function () {
+    let story = new Story({
+      frames: [new Frame(), new Frame(), new Frame()],
+      selectedFrameIndex: 1,
+      numPreviousFramesToShow: 2
+    });
+    expect(story.getPreviousFramesToShow()).to.have.lengthOf(1);
+    expect(story.getPreviousFramesToShow()[0]).to.equal(story.frames[0]);
   });
 
   it('should not wrap around to get previous frame', function () {
     let story = new Story({
       frames: [new Frame(), new Frame(), new Frame()]
     });
-    expect(story.getPreviousFrame()).to.equal(null);
+    expect(story.getPreviousFramesToShow()).to.have.lengthOf(0);
   });
 
   it('should select next frame', function () {
@@ -286,7 +309,7 @@ describe('story model', function () {
     expect(json).to.have.property('frames');
     expect(json).to.have.property('selectedFrameIndex');
     expect(json).to.have.property('frameDuration');
-    expect(json).to.have.property('previousFramesToShow');
+    expect(json).to.have.property('numPreviousFramesToShow');
     expect(json).to.have.property('frameStyles');
     expect(json).to.have.property('exportedGifSize');
   });

@@ -43,13 +43,13 @@ describe('app model', function () {
     localStorage.removeItem('flipbook-storage-version');
     localStorage.setItem('flipbook-story', JSON.stringify({
       frameDuration: 125,
-      previousFramesToShow: 2
+      numPreviousFramesToShow: 2
     }));
     let app = new App();
     let key = `flipbook-story-${app.stories[0].createdDate}`;
     let storyJson = JSON.parse(localStorage.getItem(key));
     expect(storyJson).to.have.property('frameDuration', 125);
-    expect(storyJson).to.have.property('previousFramesToShow', 2);
+    expect(storyJson).to.have.property('numPreviousFramesToShow', 2);
     expect(localStorage.getItem('flipbook-storage-version')).to.equal('2');
     expect(localStorage.getItem('flipbook-story')).to.equal(null);
   });

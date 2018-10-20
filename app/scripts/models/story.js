@@ -3,14 +3,14 @@ import StoryMetadata from './story-metadata.js';
 
 class Story {
 
-  constructor({frames = [new Frame()], frameDuration = 100, showPreviousFrame = null, previousFramesToShow = 1, selectedFrameIndex = 0, metadata = {}, frameStyles, exportedGifSize = 1080} = {}) {
+  constructor({frames = [new Frame()], frameDuration = 100, showPreviousFrame = null, numPreviousFramesToShow = 1, selectedFrameIndex = 0, metadata = {}, frameStyles, exportedGifSize = 1080} = {}) {
     this.frames = frames.map((frame) => new Frame(frame));
     this.selectFrame(selectedFrameIndex);
     this.frameDuration = frameDuration;
     if (showPreviousFrame !== null) {
-      this.previousFramesToShow = Number(showPreviousFrame);
+      this.numPreviousFramesToShow = Number(showPreviousFrame);
     } else {
-      this.previousFramesToShow = previousFramesToShow;
+      this.numPreviousFramesToShow = numPreviousFramesToShow;
     }
     this.metadata = new StoryMetadata(metadata);
     this.playing = false;
@@ -29,12 +29,10 @@ class Story {
     this.selectedFrameIndex = newIndex;
   }
 
-  getPreviousFrame() {
-    if (this.selectedFrameIndex > 0) {
-      return this.frames[this.selectedFrameIndex - 1];
-    } else {
-      return null;
-    }
+  getPreviousFramesToShow() {
+    // The returned array is ordered according to the original order of the
+    // frames in the frames array
+    return this.frames.slice(Math.max(0, this.selectedFrameIndex - this.numPreviousFramesToShow), this.selectedFrameIndex);
   }
 
   selectPreviousFrame() {
@@ -107,7 +105,7 @@ class Story {
       'frames',
       'selectedFrameIndex',
       'frameDuration',
-      'previousFramesToShow',
+      'numPreviousFramesToShow',
       'frameStyles',
       'exportedGifSize'
     ]);
