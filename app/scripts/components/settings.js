@@ -8,7 +8,7 @@ class SettingsComponent {
   }
 
   incrementNumPreviousFramesToShow(story) {
-    story.numPreviousFramesToShow = Math.min(story.numPreviousFramesToShow + 1, 5);
+    story.numPreviousFramesToShow = Math.min(story.numPreviousFramesToShow + 1, 4);
     story.save();
   }
 
