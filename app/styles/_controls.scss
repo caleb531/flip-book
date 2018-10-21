@@ -16,7 +16,7 @@
     width: 100%;
     margin-right: 0;
     // All other controls in the container have a default flex order of 0, so
-    // this will force the timeline to appear as the last element in the
+    // this will force the timeline to appear as the first element in the
     // container
     order: -1;
   }
