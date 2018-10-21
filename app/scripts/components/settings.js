@@ -41,7 +41,7 @@ class SettingsComponent {
           icon: 'decrement',
           action: () => this.decrementNumPreviousFramesToShow(story)
         }),
-        m('spam.setting-value.setting-value-previous-frames', story.numPreviousFramesToShow),
+        m('span.setting-value.setting-value-previous-frames', story.numPreviousFramesToShow),
         m(ControlComponent, {
           id: 'increment-previous-frames',
           title: 'Show One More Previous Frame',
