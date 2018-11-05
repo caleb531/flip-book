@@ -75,4 +75,9 @@
       border-bottom-left-radius: $panel-border-radius;
     }
   }
+  .control-icon {
+    $icon-size: 30px;
+    width: $icon-size;
+    height: $icon-size;
+  }
 }
