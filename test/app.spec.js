@@ -227,4 +227,10 @@ describe('app model', function () {
     expect(app.stories[2].name).to.equal('Baz');
   });
 
+  it('should save immediately if app is created from scratch', function () {
+    localStorage.removeItem('flipbook-manifest');
+    App.restore();
+    expect(localStorage.getItem('flipbook-manifest')).not.to.be.null;
+  });
+
 });
