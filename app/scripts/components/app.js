@@ -32,6 +32,12 @@ class AppComponent {
     } else if (event.key === 'ArrowRight') {
       story.selectNextFrame();
       story.save();
+    } else if (event.key === ' ') {
+      if (story.playing) {
+        story.pause();
+      } else {
+        story.play(() => m.redraw());
+      }
     } else {
       event.redraw = false;
     }
