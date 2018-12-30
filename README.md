@@ -66,17 +66,15 @@ editor.
 ## Local development
 
 If you'd like to contribute to Flip Book by making your own changes to the
-source, clone the repository and run the following commands to set up the
+source, clone the repository and run install the project dependencies:
 project:
 
 ```sh
 npm install
-gulp build:watch
 ```
 
-You can then serve the app locally using an npm package like `http-server`:
+You can then serve the app locally and view it at `http://localhost:8080`:
 
 ```sh
-npm install -g http-server
-http-server -o
+gulp serve
 ```
