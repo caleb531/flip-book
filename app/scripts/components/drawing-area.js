@@ -119,21 +119,37 @@ class DrawingAreaComponent extends FrameComponent {
   }
 
   simplifyGroup(group) {
-    let pointsRemoved = 0;
-    let origPointCount = group.points.length;
     let prevAngle = null;
+    let newPoints = [group.points[0]];
+    let currentX = 0;
+    let currentY = 0;
+    let nextPoint;
     // There must be at least 3 points in the stroke group for simplification to
     // be possible
     for (let p = 1; p < (group.points.length - 1); p += 1) {
       let currentPoint = group.points[p];
-      let nextPoint = group.points[p + 1];
-      let currentAngle = this.calculateAngle(currentPoint, nextPoint);
-      if (nextPoint && currentAngle === prevAngle) {
-        pointsRemoved += 1;
+      currentX += currentPoint[0];
+      currentY += currentPoint[1];
+      nextPoint = group.points[p + 1];
+      let currentAngle = currentPoint && nextPoint ? this.calculateAngle(currentPoint, nextPoint) : null;
+      // Remove redundant points along the same contiguous path, keeping only
+      // the start and end points
+      if (currentAngle !== prevAngle) {
+        newPoints.push([
+          currentX,
+          currentY
+        ]);
+        currentX = 0;
+        currentY = 0;
       }
       prevAngle = currentAngle;
     }
-    console.log(`${pointsRemoved}/${group.points.length} point(s) removed!`);
+    newPoints.push([
+      currentX + nextPoint[0],
+      currentY + nextPoint[1]
+    ]);
+    console.log(`${100 - Math.round(newPoints.length / group.points.length * 100)}% savings!`);
+    group.points = newPoints;
   }
 
   view() {
