@@ -61,7 +61,7 @@ class DrawingAreaComponent extends FrameComponent {
     event.preventDefault();
     if (this.drawingEnabled && this.mousedown) {
       this.mousedown = false;
-      this.simplifyGroup(this.frame.groups[this.frame.groups.length - 1]);
+      this.simplifyGroup(this.frame.strokeGroups[this.frame.strokeGroups.length - 1]);
       this.story.save();
     } else {
       event.redraw = false;

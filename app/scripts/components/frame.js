@@ -4,7 +4,7 @@ class FrameComponent {
       this.frame = frame;
       // Store the current number of stroke groups in the frame so we can later
       // detect changes to the same frame
-      this.frameGroupCount = frame.groups.length;
+      this.strokeGroupCount = frame.strokeGroups.length;
       // Store the current number of points in the last stroke group
       this.pointCount = frame.countPointsInLastGroup();
     }
@@ -17,9 +17,9 @@ class FrameComponent {
     }
 
     onupdate({attrs: {frame}}) {
-      if (frame !== this.frame || frame.groups.length !== this.frameGroupCount || frame.countPointsInLastGroup() !== this.pointCount) {
+      if (frame !== this.frame || frame.strokeGroups.length !== this.strokeGroupCount || frame.countPointsInLastGroup() !== this.pointCount) {
         this.frame = frame;
-        this.frameGroupCount = frame.groups.length;
+        this.strokeGroupCount = frame.strokeGroups.length;
         this.pointCount = frame.countPointsInLastGroup();
         this.render();
       }
@@ -57,15 +57,15 @@ class FrameComponent {
       this.ctx.lineJoin = this.frame.styles.lineJoin;
     }
 
-    setGroupStyles(group) {
+    setGroupStyles(strokeGroup) {
       // TODO: implement the ability to change stroke color within the UI; the
       // below line isn't needed until that is done
-      // this.setGroupStyle(group, 'strokeStyle');
-      this.setGroupStyle(group, 'lineWidth');
+      // this.setGroupStyle(strokeGroup, 'strokeStyle');
+      this.setGroupStyle(strokeGroup, 'lineWidth');
     }
 
-    setGroupStyle(group, styleName) {
-      let styleValue = group.styles ? group.styles[styleName] : this.frame.styles[styleName];
+    setGroupStyle(strokeGroup, styleName) {
+      let styleValue = strokeGroup.styles ? strokeGroup.styles[styleName] : this.frame.styles[styleName];
       // this.ctx[styleName] cannot be used to check if styleValue has changed,
       // because when setting this.ctx.strokeStyle to #000, this.ctx.strokeStyle
       // evaluates to #000000; we therefore need to store the exact value on a
@@ -78,18 +78,18 @@ class FrameComponent {
 
     drawGroups() {
       this.setGlobalStyles();
-      for (let g = 0; g < this.frame.groups.length; g += 1) {
-        let group = this.frame.groups[g];
-        let currentX = group.points[0][0];
-        let currentY = group.points[0][1];
-        this.setGroupStyles(group);
-        if (group.points.length === 1) {
+      for (let g = 0; g < this.frame.strokeGroups.length; g += 1) {
+        let strokeGroup = this.frame.strokeGroups[g];
+        let currentX = strokeGroup.points[0][0];
+        let currentY = strokeGroup.points[0][1];
+        this.setGroupStyles(strokeGroup);
+        if (strokeGroup.points.length === 1) {
           // Draw a circle
-          this.ctx.fillStyle = group.styles ? group.styles.strokeStyle : this.frame.styles.strokeStyle;
+          this.ctx.fillStyle = strokeGroup.styles ? strokeGroup.styles.strokeStyle : this.frame.styles.strokeStyle;
           this.ctx.beginPath();
           this.ctx.arc(
             currentX, currentY,
-            (group.styles ? group.styles.lineWidth : this.frame.styles.lineWidth) / 2,
+            (strokeGroup.styles ? strokeGroup.styles.lineWidth : this.frame.styles.lineWidth) / 2,
             0, Math.PI * 2,
             false
           );
@@ -99,9 +99,9 @@ class FrameComponent {
         } else {
           this.ctx.beginPath();
           this.ctx.moveTo(currentX, currentY);
-          for (let p = 1; p < group.points.length; p += 1) {
-            currentX += group.points[p][0];
-            currentY += group.points[p][1];
+          for (let p = 1; p < strokeGroup.points.length; p += 1) {
+            currentX += strokeGroup.points[p][0];
+            currentY += strokeGroup.points[p][1];
             this.ctx.lineTo(currentX, currentY);
           }
           this.ctx.stroke();
