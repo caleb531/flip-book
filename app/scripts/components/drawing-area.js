@@ -110,8 +110,8 @@ class DrawingAreaComponent extends FrameComponent {
     this.story.save();
   }
 
-  calculateAngle(lastX, lastY, currentX, currentY) {
-    return Math.atan2(lastY - currentY, lastX - currentX);
+  calculateAngle(currentX, currentY, nextX, nextY) {
+    return Math.atan2(currentY - nextY, currentX - nextX);
   }
 
   simplifyGroup(group) {
