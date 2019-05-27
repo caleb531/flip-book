@@ -61,10 +61,7 @@ class DrawingAreaComponent extends FrameComponent {
     event.preventDefault();
     if (this.drawingEnabled && this.mousedown) {
       this.mousedown = false;
-      this.simplifyGroup({
-        group: this.frame.groups[this.frame.groups.length - 1],
-        threshold: 3
-      });
+      this.simplifyGroup(this.frame.groups[this.frame.groups.length - 1]);
       this.story.save();
     } else {
       event.redraw = false;
@@ -113,7 +110,7 @@ class DrawingAreaComponent extends FrameComponent {
     this.story.save();
   }
 
-  calculateAngle([lastX, lastY], [currentX, currentY]) {
+  calculateAngle(lastX, lastY, currentX, currentY) {
     let angle = Math.atan2(lastY - currentY, lastX - currentX) * (180 / Math.PI);
     if (angle < 0) {
       angle = 360 + angle;
@@ -121,11 +118,13 @@ class DrawingAreaComponent extends FrameComponent {
     return angle % 180;
   }
 
-  simplifyGroup({group, threshold = 0}) {
+  simplifyGroup(group) {
     let prevAngle = 0;
     let newPoints = [group.points[0]];
     let currentX = 0;
     let currentY = 0;
+    let nextX = 0;
+    let nextY = 0;
     let nextPoint;
     if (group.points.length < 3) {
       return;
@@ -137,10 +136,12 @@ class DrawingAreaComponent extends FrameComponent {
       currentX += currentPoint[0];
       currentY += currentPoint[1];
       nextPoint = group.points[p + 1];
-      let currentAngle = this.calculateAngle(currentPoint, nextPoint);
+      nextX = currentX + nextPoint[0];
+      nextY = currentY + nextPoint[1];
+      let currentAngle = this.calculateAngle(currentX, currentY, nextX, nextY);
       // Remove redundant points along the same contiguous path, keeping only
       // the start and end points
-      if (Math.abs(currentAngle - prevAngle) > threshold) {
+      if (currentAngle !== prevAngle) {
         newPoints.push([
           currentX,
           currentY
