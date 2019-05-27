@@ -127,6 +127,9 @@ class DrawingAreaComponent extends FrameComponent {
     let currentX = 0;
     let currentY = 0;
     let nextPoint;
+    if (group.points.length < 3) {
+      return;
+    }
     // There must be at least 3 points in the stroke group for simplification to
     // be possible
     for (let p = 1; p < (group.points.length - 1); p += 1) {
@@ -147,10 +150,12 @@ class DrawingAreaComponent extends FrameComponent {
       }
       prevAngle = currentAngle;
     }
-    newPoints.push([
-      currentX + nextPoint[0],
-      currentY + nextPoint[1]
-    ]);
+    if (nextPoint) {
+      newPoints.push([
+        currentX + nextPoint[0],
+        currentY + nextPoint[1]
+      ]);
+    }
     console.log(`Trimmed ${group.points.length - newPoints.length} out of ${group.points.length} points (${100 - Math.round(newPoints.length / group.points.length * 100)}% savings)`);
     group.points = newPoints;
   }
