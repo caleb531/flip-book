@@ -29,12 +29,16 @@ class Frame {
   }
 
   addPoint(x, y) {
-    this.strokeGroups[this.strokeGroups.length - 1].points.push([x, y]);
+    this.getLastStrokeGroup().points.push([x, y]);
+  }
+
+  getLastStrokeGroup() {
+    return this.strokeGroups[this.strokeGroups.length - 1];
   }
 
   countPointsInLastGroup() {
     if (this.strokeGroups.length > 0) {
-      return this.strokeGroups[this.strokeGroups.length - 1].points.length;
+      return this.getLastStrokeGroup().points.length;
     } else {
       return 0;
     }

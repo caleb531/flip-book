@@ -62,7 +62,7 @@ class DrawingAreaComponent extends FrameComponent {
     if (this.drawingEnabled && this.mousedown) {
       this.mousedown = false;
       this.optimizeStrokeGroup({
-        group: this.frame.strokeGroups[this.frame.strokeGroups.length - 1],
+        group: this.frame.getLastStrokeGroup(),
         debug: window.location.hostname !== 'projects.calebevans.me'
       });
       this.story.save();
