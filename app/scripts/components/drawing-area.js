@@ -119,28 +119,31 @@ class DrawingAreaComponent extends FrameComponent {
 
   optimizeStrokeGroup({group, debug = false}) {
     let prevAngle = 0;
-    let newPoints = [group.points[0]];
+    let newPoints = [];
     let currentX = 0;
     let currentY = 0;
     let nextX = 0;
     let nextY = 0;
     let nextPoint;
+    let currentAngle;
     if (group.points.length < 3) {
       return;
     }
     // There must be at least 3 points in the stroke group for simplification to
     // be possible
-    for (let p = 1; p < (group.points.length - 1); p += 1) {
+    for (let p = 0; p < group.points.length; p += 1) {
       let currentPoint = group.points[p];
       currentX += currentPoint[0];
       currentY += currentPoint[1];
       nextPoint = group.points[p + 1];
-      nextX = currentX + nextPoint[0];
-      nextY = currentY + nextPoint[1];
-      let currentAngle = this.calculateAngle(currentX, currentY, nextX, nextY);
+      if (nextPoint) {
+        nextX = currentX + nextPoint[0];
+        nextY = currentY + nextPoint[1];
+        currentAngle = this.calculateAngle(currentX, currentY, nextX, nextY);
+      }
       // Remove redundant points along the same contiguous path, keeping only
       // the start and end points
-      if (currentAngle !== prevAngle) {
+      if (!nextPoint || currentAngle !== prevAngle) {
         newPoints.push([
           currentX,
           currentY
@@ -149,12 +152,6 @@ class DrawingAreaComponent extends FrameComponent {
         currentY = 0;
       }
       prevAngle = currentAngle;
-    }
-    if (nextPoint) {
-      newPoints.push([
-        currentX + nextPoint[0],
-        currentY + nextPoint[1]
-      ]);
     }
     if (debug) {
       console.log(`Trimmed ${group.points.length - newPoints.length} out of ${group.points.length} points (${100 - Math.round(newPoints.length / group.points.length * 100)}% savings)`);
