@@ -61,7 +61,10 @@ class DrawingAreaComponent extends FrameComponent {
     event.preventDefault();
     if (this.drawingEnabled && this.mousedown) {
       this.mousedown = false;
-      this.simplifyGroup(this.frame.groups[this.frame.groups.length - 1]);
+      this.simplifyGroup({
+        group: this.frame.groups[this.frame.groups.length - 1],
+        threshold: 30
+      });
       this.story.save();
     } else {
       event.redraw = false;
@@ -118,8 +121,8 @@ class DrawingAreaComponent extends FrameComponent {
     return angle % 180;
   }
 
-  simplifyGroup(group) {
-    let prevAngle = null;
+  simplifyGroup({group, threshold = 0}) {
+    let prevAngle = 0;
     let newPoints = [group.points[0]];
     let currentX = 0;
     let currentY = 0;
@@ -131,10 +134,10 @@ class DrawingAreaComponent extends FrameComponent {
       currentX += currentPoint[0];
       currentY += currentPoint[1];
       nextPoint = group.points[p + 1];
-      let currentAngle = currentPoint && nextPoint ? this.calculateAngle(currentPoint, nextPoint) : null;
+      let currentAngle = this.calculateAngle(currentPoint, nextPoint);
       // Remove redundant points along the same contiguous path, keeping only
       // the start and end points
-      if (currentAngle !== prevAngle) {
+      if (Math.abs(currentAngle - prevAngle) > threshold) {
         newPoints.push([
           currentX,
           currentY
@@ -148,7 +151,7 @@ class DrawingAreaComponent extends FrameComponent {
       currentX + nextPoint[0],
       currentY + nextPoint[1]
     ]);
-    console.log(`${100 - Math.round(newPoints.length / group.points.length * 100)}% savings!`);
+    console.log(`Trimmed ${group.points.length - newPoints.length} out of ${group.points.length} points (${100 - Math.round(newPoints.length / group.points.length * 100)}% savings)`);
     group.points = newPoints;
   }
 
