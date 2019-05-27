@@ -61,7 +61,7 @@ class DrawingAreaComponent extends FrameComponent {
     event.preventDefault();
     if (this.drawingEnabled && this.mousedown) {
       this.mousedown = false;
-      this.simplifyGroup(this.frame.strokeGroups[this.frame.strokeGroups.length - 1]);
+      this.optimizeStrokeGroup(this.frame.strokeGroups[this.frame.strokeGroups.length - 1]);
       this.story.save();
     } else {
       event.redraw = false;
@@ -114,7 +114,7 @@ class DrawingAreaComponent extends FrameComponent {
     return Math.atan2(currentY - nextY, currentX - nextX);
   }
 
-  simplifyGroup(group) {
+  optimizeStrokeGroup(group) {
     let prevAngle = 0;
     let newPoints = [group.points[0]];
     let currentX = 0;
