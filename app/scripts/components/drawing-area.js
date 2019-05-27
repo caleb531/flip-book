@@ -61,7 +61,10 @@ class DrawingAreaComponent extends FrameComponent {
     event.preventDefault();
     if (this.drawingEnabled && this.mousedown) {
       this.mousedown = false;
-      this.optimizeStrokeGroup(this.frame.strokeGroups[this.frame.strokeGroups.length - 1]);
+      this.optimizeStrokeGroup({
+        group: this.frame.strokeGroups[this.frame.strokeGroups.length - 1],
+        debug: window.location.hostname !== 'projects.calebevans.me'
+      });
       this.story.save();
     } else {
       event.redraw = false;
@@ -114,7 +117,7 @@ class DrawingAreaComponent extends FrameComponent {
     return Math.atan2(currentY - nextY, currentX - nextX);
   }
 
-  optimizeStrokeGroup(group) {
+  optimizeStrokeGroup({group, debug = false}) {
     let prevAngle = 0;
     let newPoints = [group.points[0]];
     let currentX = 0;
@@ -153,7 +156,9 @@ class DrawingAreaComponent extends FrameComponent {
         currentY + nextPoint[1]
       ]);
     }
-    console.log(`Trimmed ${group.points.length - newPoints.length} out of ${group.points.length} points (${100 - Math.round(newPoints.length / group.points.length * 100)}% savings)`);
+    if (debug) {
+      console.log(`Trimmed ${group.points.length - newPoints.length} out of ${group.points.length} points (${100 - Math.round(newPoints.length / group.points.length * 100)}% savings)`);
+    }
     group.points = newPoints;
   }
 
