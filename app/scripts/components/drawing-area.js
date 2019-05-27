@@ -63,7 +63,7 @@ class DrawingAreaComponent extends FrameComponent {
       this.mousedown = false;
       this.simplifyGroup({
         group: this.frame.groups[this.frame.groups.length - 1],
-        threshold: 30
+        threshold: 3
       });
       this.story.save();
     } else {
