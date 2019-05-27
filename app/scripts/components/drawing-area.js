@@ -111,7 +111,7 @@ class DrawingAreaComponent extends FrameComponent {
   }
 
   calculateAngle(lastX, lastY, currentX, currentY) {
-    return Math.atan2(lastY - currentY, lastX - currentX) * (180 / Math.PI);
+    return Math.atan2(lastY - currentY, lastX - currentX);
   }
 
   simplifyGroup(group) {
