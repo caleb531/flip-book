@@ -36,7 +36,7 @@ class Frame {
     return this.strokeGroups[this.strokeGroups.length - 1];
   }
 
-  countPointsInLastGroup() {
+  countPointsInLastStrokeGroup() {
     if (this.strokeGroups.length > 0) {
       return this.getLastStrokeGroup().points.length;
     } else {

@@ -82,17 +82,17 @@ describe('frame model', function () {
   it('should count points in last group', function () {
     let frame = new Frame();
     frame.startNewGroup();
-    expect(frame.countPointsInLastGroup()).to.equal(0);
+    expect(frame.countPointsInLastStrokeGroup()).to.equal(0);
     frame.startNewGroup();
     frame.addPoint(300, 150);
     frame.addPoint(1, 3);
     frame.addPoint(2, 1);
-    expect(frame.countPointsInLastGroup()).to.equal(3);
+    expect(frame.countPointsInLastStrokeGroup()).to.equal(3);
   });
 
   it('should count zero points if there are no groups', function () {
     let frame = new Frame();
-    expect(frame.countPointsInLastGroup()).to.equal(0);
+    expect(frame.countPointsInLastStrokeGroup()).to.equal(0);
   });
 
   it('should undo stroke', function () {
