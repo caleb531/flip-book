@@ -1,5 +1,6 @@
 import Story from '../models/story.js';
 import ControlComponent from './control.js';
+import PanelComponent from './panel.js';
 import ProgressBarComponent from './progress-bar.js';
 
 class ImportComponent {
@@ -34,6 +35,12 @@ class ImportComponent {
         this.app.addExistingStory(story);
         this.storyAdded = story;
         m.redraw();
+        // Show success message for a brief moment, then close panel to take
+        // user back to editor
+        setTimeout(() => {
+          PanelComponent.closeAllPanels();
+          m.redraw();
+        }, ProgressBarComponent.delay * 2);
       }, ProgressBarComponent.delay);
     };
     this.uploadProgress = 0;
