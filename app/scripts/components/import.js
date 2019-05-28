@@ -10,6 +10,12 @@ class ImportComponent {
     this.uploadProgress = null;
   }
 
+  // Clear details of last upload when panel is closed
+  onremove() {
+    this.chosenFile = null;
+    this.uploadProgress = null;
+  }
+
   setChosenFile(chosenFile) {
     this.chosenFile = chosenFile;
     this.storyAdded = null;
