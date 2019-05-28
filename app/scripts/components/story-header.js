@@ -41,7 +41,7 @@ class StoryHeaderComponent {
     // this will allow Mithril to redraw and close all panels before showing the
     // modal
     setTimeout(() => {
-      if (confirm('Are you sure you want to permanently delete this story?')) {
+      if (confirm('Are you sure you want to delete this story? This cannot be undone.')) {
         this.app.deleteSelectedStory();
         m.redraw();
       }

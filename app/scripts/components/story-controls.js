@@ -29,7 +29,7 @@ class StoryControlsComponent {
     // this will allow Mithril to redraw and close all panels before showing the
     // modal
     setTimeout(() => {
-      if (!confirm('Are you sure you want to permanently delete this frame?')) {
+      if (!confirm('Are you sure you want to delete this frame? This cannot be undone.')) {
         return;
       }
       story.deleteSelectedFrame();
