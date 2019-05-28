@@ -1,7 +1,7 @@
 .panel {
   position: absolute;
   left: 50%;
-  z-index: 100;
+  z-index: 1000;
   border-radius: $panel-border-radius;
   padding: $panel-padding-y $panel-padding-x;
   padding-bottom: 10px;
