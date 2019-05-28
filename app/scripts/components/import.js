@@ -6,6 +6,8 @@ class ImportComponent {
 
   oninit({attrs: {app}}) {
     this.app = app;
+    this.chosenFile = null;
+    this.uploadProgress = null;
   }
 
   setChosenFile(chosenFile) {
@@ -49,15 +51,12 @@ class ImportComponent {
       m('div.import-footer', [
         this.storyAdded ? m('div.import-success-message', `"${this.storyAdded.metadata.name}" successfully added!`) :
         [
-          this.uploadProgress >= 0 ? m(ProgressBarComponent, {
-            progress: this.uploadProgress
-          }) : null,
-          this.chosenFile ? m(ControlComponent, {
+          this.uploadProgress === null ? this.chosenFile ? m(ControlComponent, {
             id: 'upload-file',
             title: 'Upload Now',
             label: 'Upload Now',
             action: () => this.uploadChosenFile()
-          }) : null
+          }) : null : m(ProgressBarComponent, {progress: this.uploadProgress})
         ]
       ])
     ]);
