@@ -1,5 +1,4 @@
 import FrameComponent from './frame.js';
-import PanelComponent from './panel.js';
 
 class DrawingAreaComponent extends FrameComponent {
 
@@ -37,7 +36,6 @@ class DrawingAreaComponent extends FrameComponent {
       this.lastY = startY;
       this.frame.resetUndoHistory();
     }
-    PanelComponent.closeAllPanels();
   }
 
   handleDrawMove(event, pageX, pageY) {

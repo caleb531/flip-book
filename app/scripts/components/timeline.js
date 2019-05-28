@@ -1,6 +1,5 @@
 import classNames from '../classnames.js';
 import FrameComponent from './frame.js';
-import PanelComponent from './panel.js';
 
 class TimelineComponent {
 
@@ -10,7 +9,6 @@ class TimelineComponent {
       this.scrollSelectedThumbnailIntoView(target);
       story.save();
     }
-    PanelComponent.closeAllPanels();
   }
 
   scrollSelectedThumbnailIntoView(thumbnailElement) {

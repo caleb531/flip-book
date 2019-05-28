@@ -1,9 +1,10 @@
-import classNames from '../classnames.js';
-
 class PanelComponent {
 
   view({attrs: {id, position}, children}) {
-    return PanelComponent.panelIsOpen(id) ? m(`div.panel.panel-${id}.panel-position-${position}`, children) : null;
+    return PanelComponent.panelIsOpen(id) ? [
+      m('div.panel-overlay', {onclick: () => PanelComponent.closeAllPanels()}),
+      m(`div.panel.panel-${id}.panel-position-${position}`, children)
+    ] : null;
   }
 
 }

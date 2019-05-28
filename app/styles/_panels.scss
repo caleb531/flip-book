@@ -18,6 +18,14 @@
     border: solid $control-arrow-width transparent;
   }
 }
+.panel-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 90;
+}
 
 .panel-position-top {
   bottom: 100%;
