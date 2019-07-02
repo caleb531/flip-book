@@ -98,7 +98,8 @@ gulp.task('build', gulp.series(
   gulp.parallel(
     'assets',
     'sass',
-    'rollup'
+    'rollup',
+    'uglify'
   ),
   'sw'
 ));
