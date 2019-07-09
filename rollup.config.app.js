@@ -18,6 +18,6 @@ module.exports = {
     }),
     commonjs(),
     json(),
-    terser()
+    process.env.NODE_ENV === 'production' ? terser() : null
   ]
 };
