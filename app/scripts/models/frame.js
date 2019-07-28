@@ -26,10 +26,19 @@ class Frame {
       points: [],
       styles
     });
+    this.lastSlope = 0;
   }
 
   addPoint(x, y) {
-    this.getLastStrokeGroup().points.push([x, y]);
+    let group = this.getLastStrokeGroup();
+    let newSlope = Math.atan2(y, x);
+    if (group.points.length >= 2 && newSlope === this.lastSlope) {
+      group.points[group.points.length - 1][0] += x;
+      group.points[group.points.length - 1][1] += y;
+    } else {
+      group.points.push([x, y]);
+    }
+    this.lastSlope = newSlope;
   }
 
   getLastStrokeGroup() {
