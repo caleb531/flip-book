@@ -26,10 +26,26 @@ class Frame {
       points: [],
       styles
     });
+    this.lastAbsX = 0;
+    this.lastAbsY = 0;
+    this.lastSlope = 0;
   }
 
-  addPoint(x, y) {
-    this.getLastStrokeGroup().points.push([x, y]);
+  addPoint(absX, absY) {
+    let group = this.getLastStrokeGroup();
+    let newSlope = Math.atan2(absY - this.lastAbsY, absX - this.lastAbsX);
+    if (group.points.length >= 2 && newSlope === this.lastSlope) {
+      group.points[group.points.length - 1][0] += absX - this.lastAbsX;
+      group.points[group.points.length - 1][1] += absY - this.lastAbsY;
+    } else {
+      group.points.push([
+        absX - this.lastAbsX,
+        absY - this.lastAbsY
+      ]);
+    }
+    this.lastAbsX = absX;
+    this.lastAbsY = absY;
+    this.lastSlope = newSlope;
   }
 
   getLastStrokeGroup() {

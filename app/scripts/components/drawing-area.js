@@ -43,10 +43,8 @@ class DrawingAreaComponent extends FrameComponent {
     if (this.mousedown && this.drawingEnabled) {
       let endX = (pageX - this.canvasOffsetLeft) * this.canvasScaleFactor;
       let endY = (pageY - this.canvasOffsetTop) * this.canvasScaleFactor;
-      let diffX = endX - this.lastX;
-      let diffY = endY - this.lastY;
-      if (diffX !== 0 || diffY !== 0) {
-        this.frame.addPoint(diffX, diffY);
+      if (endX !== this.lastX || endY !== this.lastY) {
+        this.frame.addPoint(endX, endY);
         this.lastX = endX;
         this.lastY = endY;
         this.render();
