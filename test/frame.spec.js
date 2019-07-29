@@ -62,7 +62,7 @@ describe('frame model', function () {
     expect(frame.strokeGroups[0].styles).to.have.property('lineWidth', 20);
   });
 
-  it('should add new group', function () {
+  it('should add new point', function () {
     let frame = new Frame();
     frame.startNewGroup({
       styles: {
