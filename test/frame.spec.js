@@ -79,6 +79,23 @@ describe('frame model', function () {
     expect(frame.strokeGroups[0].styles).to.have.property('lineWidth', 20);
   });
 
+  it('should combine points with same slope', function () {
+    let frame = new Frame();
+    frame.startNewGroup({
+      styles: {
+        strokeStyle: '#6c3',
+        lineWidth: 20
+      }
+    });
+    frame.addPoint(300, 150);
+    frame.addPoint(2, 0);
+    frame.addPoint(3, 0);
+    expect(frame.strokeGroups).to.have.lengthOf(1);
+    expect(frame.strokeGroups[0].points).to.have.lengthOf(2);
+    expect(frame.strokeGroups[0].points[1][0]).to.equal(5);
+    expect(frame.strokeGroups[0].points[1][1]).to.equal(0);
+  });
+
   it('should count points in last group', function () {
     let frame = new Frame();
     frame.startNewGroup();
