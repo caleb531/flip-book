@@ -26,10 +26,10 @@ class AppComponent {
 
   navigateFramesViaKeyboard(event) {
     let story = this.app.selectedStory;
-    if (event.key === 'ArrowLeft') {
+    if (event.key === 'ArrowLeft' && !story.playing) {
       story.selectPreviousFrame();
       story.save();
-    } else if (event.key === 'ArrowRight') {
+    } else if (event.key === 'ArrowRight' && !story.playing) {
       story.selectNextFrame();
       story.save();
     } else if (event.key === ' ') {
