@@ -1,6 +1,6 @@
-let commonjs = require('rollup-plugin-commonjs');
-let resolve = require('rollup-plugin-node-resolve');
-let json = require('rollup-plugin-json');
+let commonjs = require('@rollup/plugin-commonjs');
+let resolve = require('@rollup/plugin-node-resolve');
+let json = require('@rollup/plugin-json');
 let terser = require('rollup-plugin-terser').terser;
 
 module.exports = {
