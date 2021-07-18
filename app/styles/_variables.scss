@@ -1,3 +1,5 @@
+@use "sass:math";
+
 // Colors
 $color-blue: #5be;
 $color-green: #6c3;
@@ -20,7 +22,7 @@ $panel-background-color: #234;
 
 $slider-thumb-size: 14px;
 $slider-track-visible-height: 2px;
-$slider-track-padding: ($slider-thumb-size - $slider-track-visible-height) / 2;
+$slider-track-padding: math.div($slider-thumb-size - $slider-track-visible-height, 2);
 $slider-track-total-height: $slider-track-visible-height + ($slider-track-padding * 2);
 
 $control-padding: 7px;

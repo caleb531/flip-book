@@ -1,3 +1,5 @@
+@use "sass:math";
+
 .story {
   border: solid $story-border-width $panel-background-color;
   // Remove left and right borders if viewport width is less than or equal to
@@ -18,7 +20,7 @@
 .previous-frame {
   // Shrink the displayed width/height canvas by half
   width: 100%;
-  height: #{($frame-height / $frame-width * 100)}vw;
+  height: #{(math.div($frame-height, $frame-width) * 100)}vw;
   max-width: $frame-width;
   max-height: $frame-height;
   @media screen and (max-width: $app-max-width) {

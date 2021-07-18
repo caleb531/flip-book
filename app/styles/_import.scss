@@ -18,7 +18,8 @@
   height: 100%;
   z-index: 110;
   &:hover:active + .control .control-button {
-    @extend .control-button:hover:active;
+    background-color: $control-background-color-active;
+    color: #fff;
   }
 }
 

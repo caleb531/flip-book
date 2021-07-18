@@ -1,3 +1,5 @@
+@use "sass:math";
+
 .setting {
   display: flex;
   justify-content: flex-start;
@@ -40,7 +42,7 @@
       -moz-appearance: none;
       width: $slider-thumb-size;
       height: $slider-thumb-size;
-      margin-top: -((($slider-thumb-size - $slider-track-visible-height) / 2));
+      margin-top: -(math.div($slider-thumb-size - $slider-track-visible-height, 2));
       border-radius: 50%;
       background-color: $color-blue;
     }
