@@ -10,6 +10,13 @@ $story-border-width: 1px;
 
 $frame-width: 800px;
 $frame-height: 450px;
+// If we omit the quotes, Sass will treat the value as a mathematical
+// expression, which causes a compilation warning because using / for division
+// is deprecated (<https://sass-lang.com/d/slash-div>); to solve, write the
+// aspect ratio as a string, and then immediately unquote it with the built-in
+// unquote() function
+// (<https://sass-lang.com/documentation/modules/string#unquote>)
+$frame-aspect-ratio: unquote('16 / 9');
 
 $app-max-width: $frame-width + ($story-border-width * 2);
 $app-mobile-width: 500px;
