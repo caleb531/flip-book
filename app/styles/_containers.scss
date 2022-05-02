@@ -17,6 +17,7 @@ body {
   display: inline-flex;
   flex-direction: column;
   &:focus {
+    outline: none;
     outline-width: 0;
   }
 }
