@@ -19,6 +19,12 @@ class TimelineComponent {
       let offsetLeft = thumbnailElement.offsetLeft;
       let offsetRight = thumbnailElement.offsetLeft + thumbnailElement.offsetWidth;
 
+      // If the visible timeline is not wide enough to show a full thumbnail,
+      // do nothing
+      if (timelineElement.offsetWidth < thumbnailElement.offsetWidth) {
+        return;
+      }
+
       if (offsetRight > scrollRight) {
         timelineElement.scrollLeft += offsetRight - scrollRight;
       } else if (offsetLeft < scrollLeft) {
