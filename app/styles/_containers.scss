@@ -14,6 +14,8 @@ body {
 }
 
 .app {
+  display: inline-flex;
+  flex-direction: column;
   &:focus {
     outline-width: 0;
   }
