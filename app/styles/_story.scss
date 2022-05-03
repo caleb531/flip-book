@@ -22,7 +22,9 @@
     aspect-ratio: $frame-aspect-ratio;
     @media screen and (max-width: $app-mobile-width) {
       $timeline-height: 36px;
-      $app-mobile-height-minus-frame: $app-height-minus-frame + $timeline-height;
+      // In mobile view, the header icons become slightly larger
+      $extra-header-height: 4px;
+      $app-mobile-height-minus-frame: $app-height-minus-frame + $extra-header-height + $timeline-height;
       max-height: calc(100vh - #{$app-mobile-height-minus-frame});
     }
   }
