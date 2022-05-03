@@ -5,11 +5,13 @@
   display: inline-flex;
   flex-direction: column;
   border: solid $story-border-width $panel-background-color;
+  background-color: $color-slate-light;
 }
 
 .story-stage {
   display: inline-block;
   position: relative;
+  background-color: #fff;
   // If supported by the user's browser, keep the frame contained within the
   // viewport while also maintaining the aspect ratio
   @supports (aspect-ratio: auto) {
