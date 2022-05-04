@@ -16,6 +16,11 @@
     width: $icon-size;
     height: $icon-size;
   }
+  .control-rename-story .control-icon {
+    $icon-size: 16px;
+    width: $icon-size;
+    height: $icon-size;
+  }
   .control-group:last-child {
     flex-grow: 1;
     text-align: right;
