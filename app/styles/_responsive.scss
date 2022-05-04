@@ -1,5 +1,5 @@
 @mixin is-mobile() {
-  @media (max-width: $app-mobile-width) {
+  @media (max-width: $app-mobile-width), (max-height: $app-mobile-height) {
     @content;
   }
 }

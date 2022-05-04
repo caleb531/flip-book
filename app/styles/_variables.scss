@@ -20,6 +20,7 @@ $frame-aspect-ratio: unquote('16 / 9');
 
 $app-max-width: $frame-width + ($story-border-width * 2);
 $app-mobile-width: 500px;
+$app-mobile-height: 375px;
 
 $panel-position-offset: 15px;
 $panel-border-radius: 5px;
