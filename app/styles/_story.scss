@@ -22,7 +22,7 @@
     // the string variable name
     max-height: calc(100vh - #{$app-height-minus-frame});
     aspect-ratio: $frame-aspect-ratio;
-    @media screen and (max-width: $app-mobile-width) {
+    @include is-mobile() {
       $timeline-height: 36px;
       // In mobile view, the header icons become slightly larger
       $extra-header-height: 4px;
@@ -39,10 +39,6 @@
   max-width: $frame-width;
   max-height: $frame-height;
   aspect-ratio: inherit;
-  @media screen and (max-width: $app-max-width) {
-    max-width: none;
-    max-height: none;
-  }
 }
 
 .previous-frame {
@@ -83,7 +79,7 @@
   padding: 0 8px;
   background-color: $panel-background-color;
   white-space: nowrap;
-  @media screen and (max-width: $app-mobile-width) {
+  @include is-mobile() {
     border-left: 1px;
     border-right: 1px;
     padding: 0;

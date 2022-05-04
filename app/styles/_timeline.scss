@@ -15,7 +15,7 @@
   // Enable inertia scrolling on iOS
   -webkit-overflow-scrolling: touch;
   counter-reset: thumbnail;
-  @media screen and (max-width: $app-mobile-width) {
+  @include is-mobile() {
     background-color: darken($panel-background-color, 10%);
   }
 }

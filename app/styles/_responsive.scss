@@ -1,0 +1,11 @@
+@mixin is-mobile() {
+  @media (max-width: $app-mobile-width) {
+    @content;
+  }
+}
+
+@mixin is-max-frame-width() {
+  @media (min-width: $frame-width) {
+    @content;
+  }
+}

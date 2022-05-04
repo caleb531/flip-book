@@ -60,7 +60,7 @@
   // width OR the below max $frame-width
   width: auto;
   max-width: 100%;
-  @media screen and (min-width: $frame-width) {
+  @include is-max-frame-width() {
     max-width: $frame-width;
   }
 }
