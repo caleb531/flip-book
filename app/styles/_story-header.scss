@@ -12,14 +12,9 @@
     margin-right: 10px;
   }
   .control-icon {
-    $icon-size: 16px;
+    $icon-size: 20px;
     width: $icon-size;
     height: $icon-size;
-    @media screen and (max-width: $app-mobile-width) {
-      $icon-size: 20px;
-      width: $icon-size;
-      height: $icon-size;
-    }
   }
   .control-group:last-child {
     flex-grow: 1;
