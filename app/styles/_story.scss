@@ -15,7 +15,7 @@
   // If supported by the user's browser, keep the frame contained within the
   // viewport while also maintaining the aspect ratio
   @supports (aspect-ratio: auto) {
-    $app-height-minus-frame: 120px;
+    $app-height-minus-frame: 124px;
     max-width: 100vw;
     // Because calc() accepts mathematical expressions, we need to wrap the
     // below variable in #{} so that calc() evaluates the raw numbers and not
@@ -24,9 +24,7 @@
     aspect-ratio: $frame-aspect-ratio;
     @include is-mobile() {
       $timeline-height: 36px;
-      // In mobile view, the header icons become slightly larger
-      $extra-header-height: 4px;
-      $app-mobile-height-minus-frame: $app-height-minus-frame + $extra-header-height + $timeline-height;
+      $app-mobile-height-minus-frame: $app-height-minus-frame + $timeline-height;
       max-height: calc(100vh - #{$app-mobile-height-minus-frame});
     }
   }
