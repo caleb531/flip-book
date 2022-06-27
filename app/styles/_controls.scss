@@ -59,10 +59,9 @@
   color: #fff;
   font-family: inherit;
   font-size: 0;
-  &:focus {
-    outline-width: 0;
-  }
+  &:focus-visible,
   &:hover:active {
+    outline-width: 0;
     background-color: $control-background-color-active;
     color: #fff;
   }

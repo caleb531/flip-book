@@ -20,10 +20,6 @@ class AppComponent {
     dom.focus();
   }
 
-  onupdate({dom}) {
-    dom.focus();
-  }
-
   navigateFramesViaKeyboard(event) {
     let story = this.app.selectedStory;
     if (event.key === 'ArrowLeft' && !story.playing) {
@@ -33,6 +29,7 @@ class AppComponent {
       story.selectNextFrame();
       story.save();
     } else if (event.key === ' ') {
+      event.preventDefault();
       if (story.playing) {
         story.pause();
       } else {
