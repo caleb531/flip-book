@@ -4,8 +4,8 @@
 *Released under the MIT license*  
 *For my friend and brother, Bill.*
 
-[![Build Status](https://app.travis-ci.com/caleb531/flip-book.svg?branch=master)](https://app.travis-ci.com/caleb531/flip-book)
-[![Coverage Status](https://coveralls.io/repos/github/caleb531/flip-book/badge.svg?branch=master)](https://coveralls.io/github/caleb531/flip-book?branch=master)
+[![tests](https://github.com/caleb531/flip-book/actions/workflows/tests.yml/badge.svg)](https://github.com/caleb531/flip-book/actions/workflows/tests.yml)
+[![Coverage Status](https://coveralls.io/repos/github/caleb531/flip-book/badge.svg?branch=main)](https://coveralls.io/github/caleb531/flip-book?branch=main)
 
 This application enables you to create flip book-style animations to share with
 friends.
