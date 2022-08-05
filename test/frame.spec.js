@@ -4,10 +4,10 @@ describe('frame model', function () {
 
   it('should initialize with default arguments', function () {
     let frame = new Frame();
-    expect(frame.styles).to.have.property('strokeStyle', '#000');
-    expect(frame.styles).to.have.property('lineWidth', 12);
-    expect(frame.strokeGroups).to.have.lengthOf(0);
-    expect(frame.undoHistory).to.have.lengthOf(0);
+    expect(frame.styles).toHaveProperty('strokeStyle', '#000');
+    expect(frame.styles).toHaveProperty('lineWidth', 12);
+    expect(frame.strokeGroups).toHaveLength(0);
+    expect(frame.undoHistory).toHaveLength(0);
   });
 
   it('should initialize with default arguments', function () {
@@ -21,14 +21,14 @@ describe('frame model', function () {
         styles: {strokeStyle: '#c33', lineWidth: 16}
       }]
     });
-    expect(frame.styles).to.have.property('strokeStyle', '#6c3');
-    expect(frame.styles).to.have.property('lineWidth', 8);
-    expect(frame.strokeGroups).to.have.lengthOf(1);
-    expect(frame.strokeGroups[0].points).to.have.lengthOf(1);
-    expect(frame.strokeGroups[0].points[0][0]).to.equal(300);
-    expect(frame.strokeGroups[0].points[0][1]).to.equal(150);
-    expect(frame.strokeGroups[0].styles).to.have.property('strokeStyle', '#c33');
-    expect(frame.strokeGroups[0].styles).to.have.property('lineWidth', 16);
+    expect(frame.styles).toHaveProperty('strokeStyle', '#6c3');
+    expect(frame.styles).toHaveProperty('lineWidth', 8);
+    expect(frame.strokeGroups).toHaveLength(1);
+    expect(frame.strokeGroups[0].points).toHaveLength(1);
+    expect(frame.strokeGroups[0].points[0][0]).toEqual(300);
+    expect(frame.strokeGroups[0].points[0][1]).toEqual(150);
+    expect(frame.strokeGroups[0].styles).toHaveProperty('strokeStyle', '#c33');
+    expect(frame.strokeGroups[0].styles).toHaveProperty('lineWidth', 16);
   });
 
   it('should read groups argument into strokeGroups', function () {
@@ -38,14 +38,14 @@ describe('frame model', function () {
         styles: {strokeStyle: '#c33', lineWidth: 16}
       }]
     });
-    expect(frame).not.to.have.property('groups');
-    expect(frame).to.have.property('strokeGroups');
-    expect(frame.strokeGroups).to.have.lengthOf(1);
-    expect(frame.strokeGroups[0].points).to.have.lengthOf(1);
-    expect(frame.strokeGroups[0].points[0][0]).to.equal(300);
-    expect(frame.strokeGroups[0].points[0][1]).to.equal(150);
-    expect(frame.strokeGroups[0].styles).to.have.property('strokeStyle', '#c33');
-    expect(frame.strokeGroups[0].styles).to.have.property('lineWidth', 16);
+    expect(frame).not.toHaveProperty('groups');
+    expect(frame).toHaveProperty('strokeGroups');
+    expect(frame.strokeGroups).toHaveLength(1);
+    expect(frame.strokeGroups[0].points).toHaveLength(1);
+    expect(frame.strokeGroups[0].points[0][0]).toEqual(300);
+    expect(frame.strokeGroups[0].points[0][1]).toEqual(150);
+    expect(frame.strokeGroups[0].styles).toHaveProperty('strokeStyle', '#c33');
+    expect(frame.strokeGroups[0].styles).toHaveProperty('lineWidth', 16);
   });
 
   it('should add new group', function () {
@@ -56,10 +56,10 @@ describe('frame model', function () {
         lineWidth: 20
       }
     });
-    expect(frame.strokeGroups).to.have.lengthOf(1);
-    expect(frame.strokeGroups[0].points).to.have.lengthOf(0);
-    expect(frame.strokeGroups[0].styles).to.have.property('strokeStyle', '#6c3');
-    expect(frame.strokeGroups[0].styles).to.have.property('lineWidth', 20);
+    expect(frame.strokeGroups).toHaveLength(1);
+    expect(frame.strokeGroups[0].points).toHaveLength(0);
+    expect(frame.strokeGroups[0].styles).toHaveProperty('strokeStyle', '#6c3');
+    expect(frame.strokeGroups[0].styles).toHaveProperty('lineWidth', 20);
   });
 
   it('should add new point', function () {
@@ -71,12 +71,12 @@ describe('frame model', function () {
       }
     });
     frame.addPoint(300, 150);
-    expect(frame.strokeGroups).to.have.lengthOf(1);
-    expect(frame.strokeGroups[0].points).to.have.lengthOf(1);
-    expect(frame.strokeGroups[0].points[0][0]).to.equal(300);
-    expect(frame.strokeGroups[0].points[0][1]).to.equal(150);
-    expect(frame.strokeGroups[0].styles).to.have.property('strokeStyle', '#6c3');
-    expect(frame.strokeGroups[0].styles).to.have.property('lineWidth', 20);
+    expect(frame.strokeGroups).toHaveLength(1);
+    expect(frame.strokeGroups[0].points).toHaveLength(1);
+    expect(frame.strokeGroups[0].points[0][0]).toEqual(300);
+    expect(frame.strokeGroups[0].points[0][1]).toEqual(150);
+    expect(frame.strokeGroups[0].styles).toHaveProperty('strokeStyle', '#6c3');
+    expect(frame.strokeGroups[0].styles).toHaveProperty('lineWidth', 20);
   });
 
   it('should combine points with same slope', function () {
@@ -90,26 +90,26 @@ describe('frame model', function () {
     frame.addPoint(300, 150);
     frame.addPoint(2, 0);
     frame.addPoint(3, 0);
-    expect(frame.strokeGroups).to.have.lengthOf(1);
-    expect(frame.strokeGroups[0].points).to.have.lengthOf(2);
-    expect(frame.strokeGroups[0].points[1][0]).to.equal(5);
-    expect(frame.strokeGroups[0].points[1][1]).to.equal(0);
+    expect(frame.strokeGroups).toHaveLength(1);
+    expect(frame.strokeGroups[0].points).toHaveLength(2);
+    expect(frame.strokeGroups[0].points[1][0]).toEqual(5);
+    expect(frame.strokeGroups[0].points[1][1]).toEqual(0);
   });
 
   it('should count points in last group', function () {
     let frame = new Frame();
     frame.startNewGroup();
-    expect(frame.countPointsInLastStrokeGroup()).to.equal(0);
+    expect(frame.countPointsInLastStrokeGroup()).toEqual(0);
     frame.startNewGroup();
     frame.addPoint(300, 150);
     frame.addPoint(1, 3);
     frame.addPoint(2, 1);
-    expect(frame.countPointsInLastStrokeGroup()).to.equal(3);
+    expect(frame.countPointsInLastStrokeGroup()).toEqual(3);
   });
 
   it('should count zero points if there are no groups', function () {
     let frame = new Frame();
-    expect(frame.countPointsInLastStrokeGroup()).to.equal(0);
+    expect(frame.countPointsInLastStrokeGroup()).toEqual(0);
   });
 
   it('should undo stroke', function () {
@@ -118,17 +118,17 @@ describe('frame model', function () {
     frame.addPoint(300, 150);
     frame.startNewGroup();
     frame.addPoint(200, 120);
-    expect(frame.undoHistory).to.have.lengthOf(0);
+    expect(frame.undoHistory).toHaveLength(0);
     let lastGroup = frame.strokeGroups[1];
     frame.undo();
-    expect(frame.undoHistory).to.have.lengthOf(1);
-    expect(frame.undoHistory[0]).to.equal(lastGroup);
+    expect(frame.undoHistory).toHaveLength(1);
+    expect(frame.undoHistory[0]).toEqual(lastGroup);
   });
 
   it('should do nothing if there is nothing to undo', function () {
     let frame = new Frame();
     frame.undo();
-    expect(frame.undoHistory).to.have.lengthOf(0);
+    expect(frame.undoHistory).toHaveLength(0);
   });
 
   it('should redo stroke', function () {
@@ -137,18 +137,18 @@ describe('frame model', function () {
     frame.addPoint(300, 150);
     frame.startNewGroup();
     frame.addPoint(200, 120);
-    expect(frame.undoHistory).to.have.lengthOf(0);
+    expect(frame.undoHistory).toHaveLength(0);
     let lastGroup = frame.strokeGroups[1];
     frame.undo();
     frame.redo();
-    expect(frame.undoHistory).to.have.lengthOf(0);
-    expect(frame.strokeGroups[1]).to.equal(lastGroup);
+    expect(frame.undoHistory).toHaveLength(0);
+    expect(frame.strokeGroups[1]).toEqual(lastGroup);
   });
 
   it('should do nothing if there is nothing to redo', function () {
     let frame = new Frame();
     frame.redo();
-    expect(frame.undoHistory).to.have.lengthOf(0);
+    expect(frame.undoHistory).toHaveLength(0);
   });
 
   it('should reset undo history', function () {
@@ -156,17 +156,17 @@ describe('frame model', function () {
     frame.startNewGroup();
     frame.addPoint(300, 150);
     frame.undo();
-    expect(frame.undoHistory).to.have.lengthOf(1);
+    expect(frame.undoHistory).toHaveLength(1);
     frame.resetUndoHistory();
-    expect(frame.undoHistory).to.have.lengthOf(0);
+    expect(frame.undoHistory).toHaveLength(0);
   });
 
   it('should export JSON', function () {
     let json = new Frame().toJSON();
-    expect(json).to.have.property('styles');
-    expect(json.styles).to.have.property('strokeStyle');
-    expect(json.styles).to.have.property('lineWidth');
-    expect(json).to.have.property('strokeGroups');
+    expect(json).toHaveProperty('styles');
+    expect(json.styles).toHaveProperty('strokeStyle');
+    expect(json.styles).toHaveProperty('lineWidth');
+    expect(json).toHaveProperty('strokeGroups');
   });
 
 });

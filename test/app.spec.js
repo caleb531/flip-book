@@ -14,11 +14,11 @@ describe('app model', function () {
 
   it('should initialize with default arguments', function () {
     let app = new App();
-    expect(app).to.have.property('stories');
-    expect(app.stories).to.have.lengthOf(1);
-    expect(app.stories[0]).to.be.instanceOf(StoryMetadata);
-    expect(app).to.have.property('selectedStoryIndex', 0);
-    expect(app).to.have.property('selectedStoryIndex', 0);
+    expect(app).toHaveProperty('stories');
+    expect(app.stories).toHaveLength(1);
+    expect(app.stories[0]).toBeInstanceOf(StoryMetadata);
+    expect(app).toHaveProperty('selectedStoryIndex', 0);
+    expect(app).toHaveProperty('selectedStoryIndex', 0);
   });
 
   it('should initialize with supplied arguments', function () {
@@ -30,13 +30,13 @@ describe('app model', function () {
       ],
       selectedStoryIndex: 1
     });
-    expect(app).to.have.property('stories');
-    expect(app.stories).to.have.lengthOf(3);
-    expect(app.stories[0]).to.be.instanceOf(StoryMetadata);
-    expect(app.stories[0]).to.have.property('name', 'Foo Story');
-    expect(app).to.have.property('selectedStoryIndex', 1);
-    expect(app).to.have.property('selectedStory');
-    expect(app.selectedStory).to.be.instanceOf(Story);
+    expect(app).toHaveProperty('stories');
+    expect(app.stories).toHaveLength(3);
+    expect(app.stories[0]).toBeInstanceOf(StoryMetadata);
+    expect(app.stories[0]).toHaveProperty('name', 'Foo Story');
+    expect(app).toHaveProperty('selectedStoryIndex', 1);
+    expect(app).toHaveProperty('selectedStory');
+    expect(app.selectedStory).toBeInstanceOf(Story);
   });
 
   it('should upgrade data store on initialization', function () {
@@ -48,18 +48,18 @@ describe('app model', function () {
     let app = new App();
     let key = `flipbook-story-${app.stories[0].createdDate}`;
     let storyJson = JSON.parse(localStorage.getItem(key));
-    expect(storyJson).to.have.property('frameDuration', 125);
-    expect(storyJson).to.have.property('numPreviousFramesToShow', 2);
-    expect(localStorage.getItem('flipbook-storage-version')).to.equal('2');
-    expect(localStorage.getItem('flipbook-story')).to.equal(null);
+    expect(storyJson).toHaveProperty('frameDuration', 125);
+    expect(storyJson).toHaveProperty('numPreviousFramesToShow', 2);
+    expect(localStorage.getItem('flipbook-storage-version')).toEqual('2');
+    expect(localStorage.getItem('flipbook-story')).toEqual(null);
   });
 
   it('should mark data store as v2 even if nothing to upgrade', function () {
     localStorage.removeItem('flipbook-storage-version');
     let app = new App();
-    expect(app.stories).to.have.lengthOf(1);
-    expect(localStorage.getItem('flipbook-storage-version')).to.equal('2');
-    expect(localStorage.getItem('flipbook-story')).to.equal(null);
+    expect(app.stories).toHaveLength(1);
+    expect(localStorage.getItem('flipbook-storage-version')).toEqual('2');
+    expect(localStorage.getItem('flipbook-story')).toEqual(null);
   });
 
   it('should select story', function () {
@@ -71,9 +71,9 @@ describe('app model', function () {
         {name: 'Last Story'}
       ]
     });
-    expect(app).to.have.property('selectedStoryIndex', 0);
+    expect(app).toHaveProperty('selectedStoryIndex', 0);
     app.selectStory(2);
-    expect(app).to.have.property('selectedStoryIndex', 2);
+    expect(app).toHaveProperty('selectedStoryIndex', 2);
   });
 
   it('should load story data when selecting story', function () {
@@ -85,12 +85,12 @@ describe('app model', function () {
         {name: 'Last Story'}
       ]
     });
-    expect(app).to.have.property('selectedStoryIndex', 0);
+    expect(app).toHaveProperty('selectedStoryIndex', 0);
     app.selectStory(2);
-    expect(app).to.have.property('selectedStory');
-    expect(app.selectedStory).to.be.instanceOf(Story);
-    expect(app.selectedStory).to.have.property('metadata');
-    expect(app.selectedStory.metadata).to.equal(app.stories[2]);
+    expect(app).toHaveProperty('selectedStory');
+    expect(app.selectedStory).toBeInstanceOf(Story);
+    expect(app.selectedStory).toHaveProperty('metadata');
+    expect(app.selectedStory.metadata).toEqual(app.stories[2]);
   });
 
   it('should get selected story metadata', function () {
@@ -98,7 +98,7 @@ describe('app model', function () {
       stories: [{}, {}, {}],
       selectedStoryIndex: 1
     });
-    expect(app.getSelectedStoryMetadata()).to.equal(app.stories[1]);
+    expect(app.getSelectedStoryMetadata()).toEqual(app.stories[1]);
   });
 
   it('should get selected story metadata', function () {
@@ -110,7 +110,7 @@ describe('app model', function () {
       ],
       selectedStoryIndex: 1
     });
-    expect(app.getSelectedStoryName()).to.equal('Bar Story');
+    expect(app.getSelectedStoryName()).toEqual('Bar Story');
   });
 
   it('should rename selected story', function () {
@@ -123,7 +123,7 @@ describe('app model', function () {
       selectedStoryIndex: 1
     });
     app.renameSelectedStory('Story Reborn');
-    expect(app.stories[1].name).to.equal('Story Reborn');
+    expect(app.stories[1].name).toEqual('Story Reborn');
   });
 
   it('should delete selected story', function () {
@@ -136,9 +136,9 @@ describe('app model', function () {
       selectedStoryIndex: 1
     });
     app.deleteSelectedStory();
-    expect(app.stories).to.have.lengthOf(2);
-    expect(app.stories[0].name).to.equal('Foo Story');
-    expect(app.stories[1].name).to.equal('Baz Story');
+    expect(app.stories).toHaveLength(2);
+    expect(app.stories[0].name).toEqual('Foo Story');
+    expect(app.stories[1].name).toEqual('Baz Story');
   });
 
   it('should delete the only story by replacing it', function () {
@@ -146,17 +146,17 @@ describe('app model', function () {
       stories: [{name: 'Foo Story', createdDate: Date.now()}]
     });
     app.deleteSelectedStory();
-    expect(app.stories[0]).to.have.property('name', 'My First Story');
+    expect(app.stories[0]).toHaveProperty('name', 'My First Story');
   });
 
   it('should create new story', function () {
     let app = new App();
     let defaultStory = app.stories[0];
     app.createNewStoryWithName('My New Story');
-    expect(app.stories).to.have.lengthOf(2);
-    expect(app.selectedStoryIndex).to.equal(0);
-    expect(app.stories[0]).not.to.equal(defaultStory);
-    expect(app.stories[1]).to.equal(defaultStory);
+    expect(app.stories).toHaveLength(2);
+    expect(app.selectedStoryIndex).toEqual(0);
+    expect(app.stories[0]).not.toEqual(defaultStory);
+    expect(app.stories[1]).toEqual(defaultStory);
   });
 
   it('should add existing story', function () {
@@ -172,17 +172,17 @@ describe('app model', function () {
     });
     let defaultStory = app.stories[0];
     app.addExistingStory(story);
-    expect(app.stories).to.have.lengthOf(2);
-    expect(app.selectedStoryIndex).to.equal(0);
-    expect(app.selectedStory.frameDuration).to.equal(story.frameDuration);
-    expect(app.stories[0]).not.to.equal(defaultStory);
-    expect(app.stories[1]).to.equal(defaultStory);
+    expect(app.stories).toHaveLength(2);
+    expect(app.selectedStoryIndex).toEqual(0);
+    expect(app.selectedStory.frameDuration).toEqual(story.frameDuration);
+    expect(app.stories[0]).not.toEqual(defaultStory);
+    expect(app.stories[1]).toEqual(defaultStory);
   });
 
   it('should export JSON', function () {
     let json = new App().toJSON();
-    expect(json).to.have.property('stories');
-    expect(json).to.have.property('selectedStoryIndex');
+    expect(json).toHaveProperty('stories');
+    expect(json).toHaveProperty('selectedStoryIndex');
   });
 
   it('should save', function () {
@@ -197,16 +197,16 @@ describe('app model', function () {
     let key = 'flipbook-manifest';
     localStorage.removeItem(key);
     app.save();
-    expect(localStorage.getItem(key)).to.equal(JSON.stringify(app));
+    expect(localStorage.getItem(key)).toEqual(JSON.stringify(app));
   });
 
   it('should do nothing if nothing to restore', function () {
     localStorage.removeItem('flipbook-manifest');
     let app = App.restore();
-    expect(app).to.have.property('stories');
-    expect(app.stories).to.have.lengthOf(1);
-    expect(app.selectedStoryIndex).to.equal(0);
-    expect(app.stories[0].name).to.equal('My First Story');
+    expect(app).toHaveProperty('stories');
+    expect(app.stories).toHaveLength(1);
+    expect(app.selectedStoryIndex).toEqual(0);
+    expect(app.stories[0].name).toEqual('My First Story');
   });
 
   it('should restore persisted app data', function () {
@@ -219,18 +219,18 @@ describe('app model', function () {
       selectedStoryIndex: 1
     }));
     let app = App.restore();
-    expect(app).to.have.property('stories');
-    expect(app.stories).to.have.lengthOf(3);
-    expect(app.selectedStoryIndex).to.equal(1);
-    expect(app.stories[0].name).to.equal('Foo');
-    expect(app.stories[1].name).to.equal('Bar');
-    expect(app.stories[2].name).to.equal('Baz');
+    expect(app).toHaveProperty('stories');
+    expect(app.stories).toHaveLength(3);
+    expect(app.selectedStoryIndex).toEqual(1);
+    expect(app.stories[0].name).toEqual('Foo');
+    expect(app.stories[1].name).toEqual('Bar');
+    expect(app.stories[2].name).toEqual('Baz');
   });
 
   it('should save immediately if app is created from scratch', function () {
     localStorage.removeItem('flipbook-manifest');
     App.restore();
-    expect(localStorage.getItem('flipbook-manifest')).not.to.be.null;
+    expect(localStorage.getItem('flipbook-manifest')).not.toBeNull();
   });
 
 });

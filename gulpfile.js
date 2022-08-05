@@ -4,8 +4,7 @@ let sass = require('gulp-sass')(require('sass'));
 let terser = require('gulp-terser');
 let noop = require('gulp-noop');
 let rollup = require('rollup');
-let rollupAppConfig = require('./rollup.config.app.js');
-let rollupTestConfig = require('./rollup.config.test.js');
+let rollupAppConfig = require('./rollup.config.js');
 let workboxBuild = require('workbox-build');
 let connect = require('gulp-connect');
 
@@ -49,11 +48,6 @@ gulp.task('rollup:app', () => {
     return bundle.write(rollupAppConfig.output);
   });
 });
-gulp.task('rollup:test', () => {
-  return rollup.rollup(rollupTestConfig).then((bundle) => {
-    return bundle.write(rollupTestConfig.output);
-  });
-});
 gulp.task('rollup:watch', () => {
   return gulp.watch(
     ['app/scripts/**/*.js', 'test/**/*.js'],
@@ -61,8 +55,7 @@ gulp.task('rollup:watch', () => {
   );
 });
 gulp.task('rollup', gulp.parallel(
-  'rollup:app',
-  'rollup:test'
+  'rollup:app'
 ));
 
 gulp.task('uglify', () => {

@@ -5,15 +5,15 @@ describe('story model', function () {
 
   it('should initialize with default arguments', function () {
     let story = new Story();
-    expect(story.frames).to.have.lengthOf(1);
-    expect(story).to.have.property('selectedFrameIndex', 0);
-    expect(story).to.have.property('frameDuration', 100);
-    expect(story).to.have.property('numPreviousFramesToShow', 1);
-    expect(story.metadata).to.have.property('name', 'My First Story');
-    expect(story).to.have.property('playing', false);
-    expect(story).to.have.property('exportedGifSize', 1080);
-    expect(story.frameStyles).to.have.property('strokeStyle', '#000');
-    expect(story.frameStyles).to.have.property('lineWidth', 12);
+    expect(story.frames).toHaveLength(1);
+    expect(story).toHaveProperty('selectedFrameIndex', 0);
+    expect(story).toHaveProperty('frameDuration', 100);
+    expect(story).toHaveProperty('numPreviousFramesToShow', 1);
+    expect(story.metadata).toHaveProperty('name', 'My First Story');
+    expect(story).toHaveProperty('playing', false);
+    expect(story).toHaveProperty('exportedGifSize', 1080);
+    expect(story.frameStyles).toHaveProperty('strokeStyle', '#000');
+    expect(story.frameStyles).toHaveProperty('lineWidth', 12);
   });
 
   it('should initialize with supplied arguments', function () {
@@ -33,38 +33,38 @@ describe('story model', function () {
         lineWidth: 8
       }
     });
-    expect(story.frames).to.have.lengthOf(2);
-    expect(story.frames[0]).to.be.instanceOf(Frame);
-    expect(story).to.have.property('selectedFrameIndex', 1);
-    expect(story).to.have.property('frameDuration', 125);
-    expect(story).to.have.property('numPreviousFramesToShow', 2);
-    expect(story.metadata).to.have.property('name', 'My Test Story');
-    expect(story.metadata).to.have.property('createdDate', createdDate);
-    expect(story).to.have.property('playing', false);
-    expect(story).to.have.property('exportedGifSize', 720);
-    expect(story.frameStyles).to.have.property('strokeStyle', '#6c3');
-    expect(story.frameStyles).to.have.property('lineWidth', 8);
+    expect(story.frames).toHaveLength(2);
+    expect(story.frames[0]).toBeInstanceOf(Frame);
+    expect(story).toHaveProperty('selectedFrameIndex', 1);
+    expect(story).toHaveProperty('frameDuration', 125);
+    expect(story).toHaveProperty('numPreviousFramesToShow', 2);
+    expect(story.metadata).toHaveProperty('name', 'My Test Story');
+    expect(story.metadata).toHaveProperty('createdDate', createdDate);
+    expect(story).toHaveProperty('playing', false);
+    expect(story).toHaveProperty('exportedGifSize', 720);
+    expect(story.frameStyles).toHaveProperty('strokeStyle', '#6c3');
+    expect(story.frameStyles).toHaveProperty('lineWidth', 8);
   });
 
   it('should honor showPreviousFrame when false', function () {
     let story = new Story({showPreviousFrame: false});
-    expect(story).to.have.property('numPreviousFramesToShow', 0);
+    expect(story).toHaveProperty('numPreviousFramesToShow', 0);
   });
 
   it('should honor showPreviousFrame when true', function () {
     let story = new Story({showPreviousFrame: true});
-    expect(story).to.have.property('numPreviousFramesToShow', 1);
+    expect(story).toHaveProperty('numPreviousFramesToShow', 1);
   });
 
   it('should select frame', function () {
     let story = new Story({
       frames: [new Frame(), new Frame(), new Frame()]
     });
-    expect(story.selectedFrameIndex).to.equal(0);
+    expect(story.selectedFrameIndex).toEqual(0);
     story.selectFrame(2);
-    expect(story.selectedFrameIndex).to.equal(2);
+    expect(story.selectedFrameIndex).toEqual(2);
     story.selectFrame(1);
-    expect(story.selectedFrameIndex).to.equal(1);
+    expect(story.selectedFrameIndex).toEqual(1);
   });
 
   it('should get selected frame', function () {
@@ -72,7 +72,7 @@ describe('story model', function () {
       frames: [new Frame(), new Frame(), new Frame()],
       selectedFrameIndex: 1
     });
-    expect(story.getSelectedFrame()).to.equal(story.frames[1]);
+    expect(story.getSelectedFrame()).toEqual(story.frames[1]);
   });
 
   it('should get last previous frame by default', function () {
@@ -81,8 +81,8 @@ describe('story model', function () {
       selectedFrameIndex: 2,
       numPreviousFramesToShow: 1
     });
-    expect(story.getPreviousFramesToShow()).to.have.lengthOf(1);
-    expect(story.getPreviousFramesToShow()[0]).to.equal(story.frames[1]);
+    expect(story.getPreviousFramesToShow()).toHaveLength(1);
+    expect(story.getPreviousFramesToShow()[0]).toEqual(story.frames[1]);
   });
 
   it('should get all previous frames', function () {
@@ -91,9 +91,9 @@ describe('story model', function () {
       selectedFrameIndex: 2,
       numPreviousFramesToShow: 2
     });
-    expect(story.getPreviousFramesToShow()).to.have.lengthOf(2);
-    expect(story.getPreviousFramesToShow()[0]).to.equal(story.frames[0]);
-    expect(story.getPreviousFramesToShow()[1]).to.equal(story.frames[1]);
+    expect(story.getPreviousFramesToShow()).toHaveLength(2);
+    expect(story.getPreviousFramesToShow()[0]).toEqual(story.frames[0]);
+    expect(story.getPreviousFramesToShow()[1]).toEqual(story.frames[1]);
   });
 
   it('should get as many previous frames even if bound is exceeded', function () {
@@ -102,15 +102,15 @@ describe('story model', function () {
       selectedFrameIndex: 1,
       numPreviousFramesToShow: 2
     });
-    expect(story.getPreviousFramesToShow()).to.have.lengthOf(1);
-    expect(story.getPreviousFramesToShow()[0]).to.equal(story.frames[0]);
+    expect(story.getPreviousFramesToShow()).toHaveLength(1);
+    expect(story.getPreviousFramesToShow()[0]).toEqual(story.frames[0]);
   });
 
   it('should not wrap around to get previous frame', function () {
     let story = new Story({
       frames: [new Frame(), new Frame(), new Frame()]
     });
-    expect(story.getPreviousFramesToShow()).to.have.lengthOf(0);
+    expect(story.getPreviousFramesToShow()).toHaveLength(0);
   });
 
   it('should select next frame', function () {
@@ -118,7 +118,7 @@ describe('story model', function () {
       frames: [new Frame(), new Frame(), new Frame()]
     });
     story.selectNextFrame();
-    expect(story.getSelectedFrame()).to.equal(story.frames[1]);
+    expect(story.getSelectedFrame()).toEqual(story.frames[1]);
   });
 
   it('should wrap around when selecting next frame', function () {
@@ -127,7 +127,7 @@ describe('story model', function () {
       selectedFrameIndex: 2
     });
     story.selectNextFrame();
-    expect(story.getSelectedFrame()).to.equal(story.frames[0]);
+    expect(story.getSelectedFrame()).toEqual(story.frames[0]);
   });
 
   it('should select previous frame', function () {
@@ -136,7 +136,7 @@ describe('story model', function () {
       selectedFrameIndex: 2
     });
     story.selectPreviousFrame();
-    expect(story.getSelectedFrame()).to.equal(story.frames[1]);
+    expect(story.getSelectedFrame()).toEqual(story.frames[1]);
   });
 
   it('should wrap around when selecting previous frame', function () {
@@ -144,7 +144,7 @@ describe('story model', function () {
       frames: [new Frame(), new Frame(), new Frame()]
     });
     story.selectPreviousFrame();
-    expect(story.getSelectedFrame()).to.equal(story.frames[2]);
+    expect(story.getSelectedFrame()).toEqual(story.frames[2]);
   });
 
   it('should add new frame', function () {
@@ -153,8 +153,8 @@ describe('story model', function () {
       selectedFrameIndex: 1
     });
     story.addNewFrame();
-    expect(story.frames.length).to.equal(4);
-    expect(story.selectedFrameIndex).to.equal(2);
+    expect(story.frames.length).toEqual(4);
+    expect(story.selectedFrameIndex).toEqual(2);
   });
 
   it('should delete selected frame', function () {
@@ -163,8 +163,8 @@ describe('story model', function () {
       selectedFrameIndex: 2
     });
     story.deleteSelectedFrame();
-    expect(story.frames.length).to.equal(3);
-    expect(story.selectedFrameIndex).to.equal(1);
+    expect(story.frames.length).toEqual(3);
+    expect(story.selectedFrameIndex).toEqual(1);
   });
 
   it('should delete the only frame by replacing it', function () {
@@ -173,7 +173,7 @@ describe('story model', function () {
     });
     let deletedFrame = story.frames[0];
     story.deleteSelectedFrame();
-    expect(story.frames[0]).not.to.equal(deletedFrame);
+    expect(story.frames[0]).not.toEqual(deletedFrame);
   });
 
   it('should move selected frame', function () {
@@ -185,11 +185,11 @@ describe('story model', function () {
     let newIndex = 3;
     let oldFrames = story.frames.slice(0);
     story.moveFrame(oldIndex, newIndex);
-    expect(story.frames[0]).to.equal(oldFrames[0]);
-    expect(story.frames[1]).to.equal(oldFrames[2]);
-    expect(story.frames[2]).to.equal(oldFrames[3]);
-    expect(story.frames[3]).to.equal(oldFrames[1]);
-    expect(story.frames[4]).to.equal(oldFrames[4]);
+    expect(story.frames[0]).toEqual(oldFrames[0]);
+    expect(story.frames[1]).toEqual(oldFrames[2]);
+    expect(story.frames[2]).toEqual(oldFrames[3]);
+    expect(story.frames[3]).toEqual(oldFrames[1]);
+    expect(story.frames[4]).toEqual(oldFrames[4]);
   });
 
   it('should get frames per second', function () {
@@ -197,7 +197,7 @@ describe('story model', function () {
       frames: [new Frame()],
       frameDuration: 125
     });
-    expect(story.getFramesPerSecond()).to.equal(8);
+    expect(story.getFramesPerSecond()).toEqual(8);
   });
 
   it('should set frames per second', function () {
@@ -205,7 +205,7 @@ describe('story model', function () {
       frames: [new Frame()]
     });
     story.setFramesPerSecond(8);
-    expect(story.frameDuration).to.equal(125);
+    expect(story.frameDuration).toEqual(125);
   });
 
   it('should play', function () {
@@ -214,16 +214,16 @@ describe('story model', function () {
       frames: [new Frame(), new Frame(), new Frame()],
       frameDuration
     });
-    let clock = sinon.useFakeTimers();
-    let callback = sinon.spy();
+    jest.useFakeTimers();
+    let callback = jest.fn();
     story.play(callback);
-    clock.tick(frameDuration);
-    expect(callback).to.have.callCount(1);
-    expect(story.selectedFrameIndex).to.equal(1);
-    clock.tick(frameDuration);
-    expect(callback).to.have.callCount(2);
-    expect(story.selectedFrameIndex).to.equal(2);
-    clock.restore();
+    jest.advanceTimersByTime(frameDuration);
+    expect(callback).toHaveBeenCalledTimes(1);
+    expect(story.selectedFrameIndex).toEqual(1);
+    jest.advanceTimersByTime(frameDuration);
+    expect(callback).toHaveBeenCalledTimes(2);
+    expect(story.selectedFrameIndex).toEqual(2);
+    jest.useRealTimers();
   });
 
   it('should wrap around when playing', function () {
@@ -232,20 +232,20 @@ describe('story model', function () {
       frames: [new Frame(), new Frame(), new Frame()],
       frameDuration
     });
-    let clock = sinon.useFakeTimers();
-    let callback = sinon.spy();
+    jest.useFakeTimers();
+    let callback = jest.fn();
     story.play(callback);
-    expect(story.playing).to.equal(true);
-    clock.tick(frameDuration);
-    expect(callback).to.have.callCount(1);
-    expect(story.selectedFrameIndex).to.equal(1);
-    clock.tick(frameDuration);
-    expect(callback).to.have.callCount(2);
-    expect(story.selectedFrameIndex).to.equal(2);
-    clock.tick(frameDuration);
-    expect(callback).to.have.callCount(3);
-    expect(story.selectedFrameIndex).to.equal(0);
-    clock.restore();
+    expect(story.playing).toEqual(true);
+    jest.advanceTimersByTime(frameDuration);
+    expect(callback).toHaveBeenCalledTimes(1);
+    expect(story.selectedFrameIndex).toEqual(1);
+    jest.advanceTimersByTime(frameDuration);
+    expect(callback).toHaveBeenCalledTimes(2);
+    expect(story.selectedFrameIndex).toEqual(2);
+    jest.advanceTimersByTime(frameDuration);
+    expect(callback).toHaveBeenCalledTimes(3);
+    expect(story.selectedFrameIndex).toEqual(0);
+    jest.useRealTimers();
   });
 
   it('should play without a user callback', function () {
@@ -254,12 +254,12 @@ describe('story model', function () {
       frames: [new Frame(), new Frame(), new Frame()],
       frameDuration
     });
-    let clock = sinon.useFakeTimers();
+    jest.useFakeTimers();
     story.play();
-    expect(story.playing).to.equal(true);
-    clock.tick(frameDuration);
-    expect(story.selectedFrameIndex).to.equal(1);
-    clock.restore();
+    expect(story.playing).toEqual(true);
+    jest.advanceTimersByTime(frameDuration);
+    expect(story.selectedFrameIndex).toEqual(1);
+    jest.useRealTimers();
   });
 
   it('should pause', function () {
@@ -268,20 +268,20 @@ describe('story model', function () {
       frames: [new Frame(), new Frame(), new Frame()],
       frameDuration
     });
-    let clock = sinon.useFakeTimers();
-    let callback = sinon.spy();
+    jest.useFakeTimers();
+    let callback = jest.fn();
     story.play(callback);
-    clock.tick(frameDuration);
-    expect(callback).to.have.callCount(1);
-    expect(story.selectedFrameIndex).to.equal(1);
-    clock.tick(frameDuration);
-    expect(callback).to.have.callCount(2);
-    expect(story.selectedFrameIndex).to.equal(2);
+    jest.advanceTimersByTime(frameDuration);
+    expect(callback).toHaveBeenCalledTimes(1);
+    expect(story.selectedFrameIndex).toEqual(1);
+    jest.advanceTimersByTime(frameDuration);
+    expect(callback).toHaveBeenCalledTimes(2);
+    expect(story.selectedFrameIndex).toEqual(2);
     story.pause();
-    expect(story.playing).to.equal(false);
-    clock.tick(frameDuration);
-    expect(callback).to.have.callCount(2);
-    clock.restore();
+    expect(story.playing).toEqual(false);
+    jest.advanceTimersByTime(frameDuration);
+    expect(callback).toHaveBeenCalledTimes(2);
+    jest.useRealTimers();
   });
 
   it('should undo', function () {
@@ -289,9 +289,9 @@ describe('story model', function () {
       frames: [new Frame(), new Frame(), new Frame()],
       selectedFrameIndex: 1
     });
-    story.frames[1].undo = sinon.spy();
+    story.frames[1].undo = jest.fn();
     story.undo();
-    expect(story.frames[1].undo).to.have.been.calledOnce;
+    expect(story.frames[1].undo).toHaveBeenCalledOnce;
   });
 
   it('should redo', function () {
@@ -299,19 +299,19 @@ describe('story model', function () {
       frames: [new Frame(), new Frame(), new Frame()],
       selectedFrameIndex: 1
     });
-    story.frames[1].redo = sinon.spy();
+    story.frames[1].redo = jest.fn();
     story.redo();
-    expect(story.frames[1].redo).to.have.been.calledOnce;
+    expect(story.frames[1].redo).toHaveBeenCalledOnce;
   });
 
   it('should export JSON', function () {
     let json = new Story().toJSON();
-    expect(json).to.have.property('frames');
-    expect(json).to.have.property('selectedFrameIndex');
-    expect(json).to.have.property('frameDuration');
-    expect(json).to.have.property('numPreviousFramesToShow');
-    expect(json).to.have.property('frameStyles');
-    expect(json).to.have.property('exportedGifSize');
+    expect(json).toHaveProperty('frames');
+    expect(json).toHaveProperty('selectedFrameIndex');
+    expect(json).toHaveProperty('frameDuration');
+    expect(json).toHaveProperty('numPreviousFramesToShow');
+    expect(json).toHaveProperty('frameStyles');
+    expect(json).toHaveProperty('exportedGifSize');
   });
 
   it('should save', function () {
@@ -325,7 +325,7 @@ describe('story model', function () {
     let key = `flipbook-story-${createdDate}`;
     localStorage.removeItem(key);
     story.save();
-    expect(localStorage.getItem(key)).to.equal(JSON.stringify(story));
+    expect(localStorage.getItem(key)).toEqual(JSON.stringify(story));
   });
 
 });
