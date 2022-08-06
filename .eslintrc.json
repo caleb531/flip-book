@@ -11,13 +11,22 @@
   "globals": {
     "m": true,
     "_": true,
-    "GIF": true,
-    "SWUpdateManager": true,
-    "FastClick": true
+    "GIF": true
   },
   "plugins": [
     "jest"
   ],
+    "overrides": [
+      {
+        "files": ["service-worker.js"],
+        "env": {
+          "serviceworker": true
+        },
+        "globals": {
+          "workbox": true
+        }
+      }
+    ],
   "rules": {
     "accessor-pairs": ["error"],
     "array-callback-return": ["error"],

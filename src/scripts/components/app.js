@@ -2,6 +2,7 @@ import App from '../models/app.js';
 import UpdateNotificationComponent from './update-notification.js';
 import AppHeaderComponent from './app-header.js';
 import StoryComponent from './story.js';
+import SWUpdateManager from 'sw-update-manager';
 
 class AppComponent {
 
@@ -16,7 +17,6 @@ class AppComponent {
   }
 
   oncreate({dom}) {
-    FastClick.attach(dom);
     dom.focus();
   }
 
