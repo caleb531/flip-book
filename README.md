@@ -76,5 +76,5 @@ npm install
 You can then serve the app locally and view it at `http://localhost:8080`:
 
 ```sh
-gulp serve
+npm run dev
 ```
