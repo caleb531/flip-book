@@ -18,10 +18,10 @@ module.exports = {
     copy({
       targets: [
         { src: 'public/*', dest: 'dist/' },
-        { src: 'node_modules/mithril/mithril.min.js', dest: 'public/' },
-        { src: 'node_modules/underscore/underscore-min.js', dest: 'public/' },
-        { src: 'node_modules/gif.js.optimized/dist/gif.js', dest: 'public/' },
-        { src: 'node_modules/gif.js.optimized/dist/gif.worker.js', dest: 'public/' }
+        { src: 'node_modules/mithril/mithril.min.js', dest: 'dist/' },
+        { src: 'node_modules/underscore/underscore-min.js', dest: 'dist/' },
+        { src: 'node_modules/gif.js.optimized/dist/gif.js', dest: 'dist/' },
+        { src: 'node_modules/gif.js.optimized/dist/gif.worker.js', dest: 'dist/' }
       ]
     }),
     resolve({
