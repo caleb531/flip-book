@@ -1,6 +1,6 @@
-import App from '../app/scripts/models/app.js';
-import StoryMetadata from '../app/scripts/models/story-metadata.js';
-import Story from '../app/scripts/models/story.js';
+import App from '../src/scripts/models/app.js';
+import StoryMetadata from '../src/scripts/models/story-metadata.js';
+import Story from '../src/scripts/models/story.js';
 
 describe('app model', function () {
 

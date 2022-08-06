@@ -1,5 +1,5 @@
-import Story from '../app/scripts/models/story.js';
-import Frame from '../app/scripts/models/frame.js';
+import Story from '../src/scripts/models/story.js';
+import Frame from '../src/scripts/models/frame.js';
 
 describe('story model', function () {
 

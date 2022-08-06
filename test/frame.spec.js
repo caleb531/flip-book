@@ -1,4 +1,4 @@
-import Frame from '../app/scripts/models/frame.js';
+import Frame from '../src/scripts/models/frame.js';
 
 describe('frame model', function () {
 

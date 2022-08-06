@@ -1,4 +1,4 @@
-import StoryMetadata from '../app/scripts/models/story-metadata.js';
+import StoryMetadata from '../src/scripts/models/story-metadata.js';
 
 describe('story metadata model', function () {
 
