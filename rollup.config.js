@@ -6,6 +6,7 @@ let json = require('@rollup/plugin-json');
 let scss = require('rollup-plugin-scss');
 let terser = require('rollup-plugin-terser').terser;
 let copy = require('rollup-plugin-copy');
+let serve = require('rollup-plugin-serve');
 let { injectManifest } = require('rollup-plugin-workbox');
 
 // Watch additional files outside of the module graph (e.g. SCSS or static
@@ -66,6 +67,10 @@ module.exports = {
       },
       swSrc: 'src/scripts/service-worker.js',
       swDest: 'dist/service-worker.js'
-    })
+    }),
+    process.env.SERVE_APP ? serve({
+      contentBase: 'dist',
+      port: 8080
+    }) : null
   ]
 };
