@@ -1,3 +1,5 @@
+let path = require('path');
+let glob = require('glob');
 let commonjs = require('@rollup/plugin-commonjs');
 let resolve = require('@rollup/plugin-node-resolve');
 let json = require('@rollup/plugin-json');
@@ -5,6 +7,20 @@ let scss = require('rollup-plugin-scss');
 let terser = require('rollup-plugin-terser').terser;
 let copy = require('rollup-plugin-copy');
 let { injectManifest } = require('rollup-plugin-workbox');
+
+// Watch additional files outside of the module graph (e.g. SCSS or static
+// assets); see <https://github.com/rollup/rollup/issues/3414>
+function watcher(globs) {
+  return {
+    buildStart() {
+      for (const item of globs) {
+        glob.sync(path.resolve(__dirname, item)).forEach((filename) => {
+          this.addWatchFile(filename);
+        });
+      }
+    }
+  };
+}
 
 module.exports = {
   input: 'src/scripts/index.js',
@@ -15,6 +31,7 @@ module.exports = {
     format: 'iife'
   },
   plugins: [
+    watcher(['src/styles/*.*', 'public/**/*.*']),
     copy({
       targets: [
         { src: 'public/*', dest: 'dist/' },
