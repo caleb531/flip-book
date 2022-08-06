@@ -2,6 +2,7 @@
   "name": "flip-book",
   "version": "2.1.0",
   "description": "An interactive flip book",
+  "type": "module",
   "scripts": {
     "build": "rollup -c",
     "watch": "rollup -cw",

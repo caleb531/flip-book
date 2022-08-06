@@ -1,13 +1,13 @@
-let path = require('path');
-let glob = require('glob');
-let commonjs = require('@rollup/plugin-commonjs');
-let resolve = require('@rollup/plugin-node-resolve');
-let json = require('@rollup/plugin-json');
-let scss = require('rollup-plugin-scss');
-let terser = require('rollup-plugin-terser').terser;
-let copy = require('rollup-plugin-copy');
-let serve = require('rollup-plugin-serve');
-let { injectManifest } = require('rollup-plugin-workbox');
+import path from 'path';
+import glob from 'glob';
+import commonjs from '@rollup/plugin-commonjs';
+import resolve from '@rollup/plugin-node-resolve';
+import json from '@rollup/plugin-json';
+import scss from 'rollup-plugin-scss';
+import { terser } from 'rollup-plugin-terser';
+import copy from 'rollup-plugin-copy';
+import serve from 'rollup-plugin-serve';
+import { injectManifest } from 'rollup-plugin-workbox';
 
 // Watch additional files outside of the module graph (e.g. SCSS or static
 // assets); see <https://github.com/rollup/rollup/issues/3414>
@@ -23,7 +23,7 @@ function watcher(globs) {
   };
 }
 
-module.exports = {
+export default {
   input: 'src/scripts/index.js',
   output: {
     file: 'dist/index.js',
