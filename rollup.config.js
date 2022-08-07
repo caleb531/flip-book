@@ -29,7 +29,8 @@ export default {
     file: 'dist/index.js',
     name: 'flipBook',
     sourcemap: true,
-    format: 'iife'
+    format: 'iife',
+    exports: 'auto'
   },
   plugins: [
     watcher(['src/styles/*.*', 'public/**/*.*']),
