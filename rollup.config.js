@@ -1,27 +1,12 @@
-import path from 'path';
-import glob from 'glob';
 import commonjs from '@rollup/plugin-commonjs';
 import resolve from '@rollup/plugin-node-resolve';
 import json from '@rollup/plugin-json';
+import watchGlobs from 'rollup-plugin-watch-globs';
 import scss from 'rollup-plugin-scss';
 import { terser } from 'rollup-plugin-terser';
 import copy from 'rollup-plugin-copy';
 import serve from 'rollup-plugin-serve';
 import { injectManifest } from 'rollup-plugin-workbox';
-
-// Watch additional files outside of the module graph (e.g. SCSS or static
-// assets); see <https://github.com/rollup/rollup/issues/3414>
-function watcher(globs) {
-  return {
-    buildStart() {
-      for (const item of globs) {
-        glob.sync(path.resolve(__dirname, item)).forEach((filename) => {
-          this.addWatchFile(filename);
-        });
-      }
-    }
-  };
-}
 
 export default {
   input: 'src/scripts/index.js',
@@ -33,7 +18,7 @@ export default {
     exports: 'auto'
   },
   plugins: [
-    watcher(['src/styles/*.*', 'public/**/*.*']),
+    watchGlobs(['src/styles/*.*', 'public/**/*.*']),
     copy({
       targets: [
         { src: 'public/*', dest: 'dist/' },
