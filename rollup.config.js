@@ -34,7 +34,7 @@ export default {
     }),
     commonjs(),
     json(),
-    scss(),
+    scss({ sourceMap: true }),
     process.env.NODE_ENV === 'production' ? terser() : null,
     injectManifest({
       globDirectory: 'dist',
