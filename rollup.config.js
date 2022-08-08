@@ -11,7 +11,7 @@ import { injectManifest } from 'rollup-plugin-workbox';
 export default {
   input: 'src/scripts/index.js',
   output: {
-    file: 'dist/index.js',
+    file: 'dist/scripts/index.js',
     name: 'flipBook',
     sourcemap: true,
     format: 'iife',
@@ -22,10 +22,10 @@ export default {
     copy({
       targets: [
         { src: 'public/*', dest: 'dist/' },
-        { src: 'node_modules/mithril/mithril.min.js', dest: 'dist/' },
-        { src: 'node_modules/underscore/underscore-min.js', dest: 'dist/' },
-        { src: 'node_modules/gif.js.optimized/dist/gif.js', dest: 'dist/' },
-        { src: 'node_modules/gif.js.optimized/dist/gif.worker.js', dest: 'dist/' }
+        { src: 'node_modules/mithril/mithril.min.js', dest: 'dist/scripts' },
+        { src: 'node_modules/underscore/underscore-min.js', dest: 'dist/scripts' },
+        { src: 'node_modules/gif.js.optimized/dist/gif.js', dest: 'dist/scripts' },
+        { src: 'node_modules/gif.js.optimized/dist/gif.worker.js', dest: 'dist/scripts' }
       ]
     }),
     resolve({
@@ -34,7 +34,7 @@ export default {
     }),
     commonjs(),
     json(),
-    scss({ sourceMap: true }),
+    scss({ sourceMap: true, output: 'dist/styles/index.css' }),
     process.env.NODE_ENV === 'production' ? terser() : null,
     injectManifest({
       globDirectory: 'dist',
