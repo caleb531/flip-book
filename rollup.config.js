@@ -34,7 +34,11 @@ export default {
     }),
     commonjs(),
     json(),
-    scss({ sourceMap: true, output: 'dist/styles/index.css' }),
+    scss({
+      sourceMap: true,
+      output: 'dist/styles/index.css',
+      outputStyle: 'compressed'
+    }),
     process.env.NODE_ENV === 'production' ? terser() : null,
     injectManifest({
       globDirectory: 'dist',
