@@ -1,12 +1,18 @@
 @use "sass:math";
 
 // Colors
+$color-white: #fff;
 $color-blue: #4ad;
-$color-green: #6c3;
-$color-slate-dark: #234;
-$color-slate-light: #456;
+$color-green: #4a1;
+$color-gray-darkest: #111;
+$color-gray-dark: #222;
+$color-gray-light: #666;
+$color-black: #000;
+
+$page-background-color: $color-gray-darkest;
 
 $story-border-width: 1px;
+$story-border-color: $color-gray-light;
 
 $frame-width: 800px;
 $frame-height: 450px;
@@ -26,17 +32,18 @@ $panel-position-offset: 15px;
 $panel-border-radius: 5px;
 $panel-padding-x: 10px;
 $panel-padding-y: 5px;
-$panel-background-color: #234;
+$panel-background-color: $color-gray-dark;
 
 $slider-thumb-size: 14px;
+$slider-thumb-color: $color-blue;
 $slider-track-visible-height: 2px;
 $slider-track-padding: math.div($slider-thumb-size - $slider-track-visible-height, 2);
 $slider-track-total-height: $slider-track-visible-height + ($slider-track-padding * 2);
 
 $control-padding: 7px;
 $control-padding-panel: 6px;
-$control-background-color: $color-slate-dark;
-$control-background-color-labeled: $color-slate-light;
+$control-background-color: $color-gray-dark;
+$control-background-color-labeled: $color-gray-light;
 $control-background-color-active: $color-blue;
 $control-arrow-width: 10px;
 

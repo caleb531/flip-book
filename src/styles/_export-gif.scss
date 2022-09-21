@@ -20,10 +20,10 @@
   padding: 0 10px;
   box-sizing: border-box;
   text-align: center;
-  background-color: rgba(#000, 0.8);
+  background-color: rgba($color-black, 0.8);
   transition: all 250ms ease-in-out;
   transition-property: visibility, opacity;
-  color: #fff;
+  color: $color-white;
   white-space: normal;
   &.visible {
     visibility: visible;

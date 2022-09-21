@@ -19,7 +19,7 @@
   z-index: 110;
   &:hover:active + .control .control-button {
     background-color: $control-background-color-active;
-    color: #fff;
+    color: $color-white;
   }
 }
 

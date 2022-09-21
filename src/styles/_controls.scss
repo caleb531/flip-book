@@ -56,14 +56,14 @@
   border-width: 0;
   padding: $control-padding;
   background-color: $control-background-color;
-  color: #fff;
+  color: $color-white;
   font-family: inherit;
   font-size: 0;
   &:focus-visible,
   &:hover:active {
     outline-width: 0;
     background-color: $control-background-color-active;
-    color: #fff;
+    color: $color-white;
   }
   .panel & {
     border-radius: 3px;

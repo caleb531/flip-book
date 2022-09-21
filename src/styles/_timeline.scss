@@ -42,12 +42,12 @@
     align-items: center;
     border-radius: 50%;
     background-color: #345;
-    color: #fff;
+    color: $color-white;
     counter-increment: thumbnail;
     content: counter(thumbnail);
     font-family: sans-serif;
     font-size: 0.6rem;
-    color: #fff;
+    color: $color-white;
   }
   &.selected:after {
     opacity: 1;
@@ -58,7 +58,7 @@
   width: 64px;
   height: 36px;
   opacity: 0.5;
-  background-color: #fff;
+  background-color: $color-white;
   .timeline-thumbnail.selected & {
     opacity: 1;
   }

@@ -8,8 +8,8 @@
   margin-left: -($control-arrow-width * 2);
   // TODO: remove this arbitrary height so the height is calculated naturally
   background-color: $panel-background-color;
-  color: #fff;
-  box-shadow: 0 1px 2px rgba(#000, 0.25);
+  color: $color-white;
+  box-shadow: 0 1px 2px rgba($color-black, 0.25);
   // Dropdown arrow
   &:after {
     content: '';

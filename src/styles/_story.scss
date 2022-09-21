@@ -4,14 +4,14 @@
   // Fit story container to its contents
   display: inline-flex;
   flex-direction: column;
-  border: solid $story-border-width $panel-background-color;
-  background-color: $color-slate-light;
+  border: solid $story-border-width $story-border-color;
+  background-color: $color-gray-light;
 }
 
 .story-stage {
   display: inline-block;
   position: relative;
-  background-color: #fff;
+  background-color: $color-white;
   // If supported by the user's browser, keep the frame contained within the
   // viewport while also maintaining the aspect ratio
   @supports (aspect-ratio: auto) {

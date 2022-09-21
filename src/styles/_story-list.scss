@@ -31,7 +31,7 @@
 .story-list-item {
   margin: 0;
   padding: $story-list-item-padding-y $story-list-item-padding-x;
-  background-color: rgba(#fff, 0.1);
+  background-color: rgba($color-white, 0.1);
   list-style-type: none;
   border: solid 1px $panel-background-color;
   border-top-width: 0;

@@ -27,7 +27,7 @@
       margin: $slider-track-padding 0;
       height: $slider-track-visible-height;
       border-radius: 5px;
-      background-color: #fff;
+      background-color: $color-white;
       background-clip: content-box;
       box-sizing: content-box;
     }
@@ -44,7 +44,7 @@
       height: $slider-thumb-size;
       margin-top: -(math.div($slider-thumb-size - $slider-track-visible-height, 2));
       border-radius: 50%;
-      background-color: $color-blue;
+      background-color: $slider-thumb-color;
     }
     &::-webkit-slider-thumb {
       @include slider-thumb();
