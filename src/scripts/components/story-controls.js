@@ -101,10 +101,10 @@ class StoryControlsComponent {
             title: 'Delete Frame',
             icon: 'remove',
             action: () => this.deleteSelectedFrame(story)
-          }),
+          })
         ]),
 
-        m(TimelineComponent, {story}),
+        m(TimelineComponent, {story})
 
       ]),
 
@@ -120,7 +120,7 @@ class StoryControlsComponent {
           title: 'Redo Stroke',
           icon: 'redo',
           action: () => this.redo(story)
-        }),
+        })
       ])
 
     ]);
