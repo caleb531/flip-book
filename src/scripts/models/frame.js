@@ -14,9 +14,9 @@ class Frame {
     // The 'groups' property has been deprecated in favor of 'strokeGroups', but
     // for backwards compatibility, the former is still recognized if present
     if (groups.length > 0) {
-      this.strokeGroups = groups;
+      this.strokeGroups = groups.slice(0);
     } else {
-      this.strokeGroups = strokeGroups;
+      this.strokeGroups = strokeGroups.slice(0);
     }
     this.undoHistory = [];
   }

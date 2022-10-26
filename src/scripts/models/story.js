@@ -48,6 +48,11 @@ class Story {
     this.selectFrame(this.selectedFrameIndex + 1);
   }
 
+  duplicateCurrentFrame() {
+    this.frames.splice(this.selectedFrameIndex + 1, 0, new Frame(this.getSelectedFrame()));
+    this.selectFrame(this.selectedFrameIndex + 1);
+  }
+
   deleteSelectedFrame() {
     if (this.frames.length === 1) {
       this.frames.splice(this.selectedFrameIndex, 1, new Frame());

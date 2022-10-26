@@ -24,6 +24,11 @@ class StoryControlsComponent {
     story.save();
   }
 
+  duplicateCurrentFrame(story) {
+    story.duplicateCurrentFrame();
+    story.save();
+  }
+
   deleteSelectedFrame(story) {
     // Prevent the synchronous confirm() call from blocking the main thread;
     // this will allow Mithril to redraw and close all panels before showing the
@@ -95,6 +100,12 @@ class StoryControlsComponent {
             title: 'Add Frame',
             icon: 'add',
             action: () => this.addNewFrame(story)
+          }),
+          m(ControlComponent, {
+            id: 'duplicate-frame',
+            title: 'Duplicate Current Frame',
+            icon: 'duplicate',
+            action: () => this.duplicateCurrentFrame(story)
           }),
           m(ControlComponent, {
             id: 'delete-frame',
