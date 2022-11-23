@@ -67,10 +67,16 @@ editor.
 
 If you'd like to contribute to Flip Book by making your own changes to the
 source, clone the repository and run install the project dependencies:
-project:
+project.
+
+Please note that this project uses [pnpm][pnpm] (instead of npm) for package
+installation and management.
+
+[pnpm]: https://pnpm.io/
 
 ```sh
-npm install
+npm install -g pnpm
+pnpm install
 ```
 
 You can then serve the app locally and view it at `http://localhost:8080`:
