@@ -6,7 +6,6 @@
   padding: $panel-padding-y $panel-padding-x;
   padding-bottom: 10px;
   margin-left: -($control-arrow-width * 2);
-  // TODO: remove this arbitrary height so the height is calculated naturally
   background-color: $panel-background-color;
   color: $color-white;
   filter: drop-shadow(0 1px 5px rgba($color-black, 0.5));
