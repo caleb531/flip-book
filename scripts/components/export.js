@@ -1,5 +1,6 @@
 import m from 'mithril';
 import GIF from 'gif.js.optimized';
+import GIFWorkerUrl from 'gif.js.optimized/dist/gif.worker.js?url';
 import FrameComponent from './frame.js';
 import ControlComponent from './control.js';
 import ProgressBarComponent from './progress-bar.js';
@@ -10,7 +11,7 @@ class ExportComponent {
   exportGif(story) {
     this.gifGenerator = new GIF({
       workers: 2,
-      workerScript: 'scripts/gif.worker.js'
+      workerScript: GIFWorkerUrl
     });
     story.frames.forEach((frame) => {
       let canvas = document.createElement('canvas');
