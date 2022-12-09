@@ -1,3 +1,4 @@
+import _ from 'underscore';
 import Frame from './frame.js';
 import StoryMetadata from './story-metadata.js';
 

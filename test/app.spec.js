@@ -1,6 +1,6 @@
-import App from '../src/scripts/models/app.js';
-import StoryMetadata from '../src/scripts/models/story-metadata.js';
-import Story from '../src/scripts/models/story.js';
+import App from '../scripts/models/app.js';
+import StoryMetadata from '../scripts/models/story-metadata.js';
+import Story from '../scripts/models/story.js';
 
 describe('app model', function () {
 
@@ -26,7 +26,7 @@ describe('app model', function () {
       stories: [
         {name: 'Foo Story'},
         {name: 'Bar Story'},
-        {name: 'Baz Story'},
+        {name: 'Baz Story'}
       ],
       selectedStoryIndex: 1
     });
@@ -106,7 +106,7 @@ describe('app model', function () {
       stories: [
         {name: 'Foo Story'},
         {name: 'Bar Story'},
-        {name: 'Baz Story'},
+        {name: 'Baz Story'}
       ],
       selectedStoryIndex: 1
     });
@@ -118,7 +118,7 @@ describe('app model', function () {
       stories: [
         {name: 'Foo Story'},
         {name: 'Bar Story'},
-        {name: 'Baz Story'},
+        {name: 'Baz Story'}
       ],
       selectedStoryIndex: 1
     });
@@ -131,7 +131,7 @@ describe('app model', function () {
       stories: [
         {name: 'Foo Story'},
         {name: 'Bar Story'},
-        {name: 'Baz Story'},
+        {name: 'Baz Story'}
       ],
       selectedStoryIndex: 1
     });
@@ -190,7 +190,7 @@ describe('app model', function () {
       stories: [
         {name: 'Foo Story'},
         {name: 'Bar Story'},
-        {name: 'Baz Story'},
+        {name: 'Baz Story'}
       ],
       selectedStoryIndex: 1
     });

@@ -1,3 +1,5 @@
+import m from 'mithril';
+
 class PanelComponent {
 
   view({attrs: {id, position}, children}) {

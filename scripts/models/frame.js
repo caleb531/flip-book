@@ -1,3 +1,5 @@
+import _ from 'underscore';
+
 class Frame {
 
   // Default arguments get evaluated at call time (unlike Python); see:

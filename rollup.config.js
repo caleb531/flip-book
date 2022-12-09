@@ -9,7 +9,7 @@ import serve from 'rollup-plugin-serve';
 import { injectManifest } from 'rollup-plugin-workbox';
 
 export default {
-  input: 'src/scripts/index.js',
+  input: 'scripts/index.js',
   output: {
     file: 'dist/scripts/index.js',
     name: 'flipBook',
@@ -55,7 +55,7 @@ export default {
         // root of the domain (but rather, from a subdirectory)
         '.': ['index.html']
       },
-      swSrc: 'src/scripts/service-worker.js',
+      swSrc: 'scripts/service-worker.js',
       swDest: 'dist/service-worker.js'
     }),
     process.env.SERVE_APP ? serve({

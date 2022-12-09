@@ -8,11 +8,6 @@
   "parserOptions": {
     "sourceType": "module"
   },
-  "globals": {
-    "m": true,
-    "_": true,
-    "GIF": true
-  },
   "plugins": [
     "jest"
   ],

@@ -1,3 +1,4 @@
+import m from 'mithril';
 import classNames from '../classnames.js';
 import FrameComponent from './frame.js';
 import DrawingAreaComponent from './drawing-area.js';
@@ -23,7 +24,7 @@ class StoryEditorComponent {
           story,
           frame: story.getSelectedFrame(),
           drawingEnabled: !story.playing
-        }),
+        })
       ]),
 
       m(StoryControlsComponent, {story})

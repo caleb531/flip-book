@@ -1,3 +1,4 @@
+import m from 'mithril';
 import Story from '../models/story.js';
 import ControlComponent from './control.js';
 import PanelComponent from './panel.js';

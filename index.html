@@ -3,13 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width" />
-  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self' data: https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; script-src 'self'; img-src 'self' data: blob:; manifest-src 'self'; child-src 'self'; connect-src 'self';">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self' 'unsafe-inline' data: https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; script-src 'self'; img-src 'self' data: blob:; manifest-src 'self'; child-src 'self'; connect-src 'self';">
   <meta name="apple-mobile-web-app-title" content="Flip Book" />
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="theme-color" content="#ffffff" />
   <title>Flip Book | Animate your imagination | Caleb Evans</title>
   <meta name="description" content="Create flip book-style animations to share with friends. Draw each scene, frame by frame, then export your story to a GIF when you're ready to show it off." />
-  <link rel="stylesheet" href="styles/index.css" />
   <link rel="shortcut icon" href="favicon.png" />
   <link rel="apple-touch-icon" href="app-icon-192.png" />
   <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:300,400&display=swap" rel="stylesheet" />
@@ -24,9 +23,6 @@
 
 <main></main>
 
-<script src="scripts/mithril.min.js"></script>
-<script src="scripts/underscore-min.js"></script>
-<script src="scripts/gif.js"></script>
-<script src="scripts/index.js"></script>
+<script type="module" src="scripts/index.js"></script>
 </body>
 </html>

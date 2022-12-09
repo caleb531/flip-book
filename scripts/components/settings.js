@@ -1,3 +1,4 @@
+import m from 'mithril';
 import ControlComponent from './control.js';
 
 class SettingsComponent {

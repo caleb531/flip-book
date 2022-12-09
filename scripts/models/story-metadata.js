@@ -1,3 +1,5 @@
+import _ from 'underscore';
+
 class StoryMetadata {
 
   constructor({name = 'My First Story', createdDate = Date.now()} = {}) {

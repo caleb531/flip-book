@@ -1,3 +1,4 @@
+import m from 'mithril';
 import ControlComponent from './control.js';
 import PanelComponent from './panel.js';
 import StoryListComponent from './story-list.js';
@@ -62,14 +63,14 @@ class StoryHeaderComponent {
           title: 'Open Story',
           icon: 'folder',
           panel: m(StoryListComponent, {app: this.app}),
-          panelPosition: 'bottom',
+          panelPosition: 'bottom'
         }),
         m(ControlComponent, {
           id: 'import-story',
           title: 'Import Story',
           icon: 'upload',
           panel: m(ImportComponent, {app: this.app}),
-          panelPosition: 'bottom',
+          panelPosition: 'bottom'
         })
       ]),
       m('span.selected-story-name', story.metadata.name),

@@ -1,3 +1,5 @@
+import m from 'mithril';
+import GIF from 'gif.js.optimized';
 import FrameComponent from './frame.js';
 import ControlComponent from './control.js';
 import ProgressBarComponent from './progress-bar.js';

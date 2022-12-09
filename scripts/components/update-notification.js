@@ -1,3 +1,4 @@
+import m from 'mithril';
 import classNames from '../classnames.js';
 
 class UpdateNotificationComponent {
@@ -7,7 +8,7 @@ class UpdateNotificationComponent {
       class: classNames({'update-available': updateManager.isUpdateAvailable}),
       onclick: () => updateManager.update()
     }, [
-      m('span.update-notification-message', 'Update available! Click here to update.'),
+      m('span.update-notification-message', 'Update available! Click here to update.')
     ]);
   }
 

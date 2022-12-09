@@ -1,3 +1,4 @@
+import m from 'mithril';
 import PanelComponent from './panel.js';
 
 class StoryListComponent {

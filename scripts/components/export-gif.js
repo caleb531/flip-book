@@ -1,3 +1,4 @@
+import m from 'mithril';
 import classNames from '../classnames.js';
 import ControlComponent from './control.js';
 import ProgressBarComponent from './progress-bar.js';

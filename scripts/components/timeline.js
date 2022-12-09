@@ -1,3 +1,4 @@
+import m from 'mithril';
 import classNames from '../classnames.js';
 import FrameComponent from './frame.js';
 

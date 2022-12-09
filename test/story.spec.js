@@ -1,5 +1,5 @@
-import Story from '../src/scripts/models/story.js';
-import Frame from '../src/scripts/models/frame.js';
+import Story from '../scripts/models/story.js';
+import Frame from '../scripts/models/frame.js';
 
 describe('story model', function () {
 
@@ -214,16 +214,16 @@ describe('story model', function () {
       frames: [new Frame(), new Frame(), new Frame()],
       frameDuration
     });
-    jest.useFakeTimers();
-    let callback = jest.fn();
+    vi.useFakeTimers();
+    let callback = vi.fn();
     story.play(callback);
-    jest.advanceTimersByTime(frameDuration);
+    vi.advanceTimersByTime(frameDuration);
     expect(callback).toHaveBeenCalledTimes(1);
     expect(story.selectedFrameIndex).toEqual(1);
-    jest.advanceTimersByTime(frameDuration);
+    vi.advanceTimersByTime(frameDuration);
     expect(callback).toHaveBeenCalledTimes(2);
     expect(story.selectedFrameIndex).toEqual(2);
-    jest.useRealTimers();
+    vi.useRealTimers();
   });
 
   it('should wrap around when playing', function () {
@@ -232,20 +232,20 @@ describe('story model', function () {
       frames: [new Frame(), new Frame(), new Frame()],
       frameDuration
     });
-    jest.useFakeTimers();
-    let callback = jest.fn();
+    vi.useFakeTimers();
+    let callback = vi.fn();
     story.play(callback);
     expect(story.playing).toEqual(true);
-    jest.advanceTimersByTime(frameDuration);
+    vi.advanceTimersByTime(frameDuration);
     expect(callback).toHaveBeenCalledTimes(1);
     expect(story.selectedFrameIndex).toEqual(1);
-    jest.advanceTimersByTime(frameDuration);
+    vi.advanceTimersByTime(frameDuration);
     expect(callback).toHaveBeenCalledTimes(2);
     expect(story.selectedFrameIndex).toEqual(2);
-    jest.advanceTimersByTime(frameDuration);
+    vi.advanceTimersByTime(frameDuration);
     expect(callback).toHaveBeenCalledTimes(3);
     expect(story.selectedFrameIndex).toEqual(0);
-    jest.useRealTimers();
+    vi.useRealTimers();
   });
 
   it('should play without a user callback', function () {
@@ -254,12 +254,12 @@ describe('story model', function () {
       frames: [new Frame(), new Frame(), new Frame()],
       frameDuration
     });
-    jest.useFakeTimers();
+    vi.useFakeTimers();
     story.play();
     expect(story.playing).toEqual(true);
-    jest.advanceTimersByTime(frameDuration);
+    vi.advanceTimersByTime(frameDuration);
     expect(story.selectedFrameIndex).toEqual(1);
-    jest.useRealTimers();
+    vi.useRealTimers();
   });
 
   it('should pause', function () {
@@ -268,20 +268,20 @@ describe('story model', function () {
       frames: [new Frame(), new Frame(), new Frame()],
       frameDuration
     });
-    jest.useFakeTimers();
-    let callback = jest.fn();
+    vi.useFakeTimers();
+    let callback = vi.fn();
     story.play(callback);
-    jest.advanceTimersByTime(frameDuration);
+    vi.advanceTimersByTime(frameDuration);
     expect(callback).toHaveBeenCalledTimes(1);
     expect(story.selectedFrameIndex).toEqual(1);
-    jest.advanceTimersByTime(frameDuration);
+    vi.advanceTimersByTime(frameDuration);
     expect(callback).toHaveBeenCalledTimes(2);
     expect(story.selectedFrameIndex).toEqual(2);
     story.pause();
     expect(story.playing).toEqual(false);
-    jest.advanceTimersByTime(frameDuration);
+    vi.advanceTimersByTime(frameDuration);
     expect(callback).toHaveBeenCalledTimes(2);
-    jest.useRealTimers();
+    vi.useRealTimers();
   });
 
   it('should undo', function () {
@@ -289,9 +289,9 @@ describe('story model', function () {
       frames: [new Frame(), new Frame(), new Frame()],
       selectedFrameIndex: 1
     });
-    story.frames[1].undo = jest.fn();
+    story.frames[1].undo = vi.fn();
     story.undo();
-    expect(story.frames[1].undo).toHaveBeenCalledOnce;
+    expect(story.frames[1].undo).toHaveBeenCalledOnce();
   });
 
   it('should redo', function () {
@@ -299,9 +299,9 @@ describe('story model', function () {
       frames: [new Frame(), new Frame(), new Frame()],
       selectedFrameIndex: 1
     });
-    story.frames[1].redo = jest.fn();
+    story.frames[1].redo = vi.fn();
     story.redo();
-    expect(story.frames[1].redo).toHaveBeenCalledOnce;
+    expect(story.frames[1].redo).toHaveBeenCalledOnce();
   });
 
   it('should export JSON', function () {

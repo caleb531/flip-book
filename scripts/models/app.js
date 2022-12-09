@@ -1,3 +1,4 @@
+import _ from 'underscore';
 import Story from './story.js';
 import StoryMetadata from './story-metadata.js';
 

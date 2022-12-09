@@ -1,3 +1,4 @@
+import m from 'mithril';
 import App from '../models/app.js';
 import UpdateNotificationComponent from './update-notification.js';
 import AppHeaderComponent from './app-header.js';
@@ -8,7 +9,7 @@ class AppComponent {
 
   oninit() {
     this.app = App.restore();
-    if (navigator.serviceWorker && !window.__karma__ && window.location.port !== '8080') {
+    if (navigator.serviceWorker && (!window.location.hostname.includes('localhost') || sessionStorage.getItem('sw'))) {
       let serviceWorker = navigator.serviceWorker.register('service-worker.js');
       this.updateManager = new SWUpdateManager(serviceWorker);
       this.updateManager.on('updateAvailable', () => m.redraw());
