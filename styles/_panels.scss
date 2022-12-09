@@ -8,7 +8,7 @@
   margin-left: -($control-arrow-width * 2);
   background-color: $panel-background-color;
   color: $color-white;
-  filter: drop-shadow(0 1px 5px rgba($color-black, 0.5));
+  box-shadow: 0 1px 5px rgba($color-black, 0.5);
   // Dropdown arrow
   &:after {
     content: '';
