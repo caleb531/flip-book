@@ -79,8 +79,10 @@ npm install -g pnpm
 pnpm install
 ```
 
-You can then serve the app locally and view it at `http://localhost:8080`:
+You can then serve the app locally via:
 
 ```sh
-npm run dev
+pnpm dev
 ```
+
+When the server starts up, the app can be viewed at `http://localhost:5173`.
