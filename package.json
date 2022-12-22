@@ -2,6 +2,7 @@
   "name": "flip-book",
   "version": "2.1.0",
   "description": "An interactive flip book",
+  "packageManager": "^pnpm@7.18.2",
   "type": "module",
   "scripts": {
     "dev": "vite --open",
