@@ -3,7 +3,6 @@
   "version": "2.1.0",
   "description": "An interactive flip book",
   "private": true,
-  "packageManager": "^pnpm@7.18.2",
   "type": "module",
   "scripts": {
     "dev": "vite --open",
