@@ -26,8 +26,9 @@
     "fastclick": "^1.0.6",
     "gif.js.optimized": "^1.0.1",
     "mithril": "^2.0.4",
-    "sw-update-manager": "^1.0.0",
-    "underscore": "^1.9.1"
+    "underscore": "^1.9.1",
+    "vite-plugin-pwa": "^0.14.0",
+    "workbox-window": "^6.5.4"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.16.5",
@@ -39,6 +40,6 @@
     "sass": "^1.35.2",
     "vite": "^4.0.1",
     "vitest": "^0.25.6",
-    "workbox-build": "^4.3.1"
+    "workbox-build": "^6.5.4"
   }
 }

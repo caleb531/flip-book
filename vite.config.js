@@ -1,5 +1,5 @@
 import { defineConfig } from 'vite';
-import { injectManifest } from 'rollup-plugin-workbox';
+import { VitePWA } from 'vite-plugin-pwa';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -9,23 +9,73 @@ export default defineConfig({
   // specify . as the base directory to serve from
   base: './',
   plugins: [
-    injectManifest({
-      globDirectory: 'dist',
-      globPatterns: [
-        '**\/*.{js,css,png}',
-        'icons/*.svg'
-      ],
-      // Precaching index.html using templatedURLs fixes a "Response served by
-      // service worker has redirections" error on iOS 12; see
-      // <https://github.com/v8/v8.dev/issues/4> and
-      // <https://github.com/v8/v8.dev/pull/7>
-      templatedURLs: {
-        // '.' must be used instead of '/' because the app is not served from the
-        // root of the domain (but rather, from a subdirectory)
-        '.': ['index.html']
+    VitePWA({
+      filename: 'service-worker.js',
+      workbox: {
+        globPatterns: ['**/*.{js,css,html,ico,png,svg}'],
+        // Include Google Fonts in service worker cache
+        runtimeCaching: [
+          {
+            urlPattern: /^https:\/\/fonts\.googleapis\.com/,
+            handler: 'StaleWhileRevalidate',
+            options: {
+              cacheName: 'google-fonts-stylesheets',
+              cacheableResponse: {
+                statuses: [0, 200]
+              }
+            }
+          },
+          {
+            urlPattern: /https:\/\/fonts\.gstatic\.com/,
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'google-fonts-webfonts',
+              cacheableResponse: {
+                statuses: [0, 200]
+              },
+              expiration: {
+                maxAgeSeconds: 60 * 60 * 24 * 365,
+                maxEntries: 30
+              }
+            }
+          }
+        ],
+        cleanupOutdatedCaches: true
       },
-      swSrc: 'scripts/service-worker.js',
-      swDest: 'dist/service-worker.js'
+      manifest: {
+        short_name: 'Flip Book',
+        name: 'Flip Book',
+        description: 'Create flip book-style animations to share with friends. Draw each scene, frame by frame, then export your story to a GIF when you\'re ready to show it off.',
+        start_url: '.',
+        display: 'standalone',
+        orientation: 'any',
+        theme_color: '#ffffff',
+        background_color: '#ffffff',
+        icons: [
+          {
+            src: 'app-icon-192.png',
+            sizes: '192x192',
+            type: 'image/png'
+          },
+          {
+            src: 'app-icon-192-maskable.png',
+            sizes: '192x192',
+            type: 'image/png',
+            purpose: 'maskable'
+          },
+          {
+            src: 'app-icon-512.png',
+            sizes: '512x512',
+            type: 'image/png'
+          },
+          {
+            src: 'app-icon-512-maskable.png',
+            sizes: '512x512',
+            type: 'image/png',
+            purpose: 'maskable'
+          }
+        ]
+      }
     })
   ],
   test: {

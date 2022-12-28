@@ -3,18 +3,11 @@ import App from '../models/app.js';
 import UpdateNotificationComponent from './update-notification.js';
 import AppHeaderComponent from './app-header.js';
 import StoryComponent from './story.js';
-import SWUpdateManager from 'sw-update-manager';
 
 class AppComponent {
 
   oninit() {
     this.app = App.restore();
-    if (navigator.serviceWorker && (!window.location.hostname.includes('localhost') || sessionStorage.getItem('sw'))) {
-      let serviceWorker = navigator.serviceWorker.register('service-worker.js');
-      this.updateManager = new SWUpdateManager(serviceWorker);
-      this.updateManager.on('updateAvailable', () => m.redraw());
-      this.updateManager.checkForUpdates();
-    }
   }
 
   oncreate({dom}) {
@@ -46,9 +39,8 @@ class AppComponent {
       onkeydown: (event) => this.navigateFramesViaKeyboard(event)
     }, [
 
-      this.updateManager ? m(UpdateNotificationComponent, {
-        updateManager: this.updateManager
-      }) : null,
+      // The UpdateNotificationComponent manages its own visibility
+      m(UpdateNotificationComponent),
 
       m(AppHeaderComponent),
 
