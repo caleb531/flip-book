@@ -1,6 +1,7 @@
 lockfileVersion: 5.4
 
 specifiers:
+  '@fontsource/roboto-slab': ^4.5.11
   '@testing-library/jest-dom': ^5.16.5
   '@vitest/coverage-c8': ^0.25.6
   eslint: ^8.21.0
@@ -19,6 +20,7 @@ specifiers:
   workbox-window: ^6.5.4
 
 dependencies:
+  '@fontsource/roboto-slab': 4.5.11
   fastclick: 1.0.6
   gif.js.optimized: 1.0.1
   mithril: 2.0.4
@@ -1314,6 +1316,10 @@ packages:
     transitivePeerDependencies:
       - supports-color
     dev: true
+
+  /@fontsource/roboto-slab/4.5.11:
+    resolution: {integrity: sha512-0HXK8WNvZZg4vglhUY4ySBmlh+wnO1JsGcPfCaxDhY24gtRf2POmmeNpSxKFjjQTDV8BiYDXF2H9p15d/6c/YA==}
+    dev: false
 
   /@humanwhocodes/config-array/0.10.4:
     resolution: {integrity: sha512-mXAIHxZT3Vcpg83opl1wGlVZ9xydbfZO3r5YfRSH6Gpp2J/PfdBP0wbDa2sO6/qRbcalpoevVyW6A/fI6LfeMw==}

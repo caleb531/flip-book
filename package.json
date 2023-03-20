@@ -23,6 +23,7 @@
   },
   "homepage": "https://gitlab.com/caleb531/flip-book#README",
   "dependencies": {
+    "@fontsource/roboto-slab": "^4.5.11",
     "fastclick": "^1.0.6",
     "gif.js.optimized": "^1.0.1",
     "mithril": "^2.0.4",

@@ -12,34 +12,7 @@ export default defineConfig({
     VitePWA({
       filename: 'service-worker.js',
       workbox: {
-        globPatterns: ['**/*.{js,css,html,ico,png,svg}'],
-        // Include Google Fonts in service worker cache
-        runtimeCaching: [
-          {
-            urlPattern: /^https:\/\/fonts\.googleapis\.com/,
-            handler: 'StaleWhileRevalidate',
-            options: {
-              cacheName: 'google-fonts-stylesheets',
-              cacheableResponse: {
-                statuses: [0, 200]
-              }
-            }
-          },
-          {
-            urlPattern: /https:\/\/fonts\.gstatic\.com/,
-            handler: 'CacheFirst',
-            options: {
-              cacheName: 'google-fonts-webfonts',
-              cacheableResponse: {
-                statuses: [0, 200]
-              },
-              expiration: {
-                maxAgeSeconds: 60 * 60 * 24 * 365,
-                maxEntries: 30
-              }
-            }
-          }
-        ],
+        globPatterns: ['**/*.{js,css,html,ico,png,svg,woff,woff2}'],
         cleanupOutdatedCaches: true
       },
       manifest: {
