@@ -26,20 +26,20 @@
     "@fontsource/roboto-slab": "^4.5.11",
     "fastclick": "^1.0.6",
     "gif.js.optimized": "^1.0.1",
-    "mithril": "^2.0.4",
-    "underscore": "^1.9.1",
-    "vite-plugin-pwa": "^0.14.0",
+    "mithril": "^2.2.2",
+    "underscore": "^1.13.6",
+    "vite-plugin-pwa": "^0.14.7",
     "workbox-window": "^6.5.4"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.16.5",
-    "@vitest/coverage-c8": "^0.25.6",
-    "eslint": "^8.21.0",
-    "eslint-plugin-jest": "^27.1.6",
-    "jsdom": "^20.0.3",
-    "sass": "^1.35.2",
-    "vite": "^4.0.1",
-    "vitest": "^0.25.6",
+    "@vitest/coverage-c8": "^0.30.1",
+    "eslint": "^8.38.0",
+    "eslint-plugin-jest": "^27.2.1",
+    "jsdom": "^21.1.1",
+    "sass": "^1.62.0",
+    "vite": "^4.3.1",
+    "vitest": "^0.30.1",
     "workbox-build": "^6.5.4"
   }
 }
