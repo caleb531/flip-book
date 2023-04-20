@@ -37,7 +37,6 @@
     "eslint": "^8.21.0",
     "eslint-plugin-jest": "^27.1.6",
     "jsdom": "^20.0.3",
-    "rollup-plugin-workbox": "^6.2.0",
     "sass": "^1.35.2",
     "vite": "^4.0.1",
     "vitest": "^0.25.6",
