@@ -2,8 +2,8 @@ lockfileVersion: '6.0'
 
 dependencies:
   '@fontsource/roboto-slab':
-    specifier: ^4.5.11
-    version: 4.5.11
+    specifier: ^5.0.0
+    version: 5.0.0
   fastclick:
     specifier: ^1.0.6
     version: 1.0.6
@@ -1331,8 +1331,8 @@ packages:
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     dev: true
 
-  /@fontsource/roboto-slab@4.5.11:
-    resolution: {integrity: sha512-0HXK8WNvZZg4vglhUY4ySBmlh+wnO1JsGcPfCaxDhY24gtRf2POmmeNpSxKFjjQTDV8BiYDXF2H9p15d/6c/YA==}
+  /@fontsource/roboto-slab@5.0.0:
+    resolution: {integrity: sha512-rwZGzoJjO+1gVcZ3YusGOnEoYAm61f0XbW0aA1pLxxkoKpdgYn3YqAGg2fXGovL4XfdcDRw4EAFrVQ3N4JKWPw==}
     dev: false
 
   /@humanwhocodes/config-array@0.11.8:
