@@ -1,0 +1,14 @@
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  fill: none;
+  stroke: $color-blue;
+  stroke-width: 1.5;
+  svg {
+    $icon-size: 100px;
+    width: $icon-size;
+    height: $icon-size;
+    animation: spin 1000ms linear infinite;
+  }
+}

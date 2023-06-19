@@ -3,6 +3,7 @@ import App from '../models/app.js';
 import UpdateNotificationComponent from './update-notification.js';
 import AppHeaderComponent from './app-header.js';
 import StoryComponent from './story.js';
+import StorageUpgraderComponent from './storage-upgrader.js';
 
 class AppComponent {
 
@@ -44,6 +45,8 @@ class AppComponent {
 
       // The UpdateNotificationComponent manages its own visibility
       m(UpdateNotificationComponent),
+
+      m(StorageUpgraderComponent),
 
       m(AppHeaderComponent),
 

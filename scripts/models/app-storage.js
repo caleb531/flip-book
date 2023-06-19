@@ -12,7 +12,7 @@ class AppStorage {
       // The browser must support IndexedDB
       typeof indexedDB !== 'undefined' &&
         // The user does not have any app-specific data left in localStorage
-        !Object.keys(localStorage).find((key) => /^flipbook-/.test(key))
+        !Object.keys(localStorage).find((key) => this.appKeyPattern.test(key))
     );
   }
 
@@ -60,5 +60,8 @@ class AppStorage {
     }
   }
 }
+// A regular expression used to identify localStorage keys specific to this
+// application within a shared localStorage store
+AppStorage.prototype.appKeyPattern = /^flipbook-/;
 
 export default new AppStorage();

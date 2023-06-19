@@ -1,10 +1,17 @@
 import m from 'mithril';
+import OverlayComponent from './overlay';
 
 class PanelComponent {
 
-  view({attrs: {id, position}, children}) {
+  view({attrs: {id, position, dismissable = true}, children}) {
     return PanelComponent.panelIsOpen(id) ? [
-      m('div.panel-overlay', {onclick: () => PanelComponent.closeAllPanels()}),
+      m(OverlayComponent, {
+        onDismiss: () => {
+          if (dismissable) {
+            PanelComponent.closeAllPanels();
+          }
+        }
+      }),
       m(`div.panel.panel-${id}.panel-position-${position}`, children)
     ] : null;
   }
