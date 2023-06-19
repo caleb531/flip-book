@@ -4,14 +4,6 @@ import Story from '../scripts/models/story.js';
 
 describe('app model', function () {
 
-  beforeEach(function () {
-    localStorage.setItem('flipbook-storage-version', '2');
-  });
-
-  afterEach(function () {
-    localStorage.removeItem('flipbook-storage-version');
-  });
-
   it('should initialize with default arguments', function () {
     let app = new App();
     expect(app).toHaveProperty('stories');
@@ -37,29 +29,6 @@ describe('app model', function () {
     expect(app).toHaveProperty('selectedStoryIndex', 1);
     expect(app).toHaveProperty('selectedStory');
     expect(app.selectedStory).toBeInstanceOf(Story);
-  });
-
-  it('should upgrade data store on initialization', function () {
-    localStorage.removeItem('flipbook-storage-version');
-    localStorage.setItem('flipbook-story', JSON.stringify({
-      frameDuration: 125,
-      numPreviousFramesToShow: 2
-    }));
-    let app = new App();
-    let key = `flipbook-story-${app.stories[0].createdDate}`;
-    let storyJson = JSON.parse(localStorage.getItem(key));
-    expect(storyJson).toHaveProperty('frameDuration', 125);
-    expect(storyJson).toHaveProperty('numPreviousFramesToShow', 2);
-    expect(localStorage.getItem('flipbook-storage-version')).toEqual('2');
-    expect(localStorage.getItem('flipbook-story')).toEqual(null);
-  });
-
-  it('should mark data store as v2 even if nothing to upgrade', function () {
-    localStorage.removeItem('flipbook-storage-version');
-    let app = new App();
-    expect(app.stories).toHaveLength(1);
-    expect(localStorage.getItem('flipbook-storage-version')).toEqual('2');
-    expect(localStorage.getItem('flipbook-story')).toEqual(null);
   });
 
   it('should select story', function () {

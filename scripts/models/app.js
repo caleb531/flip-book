@@ -7,28 +7,10 @@ class App {
   constructor({stories = [new StoryMetadata()], selectedStoryIndex = 0} = {}) {
     this.stories = stories.map((storyMetadata) => new StoryMetadata(storyMetadata));
     this.selectStory(selectedStoryIndex);
-    this.upgradeToMultiStoryFormat();
   }
 
   save() {
     localStorage.setItem('flipbook-manifest', JSON.stringify(this));
-  }
-
-  upgradeToMultiStoryFormat() {
-    if (localStorage.getItem('flipbook-storage-version') !== '2') {
-      let oldStoryJson = JSON.parse(localStorage.getItem('flipbook-story'));
-      if (oldStoryJson) {
-        let oldStory = new Story(oldStoryJson);
-        // Replace the contents of the default v2 story with the contents of the
-        // old (v1) story
-        oldStory.metadata = this.getSelectedStoryMetadata();
-        oldStory.save();
-        localStorage.removeItem('flipbook-story');
-        this.selectStory(0);
-        this.save();
-      }
-      localStorage.setItem('flipbook-storage-version', '2');
-    }
   }
 
   selectStory(storyIndex) {
