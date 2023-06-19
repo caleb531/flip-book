@@ -7,9 +7,9 @@ class StoryListComponent {
     this.app = app;
   }
 
-  selectStory(storyItemElement) {
-    this.app.selectStory(Number(storyItemElement.dataset.index));
-    this.app.save();
+  async selectStory(storyItemElement) {
+    await this.app.selectStory(Number(storyItemElement.dataset.index));
+    await this.app.save();
     PanelComponent.closeAllPanels();
   }
 

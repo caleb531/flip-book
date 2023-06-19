@@ -56,11 +56,11 @@ class DrawingAreaComponent extends FrameComponent {
     event.redraw = false;
   }
 
-  handleDrawEnd(event) {
+  async handleDrawEnd(event) {
     event.preventDefault();
     if (this.drawingEnabled && this.mousedown) {
       this.mousedown = false;
-      this.story.save();
+      await this.story.save();
     } else {
       event.redraw = false;
     }
@@ -96,16 +96,16 @@ class DrawingAreaComponent extends FrameComponent {
     this.handleDrawEnd(event);
   }
 
-  undo() {
+  async undo() {
     this.frame.undo();
     this.render();
-    this.story.save();
+    await this.story.save();
   }
 
-  redo() {
+  async redo() {
     this.frame.redo();
     this.render();
-    this.story.save();
+    await this.story.save();
   }
 
   view() {

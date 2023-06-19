@@ -1,6 +1,7 @@
 import _ from 'underscore';
 import Frame from './frame.js';
 import StoryMetadata from './story-metadata.js';
+import appStorage from './app-storage.js';
 
 class Story {
 
@@ -102,8 +103,8 @@ class Story {
     this.getSelectedFrame().redo();
   }
 
-  save() {
-    localStorage.setItem(`flipbook-story-${this.metadata.createdDate}`, JSON.stringify(this));
+  async save() {
+    await appStorage.set(`flipbook-story-${this.metadata.createdDate}`, this);
   }
 
   toJSON() {

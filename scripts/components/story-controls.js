@@ -6,52 +6,52 @@ import TimelineComponent from './timeline.js';
 
 class StoryControlsComponent {
 
-  skipToFirstFrame(story) {
+  async skipToFirstFrame(story) {
     story.selectFrame(0);
-    story.save();
+    await story.save();
   }
 
   playStory(story) {
     story.play(() => m.redraw());
   }
 
-  pauseStory(story) {
+  async pauseStory(story) {
     story.pause();
-    story.save();
+    await story.save();
   }
 
-  addNewFrame(story) {
+  async addNewFrame(story) {
     story.addNewFrame();
-    story.save();
+    await story.save();
   }
 
-  duplicateCurrentFrame(story) {
+  async duplicateCurrentFrame(story) {
     story.duplicateCurrentFrame();
-    story.save();
+    await story.save();
   }
 
   deleteSelectedFrame(story) {
     // Prevent the synchronous confirm() call from blocking the main thread;
     // this will allow Mithril to redraw and close all panels before showing the
     // modal
-    setTimeout(() => {
+    setTimeout(async () => {
       if (!confirm('Are you sure you want to delete this frame? This cannot be undone.')) {
         return;
       }
       story.deleteSelectedFrame();
-      story.save();
+      await story.save();
       m.redraw();
     });
   }
 
-  undo(story) {
+  async undo(story) {
     story.undo();
-    story.save();
+    await story.save();
   }
 
-  redo(story) {
+  async redo(story) {
     story.redo();
-    story.save();
+    await story.save();
   }
 
   view({attrs: {story}}) {

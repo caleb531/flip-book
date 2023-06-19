@@ -31,9 +31,9 @@ class ImportComponent {
       m.redraw();
     };
     reader.onload = (event) => {
-      setTimeout(() => {
+      setTimeout(async () => {
         let story = new Story(JSON.parse(event.target.result));
-        this.app.addExistingStory(story);
+        await this.app.addExistingStory(story);
         this.storyAdded = story;
         m.redraw();
         // Show success message for a brief moment, then close panel to take

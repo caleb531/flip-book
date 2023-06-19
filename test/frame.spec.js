@@ -1,8 +1,8 @@
 import Frame from '../scripts/models/frame.js';
 
-describe('frame model', function () {
+describe('frame model', async () => {
 
-  it('should initialize with default arguments', function () {
+  it('should initialize with default arguments', async () => {
     let frame = new Frame();
     expect(frame.styles).toHaveProperty('strokeStyle', '#000');
     expect(frame.styles).toHaveProperty('lineWidth', 12);
@@ -10,7 +10,7 @@ describe('frame model', function () {
     expect(frame.undoHistory).toHaveLength(0);
   });
 
-  it('should initialize with default arguments', function () {
+  it('should initialize with default arguments', async () => {
     let frame = new Frame({
       styles: {
         strokeStyle: '#6c3',
@@ -31,7 +31,7 @@ describe('frame model', function () {
     expect(frame.strokeGroups[0].styles).toHaveProperty('lineWidth', 16);
   });
 
-  it('should read groups argument into strokeGroups', function () {
+  it('should read groups argument into strokeGroups', async () => {
     let frame = new Frame({
       groups: [{
         points: [[300, 150]],
@@ -48,7 +48,7 @@ describe('frame model', function () {
     expect(frame.strokeGroups[0].styles).toHaveProperty('lineWidth', 16);
   });
 
-  it('should add new group', function () {
+  it('should add new group', async () => {
     let frame = new Frame();
     frame.startNewGroup({
       styles: {
@@ -62,7 +62,7 @@ describe('frame model', function () {
     expect(frame.strokeGroups[0].styles).toHaveProperty('lineWidth', 20);
   });
 
-  it('should add new point', function () {
+  it('should add new point', async () => {
     let frame = new Frame();
     frame.startNewGroup({
       styles: {
@@ -79,7 +79,7 @@ describe('frame model', function () {
     expect(frame.strokeGroups[0].styles).toHaveProperty('lineWidth', 20);
   });
 
-  it('should combine points with same slope', function () {
+  it('should combine points with same slope', async () => {
     let frame = new Frame();
     frame.startNewGroup({
       styles: {
@@ -96,7 +96,7 @@ describe('frame model', function () {
     expect(frame.strokeGroups[0].points[1][1]).toEqual(0);
   });
 
-  it('should count points in last group', function () {
+  it('should count points in last group', async () => {
     let frame = new Frame();
     frame.startNewGroup();
     expect(frame.countPointsInLastStrokeGroup()).toEqual(0);
@@ -107,12 +107,12 @@ describe('frame model', function () {
     expect(frame.countPointsInLastStrokeGroup()).toEqual(3);
   });
 
-  it('should count zero points if there are no groups', function () {
+  it('should count zero points if there are no groups', async () => {
     let frame = new Frame();
     expect(frame.countPointsInLastStrokeGroup()).toEqual(0);
   });
 
-  it('should undo stroke', function () {
+  it('should undo stroke', async () => {
     let frame = new Frame();
     frame.startNewGroup();
     frame.addPoint(300, 150);
@@ -125,13 +125,13 @@ describe('frame model', function () {
     expect(frame.undoHistory[0]).toEqual(lastGroup);
   });
 
-  it('should do nothing if there is nothing to undo', function () {
+  it('should do nothing if there is nothing to undo', async () => {
     let frame = new Frame();
     frame.undo();
     expect(frame.undoHistory).toHaveLength(0);
   });
 
-  it('should redo stroke', function () {
+  it('should redo stroke', async () => {
     let frame = new Frame();
     frame.startNewGroup();
     frame.addPoint(300, 150);
@@ -145,13 +145,13 @@ describe('frame model', function () {
     expect(frame.strokeGroups[1]).toEqual(lastGroup);
   });
 
-  it('should do nothing if there is nothing to redo', function () {
+  it('should do nothing if there is nothing to redo', async () => {
     let frame = new Frame();
     frame.redo();
     expect(frame.undoHistory).toHaveLength(0);
   });
 
-  it('should reset undo history', function () {
+  it('should reset undo history', async () => {
     let frame = new Frame();
     frame.startNewGroup();
     frame.addPoint(300, 150);
@@ -161,7 +161,7 @@ describe('frame model', function () {
     expect(frame.undoHistory).toHaveLength(0);
   });
 
-  it('should export JSON', function () {
+  it('should export JSON', async () => {
     let json = new Frame().toJSON();
     expect(json).toHaveProperty('styles');
     expect(json.styles).toHaveProperty('strokeStyle');

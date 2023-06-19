@@ -1,39 +1,49 @@
 import _ from 'underscore';
 import Story from './story.js';
 import StoryMetadata from './story-metadata.js';
+import appStorage from './app-storage.js';
 
 class App {
 
   constructor({stories = [new StoryMetadata()], selectedStoryIndex = 0} = {}) {
     this.stories = stories.map((storyMetadata) => new StoryMetadata(storyMetadata));
-    this.selectStory(selectedStoryIndex);
+    this.selectedStoryIndex = selectedStoryIndex || 0;
   }
 
-  save() {
-    localStorage.setItem('flipbook-manifest', JSON.stringify(this));
+  async save() {
+    await appStorage.set('flipbook-manifest', this);
   }
 
-  selectStory(storyIndex) {
+  async selectStory(storyIndex) {
     this.selectedStoryIndex = storyIndex || 0;
-    this.selectedStory = this.loadStory(this.getSelectedStoryMetadata().createdDate);
+    this.selectedStory = await this.getStoryFromStorage(this.getSelectedStoryMetadata().createdDate);
     this.selectedStory.metadata = this.getSelectedStoryMetadata();
+  }
+
+  async loadSelectedStory() {
+    return this.selectStory(this.selectedStoryIndex);
+  }
+
+  async getSelectedStory() {
+    return this.selectedStoryPromise;
   }
 
   getSelectedStoryMetadata() {
     return this.stories[this.selectedStoryIndex];
   }
 
-  getSelectedStoryName() {
+  async getSelectedStoryName() {
     return this.selectedStory.metadata.name;
   }
 
-  renameSelectedStory(newStoryName) {
-    this.selectedStory.metadata.name = newStoryName;
-    this.save();
+  async renameSelectedStory(newStoryName) {
+    let selectedStory = this.selectedStory;
+    selectedStory.metadata.name = newStoryName;
+    await this.save();
   }
 
-  loadStory(storyId) {
-    let story = JSON.parse(localStorage.getItem(`flipbook-story-${storyId}`));
+  async getStoryFromStorage(storyId) {
+    let story = await appStorage.get(`flipbook-story-${storyId}`);
     if (!story) {
       return new Story();
     } else {
@@ -41,30 +51,30 @@ class App {
     }
   }
 
-  createNewStoryWithName(storyName) {
+  async createNewStoryWithName(storyName) {
     this.stories.unshift(new StoryMetadata({
       name: storyName
     }));
-    this.selectStory(0);
-    this.save();
+    await this.selectStory(0);
+    await this.save();
   }
 
-  addExistingStory(story) {
-    story.save();
+  async addExistingStory(story) {
+    await story.save();
     this.stories.unshift(story.metadata);
-    this.selectStory(0);
-    this.save();
+    await this.selectStory(0);
+    await this.save();
   }
 
-  deleteSelectedStory() {
+  async deleteSelectedStory() {
     if (this.stories.length === 1) {
       this.stories.splice(this.selectedStoryIndex, 1, new StoryMetadata());
-      this.selectStory(0);
+      await this.selectStory(0);
     } else {
       this.stories.splice(this.selectedStoryIndex, 1);
-      this.selectStory(Math.max(0, this.selectedStoryIndex - 1));
+      await this.selectStory(Math.max(0, this.selectedStoryIndex - 1));
     }
-    this.save();
+    await this.save();
   }
 
   toJSON() {
@@ -75,16 +85,18 @@ class App {
 
 App.saveDelay = 250;
 
-App.restore = function () {
-  let app = JSON.parse(localStorage.getItem('flipbook-manifest'));
-  if (!app) {
+App.restore = async function () {
+  let appData = await appStorage.get('flipbook-manifest');
+  let app;
+  if (!appData) {
     // The default app for brand new sessions
     app = new App();
-    app.save();
-    return app;
+    await app.save();
   } else {
-    return new App(app);
+    app = new App(appData);
+    await app.loadSelectedStory();
   }
+  return app;
 };
 
 export default App;

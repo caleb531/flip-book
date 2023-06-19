@@ -3,24 +3,24 @@ import ControlComponent from './control.js';
 
 class SettingsComponent {
 
-  setFrameDuration(story, framesPerSecond) {
+  async setFrameDuration(story, framesPerSecond) {
     story.setFramesPerSecond(Number(framesPerSecond));
-    story.save();
+    await story.save();
   }
 
-  incrementNumPreviousFramesToShow(story) {
+  async incrementNumPreviousFramesToShow(story) {
     story.numPreviousFramesToShow = Math.min(story.numPreviousFramesToShow + 1, 4);
-    story.save();
+    await story.save();
   }
 
-  decrementNumPreviousFramesToShow(story) {
+  async decrementNumPreviousFramesToShow(story) {
     story.numPreviousFramesToShow = Math.max(0, story.numPreviousFramesToShow - 1);
-    story.save();
+    await story.save();
   }
 
-  setLineWidth(story, lineWidth) {
+  async setLineWidth(story, lineWidth) {
     story.frameStyles.lineWidth = Number(lineWidth);
-    story.save();
+    await story.save();
   }
 
   view({attrs: {story}}) {

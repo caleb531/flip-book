@@ -14,10 +14,10 @@ class StoryHeaderComponent {
     // Prevent the synchronous prompt() call from blocking the main thread; this
     // will allow Mithril to redraw and close all panels before showing the
     // modal
-    setTimeout(() => {
+    setTimeout(async () => {
       let storyName = prompt('Please enter a name for your new story:') || '';
       if (storyName.trim()) {
-        this.app.createNewStoryWithName(storyName.trim());
+        await this.app.createNewStoryWithName(storyName.trim());
         PanelComponent.closeAllPanels();
         m.redraw();
       }
@@ -28,10 +28,10 @@ class StoryHeaderComponent {
     // Prevent the synchronous confirm() call from blocking the main thread;
     // this will allow Mithril to redraw and close all panels before showing the
     // modal
-    setTimeout(() => {
-      let newStoryName = prompt('Enter the new name for your story:', this.app.getSelectedStoryName()) || '';
+    setTimeout(async () => {
+      let newStoryName = prompt('Enter the new name for your story:', await this.app.getSelectedStoryName()) || '';
       if (newStoryName.trim()) {
-        this.app.renameSelectedStory(newStoryName.trim());
+        await this.app.renameSelectedStory(newStoryName.trim());
         m.redraw();
       }
     });

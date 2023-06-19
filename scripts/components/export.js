@@ -88,9 +88,9 @@ class ExportComponent {
     a.click();
   }
 
-  setExportedGifSize(story, size) {
+  async setExportedGifSize(story, size) {
     story.exportedGifSize = Number(size);
-    story.save();
+    await story.save();
   }
 
   view({attrs: {story}}) {

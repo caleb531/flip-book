@@ -1,5 +1,9 @@
 lockfileVersion: '6.0'
 
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
 dependencies:
   '@fontsource/roboto-slab':
     specifier: ^5.0.0
@@ -36,6 +40,9 @@ devDependencies:
   eslint-plugin-jest:
     specifier: ^27.2.1
     version: 27.2.1(eslint@8.38.0)(typescript@4.9.4)
+  idb-keyval:
+    specifier: ^6.2.1
+    version: 6.2.1
   jsdom:
     specifier: ^21.1.1
     version: 21.1.1
@@ -2715,6 +2722,10 @@ packages:
     engines: {node: '>=0.10.0'}
     dependencies:
       safer-buffer: 2.1.2
+    dev: true
+
+  /idb-keyval@6.2.1:
+    resolution: {integrity: sha512-8Sb3veuYCyrZL+VBt9LJfZjLUPWVvqn8tG28VqYNFCo43KHcKuq+b4EiXGeuaLAQWL2YmyDgMp2aSpH9JHsEQg==}
     dev: true
 
   /idb@7.0.2:

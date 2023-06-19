@@ -4,11 +4,11 @@ import FrameComponent from './frame.js';
 
 class TimelineComponent {
 
-  selectThumbnail(target, story) {
+  async selectThumbnail(target, story) {
     if (target.dataset.index) {
       story.selectFrame(Number(target.dataset.index));
       this.scrollSelectedThumbnailIntoView(target);
-      story.save();
+      await story.save();
     }
   }
 
@@ -41,7 +41,7 @@ class TimelineComponent {
     event.redraw = false;
   }
 
-  handleFrameDragenter(event, story) {
+  async handleFrameDragenter(event, story) {
     event.preventDefault();
     event.redraw = false;
     if (event.target.dataset.index) {
@@ -50,7 +50,7 @@ class TimelineComponent {
         story.moveFrame(this.oldFrameIndex, this.newFrameIndex);
         story.selectFrame(this.newFrameIndex);
         this.oldFrameIndex = this.newFrameIndex;
-        story.save();
+        await story.save();
         // Do not defer the next redraw
         delete event.redraw;
       }

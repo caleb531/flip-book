@@ -7,21 +7,24 @@ import StoryComponent from './story.js';
 class AppComponent {
 
   oninit() {
-    this.app = App.restore();
+    App.restore().then((app) => {
+      this.app = app;
+      m.redraw();
+    });
   }
 
   oncreate({dom}) {
     dom.focus();
   }
 
-  navigateFramesViaKeyboard(event) {
-    let story = this.app.selectedStory;
+  async navigateFramesViaKeyboard(event) {
+    let story = await this.app.selectedStory;
     if (event.key === 'ArrowLeft' && !story.playing) {
       story.selectPreviousFrame();
-      story.save();
+      await story.save();
     } else if (event.key === 'ArrowRight' && !story.playing) {
       story.selectNextFrame();
-      story.save();
+      await story.save();
     } else if (event.key === ' ') {
       event.preventDefault();
       if (story.playing) {
@@ -44,10 +47,10 @@ class AppComponent {
 
       m(AppHeaderComponent),
 
-      m(StoryComponent, {
+      this.app?.selectedStory ? m(StoryComponent, {
         app: this.app,
         story: this.app.selectedStory
-      })
+      }) : null
 
     ]);
   }
