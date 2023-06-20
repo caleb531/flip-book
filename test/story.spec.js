@@ -158,6 +158,17 @@ describe('story model', async () => {
     expect(story.selectedFrameIndex).toEqual(2);
   });
 
+  it('should duplicate current frame', async () => {
+    let story = new Story({
+      frames: [new Frame(), new Frame(), new Frame()],
+      selectedFrameIndex: 2
+    });
+    story.duplicateCurrentFrame();
+    expect(story.frames.length).toEqual(4);
+    expect(story.selectedFrameIndex).toEqual(3);
+    expect(JSON.stringify(story.frames[2])).toEqual(JSON.stringify(story.frames[3]));
+  });
+
   it('should delete selected frame', async () => {
     let story = new Story({
       frames: [new Frame(), new Frame(), new Frame(), new Frame()],
