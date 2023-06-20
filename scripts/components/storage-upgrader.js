@@ -8,15 +8,13 @@ import _ from 'underscore';
 class StorageUpgraderComponent {
   oninit() {
     this.upgrader = new StorageUpgrader();
-    if (true || this.upgrader.shouldUpgrade()) {
+    if (this.upgrader.shouldUpgrade()) {
       this.isVisible = true;
       this.upgrade();
     }
   }
 
   upgrade() {
-    console.log('upgrade() called; dry-run');
-    return;
     // Show the upgrade panel for a minimum of 1000ms so the user has time to
     // perceive what's happening
     setTimeout(() => {

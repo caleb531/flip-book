@@ -4,7 +4,6 @@ import appStorage from './app-storage';
 class StorageUpgrader {
   // Only upgrade the data store format under certain conditions
   shouldUpgrade() {
-    return false;
     return Boolean(
       // The browser must support IndexedDB
       typeof indexedDB !== 'undefined' &&
