@@ -6,6 +6,7 @@ class ModalComponent {
   view(vnode) {
     return [
       m(OverlayComponent, {
+        type: 'modal',
         onDismiss: () => {
           /* do nothing */
         }

@@ -6,6 +6,7 @@ class PanelComponent {
   view({attrs: {id, position, dismissable = true}, children}) {
     return PanelComponent.panelIsOpen(id) ? [
       m(OverlayComponent, {
+        type: 'panel',
         onDismiss: () => {
           if (dismissable) {
             PanelComponent.closeAllPanels();
