@@ -67,19 +67,19 @@ class DrawingAreaComponent extends FrameComponent {
   }
 
   handleTouchStart(event) {
-    if (event.changedTouches && event.changedTouches.length > 0) {
+    if (event.changedTouches?.length > 0) {
       this.handleDrawStart(event, event.changedTouches[0].pageX, event.changedTouches[0].pageY);
     }
   }
 
   handleTouchMove(event) {
-    if (event.changedTouches && event.changedTouches.length > 0) {
+    if (event.changedTouches?.length > 0) {
       this.handleDrawMove(event, event.changedTouches[0].pageX, event.changedTouches[0].pageY);
     }
   }
 
   handleTouchEnd(event) {
-    if (event.changedTouches && event.changedTouches.length > 0) {
+    if (event.changedTouches?.length > 0) {
       this.handleDrawEnd(event);
     }
   }
