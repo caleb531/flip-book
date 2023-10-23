@@ -184,6 +184,7 @@ describe('app model', async () => {
     expect(app.stories).toHaveLength(1);
     expect(app.selectedStoryIndex).toEqual(0);
     expect(app.stories[0].name).toEqual('My First Story');
+    expect(app.selectedStory.metadata.name).toEqual('My First Story');
   });
 
   it('should restore persisted app data', async () => {

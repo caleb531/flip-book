@@ -92,6 +92,7 @@ App.restore = async function () {
     // The default app for brand new sessions
     app = new App();
     await app.save();
+    await app.loadSelectedStory();
   } else {
     app = new App(appData);
     await app.loadSelectedStory();
