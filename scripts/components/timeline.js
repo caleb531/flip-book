@@ -67,7 +67,9 @@ class TimelineComponent {
   }
 
   handleFrameDrop(event) {
-    event.redraw = false;
+    // This placeholder handler simply exists to allow Mithril to automatically
+    // redraw the timeline when the thumbnail is dropped into its new location
+    // (simply by virtue of the event listener existing)
   }
 
   view({attrs: {story}}) {
