@@ -2,6 +2,9 @@ import m from 'mithril';
 import classNames from '../classnames.js';
 import FrameComponent from './frame.js';
 
+const FRAME_THUMBNAIL_WIDTH = 128;
+const FRAME_THUMBNAIL_HEIGHT = 72;
+
 class TimelineComponent {
 
   async selectThumbnail(target, story) {
@@ -88,8 +91,8 @@ class TimelineComponent {
       }, m(FrameComponent, {
         className: 'timeline-thumbnail-canvas',
         frame,
-        width: 128,
-        height: 72
+        width: FRAME_THUMBNAIL_WIDTH,
+        height: FRAME_THUMBNAIL_HEIGHT
       }));
     }));
   }
