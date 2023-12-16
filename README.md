@@ -1,6 +1,6 @@
 # Flip Book
 
-*Copyright 2018-2022 Caleb Evans*  
+*Copyright 2018-2023 Caleb Evans*  
 *Released under the MIT license*  
 *For my friend and brother, Bill.*
 
