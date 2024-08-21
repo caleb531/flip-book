@@ -1,8 +1,8 @@
 import m from 'mithril';
-import ControlComponent from './control.js';
-import SettingsComponent from './settings.js';
-import ExportComponent from './export.js';
-import TimelineComponent from './timeline.js';
+import ControlComponent from './control.jsx';
+import SettingsComponent from './settings.jsx';
+import ExportComponent from './export.jsx';
+import TimelineComponent from './timeline.jsx';
 
 class StoryControlsComponent {
 

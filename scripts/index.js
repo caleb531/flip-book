@@ -1,5 +1,5 @@
 import m from 'mithril';
-import AppComponent from './components/app.js';
+import AppComponent from './components/app.jsx';
 import '../styles/index.scss';
 import '@fontsource/roboto-slab/400.css';
 import '@fontsource/roboto-slab/600.css';

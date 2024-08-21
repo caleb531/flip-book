@@ -1,7 +1,7 @@
 import m from 'mithril';
 import classNames from '../classnames.js';
-import ControlComponent from './control.js';
-import ProgressBarComponent from './progress-bar.js';
+import ControlComponent from './control.jsx';
+import ProgressBarComponent from './progress-bar.jsx';
 
 class ExportGifComponent {
 

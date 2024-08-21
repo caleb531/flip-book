@@ -1,6 +1,6 @@
 import m from 'mithril';
 import classNames from '../classnames.js';
-import PanelComponent from './panel.js';
+import PanelComponent from './panel.jsx';
 
 class ControlComponent {
 

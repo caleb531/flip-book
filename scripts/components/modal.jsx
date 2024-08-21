@@ -1,5 +1,5 @@
 import m from 'mithril';
-import OverlayComponent from './overlay.js';
+import OverlayComponent from './overlay.jsx';
 
 class ModalComponent {
 

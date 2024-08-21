@@ -1,5 +1,5 @@
 import m from 'mithril';
-import FrameComponent from './frame.js';
+import FrameComponent from './frame.jsx';
 
 class DrawingAreaComponent extends FrameComponent {
 

@@ -1,8 +1,8 @@
 import m from 'mithril';
-import DismissableOverlayComponent from './overlay.js';
-import LoadingComponent from './loading.js';
+import DismissableOverlayComponent from './overlay.jsx';
+import LoadingComponent from './loading.jsx';
 import StorageUpgrader from '../models/storage-upgrader.js';
-import ModalComponent from './modal.js';
+import ModalComponent from './modal.jsx';
 import _ from 'underscore';
 
 class StorageUpgraderComponent {

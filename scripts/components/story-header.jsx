@@ -1,8 +1,8 @@
 import m from 'mithril';
-import ControlComponent from './control.js';
-import PanelComponent from './panel.js';
-import StoryListComponent from './story-list.js';
-import ImportComponent from './import.js';
+import ControlComponent from './control.jsx';
+import PanelComponent from './panel.jsx';
+import StoryListComponent from './story-list.jsx';
+import ImportComponent from './import.jsx';
 
 class StoryHeaderComponent {
 

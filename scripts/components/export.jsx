@@ -1,10 +1,10 @@
 import m from 'mithril';
 import GIF from 'gif.js.optimized';
 import GIFWorkerUrl from 'gif.js.optimized/dist/gif.worker.js?url';
-import FrameComponent from './frame.js';
-import ControlComponent from './control.js';
-import ProgressBarComponent from './progress-bar.js';
-import ExportGifComponent from './export-gif.js';
+import FrameComponent from './frame.jsx';
+import ControlComponent from './control.jsx';
+import ProgressBarComponent from './progress-bar.jsx';
+import ExportGifComponent from './export-gif.jsx';
 
 class ExportComponent {
 

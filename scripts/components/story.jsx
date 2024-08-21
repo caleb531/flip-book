@@ -1,6 +1,6 @@
 import m from 'mithril';
-import StoryHeaderComponent from './story-header.js';
-import StoryEditorComponent from './story-editor.js';
+import StoryHeaderComponent from './story-header.jsx';
+import StoryEditorComponent from './story-editor.jsx';
 
 class StoryComponent {
 

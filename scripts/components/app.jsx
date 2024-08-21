@@ -1,9 +1,9 @@
 import m from 'mithril';
 import App from '../models/app.js';
-import UpdateNotificationComponent from './update-notification.js';
-import AppHeaderComponent from './app-header.js';
-import StoryComponent from './story.js';
-import StorageUpgraderComponent from './storage-upgrader.js';
+import UpdateNotificationComponent from './update-notification.jsx';
+import AppHeaderComponent from './app-header.jsx';
+import StoryComponent from './story.jsx';
+import StorageUpgraderComponent from './storage-upgrader.jsx';
 
 class AppComponent {
 

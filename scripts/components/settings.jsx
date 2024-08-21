@@ -1,5 +1,5 @@
 import m from 'mithril';
-import ControlComponent from './control.js';
+import ControlComponent from './control.jsx';
 
 class SettingsComponent {
 

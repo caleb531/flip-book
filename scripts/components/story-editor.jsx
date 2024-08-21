@@ -1,8 +1,8 @@
 import m from 'mithril';
 import classNames from '../classnames.js';
-import FrameComponent from './frame.js';
-import DrawingAreaComponent from './drawing-area.js';
-import StoryControlsComponent from './story-controls.js';
+import FrameComponent from './frame.jsx';
+import DrawingAreaComponent from './drawing-area.jsx';
+import StoryControlsComponent from './story-controls.jsx';
 
 class StoryEditorComponent {
 

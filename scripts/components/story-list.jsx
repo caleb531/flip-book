@@ -1,5 +1,5 @@
 import m from 'mithril';
-import PanelComponent from './panel.js';
+import PanelComponent from './panel.jsx';
 
 class StoryListComponent {
 
