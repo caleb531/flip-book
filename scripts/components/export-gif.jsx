@@ -6,8 +6,8 @@ import ProgressBarComponent from './progress-bar.jsx';
 class ExportGifComponent {
 
   view({attrs: {isExportingGif, exportProgress, isGifExportFinished, exportedImageUrl, abort}}) {
-    return m('div.export-gif-screen', {
-      class: clsx({'visible': isExportingGif || isGifExportFinished})
+    return m('div', {
+      class: clsx('export-gif-screen', {'visible': isExportingGif || isGifExportFinished})
     }, [
       m(ControlComponent, {
         id: 'close-export-gif-overlay',

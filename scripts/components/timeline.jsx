@@ -80,7 +80,7 @@ class TimelineComponent {
       ondragenter: (event) => this.handleFrameDragenter(event, story),
       ondrop: (event) => this.handleFrameDrop(event, story)
     }, story.frames.map((frame, f) => {
-      return m('li.timeline-thumbnail', {
+      return m('li', {
         draggable: true,
         // Keying each thumbnail prevents the canvas redraws from compounding
         key: `timeline-thumbnail-${frame.temporaryId}`,
@@ -88,7 +88,7 @@ class TimelineComponent {
         oncreate: ({dom}) => this.scrollSelectedThumbnailIntoView(dom),
         // Scroll selected frame into view when navigating frames (Prev/Next)
         onupdate: ({dom}) => this.scrollSelectedThumbnailIntoView(dom),
-        class: clsx({'selected': story.selectedFrameIndex === f}),
+        class: clsx('timeline-thumbnail', {'selected': story.selectedFrameIndex === f}),
         'data-index': f
       }, m(FrameComponent, {
         className: 'timeline-thumbnail-canvas',

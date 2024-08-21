@@ -7,8 +7,8 @@ import StoryControlsComponent from './story-controls.jsx';
 class StoryEditorComponent {
 
   view({attrs: {story}}) {
-    return m('div.story-editor', {
-      class: clsx({'story-playing': story.playing})
+    return m('div', {
+      class: clsx('story-editor', {'story-playing': story.playing})
     }, [
 
       m('div.story-stage', [

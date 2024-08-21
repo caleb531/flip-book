@@ -5,8 +5,8 @@ class ProgressBarComponent {
 
   view({attrs: {progress = 0}}) {
     return m('div.progress-bar', [
-      m('div.progress-bar-current-progress', {
-        class: clsx({'no-progress': progress === 0}),
+      m('div', {
+        class: clsx('progress-bar-current-progress', {'no-progress': progress === 0}),
         style: {width: `${progress * 100}%`}
       })
     ]);
