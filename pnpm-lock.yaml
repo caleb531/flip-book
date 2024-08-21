@@ -28,9 +28,18 @@ dependencies:
     version: 7.1.0
 
 devDependencies:
+  '@eslint/js':
+    specifier: ^9.9.0
+    version: 9.9.0
   '@testing-library/jest-dom':
     specifier: ^6.4.6
     version: 6.4.6(vitest@2.0.1)
+  '@types/eslint-config-prettier':
+    specifier: ^6.11.3
+    version: 6.11.3
+  '@types/eslint__js':
+    specifier: ^8.42.3
+    version: 8.42.3
   '@types/node':
     specifier: ^20.14.10
     version: 20.14.10
@@ -43,6 +52,9 @@ devDependencies:
   eslint:
     specifier: ^9.9.0
     version: 9.9.0
+  eslint-config-prettier:
+    specifier: ^9.1.0
+    version: 9.1.0(eslint@9.9.0)
   eslint-plugin-jest:
     specifier: ^28.8.0
     version: 28.8.0(eslint@9.9.0)(typescript@5.5.4)
@@ -55,6 +67,9 @@ devDependencies:
   jsdom:
     specifier: ^24.1.0
     version: 24.1.0
+  prettier:
+    specifier: ^3.3.3
+    version: 3.3.3
   sass:
     specifier: ^1.77.6
     version: 1.77.6
@@ -1794,11 +1809,32 @@ packages:
       vitest: 2.0.1(@types/node@20.14.10)(jsdom@24.1.0)(sass@1.77.6)
     dev: true
 
+  /@types/eslint-config-prettier@6.11.3:
+    resolution: {integrity: sha512-3wXCiM8croUnhg9LdtZUJQwNcQYGWxxdOWDjPe1ykCqJFPVpzAKfs/2dgSoCtAvdPeaponcWPI7mPcGGp9dkKQ==}
+    dev: true
+
+  /@types/eslint@9.6.0:
+    resolution: {integrity: sha512-gi6WQJ7cHRgZxtkQEoyHMppPjq9Kxo5Tjn2prSKDSmZrCz8TZ3jSRCeTJm+WoM+oB0WG37bRqLzaaU3q7JypGg==}
+    dependencies:
+      '@types/estree': 1.0.5
+      '@types/json-schema': 7.0.15
+    dev: true
+
+  /@types/eslint__js@8.42.3:
+    resolution: {integrity: sha512-alfG737uhmPdnvkrLdZLcEKJ/B8s9Y4hrZ+YAdzUeoArBlSUERA2E87ROfOaS4jd/C45fzOoZzidLc1IPwLqOw==}
+    dependencies:
+      '@types/eslint': 9.6.0
+    dev: true
+
   /@types/estree@0.0.39:
     resolution: {integrity: sha512-EYNwp3bU+98cpU4lAWYYL7Zz+2gryWH1qbdDTidVd6hkiR6weksdbMadyXKXNPEkQFhXM+hVO9ZygomHXp+AIw==}
 
   /@types/estree@1.0.5:
     resolution: {integrity: sha512-/kYRxGDLWzHOB7q+wtSUQlFrtcdUccpfy+X+9iMBpHK8QLLhx2wIPYuS5DYtR9Wa/YlZAbIovy7qVdB1Aq6Lyw==}
+
+  /@types/json-schema@7.0.15:
+    resolution: {integrity: sha512-5+fP8P8MFNC+AyZCDxrB2pkZFPGzqQWUzpSeuuVLvm8VMcorNYavBqoFcxK8bQz4Qsbn4oUEEem4wDLfcysGHA==}
+    dev: true
 
   /@types/node@20.14.10:
     resolution: {integrity: sha512-MdiXf+nDuMvY0gJKxyfZ7/6UFsETO7mGKF54MVD/ekJS6HdFtpZFBgrh6Pseu64XTb2MLyFPlbW6hj8HYRQNOQ==}
@@ -2567,6 +2603,15 @@ packages:
   /escape-string-regexp@4.0.0:
     resolution: {integrity: sha512-TtpcNJ3XAzx3Gq8sWRzJaVajRs0uVxA2YAkdb1jm2YkPz4G6egUFAyA3n5vtEIZefPk5Wa4UXbKuS5fKkJWdgA==}
     engines: {node: '>=10'}
+    dev: true
+
+  /eslint-config-prettier@9.1.0(eslint@9.9.0):
+    resolution: {integrity: sha512-NSWl5BFQWEPi1j4TjVNItzYV7dZXZ+wP6I6ZhrBGpChQhZRUaElihE9uRRkcbRnNb76UMKDF3r+WTmNcGPKsqw==}
+    hasBin: true
+    peerDependencies:
+      eslint: '>=7.0.0'
+    dependencies:
+      eslint: 9.9.0
     dev: true
 
   /eslint-plugin-jest@28.8.0(eslint@9.9.0)(typescript@5.5.4):
@@ -3704,6 +3749,12 @@ packages:
   /prelude-ls@1.2.1:
     resolution: {integrity: sha512-vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g==}
     engines: {node: '>= 0.8.0'}
+    dev: true
+
+  /prettier@3.3.3:
+    resolution: {integrity: sha512-i2tDNA0O5IrMO757lfrdQZCc2jPNDVntV0m/+4whiDfWaTKfMNgR7Qz0NAeGz/nRqF4m5/6CLzbP4/liHt12Ew==}
+    engines: {node: '>=14'}
+    hasBin: true
     dev: true
 
   /pretty-bytes@5.6.0:
