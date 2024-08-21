@@ -1,5 +1,5 @@
 import m from 'mithril';
-import classNames from '../classnames.js';
+import clsx from 'clsx';
 import FrameComponent from './frame.jsx';
 import DrawingAreaComponent from './drawing-area.jsx';
 import StoryControlsComponent from './story-controls.jsx';
@@ -8,7 +8,7 @@ class StoryEditorComponent {
 
   view({attrs: {story}}) {
     return m('div.story-editor', {
-      class: classNames({'story-playing': story.playing})
+      class: clsx({'story-playing': story.playing})
     }, [
 
       m('div.story-stage', [

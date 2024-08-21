@@ -1,5 +1,5 @@
 import m from 'mithril';
-import classNames from '../classnames.js';
+import clsx from 'clsx';
 import FrameComponent from './frame.jsx';
 
 const FRAME_THUMBNAIL_WIDTH = 128;
@@ -88,7 +88,7 @@ class TimelineComponent {
         oncreate: ({dom}) => this.scrollSelectedThumbnailIntoView(dom),
         // Scroll selected frame into view when navigating frames (Prev/Next)
         onupdate: ({dom}) => this.scrollSelectedThumbnailIntoView(dom),
-        class: classNames({'selected': story.selectedFrameIndex === f}),
+        class: clsx({'selected': story.selectedFrameIndex === f}),
         'data-index': f
       }, m(FrameComponent, {
         className: 'timeline-thumbnail-canvas',

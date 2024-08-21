@@ -24,6 +24,7 @@
   "homepage": "https://gitlab.com/caleb531/flip-book#README",
   "dependencies": {
     "@fontsource/roboto-slab": "^5.0.20",
+    "clsx": "^2.1.1",
     "fastclick": "^1.0.6",
     "gif.js.optimized": "^1.0.1",
     "mithril": "^2.2.2",

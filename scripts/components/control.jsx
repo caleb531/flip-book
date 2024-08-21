@@ -1,12 +1,12 @@
 import m from 'mithril';
-import classNames from '../classnames.js';
+import clsx from 'clsx';
 import PanelComponent from './panel.jsx';
 
 class ControlComponent {
 
   view({attrs: {id, title, icon = null, label = null, action = null, panel = null, panelPosition = 'top'}}) {
     return m(`div.control.control-${id}`, {
-      class: classNames({'control-has-label': label})
+      class: clsx({'control-has-label': label})
     }, [
       panel ? m(PanelComponent, {id, position: panelPosition}, panel) : null,
       m('button.control-button', {

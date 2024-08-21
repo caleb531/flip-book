@@ -1,5 +1,5 @@
 import m from 'mithril';
-import classNames from '../classnames.js';
+import clsx from 'clsx';
 import ControlComponent from './control.jsx';
 import ProgressBarComponent from './progress-bar.jsx';
 
@@ -7,7 +7,7 @@ class ExportGifComponent {
 
   view({attrs: {isExportingGif, exportProgress, isGifExportFinished, exportedImageUrl, abort}}) {
     return m('div.export-gif-screen', {
-      class: classNames({'visible': isExportingGif || isGifExportFinished})
+      class: clsx({'visible': isExportingGif || isGifExportFinished})
     }, [
       m(ControlComponent, {
         id: 'close-export-gif-overlay',
