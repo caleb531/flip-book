@@ -4,8 +4,7 @@ import StoryMetadata from './story-metadata.js';
 import appStorage from './app-storage.js';
 
 class App {
-
-  constructor({stories = [new StoryMetadata()], selectedStoryIndex = 0} = {}) {
+  constructor({ stories = [new StoryMetadata()], selectedStoryIndex = 0 } = {}) {
     this.stories = stories.map((storyMetadata) => new StoryMetadata(storyMetadata));
     this.selectedStoryIndex = selectedStoryIndex || 0;
   }
@@ -16,7 +15,9 @@ class App {
 
   async selectStory(storyIndex) {
     this.selectedStoryIndex = storyIndex || 0;
-    this.selectedStory = await this.getStoryFromStorage(this.getSelectedStoryMetadata().createdDate);
+    this.selectedStory = await this.getStoryFromStorage(
+      this.getSelectedStoryMetadata().createdDate
+    );
     this.selectedStory.metadata = this.getSelectedStoryMetadata();
   }
 
@@ -52,9 +53,11 @@ class App {
   }
 
   async createNewStoryWithName(storyName) {
-    this.stories.unshift(new StoryMetadata({
-      name: storyName
-    }));
+    this.stories.unshift(
+      new StoryMetadata({
+        name: storyName
+      })
+    );
     await this.selectStory(0);
     await this.save();
   }
@@ -80,7 +83,6 @@ class App {
   toJSON() {
     return _.pick(this, ['stories', 'selectedStoryIndex']);
   }
-
 }
 
 App.saveDelay = 250;

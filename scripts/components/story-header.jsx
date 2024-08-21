@@ -5,8 +5,7 @@ import StoryListComponent from './story-list.jsx';
 import ImportComponent from './import.jsx';
 
 class StoryHeaderComponent {
-
-  oninit({attrs: {app}}) {
+  oninit({ attrs: { app } }) {
     this.app = app;
   }
 
@@ -29,7 +28,8 @@ class StoryHeaderComponent {
     // this will allow Mithril to redraw and close all panels before showing the
     // modal
     setTimeout(async () => {
-      let newStoryName = prompt('Enter the new name for your story:', await this.app.getSelectedStoryName()) || '';
+      let newStoryName =
+        prompt('Enter the new name for your story:', await this.app.getSelectedStoryName()) || '';
       if (newStoryName.trim()) {
         await this.app.renameSelectedStory(newStoryName.trim());
         m.redraw();
@@ -49,56 +49,57 @@ class StoryHeaderComponent {
     });
   }
 
-  view({attrs: {story}}) {
-    return m('div.story-header', [
-      m('.control-group', [
-        m(ControlComponent, {
-          id: 'create-new-story',
-          title: 'Create New Story',
-          icon: 'add',
-          action: () => this.createNewStoryWithName()
-        }),
-        m(ControlComponent, {
-          id: 'open-story',
-          title: 'Open Story',
-          icon: 'folder',
-          panel: m(StoryListComponent, {app: this.app}),
-          panelPosition: 'bottom'
-        }),
-        m(ControlComponent, {
-          id: 'import-story',
-          title: 'Import Story',
-          icon: 'upload',
-          panel: m(ImportComponent, {app: this.app}),
-          panelPosition: 'bottom'
-        })
-      ]),
-      m('span.selected-story-name', story.metadata.name),
-      m(ControlComponent, {
-        id: 'rename-story',
-        title: 'Rename Story',
-        icon: 'edit',
-        action: () => this.renameSelectedStory()
-      }),
-      m('.control-group', [
-        m(ControlComponent, {
-          id: 'delete-story',
-          title: 'Delete Story',
-          icon: 'delete',
-          action: () => this.deleteSelectedStory()
-        }),
-        m(ControlComponent, {
-          id: 'help',
-          title: 'Help',
-          icon: 'help',
-          action: () => {
-            window.open('https://github.com/caleb531/flip-book#how-to-use');
-          }
-        })
-      ])
-    ]);
+  view({ attrs: { story } }) {
+    return (
+      <div className="story-header">
+        <div className="control-group">
+          <ControlComponent
+            id="create-new-story"
+            title="Create New Story"
+            icon="add"
+            action={() => this.createNewStoryWithName()}
+          />
+          <ControlComponent
+            id="open-story"
+            title="Open Story"
+            icon="folder"
+            panel={<StoryListComponent app={this.app} />}
+            panelPosition="bottom"
+          />
+          <ControlComponent
+            id="import-story"
+            title="Import Story"
+            icon="upload"
+            panel={<ImportComponent app={this.app} />}
+            panelPosition="bottom"
+          />
+        </div>
+        <span className="selected-story-name">{story.metadata.name}</span>
+        <ControlComponent
+          id="rename-story"
+          title="Rename Story"
+          icon="edit"
+          action={() => this.renameSelectedStory()}
+        />
+        <div className="control-group">
+          <ControlComponent
+            id="delete-story"
+            title="Delete Story"
+            icon="delete"
+            action={() => this.deleteSelectedStory()}
+          />
+          <ControlComponent
+            id="help"
+            title="Help"
+            icon="help"
+            action={() => {
+              window.open('https://github.com/caleb531/flip-book#how-to-use');
+            }}
+          />
+        </div>
+      </div>
+    );
   }
-
 }
 
 export default StoryHeaderComponent;

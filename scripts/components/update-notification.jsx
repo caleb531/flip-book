@@ -3,7 +3,6 @@ import clsx from 'clsx';
 import { registerSW } from 'virtual:pwa-register';
 
 class UpdateNotificationComponent {
-
   // Use Vite PWA plugin to manage service worker updates (source:
   // <https://vite-pwa-org.netlify.app/guide/prompt-for-update.html#importing-virtual-modules>)
   oninit() {
@@ -29,14 +28,17 @@ class UpdateNotificationComponent {
   }
 
   view() {
-    return m('div', {
-      class: clsx('update-notification', { 'update-available': this.isUpdateAvailable }),
-      onclick: () => this.update()
-    }, [
-      m('span.update-notification-message', 'Update available! Click here to update.')
-    ]);
+    return (
+      <div
+        className={clsx('update-notification', {
+          'update-available': this.isUpdateAvailable
+        })}
+        onclick={() => this.update()}
+      >
+        <span className="update-notification-message">Update available! Click here to update.</span>
+      </div>
+    );
   }
-
 }
 
 export default UpdateNotificationComponent;

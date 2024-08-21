@@ -14,9 +14,7 @@ class StorageUpgrader {
 
   upgrade() {
     // Only process localStorage keys that start with wtc-*
-    const appKeys = Object.keys(localStorage).filter((key) =>
-      /^flipbook-/.test(key)
-    );
+    const appKeys = Object.keys(localStorage).filter((key) => /^flipbook-/.test(key));
     return Promise.all(
       appKeys.map((key) => {
         return idbKeyval.set(key, JSON.parse(localStorage.getItem(key)));

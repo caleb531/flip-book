@@ -1,18 +1,21 @@
 import _ from 'underscore';
 
 class Frame {
-
   // Default arguments get evaluated at call time (unlike Python); see:
   // <https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Default_parameters#Evaluated_at_call_time>
-  constructor({styles = {}, strokeGroups = [], groups = []} = {}) {
+  constructor({ styles = {}, strokeGroups = [], groups = [] } = {}) {
     this.temporaryId = Frame.nextAutoIncrementedId;
     Frame.nextAutoIncrementedId += 1;
-    this.styles = Object.assign({}, Frame.defaultStyles, _.pick(styles, [
-      'strokeStyle',
-      'lineWidth'
-      // lineCap and lineJoin will be the same for every frame, so we don't need
-      // to add extra bloat by exporting them onto each frame
-    ]));
+    this.styles = Object.assign(
+      {},
+      Frame.defaultStyles,
+      _.pick(styles, [
+        'strokeStyle',
+        'lineWidth'
+        // lineCap and lineJoin will be the same for every frame, so we don't need
+        // to add extra bloat by exporting them onto each frame
+      ])
+    );
     // The 'groups' property has been deprecated in favor of 'strokeGroups', but
     // for backwards compatibility, the former is still recognized if present
     if (groups.length > 0) {
@@ -23,7 +26,7 @@ class Frame {
     this.undoHistory = [];
   }
 
-  startNewGroup({styles = {}} = {}) {
+  startNewGroup({ styles = {} } = {}) {
     this.strokeGroups.push({
       points: [],
       styles
@@ -74,7 +77,6 @@ class Frame {
   toJSON() {
     return _.pick(this, ['styles', 'strokeGroups']);
   }
-
 }
 Frame.nextAutoIncrementedId = 0;
 Frame.defaultStyles = {

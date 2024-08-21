@@ -4,8 +4,16 @@ import StoryMetadata from './story-metadata.js';
 import appStorage from './app-storage.js';
 
 class Story {
-
-  constructor({frames = [new Frame()], frameDuration = 100, showPreviousFrame = null, numPreviousFramesToShow = 1, selectedFrameIndex = 0, metadata = {}, frameStyles, exportedGifSize = 1080} = {}) {
+  constructor({
+    frames = [new Frame()],
+    frameDuration = 100,
+    showPreviousFrame = null,
+    numPreviousFramesToShow = 1,
+    selectedFrameIndex = 0,
+    metadata = {},
+    frameStyles,
+    exportedGifSize = 1080
+  } = {}) {
     this.frames = frames.map((frame) => new Frame(frame));
     this.selectFrame(selectedFrameIndex);
     this.frameDuration = frameDuration;
@@ -17,10 +25,14 @@ class Story {
     this.metadata = new StoryMetadata(metadata);
     this.playing = false;
     this.exportedGifSize = exportedGifSize;
-    this.frameStyles = Object.assign({}, {
-      strokeStyle: Frame.defaultStyles.strokeStyle,
-      lineWidth: Frame.defaultStyles.lineWidth
-    }, frameStyles);
+    this.frameStyles = Object.assign(
+      {},
+      {
+        strokeStyle: Frame.defaultStyles.strokeStyle,
+        lineWidth: Frame.defaultStyles.lineWidth
+      },
+      frameStyles
+    );
   }
 
   getSelectedFrame() {
@@ -34,7 +46,10 @@ class Story {
   getPreviousFramesToShow() {
     // The returned array is ordered according to the original order of the
     // frames in the frames array
-    return this.frames.slice(Math.max(0, this.selectedFrameIndex - this.numPreviousFramesToShow), this.selectedFrameIndex);
+    return this.frames.slice(
+      Math.max(0, this.selectedFrameIndex - this.numPreviousFramesToShow),
+      this.selectedFrameIndex
+    );
   }
 
   selectPreviousFrame() {
@@ -81,13 +96,16 @@ class Story {
   play(onNextFrame) {
     this.playing = true;
     let callback;
-    this.playbackTimer = setTimeout(callback = () => {
-      this.selectFrame((this.selectedFrameIndex + 1) % this.frames.length);
-      this.playbackTimer = setTimeout(callback, this.frameDuration);
-      if (onNextFrame) {
-        onNextFrame();
-      }
-    }, this.frameDuration);
+    this.playbackTimer = setTimeout(
+      (callback = () => {
+        this.selectFrame((this.selectedFrameIndex + 1) % this.frames.length);
+        this.playbackTimer = setTimeout(callback, this.frameDuration);
+        if (onNextFrame) {
+          onNextFrame();
+        }
+      }),
+      this.frameDuration
+    );
   }
 
   pause() {
@@ -117,7 +135,6 @@ class Story {
       'exportedGifSize'
     ]);
   }
-
 }
 // The number of milliseconds in one second
 Story.MS_IN_S = 1000;

@@ -8,7 +8,7 @@ export default defineConfig({
   // projects domain (e.g. https://projects.calebevans.me/truthy/), we must
   // specify . as the base directory to serve from
   base: './',
-    // Enable JSX processing
+  // Enable JSX processing
   esbuild: {
     // We need to use _m as the imported name so that it doesn't collide with
     // explicitly importing _m, while still allowing us to have organizeImports
@@ -27,7 +27,8 @@ export default defineConfig({
       manifest: {
         short_name: 'Flip Book',
         name: 'Flip Book',
-        description: 'Create flip book-style animations to share with friends. Draw each scene, frame by frame, then export your story to a GIF when you\'re ready to show it off.',
+        description:
+          "Create flip book-style animations to share with friends. Draw each scene, frame by frame, then export your story to a GIF when you're ready to show it off.",
         start_url: '.',
         display: 'standalone',
         orientation: 'any',

@@ -43,27 +43,15 @@ class StorageUpgraderComponent {
   }
 
   view() {
-    return this.isVisible
-      ? m(
-          'div.storage-upgrader',
-          {
-            oncreate: this.blurEditor
-          },
-          [
-
-            m(ModalComponent, [
-              m('h2.storage-upgrader-heading', 'Upgrading Database...'),
-
-              m(
-                'p.storage-upgrader-message',
-                'Hang tight while we upgrade the database...'
-              ),
-
-              m(LoadingComponent, { class: 'storage-upgrader-loading' })
-            ])
-          ]
-        )
-      : null;
+    return this.isVisible ? (
+      <div className="storage-upgrader" oncreate={this.blurEditor}>
+        <ModalComponent>
+          <h2 className="storage-upgrader-heading">Upgrading Database...</h2>
+          <p className="storage-upgrader-message">Hang tight while we upgrade the database...</p>
+          <LoadingComponent class="storage-upgrader-loading" />
+        </ModalComponent>
+      </div>
+    ) : null;
   }
 }
 

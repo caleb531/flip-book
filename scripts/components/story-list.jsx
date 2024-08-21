@@ -1,9 +1,7 @@
-import m from 'mithril';
 import PanelComponent from './panel.jsx';
 
 class StoryListComponent {
-
-  oninit({attrs: {app}}) {
+  oninit({ attrs: { app } }) {
     this.app = app;
   }
 
@@ -14,18 +12,24 @@ class StoryListComponent {
   }
 
   view() {
-    return m('div.story-list-container', [
-      m('h2', 'Story List'),
-      m('ul.story-list', {
-        onclick: ({target}) => this.selectStory(target.closest('.story-list-item'))
-      }, this.app.stories.map((storyMetadata, s) => {
-        return m('li.story-list-item', {
-          'data-index': s
-        }, storyMetadata.name);
-      }))
-    ]);
+    return (
+      <div className="story-list-container">
+        <h2>Story List</h2>
+        <ul
+          className="story-list"
+          onclick={({ target }) => this.selectStory(target.closest('.story-list-item'))}
+        >
+          {this.app.stories.map((storyMetadata, s) => {
+            return (
+              <li className="story-list-item" data-index={s}>
+                {storyMetadata.name}
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+    );
   }
-
 }
 
 export default StoryListComponent;

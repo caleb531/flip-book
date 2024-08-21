@@ -6,7 +6,6 @@ import StoryComponent from './story.jsx';
 import StorageUpgraderComponent from './storage-upgrader.jsx';
 
 class AppComponent {
-
   oninit() {
     App.restore().then((app) => {
       this.app = app;
@@ -14,7 +13,7 @@ class AppComponent {
     });
   }
 
-  oncreate({dom}) {
+  oncreate({ dom }) {
     dom.focus();
   }
 
@@ -39,25 +38,22 @@ class AppComponent {
   }
 
   view() {
-    return m('div.app[tabindex=-1]', {
-      onkeydown: (event) => this.navigateFramesViaKeyboard(event)
-    }, [
-
-      // The UpdateNotificationComponent manages its own visibility
-      m(UpdateNotificationComponent),
-
-      m(StorageUpgraderComponent),
-
-      m(AppHeaderComponent),
-
-      this.app?.selectedStory ? m(StoryComponent, {
-        app: this.app,
-        story: this.app.selectedStory
-      }) : null
-
-    ]);
+    return (
+      <div
+        className="app"
+        tabIndex="-1"
+        onkeydown={(event) => this.navigateFramesViaKeyboard(event)}
+      >
+        {/* The UpdateNotificationComponent manages its own visibility */}
+        <UpdateNotificationComponent />
+        <StorageUpgraderComponent />
+        <AppHeaderComponent />
+        {this.app?.selectedStory ? (
+          <StoryComponent app={this.app} story={this.app.selectedStory} />
+        ) : null}
+      </div>
+    );
   }
-
 }
 
 export default AppComponent;

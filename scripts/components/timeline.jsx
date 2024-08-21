@@ -1,4 +1,3 @@
-import m from 'mithril';
 import clsx from 'clsx';
 import FrameComponent from './frame.jsx';
 
@@ -6,7 +5,6 @@ const FRAME_THUMBNAIL_WIDTH = 128;
 const FRAME_THUMBNAIL_HEIGHT = 72;
 
 class TimelineComponent {
-
   async selectThumbnail(target, story) {
     if (target.dataset.index) {
       story.selectFrame(Number(target.dataset.index));
@@ -72,33 +70,40 @@ class TimelineComponent {
     // (simply by virtue of the event listener existing)
   }
 
-  view({attrs: {story}}) {
-    return m('ol.timeline', {
-      onclick: ({target}) => this.selectThumbnail(target, story),
-      ondragstart: (event) => this.handleFrameDragstart(event),
-      ondragover: (event) => this.handleFrameDragover(event, story),
-      ondragenter: (event) => this.handleFrameDragenter(event, story),
-      ondrop: (event) => this.handleFrameDrop(event, story)
-    }, story.frames.map((frame, f) => {
-      return m('li', {
-        draggable: true,
-        // Keying each thumbnail prevents the canvas redraws from compounding
-        key: `timeline-thumbnail-${frame.temporaryId}`,
-        // Scroll newly-added frames into view
-        oncreate: ({dom}) => this.scrollSelectedThumbnailIntoView(dom),
-        // Scroll selected frame into view when navigating frames (Prev/Next)
-        onupdate: ({dom}) => this.scrollSelectedThumbnailIntoView(dom),
-        class: clsx('timeline-thumbnail', {'selected': story.selectedFrameIndex === f}),
-        'data-index': f
-      }, m(FrameComponent, {
-        className: 'timeline-thumbnail-canvas',
-        frame,
-        width: FRAME_THUMBNAIL_WIDTH,
-        height: FRAME_THUMBNAIL_HEIGHT
-      }));
-    }));
+  view({ attrs: { story } }) {
+    return (
+      <ol
+        className="timeline"
+        onclick={({ target }) => this.selectThumbnail(target, story)}
+        ondragstart={(event) => this.handleFrameDragstart(event)}
+        ondragover={(event) => this.handleFrameDragover(event, story)}
+        ondragenter={(event) => this.handleFrameDragenter(event, story)}
+        ondrop={(event) => this.handleFrameDrop(event, story)}
+      >
+        {story.frames.map((frame, f) => {
+          return (
+            <li
+              draggable={true}
+              key={`timeline-thumbnail-${frame.temporaryId}`}
+              oncreate={({ dom }) => this.scrollSelectedThumbnailIntoView(dom)}
+              onupdate={({ dom }) => this.scrollSelectedThumbnailIntoView(dom)}
+              className={clsx('timeline-thumbnail', {
+                selected: story.selectedFrameIndex === f
+              })}
+              data-index={f}
+            >
+              <FrameComponent
+                className="timeline-thumbnail-canvas"
+                frame={frame}
+                width={FRAME_THUMBNAIL_WIDTH}
+                height={FRAME_THUMBNAIL_HEIGHT}
+              />
+            </li>
+          );
+        })}
+      </ol>
+    );
   }
-
 }
 
 export default TimelineComponent;

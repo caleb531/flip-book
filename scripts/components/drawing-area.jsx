@@ -1,22 +1,20 @@
-import m from 'mithril';
 import FrameComponent from './frame.jsx';
 
 class DrawingAreaComponent extends FrameComponent {
-
-  oninit({attrs: {story, frame, drawingEnabled = true}}) {
+  oninit({ attrs: { story, frame, drawingEnabled = true } }) {
     this.story = story;
-    super.oninit({attrs: {frame}});
+    super.oninit({ attrs: { frame } });
     this.drawingEnabled = drawingEnabled;
   }
 
-  oncreate({dom}) {
-    super.oncreate({dom});
+  oncreate({ dom }) {
+    super.oncreate({ dom });
   }
 
-  onupdate({attrs: {story, frame, drawingEnabled = true}}) {
+  onupdate({ attrs: { story, frame, drawingEnabled = true } }) {
     this.story = story;
     this.drawingEnabled = drawingEnabled;
-    super.onupdate({attrs: {frame}});
+    super.onupdate({ attrs: { frame } });
   }
 
   handleDrawStart(event, pageX, pageY) {
@@ -109,20 +107,22 @@ class DrawingAreaComponent extends FrameComponent {
   }
 
   view() {
-    return m('canvas.selected-frame', {
-      width: FrameComponent.width,
-      height: FrameComponent.height,
-      // Touch events
-      ontouchstart: (event) => this.handleTouchStart(event),
-      ontouchmove: (event) => this.handleTouchMove(event),
-      ontouchend: (event) => this.handleTouchEnd(event),
-      // Mouse events
-      onmousedown: (event) => this.handleMouseDown(event),
-      onmousemove: (event) => this.handleMouseMove(event),
-      onmouseup: (event) => this.handleMouseUp(event),
-      onmouseout: (event) => this.handleMouseUp(event)
-    });
+    return (
+      <canvas
+        className="selected-frame"
+        width={FrameComponent.width}
+        height={FrameComponent.height}
+        // Touch events
+        ontouchstart={(event) => this.handleTouchStart(event)}
+        ontouchmove={(event) => this.handleTouchMove(event)}
+        ontouchend={(event) => this.handleTouchEnd(event)}
+        // Mouse events
+        onmousedown={(event) => this.handleMouseDown(event)}
+        onmousemove={(event) => this.handleMouseMove(event)}
+        onmouseup={(event) => this.handleMouseUp(event)}
+        onmouseout={(event) => this.handleMouseUp(event)}
+      />
+    );
   }
-
 }
 export default DrawingAreaComponent;

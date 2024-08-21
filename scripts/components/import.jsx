@@ -5,8 +5,7 @@ import PanelComponent from './panel.jsx';
 import ProgressBarComponent from './progress-bar.jsx';
 
 class ImportComponent {
-
-  oninit({attrs: {app}}) {
+  oninit({ attrs: { app } }) {
     this.app = app;
     this.chosenFile = null;
     this.uploadProgress = null;
@@ -49,33 +48,46 @@ class ImportComponent {
   }
 
   view() {
-    return m('div.import-options', [
-      m('h2', 'Import Story'),
-      m('div.import-control-wrapper', [
-        m('input[type=file][accept=.flipbook].import-file-input', {
-          onchange: ({target}) => this.setChosenFile(target.files[0])
-        }),
-        m(ControlComponent, {
-          id: 'choose-file',
-          title: 'Choose File',
-          label: 'Choose File...'
-        }),
-        m('div.import-chosen-file-name', this.chosenFile ? this.chosenFile.name : 'No file chosen')
-      ]),
-      m('div.import-footer', [
-        this.storyAdded ? m('div.import-success-message', `"${this.storyAdded.metadata.name}" successfully added!`) :
-        [
-          this.uploadProgress === null ? this.chosenFile ? m(ControlComponent, {
-            id: 'upload-file',
-            title: 'Upload Now',
-            label: 'Upload Now',
-            action: () => this.uploadChosenFile()
-          }) : null : m(ProgressBarComponent, {progress: this.uploadProgress})
-        ]
-      ])
-    ]);
+    return (
+      <div className="import-options">
+        <h2>Import Story</h2>
+        <div className="import-control-wrapper">
+          <input
+            type="file"
+            accept=".flipbook"
+            className="import-file-input"
+            onchange={({ target }) => this.setChosenFile(target.files[0])}
+          />
+          <ControlComponent id="choose-file" title="Choose File" label="Choose File..." />
+          <div className="import-chosen-file-name">
+            {this.chosenFile ? this.chosenFile.name : 'No file chosen'}
+          </div>
+        </div>
+        <div className="import-footer">
+          {this.storyAdded ? (
+            <div className="import-success-message">
+              "{this.storyAdded.metadata.name}" successfully added!
+            </div>
+          ) : (
+            [
+              this.uploadProgress === null ? (
+                this.chosenFile ? (
+                  <ControlComponent
+                    id="upload-file"
+                    title="Upload Now"
+                    label="Upload Now"
+                    action={() => this.uploadChosenFile()}
+                  />
+                ) : null
+              ) : (
+                <ProgressBarComponent progress={this.uploadProgress} />
+              )
+            ]
+          )}
+        </div>
+      </div>
+    );
   }
-
 }
 
 export default ImportComponent;
