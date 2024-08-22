@@ -41,9 +41,9 @@ class StoryHeaderComponent {
     // Prevent the synchronous confirm() call from blocking the main thread;
     // this will allow Mithril to redraw and close all panels before showing the
     // modal
-    setTimeout(() => {
+    setTimeout(async () => {
       if (confirm('Are you sure you want to delete this story? This cannot be undone.')) {
-        this.app.deleteSelectedStory();
+        await this.app.deleteSelectedStory();
         m.redraw();
       }
     });
