@@ -8,7 +8,7 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "lint": "eslint scripts/**/*.js test/*.js",
+    "lint": "eslint",
     "test": "vitest run",
     "coverage": "vitest run --coverage"
   },
