@@ -1,22 +1,22 @@
-import Story from "../scripts/models/story.js";
-import Frame from "../scripts/models/frame.js";
-import appStorage from "../scripts/models/app-storage.js";
+import Story from '../scripts/models/story.js';
+import Frame from '../scripts/models/frame.js';
+import appStorage from '../scripts/models/app-storage.js';
 
-describe("story model", async () => {
-  it("should initialize with default arguments", async () => {
+describe('story model', async () => {
+  it('should initialize with default arguments', async () => {
     let story = new Story();
     expect(story.frames).toHaveLength(1);
-    expect(story).toHaveProperty("selectedFrameIndex", 0);
-    expect(story).toHaveProperty("frameDuration", 100);
-    expect(story).toHaveProperty("numPreviousFramesToShow", 1);
-    expect(story.metadata).toHaveProperty("name", "My First Story");
-    expect(story).toHaveProperty("playing", false);
-    expect(story).toHaveProperty("exportedGifSize", 1080);
-    expect(story.frameStyles).toHaveProperty("strokeStyle", "#000");
-    expect(story.frameStyles).toHaveProperty("lineWidth", 12);
+    expect(story).toHaveProperty('selectedFrameIndex', 0);
+    expect(story).toHaveProperty('frameDuration', 100);
+    expect(story).toHaveProperty('numPreviousFramesToShow', 1);
+    expect(story.metadata).toHaveProperty('name', 'My First Story');
+    expect(story).toHaveProperty('playing', false);
+    expect(story).toHaveProperty('exportedGifSize', 1080);
+    expect(story.frameStyles).toHaveProperty('strokeStyle', '#000');
+    expect(story.frameStyles).toHaveProperty('lineWidth', 12);
   });
 
-  it("should initialize with supplied arguments", async () => {
+  it('should initialize with supplied arguments', async () => {
     let createdDate = Date.now();
     let story = new Story({
       frames: [{}, {}],
@@ -24,41 +24,41 @@ describe("story model", async () => {
       frameDuration: 125,
       numPreviousFramesToShow: 2,
       metadata: {
-        name: "My Test Story",
-        createdDate: createdDate,
+        name: 'My Test Story',
+        createdDate: createdDate
       },
       exportedGifSize: 720,
       frameStyles: {
-        strokeStyle: "#6c3",
-        lineWidth: 8,
-      },
+        strokeStyle: '#6c3',
+        lineWidth: 8
+      }
     });
     expect(story.frames).toHaveLength(2);
     expect(story.frames[0]).toBeInstanceOf(Frame);
-    expect(story).toHaveProperty("selectedFrameIndex", 1);
-    expect(story).toHaveProperty("frameDuration", 125);
-    expect(story).toHaveProperty("numPreviousFramesToShow", 2);
-    expect(story.metadata).toHaveProperty("name", "My Test Story");
-    expect(story.metadata).toHaveProperty("createdDate", createdDate);
-    expect(story).toHaveProperty("playing", false);
-    expect(story).toHaveProperty("exportedGifSize", 720);
-    expect(story.frameStyles).toHaveProperty("strokeStyle", "#6c3");
-    expect(story.frameStyles).toHaveProperty("lineWidth", 8);
+    expect(story).toHaveProperty('selectedFrameIndex', 1);
+    expect(story).toHaveProperty('frameDuration', 125);
+    expect(story).toHaveProperty('numPreviousFramesToShow', 2);
+    expect(story.metadata).toHaveProperty('name', 'My Test Story');
+    expect(story.metadata).toHaveProperty('createdDate', createdDate);
+    expect(story).toHaveProperty('playing', false);
+    expect(story).toHaveProperty('exportedGifSize', 720);
+    expect(story.frameStyles).toHaveProperty('strokeStyle', '#6c3');
+    expect(story.frameStyles).toHaveProperty('lineWidth', 8);
   });
 
-  it("should honor showPreviousFrame when false", async () => {
+  it('should honor showPreviousFrame when false', async () => {
     let story = new Story({ showPreviousFrame: false });
-    expect(story).toHaveProperty("numPreviousFramesToShow", 0);
+    expect(story).toHaveProperty('numPreviousFramesToShow', 0);
   });
 
-  it("should honor showPreviousFrame when true", async () => {
+  it('should honor showPreviousFrame when true', async () => {
     let story = new Story({ showPreviousFrame: true });
-    expect(story).toHaveProperty("numPreviousFramesToShow", 1);
+    expect(story).toHaveProperty('numPreviousFramesToShow', 1);
   });
 
-  it("should select frame", async () => {
+  it('should select frame', async () => {
     let story = new Story({
-      frames: [new Frame(), new Frame(), new Frame()],
+      frames: [new Frame(), new Frame(), new Frame()]
     });
     expect(story.selectedFrameIndex).toEqual(0);
     story.selectFrame(2);
@@ -67,132 +67,130 @@ describe("story model", async () => {
     expect(story.selectedFrameIndex).toEqual(1);
   });
 
-  it("should get selected frame", async () => {
+  it('should get selected frame', async () => {
     let story = new Story({
       frames: [new Frame(), new Frame(), new Frame()],
-      selectedFrameIndex: 1,
+      selectedFrameIndex: 1
     });
     expect(story.getSelectedFrame()).toEqual(story.frames[1]);
   });
 
-  it("should get last previous frame by default", async () => {
+  it('should get last previous frame by default', async () => {
     let story = new Story({
       frames: [new Frame(), new Frame(), new Frame()],
       selectedFrameIndex: 2,
-      numPreviousFramesToShow: 1,
+      numPreviousFramesToShow: 1
     });
     expect(story.getPreviousFramesToShow()).toHaveLength(1);
     expect(story.getPreviousFramesToShow()[0]).toEqual(story.frames[1]);
   });
 
-  it("should get all previous frames", async () => {
+  it('should get all previous frames', async () => {
     let story = new Story({
       frames: [new Frame(), new Frame(), new Frame()],
       selectedFrameIndex: 2,
-      numPreviousFramesToShow: 2,
+      numPreviousFramesToShow: 2
     });
     expect(story.getPreviousFramesToShow()).toHaveLength(2);
     expect(story.getPreviousFramesToShow()[0]).toEqual(story.frames[0]);
     expect(story.getPreviousFramesToShow()[1]).toEqual(story.frames[1]);
   });
 
-  it("should get as many previous frames even if bound is exceeded", async () => {
+  it('should get as many previous frames even if bound is exceeded', async () => {
     let story = new Story({
       frames: [new Frame(), new Frame(), new Frame()],
       selectedFrameIndex: 1,
-      numPreviousFramesToShow: 2,
+      numPreviousFramesToShow: 2
     });
     expect(story.getPreviousFramesToShow()).toHaveLength(1);
     expect(story.getPreviousFramesToShow()[0]).toEqual(story.frames[0]);
   });
 
-  it("should not wrap around to get previous frame", async () => {
+  it('should not wrap around to get previous frame', async () => {
     let story = new Story({
-      frames: [new Frame(), new Frame(), new Frame()],
+      frames: [new Frame(), new Frame(), new Frame()]
     });
     expect(story.getPreviousFramesToShow()).toHaveLength(0);
   });
 
-  it("should select next frame", async () => {
+  it('should select next frame', async () => {
     let story = new Story({
-      frames: [new Frame(), new Frame(), new Frame()],
+      frames: [new Frame(), new Frame(), new Frame()]
     });
     story.selectNextFrame();
     expect(story.getSelectedFrame()).toEqual(story.frames[1]);
   });
 
-  it("should wrap around when selecting next frame", async () => {
+  it('should wrap around when selecting next frame', async () => {
     let story = new Story({
       frames: [new Frame(), new Frame(), new Frame()],
-      selectedFrameIndex: 2,
+      selectedFrameIndex: 2
     });
     story.selectNextFrame();
     expect(story.getSelectedFrame()).toEqual(story.frames[0]);
   });
 
-  it("should select previous frame", async () => {
+  it('should select previous frame', async () => {
     let story = new Story({
       frames: [new Frame(), new Frame(), new Frame()],
-      selectedFrameIndex: 2,
+      selectedFrameIndex: 2
     });
     story.selectPreviousFrame();
     expect(story.getSelectedFrame()).toEqual(story.frames[1]);
   });
 
-  it("should wrap around when selecting previous frame", async () => {
+  it('should wrap around when selecting previous frame', async () => {
     let story = new Story({
-      frames: [new Frame(), new Frame(), new Frame()],
+      frames: [new Frame(), new Frame(), new Frame()]
     });
     story.selectPreviousFrame();
     expect(story.getSelectedFrame()).toEqual(story.frames[2]);
   });
 
-  it("should add new frame", async () => {
+  it('should add new frame', async () => {
     let story = new Story({
       frames: [new Frame(), new Frame(), new Frame()],
-      selectedFrameIndex: 1,
+      selectedFrameIndex: 1
     });
     story.addNewFrame();
     expect(story.frames.length).toEqual(4);
     expect(story.selectedFrameIndex).toEqual(2);
   });
 
-  it("should duplicate current frame", async () => {
+  it('should duplicate current frame', async () => {
     let story = new Story({
       frames: [new Frame(), new Frame(), new Frame()],
-      selectedFrameIndex: 2,
+      selectedFrameIndex: 2
     });
     story.duplicateCurrentFrame();
     expect(story.frames.length).toEqual(4);
     expect(story.selectedFrameIndex).toEqual(3);
-    expect(JSON.stringify(story.frames[2])).toEqual(
-      JSON.stringify(story.frames[3]),
-    );
+    expect(JSON.stringify(story.frames[2])).toEqual(JSON.stringify(story.frames[3]));
   });
 
-  it("should delete selected frame", async () => {
+  it('should delete selected frame', async () => {
     let story = new Story({
       frames: [new Frame(), new Frame(), new Frame(), new Frame()],
-      selectedFrameIndex: 2,
+      selectedFrameIndex: 2
     });
     story.deleteSelectedFrame();
     expect(story.frames.length).toEqual(3);
     expect(story.selectedFrameIndex).toEqual(1);
   });
 
-  it("should delete the only frame by replacing it", async () => {
+  it('should delete the only frame by replacing it', async () => {
     let story = new Story({
-      frames: [new Frame()],
+      frames: [new Frame()]
     });
     let deletedFrame = story.frames[0];
     story.deleteSelectedFrame();
     expect(story.frames[0]).not.toEqual(deletedFrame);
   });
 
-  it("should move selected frame", async () => {
+  it('should move selected frame', async () => {
     let story = new Story({
       frames: [new Frame(), new Frame(), new Frame(), new Frame(), new Frame()],
-      selectedFrameIndex: 2,
+      selectedFrameIndex: 2
     });
     let oldIndex = 1;
     let newIndex = 3;
@@ -205,27 +203,27 @@ describe("story model", async () => {
     expect(story.frames[4]).toEqual(oldFrames[4]);
   });
 
-  it("should get frames per second", async () => {
+  it('should get frames per second', async () => {
     let story = new Story({
       frames: [new Frame()],
-      frameDuration: 125,
+      frameDuration: 125
     });
     expect(story.getFramesPerSecond()).toEqual(8);
   });
 
-  it("should set frames per second", async () => {
+  it('should set frames per second', async () => {
     let story = new Story({
-      frames: [new Frame()],
+      frames: [new Frame()]
     });
     story.setFramesPerSecond(8);
     expect(story.frameDuration).toEqual(125);
   });
 
-  it("should play", async () => {
+  it('should play', async () => {
     let frameDuration = 125;
     let story = new Story({
       frames: [new Frame(), new Frame(), new Frame()],
-      frameDuration,
+      frameDuration
     });
     vi.useFakeTimers();
     let callback = vi.fn();
@@ -239,11 +237,11 @@ describe("story model", async () => {
     vi.useRealTimers();
   });
 
-  it("should wrap around when playing", async () => {
+  it('should wrap around when playing', async () => {
     let frameDuration = 125;
     let story = new Story({
       frames: [new Frame(), new Frame(), new Frame()],
-      frameDuration,
+      frameDuration
     });
     vi.useFakeTimers();
     let callback = vi.fn();
@@ -261,11 +259,11 @@ describe("story model", async () => {
     vi.useRealTimers();
   });
 
-  it("should play without a user callback", async () => {
+  it('should play without a user callback', async () => {
     let frameDuration = 125;
     let story = new Story({
       frames: [new Frame(), new Frame(), new Frame()],
-      frameDuration,
+      frameDuration
     });
     vi.useFakeTimers();
     story.play();
@@ -275,11 +273,11 @@ describe("story model", async () => {
     vi.useRealTimers();
   });
 
-  it("should pause", async () => {
+  it('should pause', async () => {
     let frameDuration = 125;
     let story = new Story({
       frames: [new Frame(), new Frame(), new Frame()],
-      frameDuration,
+      frameDuration
     });
     vi.useFakeTimers();
     let callback = vi.fn();
@@ -297,49 +295,47 @@ describe("story model", async () => {
     vi.useRealTimers();
   });
 
-  it("should undo", async () => {
+  it('should undo', async () => {
     let story = new Story({
       frames: [new Frame(), new Frame(), new Frame()],
-      selectedFrameIndex: 1,
+      selectedFrameIndex: 1
     });
     story.frames[1].undo = vi.fn();
     story.undo();
     expect(story.frames[1].undo).toHaveBeenCalledOnce();
   });
 
-  it("should redo", async () => {
+  it('should redo', async () => {
     let story = new Story({
       frames: [new Frame(), new Frame(), new Frame()],
-      selectedFrameIndex: 1,
+      selectedFrameIndex: 1
     });
     story.frames[1].redo = vi.fn();
     story.redo();
     expect(story.frames[1].redo).toHaveBeenCalledOnce();
   });
 
-  it("should export JSON", async () => {
+  it('should export JSON', async () => {
     let json = new Story().toJSON();
-    expect(json).toHaveProperty("frames");
-    expect(json).toHaveProperty("selectedFrameIndex");
-    expect(json).toHaveProperty("frameDuration");
-    expect(json).toHaveProperty("numPreviousFramesToShow");
-    expect(json).toHaveProperty("frameStyles");
-    expect(json).toHaveProperty("exportedGifSize");
+    expect(json).toHaveProperty('frames');
+    expect(json).toHaveProperty('selectedFrameIndex');
+    expect(json).toHaveProperty('frameDuration');
+    expect(json).toHaveProperty('numPreviousFramesToShow');
+    expect(json).toHaveProperty('frameStyles');
+    expect(json).toHaveProperty('exportedGifSize');
   });
 
-  it("should save", async () => {
+  it('should save', async () => {
     let createdDate = Date.now();
     let story = new Story({
       metadata: {
-        name: "Foo",
-        createdDate,
-      },
+        name: 'Foo',
+        createdDate
+      }
     });
     let key = `flipbook-story-${createdDate}`;
     await appStorage.remove(key);
     await story.save();
-    expect(JSON.stringify(await appStorage.get(key))).toEqual(
-      JSON.stringify(story),
-    );
+    expect(JSON.stringify(await appStorage.get(key))).toEqual(JSON.stringify(story));
   });
 });

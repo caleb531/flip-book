@@ -1,8 +1,8 @@
 # Flip Book
 
-*Copyright 2018-2023 Caleb Evans*  
-*Released under the MIT license*  
-*For my friend and brother, Bill.*
+_Copyright 2018-2023 Caleb Evans_  
+_Released under the MIT license_  
+_For my friend and brother, Bill._
 
 [![tests](https://github.com/caleb531/flip-book/actions/workflows/tests.yml/badge.svg)](https://github.com/caleb531/flip-book/actions/workflows/tests.yml)
 
