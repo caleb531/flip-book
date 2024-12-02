@@ -1,4 +1,5 @@
 @use 'sass:math';
+@use 'sass:string';
 
 // Colors
 $color-white: #fff;
@@ -22,7 +23,7 @@ $frame-height: 450px;
 // aspect ratio as a string, and then immediately unquote it with the built-in
 // unquote() function
 // (<https://sass-lang.com/documentation/modules/string#unquote>)
-$frame-aspect-ratio: unquote('16 / 9');
+$frame-aspect-ratio: string.unquote('16 / 9');
 
 $app-max-width: $frame-width + ($story-border-width * 2);
 $app-mobile-width: 500px;

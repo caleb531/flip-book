@@ -1,3 +1,6 @@
+@use 'responsive' as *;
+@use 'variables' as *;
+
 .control-group {
   position: relative;
   margin-right: 20px;

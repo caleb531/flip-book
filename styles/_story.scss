@@ -1,4 +1,6 @@
 @use 'sass:math';
+@use 'responsive' as *;
+@use 'variables' as *;
 
 .story {
   // Fit story container to its contents

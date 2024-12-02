@@ -1,3 +1,6 @@
+@use 'responsive' as *;
+@use 'variables' as *;
+
 @keyframes fade-in {
   100% {
     opacity: 1;
