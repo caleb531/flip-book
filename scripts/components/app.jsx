@@ -47,9 +47,11 @@ class AppComponent {
         {/* The UpdateNotificationComponent manages its own visibility */}
         <UpdateNotificationComponent />
         <StorageUpgraderComponent />
-        <AppHeaderComponent />
         {this.app?.selectedStory ? (
-          <StoryComponent app={this.app} story={this.app.selectedStory} />
+          <>
+            <AppHeaderComponent />
+            <StoryComponent app={this.app} story={this.app.selectedStory} />
+          </>
         ) : null}
       </div>
     );
