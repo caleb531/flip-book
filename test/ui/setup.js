@@ -27,7 +27,23 @@ vi.mock('gif.js.optimized', () => {
         this.handlers[event] = callback;
       }
 
-      render() {}
+      render() {
+        this.running = true;
+        this.finishedFrames = 0;
+        setTimeout(() => {
+          if (this.handlers.progress) {
+            this.handlers.progress(this.frames.length > 0 ? 0.5 : 1);
+          }
+          this.finishedFrames = this.frames.length;
+          this.running = false;
+          if (this.handlers.progress) {
+            this.handlers.progress(1);
+          }
+          if (this.handlers.finished) {
+            this.handlers.finished(new Blob(['gif-data']));
+          }
+        });
+      }
 
       abort() {
         this.running = false;
