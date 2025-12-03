@@ -1,9 +1,9 @@
 import m from 'mithril';
 import App from '../models/app.js';
-import UpdateNotificationComponent from './update-notification.jsx';
 import AppHeaderComponent from './app-header.jsx';
-import StoryComponent from './story.jsx';
 import StorageUpgraderComponent from './storage-upgrader.jsx';
+import StoryComponent from './story.jsx';
+import UpdateNotificationComponent from './update-notification.jsx';
 
 class AppComponent {
   oninit() {
@@ -42,6 +42,8 @@ class AppComponent {
       <div
         className="app"
         tabIndex="-1"
+        role="application"
+        aria-label="Flip Book application"
         onkeydown={(event) => this.navigateFramesViaKeyboard(event)}
       >
         {/* The UpdateNotificationComponent manages its own visibility */}

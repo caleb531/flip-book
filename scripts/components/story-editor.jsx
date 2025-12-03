@@ -1,12 +1,16 @@
 import clsx from 'clsx';
-import FrameComponent from './frame.jsx';
 import DrawingAreaComponent from './drawing-area.jsx';
+import FrameComponent from './frame.jsx';
 import StoryControlsComponent from './story-controls.jsx';
 
 class StoryEditorComponent {
   view({ attrs: { story } }) {
     return (
-      <div className={clsx('story-editor', { 'story-playing': story.playing })}>
+      <div
+        className={clsx('story-editor', { 'story-playing': story.playing })}
+        role="region"
+        aria-label="Story editor"
+      >
         <div className="story-stage">
           {story.selectedFrameIndex > 0 && story.numPreviousFramesToShow > 0
             ? story.getPreviousFramesToShow().map((previousFrame, p, previousFramesToShow) => {

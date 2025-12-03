@@ -112,6 +112,7 @@ class DrawingAreaComponent extends FrameComponent {
         className="selected-frame"
         width={FrameComponent.width}
         height={FrameComponent.height}
+        aria-label="Current frame"
         // Touch events
         ontouchstart={(event) => this.handleTouchStart(event)}
         ontouchmove={(event) => this.handleTouchMove(event)}

@@ -74,6 +74,7 @@ class TimelineComponent {
     return (
       <ol
         className="timeline"
+        aria-label="Story timeline"
         onclick={({ target }) => this.selectThumbnail(target, story)}
         ondragstart={(event) => this.handleFrameDragstart(event)}
         ondragover={(event) => this.handleFrameDragover(event, story)}
